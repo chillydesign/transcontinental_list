@@ -18,7 +18,7 @@
                 <ul>
                     <li><a href="<?php get_site_url(); ?>">Home</a></li>
                     <?php if (current_user() ): ?>
-                    <li><a href="<?php get_site_url(); ?>/clientarea">Client area</a></li>
+                    <li><a href="<?php get_site_url(); ?>/userarea">User area</a></li>
                     <li> <a href="<?php get_site_url(); ?>/actions/user_logout.php">Logout</a></li>
 
                     <?php else: ?>

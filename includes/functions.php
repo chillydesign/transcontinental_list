@@ -28,7 +28,6 @@ function get_site_url(){
 
 
 
-
 function current_page(){
     if ( isset($_GET['page']) ) {
         $page = $_GET['page'] .'.php';
@@ -55,6 +54,17 @@ function current_page_exists(){
         return true; // home page does exist
     }
 }
+
+
+
+function current_subpage_is($slug) {
+        if ( isset($_GET['subpage']) ) {
+            return ($_GET['subpage'] == $slug);
+        } else {
+            return false;
+        }
+}
+
 
 function current_page_is($slug){
 
@@ -89,6 +99,39 @@ function encrypt_password($password) {
     $encrypted_password =  crypt( $password, $salt  );
     return $encrypted_password;
 }
+
+
+
+function insert_new_list($list) {
+    global $conn;
+    if ($list->name != '' && $list->user_id > 0 ){
+
+        try {
+            $query = "INSERT INTO tcg_lists (name, description, picture, user_id) VALUES (:name, :description, :picture, :user_id)";
+            $list_query = $conn->prepare($query);
+            $list_query->bindParam(':name', $list->name);
+            $list_query->bindParam(':description', $list->description);
+            $list_query->bindParam(':picture', $list->picture);
+            $list_query->bindParam(':user_id', $list->user_id);
+            $list_query->execute();
+            $list_id = $conn->lastInsertId();
+            unset($conn);
+
+            return $list_id;
+
+        } catch(PDOException $err) {
+
+            return false;
+
+        };
+
+    } else { // list name was blank
+        return false;
+    }
+
+
+}
+
 
 
 function insert_new_user($user) {

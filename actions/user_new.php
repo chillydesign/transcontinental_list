@@ -3,7 +3,7 @@
 include('../includes/connect.php');
 include('../includes/functions.php');
 
-if ( isset($_POST['email'])   && isset($_POST['password']) && isset($_POST['password_confirmation'] )) {
+if ( isset($_POST['submit_new_user']) && isset($_POST['email'])   && isset($_POST['password']) && isset($_POST['password_confirmation'] )) {
 
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -24,19 +24,13 @@ if ( isset($_POST['email'])   && isset($_POST['password']) && isset($_POST['pass
 
         if(  $user_id ) {
             header('Location: ' .  site_url() . '/login?success'  );
-        } else {
+        } else { // if for some reason the user doesnt save
             header('Location: ' .  site_url() . '/register?error=usernotsave'  );
         };
-
-
-    } else {
-
+    } else { // if password doesnt match confirmation
         header('Location: ' .  site_url() . '/register?error=passwordnotmatch'  );
     }
-
-
-
-} else {
+} else { // if not enough post info
     header('Location: ' .  site_url() . '/register?error=unspecified'  );
 }
 
