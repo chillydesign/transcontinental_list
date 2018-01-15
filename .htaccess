@@ -1,0 +1,9 @@
+<IfModule mod_rewrite.c>
+
+Options +FollowSymLinks
+RewriteEngine On
+
+RewriteRule    ^([a-zA-Z0-9]+)/?([a-zA-Z0-9]+)?$       index.php?page=$1&subpage=$2 [NC,L,QSA]
+
+
+</IfModule>

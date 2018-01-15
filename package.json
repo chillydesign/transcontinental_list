@@ -1,0 +1,19 @@
+{
+  "name": "transcontinental_list",
+  "version": "0.0.1",
+  "description": "A wedding list app for Transcontinental",
+  "main": "index.php",
+  "scripts": {
+    "test": "say hello"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chillydesign/transcontinental_list.git"
+  },
+  "author": "Charles Harvey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chillydesign/transcontinental_list/issues"
+  },
+  "homepage": "https://github.com/chillydesign/transcontinental_list#readme"
+}
