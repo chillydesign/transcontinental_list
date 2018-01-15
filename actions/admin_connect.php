@@ -20,7 +20,7 @@ if ( isset($_POST['email'])   && isset($_POST['password'])  ) {
         header('Location: ' .  site_url() . '/adminarea'  );
 
     } else {
-        header('Location: ' .  site_url() . '/loginadmin?error=couldntloginadmin'  );
+        header('Location: ' .  site_url() . '/adminlogin?error=couldntloginadmin'  );
     };
 
 

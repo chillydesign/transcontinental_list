@@ -23,7 +23,13 @@ if ( isset($_POST['submit_new_user']) && isset($_POST['email'])   && isset($_POS
         $user_id = insert_new_user($user);
 
         if(  $user_id ) {
-            header('Location: ' .  site_url() . '/login?success'  );
+
+            if (has_valid_admin_cookie()) {
+                header('Location: ' .  site_url() . '/adminarea?success'  );
+            } else { // if not an admin creating a new user
+                header('Location: ' .  site_url() . '/login?success'  );
+            }
+
         } else { // if for some reason the user doesnt save
             header('Location: ' .  site_url() . '/register?error=usernotsave'  );
         };

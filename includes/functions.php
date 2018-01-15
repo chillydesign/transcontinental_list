@@ -130,6 +130,64 @@ function encrypt_password($password) {
 
 
 
+function get_users(){
+    global $conn;
+
+    try {
+        $query = "SELECT * FROM tcg_users ORDER BY created_at DESC ";
+        $users_query = $conn->prepare($query);
+        $users_query->setFetchMode(PDO::FETCH_OBJ);
+        $users_query->execute();
+
+        $users_count = $users_query->rowCount();
+
+        if ($users_count > 0) {
+            $users =  $users_query->fetchAll();
+            return $users;
+        } else {
+            return [];
+        }
+
+        unset($conn);
+
+    } catch(PDOException $err) {
+        return [];
+    };
+}
+
+
+function get_lists(){
+    global $conn;
+
+    try {
+        $query = "SELECT *, tcg_lists.id as id FROM tcg_lists
+                LEFT JOIN tcg_users ON tcg_users.id = tcg_lists.user_id
+                 ORDER BY tcg_lists.created_at DESC ";
+        $lists_query = $conn->prepare($query);
+        $lists_query->setFetchMode(PDO::FETCH_OBJ);
+        $lists_query->execute();
+
+        $lists_count = $lists_query->rowCount();
+
+        if ($lists_count > 0) {
+            $lists =  $lists_query->fetchAll();
+            // process every list to add extra properties
+            foreach ($lists as $list ) {
+                $list = process_list($list);
+            }
+            return $lists;
+        } else {
+            return [];
+        }
+
+        unset($conn);
+
+    } catch(PDOException $err) {
+        return [];
+    };
+}
+
+
 // return all the lists that belong to the current user
 function user_lists() {
     global $conn;
@@ -219,16 +277,6 @@ function get_list($list_id = null) {
     if ($list_id == null) {
         $list_id = intval($_GET['id']);
     }
-
-    // $subpage = $_GET['subpage'];
-    // if ($list_id == null && $subpage > 0 ) {
-    //     $list_id = $subpage;
-    // }
-    // if ($list_id == null && isset($_GET['id'])) {
-    //
-    // }
-
-
 
     global $conn;
     if ( $list_id > 0) {

@@ -12,7 +12,7 @@ if ( current_page_exists()  ) :
 
     // only allow logged in admins to the following pages
     // adminarea.php
-    if ( current_page_is('adminarea')) {
+    if ( current_page_is('adminarea') || current_page_is('adminnewuser')  ) {
         only_allow_admins();
     }
 
