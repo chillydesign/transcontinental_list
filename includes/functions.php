@@ -586,12 +586,9 @@ function encrypt_id($string){
     $encrypted_string = bin2hex($encrypted_string);
     return $encrypted_string;
 
-
 };
 
 function decrypt_id($string){
-
-
 
     $encrypted_string = hex2bin($string);
     $decrypted_string = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, SECRET_KEY, $encrypted_string, MCRYPT_MODE_CBC, INITIALIZATION_VECTOR );
@@ -600,6 +597,20 @@ function decrypt_id($string){
 
 }
 
+
+
+
+
+// BRAINTREE AND PAYMENTS
+
+
+
+function get_braintree_client_token() {
+    return Braintree_ClientToken::generate();
+}
+
+
+// END OF BRAINTREE AND PAYMENTS
 
 
 ?>

@@ -2,8 +2,12 @@
 
 
 
+
+
+
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
+
 
 
 
@@ -21,6 +25,12 @@ if( $_SERVER['SERVER_PORT'] == 8888 ) {
 		define("WEBSITE_URL",  'http://localhost:8888/transcontinental_list' );
 
 
+        define("BRAINTREE_PUBLIC_KEY", 'x68fghtsx75bqbrg');
+        define("BRAINTREE_PRIVATE_KEY", '773c5592c1aba511882de0338b382bbb');
+        define("BRAINTREE_MERCHANT_ID", 'cf7ybr9365jd6d88');
+        define("BRAINTREE_ENV", 'sandbox');
+
+
 
 
 } else {
@@ -36,11 +46,21 @@ if( $_SERVER['SERVER_PORT'] == 8888 ) {
 		define("INITIALIZATION_VECTOR", hex2bin(getenv('INITIALIZATION_VECTOR'))  ) ;
 		define("WEBSITE_URL",  getenv('DOMAIN_NAME') );
 
+        define("BRAINTREE_PUBLIC_KEY", getenv('BRAINTREE_PUBLIC_KEY'));
+        define("BRAINTREE_PRIVATE_KEY", getenv('BRAINTREE_PRIVATE_KEY'));
+        define("BRAINTREE_MERCHANT_ID", getenv('BRAINTREE_MERCHANT_ID'));
+        define("BRAINTREE_ENV", getenv('BRAINTREE_ENV'));
+
 }
 
 
 
-
+// credit card integration with braintree
+//require_once './vendor/braintree/braintree_php/lib/Braintree.php';
+// Braintree_Configuration::environment(BRAINTREE_ENV);
+// Braintree_Configuration::merchantId(BRAINTREE_MERCHANT_ID);
+// Braintree_Configuration::publicKey(BRAINTREE_PUBLIC_KEY);
+// Braintree_Configuration::privateKey(BRAINTREE_PRIVATE_KEY);
 
 
 try {

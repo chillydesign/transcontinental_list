@@ -30,11 +30,18 @@ if ( isset($_POST['list_id'])  && isset($_POST['submit_new_donation']) &&   isse
             $donation->message = $message;
             $donation->amount = convert_to_amount_in_cents($amount);
             $donation->list_id = deconvert_list_id($list_id);
+            $donation->status = 'started';
 
 
             $donation_id = insert_new_donation($donation);
 
             if(  $donation_id ) { // if donation saves fine
+
+
+                // here do braintree stuff
+
+
+
                 header('Location: ' .  site_url() . '/list/'. $list_id  . '?success');
             } else { // if for some reason the donation doesnt save
                 header('Location: ' .  site_url() . '/list/'. $list_id  . '?error=donationnotsave'  );
