@@ -122,13 +122,13 @@ function insert_new_user($user) {
 
 
 function has_valid_user_cookie() {
-    if  ( isset( $_COOKIE['user'] ) ) {
-        $user_id = decrypt_id($_COOKIE['user']);
-            if ( is_numeric($user_id) && $user_id > 0  ) {
-                return true;
-            } else {
-                return false;
-            }
+    if  ( isset( $_COOKIE['tcg_user'] ) ) {
+        $user_id = decrypt_id($_COOKIE['tcg_user']);
+        if ( is_numeric($user_id) && $user_id > 0  ) {
+            return true;
+        } else {
+            return false;
+        }
     } else {
         return false;
     }
@@ -136,10 +136,11 @@ function has_valid_user_cookie() {
 }
 
 function only_allow_users() {
-    if ( has_valid_user_cookie() ) {
-        return true;
-    } else {
+    if ( current_user() === null ) {
         header('Location: ' .  site_url() . '?error=notallowedhere'  );
+
+    } else {
+        return true;
     }
 }
 
@@ -149,7 +150,7 @@ function current_user() {
     global $conn;
     if ( has_valid_user_cookie() ) {
 
-        $user_id =  decrypt_id($_COOKIE['user']);
+        $user_id =  decrypt_id($_COOKIE['tcg_user']);
 
 
 

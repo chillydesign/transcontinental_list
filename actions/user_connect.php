@@ -16,7 +16,7 @@ if ( isset($_POST['email'])   && isset($_POST['password'])  ) {
     if(  $user_id ) {
 
         $encrypted_id = encrypt_id($user_id);
-        setcookie('user', $encrypted_id, time()+60*60,  '/'  );
+        setcookie('tcg_user', $encrypted_id, time()+60*60,  '/'  );
         header('Location: ' .  site_url() . '/userarea'  );
 
     } else {

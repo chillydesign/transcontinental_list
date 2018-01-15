@@ -17,7 +17,15 @@
             <nav>
                 <ul>
                     <li><a href="<?php get_site_url(); ?>">Home</a></li>
+                    <?php if (current_user() ): ?>
+                    <li><a href="<?php get_site_url(); ?>/clientarea">Client area</a></li>
+                    <li> <a href="<?php get_site_url(); ?>/actions/user_logout.php">Logout</a></li>
+
+                    <?php else: ?>
+                    <li><a href="<?php get_site_url(); ?>/login">Login</a></li>
                     <li><a href="<?php get_site_url(); ?>/register">Register</a></li>
+                    <?php endif; ?>
+
                 </ul>
             </nav>
         </div>
