@@ -5,8 +5,41 @@ h1 {
     padding: 0 0 20px;
 }
 
+h2 {
+    font-size: 3em;
+    padding: 0 0 20px;
+}
+
 
 p {
     font-size: $font_size;
     padding: 0 0 20px;
+}
+
+
+
+ul,ol {
+    margin: 0;
+    padding: 0 0 10px;
+}
+li {
+    font-size: $font_size;
+    padding: 0 0 5px;
+}
+
+
+
+
+form {
+    max-width: 500px;
+    background: $light_grey;
+    padding: 30px;
+
+    input, textarea, button {
+        width: 100%;
+        padding: 20px;
+        font-size: $font_size;
+        font-family: $font_stack;
+        border: 1px solid $font_color;
+    }
 }

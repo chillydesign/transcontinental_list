@@ -58,11 +58,11 @@ function current_page_exists(){
 
 
 function current_subpage_is($slug) {
-        if ( isset($_GET['subpage']) ) {
-            return ($_GET['subpage'] == $slug);
-        } else {
-            return false;
-        }
+    if ( isset($_GET['subpage']) ) {
+        return ($_GET['subpage'] == $slug);
+    } else {
+        return false;
+    }
 }
 
 
@@ -81,6 +81,15 @@ function page_link($slug, $text, $classes='') {
     echo '<a href="'. site_url() . '/'  .  $slug   .'" class="'. $classes .'">'. ($text) .'</a>';
 
 }
+
+function is_valid_email($email) {
+    return true;
+}
+
+function has_success() {
+    return isset($_GET['success']);
+}
+
 
 
 function has_error() {
@@ -102,6 +111,158 @@ function encrypt_password($password) {
 
 
 
+
+// return all the lists that belong to the current user
+function user_lists() {
+    global $conn;
+    if ( has_valid_user_cookie() ) {
+
+        $user_id =  decrypt_id($_COOKIE['tcg_user']);
+
+        try {
+            $query = "SELECT * FROM tcg_lists WHERE user_id = :id  ORDER BY created_at DESC ";
+            $lists_query = $conn->prepare($query);
+            $lists_query->bindParam(':id', $user_id);
+            $lists_query->setFetchMode(PDO::FETCH_OBJ);
+            $lists_query->execute();
+
+            $lists_count = $lists_query->rowCount();
+
+            if ($lists_count > 0) {
+                $lists =  $lists_query->fetchAll();
+                // process every list to add extra properties
+                foreach ($lists as $list ) {
+                    $list = process_list($list);
+                }
+                return $lists;
+            } else {
+                return [];
+            }
+
+            unset($conn);
+
+        } catch(PDOException $err) {
+            return [];
+        };
+    } else {
+        return [];
+    }
+}
+
+
+function get_donations($list_id) {
+    if ($list_id) {
+        global $conn;
+        try {
+            $query = "SELECT * FROM tcg_donations WHERE list_id = :id  ORDER BY created_at DESC ";
+            $donations_query = $conn->prepare($query);
+            $donations_query->bindParam(':id', $list_id);
+            $donations_query->setFetchMode(PDO::FETCH_OBJ);
+            $donations_query->execute();
+
+            $donations_count = $donations_query->rowCount();
+
+            if ($donations_count > 0) {
+                $donations =  $donations_query->fetchAll();
+                return $donations;
+            } else {
+                return [];
+            }
+
+            unset($conn);
+
+        } catch(PDOException $err) {
+            return [];
+        };
+    } else {
+        return [];
+    }
+}
+
+
+function sum_donations($donations) {
+    $total = 0;
+    foreach ($donations as $donation) {
+        $total = $total + $donation->amount;
+    }
+    return convert_cents_to_currency($total);
+}
+
+
+function get_list($list_id = null) {
+
+    if ($list_id == null) {
+        if( current_subpage_is('list')) {
+            $list_id = intval($_GET['id']);
+        } else {
+            $list_id =  $_GET['subpage'];
+        }
+    }
+    if ($list_id == null) {
+        $list_id = intval($_GET['id']);
+    }
+
+    // $subpage = $_GET['subpage'];
+    // if ($list_id == null && $subpage > 0 ) {
+    //     $list_id = $subpage;
+    // }
+    // if ($list_id == null && isset($_GET['id'])) {
+    //
+    // }
+
+
+
+    global $conn;
+    if ( $list_id > 0) {
+        $list_id = deconvert_list_id($list_id);
+        try {
+            $query = "SELECT *, tcg_lists.id as id FROM tcg_lists
+            LEFT JOIN tcg_users ON tcg_users.id = tcg_lists.user_id
+            WHERE tcg_lists.id = :id
+            LIMIT 1";
+            $list_query = $conn->prepare($query);
+            $list_query->bindParam(':id', $list_id);
+            $list_query->setFetchMode(PDO::FETCH_OBJ);
+            $list_query->execute();
+
+            $list_count = $list_query->rowCount();
+
+            if ($list_count == 1) {
+                $list =  $list_query->fetch();
+                return process_list($list);
+            } else {
+                return null;
+            }
+
+            unset($conn);
+        } catch(PDOException $err) {
+            return null;
+        };
+    } else { // if list id is not greated than 0
+        return null;
+    }
+}
+
+
+function process_list($list) {
+
+    $list->list_number = convert_list_id($list->id); // obfuscate the list id a bit
+    if (isset($list->first_name)) {
+        $list->users_name = $list->first_name . ' ' .  $list->last_name;
+    }
+    return $list;
+}
+
+
+// obfuscate the list id a bit
+function convert_list_id($list_id) {
+    return intval($list_id)  * 83  + 1777;
+}
+function deconvert_list_id($list_id) {
+    return ($list_id - 1777) / 83;
+}
+
+
 function insert_new_list($list) {
     global $conn;
     if ($list->name != '' && $list->user_id > 0 ){
@@ -117,7 +278,8 @@ function insert_new_list($list) {
             $list_id = $conn->lastInsertId();
             unset($conn);
 
-            return $list_id;
+
+            return convert_list_id($list_id);
 
         } catch(PDOException $err) {
 
@@ -126,6 +288,39 @@ function insert_new_list($list) {
         };
 
     } else { // list name was blank
+        return false;
+    }
+
+
+}
+
+
+
+function insert_new_donation($donation) {
+    global $conn;
+    if ($donation->amount > 0 && $donation->list_id > 0 ){
+
+        try {
+            $query = "INSERT INTO tcg_donations (first_name, last_name, email, message, amount, list_id) VALUES (:first_name, :last_name, :email, :message,  :amount, :list_id)";
+            $donation_query = $conn->prepare($query);
+            $donation_query->bindParam(':first_name', $donation->first_name);
+            $donation_query->bindParam(':last_name', $donation->last_name);
+            $donation_query->bindParam(':email', $donation->email);
+            $donation_query->bindParam(':message', $donation->message);
+            $donation_query->bindParam(':amount', $donation->amount);
+            $donation_query->bindParam(':list_id', $donation->list_id);
+            $donation_query->execute();
+            $donation_id = $conn->lastInsertId();
+            unset($conn);
+            return $donation_id;
+
+        } catch(PDOException $err) {
+
+            return false;
+
+        };
+
+    } else { // donation name was blank
         return false;
     }
 
@@ -163,6 +358,14 @@ function insert_new_user($user) {
 
 }
 
+
+function convert_to_amount_in_cents($string) {
+    return   round(  floatval($string) * 100);
+}
+
+function convert_cents_to_currency($integer) {
+    return   money_format( '%i', ($integer / 100)  );
+}
 
 function has_valid_user_cookie() {
     if  ( isset( $_COOKIE['tcg_user'] ) ) {
