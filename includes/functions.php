@@ -83,7 +83,7 @@ function page_link($slug, $text, $classes='') {
 }
 
 function is_valid_email($email) {
-  return filter_var($email, FILTER_VALIDATE_EMAIL);
+    return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 
 function has_success() {
@@ -96,9 +96,27 @@ function has_error() {
     return isset($_GET['error']);
 }
 
+function error_message_list() {
+    return array(
+        'notallowedhere' => 'You are not allowed to visit this page. Please try logging in.',
+        'notallowedhereadmin' => 'You are not allowed to visit this page.',
+        'usernotsave' => 'User account did not save. Please try again.',
+        'passwordnotmatch' => 'Passwords do not match. Please try again.',
+        'couldntlogin' => 'Could not log in. Please try again.',
+        'donationnotsave' => 'Donation did not save. Please try again.',
+        'emailnotvalid' => 'Email address is not valid. Please try again.',
+        'donationnameblank' => 'Donation name cannot be blank',
+        'listnotsave' => 'List did not save. Please try again.',
+        'listnameblank' => 'List name cannot be blank.',
+        'unspecified' => 'An error occured. Please try again.',
+    );
+}
+
 function show_error_message() {
     if (has_error() ) {
-        echo '<p>' . $_GET['error'] . '</p>';;
+        $list = error_message_list();
+        $message =  (isset( $list[$_GET['error']] )) ? $list[$_GET['error']] : $list['unspecified'];
+        echo '<p>' . $message . '</p>';;
     }
 }
 

@@ -3,7 +3,7 @@
 
 <a href="<?php get_site_url(); ?>/userarea/">Back to user area</a>
 <?php if ($list): ?>
-    <h2><?php echo $list->name; ?></h2>
+    <h1><?php echo $list->name; ?></h1>
     <p>Your list number is  <a href="<?php get_site_url(); ?>/list/<?php echo $list->list_number; ?>"><?php echo $list->list_number; ?></a></p>
 
 
@@ -20,6 +20,7 @@
         <?php foreach (  $donations as $donation) : ?>
             <li>
                 <strong><?php echo $donation->first_name; ?></strong> donated <?php echo convert_cents_to_currency($donation->amount); ?> on <?php  echo $list->created_at; ?>
+                <blockquote><?php echo $donation->message ?></blockquote>
 
             </li>
         <?php endforeach; ?>

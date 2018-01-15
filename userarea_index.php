@@ -1,4 +1,6 @@
-<h2>My lists</h2>
+<h1>User area</h1>
+
+
 <ul>
     <?php foreach (  user_lists() as $list) : ?>
         <li>
