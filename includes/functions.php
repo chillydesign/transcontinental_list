@@ -83,7 +83,7 @@ function page_link($slug, $text, $classes='') {
 }
 
 function is_valid_email($email) {
-    return true;
+  return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 
 function has_success() {
@@ -381,6 +381,21 @@ function has_valid_user_cookie() {
 
 }
 
+function has_valid_admin_cookie() {
+    if  ( isset( $_COOKIE['tcg_admin'] ) ) {
+        $admin_id = decrypt_id($_COOKIE['tcg_admin']);
+        if ( is_numeric($admin_id) && $admin_id > 0  ) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+
+}
+
+
 function only_allow_users() {
     if ( current_user() === null ) {
         header('Location: ' .  site_url() . '?error=notallowedhere'  );
@@ -389,6 +404,59 @@ function only_allow_users() {
         return true;
     }
 }
+
+function only_allow_admins() {
+    if ( current_admin() === null ) {
+        header('Location: ' .  site_url() . '?error=notallowedhereadmin'  );
+    } else {
+        return true;
+    }
+}
+
+
+
+function current_admin() {
+
+    global $conn;
+    if ( has_valid_admin_cookie() ) {
+
+        $admin_id =  decrypt_id($_COOKIE['tcg_admin']);
+
+
+
+        try {
+            $query = "SELECT * FROM tcg_admins WHERE id = :id LIMIT 1";
+            $admin_query = $conn->prepare($query);
+            $admin_query->bindParam(':id', $admin_id);
+            $admin_query->setFetchMode(PDO::FETCH_OBJ);
+            $admin_query->execute();
+
+            $admins_count = $admin_query->rowCount();
+
+            if ($admins_count == 1) {
+                $admin =  $admin_query->fetch();
+                return $admin;
+            } else {
+                header('Location: ' .  site_url() . '/actions/user_logout.php'  );
+            }
+
+            unset($conn);
+
+
+
+        } catch(PDOException $err) {
+
+            header('Location: ' .  site_url() . '/actions/user_logout.php'  );
+
+        };
+
+
+    } else {
+        return null;
+    }
+}
+
+
 
 
 function current_user() {
@@ -431,6 +499,46 @@ function current_user() {
         return null;
     }
 }
+
+
+
+
+function log_in_admin($admin) {
+    global $conn;
+    if ($admin->email != '' && $admin->password_digest != ''){
+        try {
+            $query = "SELECT id FROM tcg_admins WHERE email = :email AND  password_digest = :password_digest LIMIT 1";
+            $admin_query = $conn->prepare($query);
+            $admin_query->bindParam(':email', $admin->email);
+            $admin_query->bindParam(':password_digest', $admin->password_digest);
+            $admin_query->setFetchMode(PDO::FETCH_OBJ);
+            $admin_query->execute();
+
+            $admins_count = $admin_query->rowCount();
+
+            if ($admins_count == 1) {
+                $admin_id =  $admin_query->fetch()->id;
+            } else {
+                $admin_id = false;
+            }
+
+            unset($conn);
+
+            return $admin_id;
+
+        } catch(PDOException $err) {
+
+            return false;
+
+        };
+
+    } else {
+        return false;
+    }
+
+
+}
+
 
 
 function log_in_user($user) {
