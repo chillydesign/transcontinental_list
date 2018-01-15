@@ -44,7 +44,7 @@ function current_page(){
 function current_page_exists(){
     if ( isset($_GET['page']) ) {
         $page = $_GET['page'];
-        if ( substr(  WEBSITE_URL, 'localhost') > -1 )  {
+        if ( strpos(  WEBSITE_URL, 'localhost') > -1 )  {
             $file = '/Applications/MAMP/htdocs/transcontinental_list/' .$page . '.php';
         } else {
             $file = '/home/chillyde/webfactor.ch/projets/transcontinental_list/' .$page . '.php';
@@ -73,6 +73,16 @@ function page_link($slug, $text, $classes='') {
 }
 
 
+function has_error() {
+    return isset($_GET['error']);
+}
+
+function show_error_message() {
+    if (has_error() ) {
+        echo '<p>' . $_GET['error'] . '</p>';;
+    }
+}
+
 
 function encrypt_password($password) {
     $salt = PW_SALT;
@@ -81,21 +91,21 @@ function encrypt_password($password) {
 }
 
 
-function insert_new_client($client) {
+function insert_new_user($user) {
     global $conn;
-    if ($client->email != '' && $client->password_digest != ''){
+    if ($user->email != '' && $user->password_digest != ''){
         try {
-            $query = "INSERT INTO clients (email, company_name, contact_name, password_digest) VALUES (:email, :company_name, :contact_name, :password_digest)";
-            $client_query = $conn->prepare($query);
-            $client_query->bindParam(':email', $client->email);
-            $client_query->bindParam(':company_name', $client->company_name);
-            $client_query->bindParam(':contact_name', $client->contact_name);
-            $client_query->bindParam(':password_digest', $client->password_digest);
-            $client_query->execute();
-            $client_id = $conn->lastInsertId();
+            $query = "INSERT INTO tcg_users (email, first_name, last_name, password_digest) VALUES (:email, :first_name, :last_name, :password_digest)";
+            $user_query = $conn->prepare($query);
+            $user_query->bindParam(':email', $user->email);
+            $user_query->bindParam(':first_name', $user->first_name);
+            $user_query->bindParam(':last_name', $user->last_name);
+            $user_query->bindParam(':password_digest', $user->password_digest);
+            $user_query->execute();
+            $user_id = $conn->lastInsertId();
             unset($conn);
 
-            return $client_id;
+            return $user_id;
 
         } catch(PDOException $err) {
 
@@ -111,29 +121,52 @@ function insert_new_client($client) {
 }
 
 
-function current_client() {
+function has_valid_user_cookie() {
+    if  ( isset( $_COOKIE['user'] ) ) {
+        $user_id = decrypt_id($_COOKIE['user']);
+            if ( is_numeric($user_id) && $user_id > 0  ) {
+                return true;
+            } else {
+                return false;
+            }
+    } else {
+        return false;
+    }
+
+}
+
+function only_allow_users() {
+    if ( has_valid_user_cookie() ) {
+        return true;
+    } else {
+        header('Location: ' .  site_url() . '?error=notallowedhere'  );
+    }
+}
+
+
+function current_user() {
 
     global $conn;
-    if ( isset( $_COOKIE['client'] ) ) {
+    if ( has_valid_user_cookie() ) {
 
-        $client_id =  decrypt_id($_COOKIE['client']);
+        $user_id =  decrypt_id($_COOKIE['user']);
 
 
 
         try {
-            $query = "SELECT * FROM clients WHERE id = :id LIMIT 1";
-            $client_query = $conn->prepare($query);
-            $client_query->bindParam(':id', $client_id);
-            $client_query->setFetchMode(PDO::FETCH_OBJ);
-            $client_query->execute();
+            $query = "SELECT * FROM tcg_users WHERE id = :id LIMIT 1";
+            $user_query = $conn->prepare($query);
+            $user_query->bindParam(':id', $user_id);
+            $user_query->setFetchMode(PDO::FETCH_OBJ);
+            $user_query->execute();
 
-            $clients_count = $client_query->rowCount();
+            $users_count = $user_query->rowCount();
 
-            if ($clients_count == 1) {
-                $client =  $client_query->fetch();
-                return $client;
+            if ($users_count == 1) {
+                $user =  $user_query->fetch();
+                return $user;
             } else {
-                header('Location: ' .  site_url() . '/actions/client_logout.php'  );
+                header('Location: ' .  site_url() . '/actions/user_logout.php'  );
             }
 
             unset($conn);
@@ -142,7 +175,7 @@ function current_client() {
 
         } catch(PDOException $err) {
 
-            header('Location: ' .  site_url() . '/actions/client_logout.php'  );
+            header('Location: ' .  site_url() . '/actions/user_logout.php'  );
 
         };
 
@@ -153,28 +186,28 @@ function current_client() {
 }
 
 
-function log_in_client($client) {
+function log_in_user($user) {
     global $conn;
-    if ($client->email != '' && $client->password_digest != ''){
+    if ($user->email != '' && $user->password_digest != ''){
         try {
-            $query = "SELECT id FROM clients WHERE email = :email AND  password_digest = :password_digest LIMIT 1";
-            $client_query = $conn->prepare($query);
-            $client_query->bindParam(':email', $client->email);
-            $client_query->bindParam(':password_digest', $client->password_digest);
-            $client_query->setFetchMode(PDO::FETCH_OBJ);
-            $client_query->execute();
+            $query = "SELECT id FROM tcg_users WHERE email = :email AND  password_digest = :password_digest LIMIT 1";
+            $user_query = $conn->prepare($query);
+            $user_query->bindParam(':email', $user->email);
+            $user_query->bindParam(':password_digest', $user->password_digest);
+            $user_query->setFetchMode(PDO::FETCH_OBJ);
+            $user_query->execute();
 
-            $clients_count = $client_query->rowCount();
+            $users_count = $user_query->rowCount();
 
-            if ($clients_count == 1) {
-                $client_id =  $client_query->fetch()->id;
+            if ($users_count == 1) {
+                $user_id =  $user_query->fetch()->id;
             } else {
-                $client_id = false;
+                $user_id = false;
             }
 
             unset($conn);
 
-            return $client_id;
+            return $user_id;
 
         } catch(PDOException $err) {
 
@@ -213,25 +246,5 @@ function decrypt_id($string){
 }
 
 
-//
-// function create_portfolio_item( $client_id, $image , $name,  $groups,  $url=false ){
-// // used on the portfolio.php page to create the boxes
-//   $img = 'images/portfolio/medium/' . $image ;
-//
-//   $ret =  '<li class="col-md-4 col-sm-6 col-xs-12" data-groups=' . "'["  . '"' . implode($groups, '","') . '"' . "]'>";
-//     $ret .= '<div class="enclosing_img">';
-//       $ret .= '<a class="lightbox_client_anchor" data-featherlight="portfolio-items/' .  $client_id . '.php"  style="background-image:url(' . $img .');"   id="' . $client_id  . '" target="_blank" href="' .  $url  . '">' .  $name  . '</a>';
-//     $ret .= '</div>';
-//     if($url){
-//       $ret .= '<h5><a href="' . $url . '" target="_blank">' . $name  . '</a></h5>';
-//     } else {
-//       $ret .= '<h5>' . $name  . '</h5>';
-//     }
-//
-//   $ret .= '</li>';
-//
-//   echo $ret;
-// }
-//
 
 ?>

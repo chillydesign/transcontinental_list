@@ -1,0 +1,13 @@
+header {
+    background: #f32;
+    color: white;
+    padding: 20px;
+    font-size: $font_size;
+
+    li {
+        display: inline-block;
+        a {
+            color: white;
+        }
+    }
+}

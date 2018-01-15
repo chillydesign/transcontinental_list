@@ -1,0 +1,21 @@
+@import 'variables';
+
+
+body {
+	background: $background_color;
+	color: $font_color;
+	font-family: $font_stack;
+	font-size: 62.5%;
+	font-weight: normal;
+}
+
+
+@import 'typography';
+@import 'header';
+@import 'footer';
+
+
+.container {
+    width: 80%;
+    margin: auto;
+}

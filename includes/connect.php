@@ -18,7 +18,7 @@ if( $_SERVER['SERVER_PORT'] == 8888 ) {
 		define("SECRET_KEY",   1849262118354826  ) ;
 		define("INITIALIZATION_VECTOR",  hex2bin('3127d2526716e03292849a8d981c50b798cbd066b8eaaedf7838263d31f290dd')   ) ;
 		define("SITE_NAME",  'Transcontinental' );
-		define("WEBSITE_URL",  'http://localhost:8888/transcontinentalgifts' );
+		define("WEBSITE_URL",  'http://localhost:8888/transcontinental_list' );
 
 
 
