@@ -16,7 +16,7 @@
             <a href="<?php get_site_url(); ?>" id="branding"><?php SITE_NAME; ?></a>
             <nav>
                 <ul>
-
+                    <li><a href="<?php get_site_url(); ?>/giftcard">Buy a gift card</a></li>
                     <?php if (current_user() ): ?>
                     <li><a href="<?php get_site_url(); ?>/userarea">User area</a></li>
                     <li> <a href="<?php get_site_url(); ?>/actions/user_logout.php">Logout</a></li>
@@ -24,7 +24,6 @@
                     <li><a href="<?php get_site_url(); ?>/login">Login</a></li>
                     <li><a href="<?php get_site_url(); ?>/register">Register</a></li>
                     <?php endif; ?>
-                    <li><a href="<?php get_site_url(); ?>/giftcard">Buy a gift card</a></li>
                 </ul>
             </nav>
         </div>

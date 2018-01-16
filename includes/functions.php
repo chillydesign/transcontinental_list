@@ -327,13 +327,13 @@ function get_list($list_id = null) {
 
     if ($list_id == null) {
         if( current_subpage_is('list')) {
-            $list_id = intval($_GET['id']);
+            $list_id = (isset($_GET['id']))  ? intval($_GET['id']) : null;
         } else {
             $list_id =  $_GET['subpage'];
         }
     }
     if ($list_id == null) {
-        $list_id = intval($_GET['id']);
+        $list_id =  (isset($_GET['id']))  ? intval($_GET['id']) : null;
     }
 
     global $conn;

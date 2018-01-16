@@ -63,12 +63,18 @@ figure {
     margin: 0 0 20px;
     max-width: 300px;
     img {
-            width: 100%;
-            height: auto;
+        width: 100%;
+        height: auto;
     }
     figcaption {
         font-size: $font_size;
         font-style: italic;
         color: #999;
+    }
+
+    &.small_figure {
+        display: inline-block;
+        max-width: 100px;
+
     }
 }

@@ -1,4 +1,3 @@
-<a href="<?php get_site_url(); ?>/adminarea/">Back to admin area</a>
 <h1>New List</h1>
 
 

@@ -1,11 +1,7 @@
 @import 'variables';
+@import 'reset';
 
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
 
 body {
 	background: $background_color;
@@ -19,9 +15,3 @@ body {
 @import 'typography';
 @import 'header';
 @import 'footer';
-
-
-.container {
-    width: 80%;
-    margin: auto;
-}

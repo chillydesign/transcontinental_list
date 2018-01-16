@@ -52,7 +52,7 @@
 
 
 <?php foreach ($pictures as $picture) : ?>
-    <figure>
+    <figure class="small_figure">
         <img src="<?php echo $picture->url; ?>"  alt="Picture <?php echo $picture->id; ?>" />
         <figcaption>
             Picture <?php echo $picture->id; ?>
