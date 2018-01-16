@@ -12,7 +12,13 @@
             <p><?php echo $list->description; ?></p>
         <?php endif ; ?>
 
-        
+        <?php if (picture_exists( $list->picture, 'lists' )) : ?>
+            <figure>
+                <img src="<?php echo get_picture_url($list->picture, 'lists'); ?>" alt="Image for <?php $list->name; ?>" />
+            </figure>
+        <?php endif; ?>
+
+
         <h2>Donate now</h2>
         <?php $donations = get_donations( $list->id  ); ?>
         <p>So far this list has had <?php echo sum_donations($donations); ?> donated to it. </p>

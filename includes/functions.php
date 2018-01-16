@@ -824,6 +824,33 @@ function decrypt_id($string){
 }
 
 
+function get_picture_url($id, $type) {
+    if ($id && $type) {
+        $file = site_url() . '/images/' . $type . '/' .  $id  . '.jpg';
+        return $file;
+    }
+}
+
+
+function get_picture_location($id, $type) {
+    if ($id && $type) {
+        $file = __DIR__ . '/../images/' . $type . '/' .  $id  . '.jpg';
+        return  $file;
+    }
+}
+
+
+function picture_exists($id, $type) {
+    if ($id && $type) {
+        $file = get_picture_location($id, $type);
+        return  file_exists($file);
+    } else {
+        return false;
+    }
+}
+
+
+
 function find_pictures($type='lists') {
     // find all the jpg or jpeg images in the image folder requested
     // filename is the id of the image
