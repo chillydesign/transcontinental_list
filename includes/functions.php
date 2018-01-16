@@ -143,6 +143,43 @@ function get_var($str) {
 }
 
 
+
+function get_giftcard($giftcard_id = null) {
+
+
+    if ($giftcard_id == null) {
+        $giftcard_id =  (isset($_GET['id']))  ? intval($_GET['id']) : null;
+    }
+
+    global $conn;
+    if ( $giftcard_id > 0) {
+
+        try {
+            $query = "SELECT *FROM tcg_giftcards WHERE tcg_giftcards.id = :id LIMIT 1";
+            $giftcard_query = $conn->prepare($query);
+            $giftcard_query->bindParam(':id', $giftcard_id);
+            $giftcard_query->setFetchMode(PDO::FETCH_OBJ);
+            $giftcard_query->execute();
+
+            $giftcard_count = $giftcard_query->rowCount();
+
+            if ($giftcard_count == 1) {
+                $giftcard =  $giftcard_query->fetch();
+                return $giftcard;
+            } else {
+                return null;
+            }
+            unset($conn);
+        } catch(PDOException $err) {
+            return null;
+        };
+    } else { // if giftcard id is not greated than 0
+        return null;
+    }
+}
+
+
+
 function get_giftcards(){
     global $conn;
 
@@ -624,7 +661,7 @@ function convert_to_amount_in_cents($string) {
 }
 
 function convert_cents_to_currency($integer) {
-    return   money_format( '%i', ($integer / 100)  );
+    return   money_format( 'CHF %i', ($integer / 100)  );
 }
 
 function has_valid_user_cookie() {
