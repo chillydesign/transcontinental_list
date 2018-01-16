@@ -3,10 +3,10 @@
 include('../includes/connect.php');
 include('../includes/functions.php');
 
+$list_id =  get_var('id');
+if ( $list_id ) {
 
-if (isset($_GET['id'])) {
-    $list_id = $_GET['id'];
-    $list = get_list( $list_id);
+    $list = get_list( $list_id );
     $redirect = (has_valid_admin_cookie()) ? '/adminarea/list?id=' . $list_id : '/userarea/list?id=' . $list_id;
 
 
@@ -34,7 +34,7 @@ if (isset($_GET['id'])) {
                 $list->picture = $picture;
                 $list->user_id = $user_id;
                 $list->active = $active;
-                
+
                 $list_updated = update_list($list);
 
                 if(  $list_updated ) { // if list saves fine

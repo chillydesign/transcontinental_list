@@ -12,7 +12,8 @@
             <p>
                 <select id="user_id" name="user_id">
                     <?php foreach (  get_users() as $user) : ?>
-                        <option value="<?php echo $user->id; ?>"><?php echo $user->first_name . ' ' . $user->last_name; ?></option>
+                        <?php $selected = ( $user->id == get_var('user_id')  ) ? 'selected="selected"' : ''; ?>
+                        <option <?php echo $selected; ?> value="<?php echo $user->id; ?>"><?php echo $user->first_name . ' ' . $user->last_name; ?></option>
                     <?php endforeach; ?>
                 </select>
             </p>

@@ -13,9 +13,10 @@
 
     <header>
         <div class="container">
-            <a href="<?php get_site_url(); ?>" id="branding"><?php SITE_NAME; ?></a>
+
             <nav>
                 <ul>
+                    <li><a href="<?php get_site_url(); ?>">Home</a></li>
                     <li><a href="<?php get_site_url(); ?>/giftcard">Buy a gift card</a></li>
                     <?php if (current_user() ): ?>
                     <li><a href="<?php get_site_url(); ?>/userarea">User area</a></li>

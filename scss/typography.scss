@@ -17,6 +17,14 @@ p {
 }
 
 
+strong, b {
+    font-weight: bold;
+}
+
+em, i {
+    font-style: italic;
+}
+
 
 ul,ol {
     margin: 0;
@@ -24,10 +32,21 @@ ul,ol {
 }
 li {
     font-size: $font_size;
-    padding: 0 0 5px;
+    padding: 0 0 10px;
 }
 
 
+
+
+.tc_button {
+    display: inline-block;
+    background: $brand_color;
+    padding: 10px;
+    margin: 0 0 5px;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+}
 
 
 form {

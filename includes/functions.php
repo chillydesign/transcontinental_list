@@ -134,6 +134,39 @@ function encrypt_password($password) {
 }
 
 
+function get_var($str) {
+    if (isset( $_GET[$str] )) {
+        return $_GET[$str];
+    } else {
+        return false;
+    }
+}
+
+
+function get_giftcards(){
+    global $conn;
+
+    try {
+        $query = "SELECT * FROM tcg_giftcards  ORDER BY created_at DESC ";
+        $giftcards_query = $conn->prepare($query);
+        $giftcards_query->setFetchMode(PDO::FETCH_OBJ);
+        $giftcards_query->execute();
+
+        $giftcards_count = $giftcards_query->rowCount();
+
+        if ($giftcards_count > 0) {
+            $giftcards =  $giftcards_query->fetchAll();
+            return $giftcards;
+        } else {
+            return [];
+        }
+
+        unset($conn);
+
+    } catch(PDOException $err) {
+        return [];
+    };
+}
 
 
 
@@ -161,6 +194,7 @@ function get_users(){
         return [];
     };
 }
+
 
 
 function get_lists(){
