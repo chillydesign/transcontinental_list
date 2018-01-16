@@ -17,7 +17,7 @@ if ( isset($_POST['list_id'])  && isset($_POST['submit_new_donation']) &&   isse
 
     $list = get_list( $list_id );
 
-    if ( $list !== null &&  $email != '' && $first_name != '' && $amount > 0   ) {
+    if ( $list !== null &&  $email != '' && $amount > 0   ) {
 
 
         if (  is_valid_email($email)) {
@@ -51,7 +51,7 @@ if ( isset($_POST['list_id'])  && isset($_POST['submit_new_donation']) &&   isse
             header('Location: ' .  site_url() . '/list/'. $list_id  . '?error=emailnotvalid'  );
         }
     } else { // if list is not valid, or amount is not big enough or first name blank
-        header('Location: ' .  site_url() . '/list/'. $list_id  . '?error=donationnameblank'  );
+        header('Location: ' .  site_url() . '/list/'. $list_id  . '?error=donationnamountblank'  );
     }
 } else { // if not all post variables have been sent
     header('Location: ' .  site_url() . '?error=unspecified'  );

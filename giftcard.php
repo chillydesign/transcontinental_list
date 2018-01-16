@@ -5,7 +5,7 @@
     <?php show_error_message(); ?>
 <?php elseif ( has_giftcard_cookie()) : ?>
     <?php $cookie = get_giftcard_cookie(); ?>
-    <p>Thanks for buying the <?php echo $cookie->amount; ?> giftcard for  <?php echo $cookie->name; ?>.</p>
+    <p class="success_message">Thanks for buying the <?php echo $cookie->amount; ?> giftcard for  <?php echo $cookie->name; ?>.</p>
 <?php endif; ?>
 
 

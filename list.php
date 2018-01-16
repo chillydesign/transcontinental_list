@@ -31,7 +31,7 @@
                 <?php if (has_error()) : ?>
                     <?php show_error_message(); ?>
                 <?php elseif ( has_success() ):  ?>
-                    <p>Thanks for the donation!</p>
+                    <p class="success_message">Thanks for the donation!</p>
                 <?php endif; ?>
                 <form action="<?php get_site_url(); ?>/actions/donation_new.php" method="post">
 

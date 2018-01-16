@@ -110,7 +110,7 @@ function error_message_list() {
         'couldntlogin' => 'Could not log in. Please try again.',
         'donationnotsave' => 'Donation did not save. Please try again.',
         'emailnotvalid' => 'Email address is not valid. Please try again.',
-        'donationnameblank' => 'Donation name cannot be blank',
+        'donationnamountblank' => 'Amount and email cannot be blank',
         'listnotsave' => 'List did not save. Please try again.',
         'listnameblank' => 'List name cannot be blank.',
         'giftcardamountlow' => 'Amount is too low. Please try again',
@@ -122,7 +122,7 @@ function show_error_message() {
     if (has_error() ) {
         $list = error_message_list();
         $message =  (isset( $list[$_GET['error']] )) ? $list[$_GET['error']] : $list['unspecified'];
-        echo '<p>' . $message . '</p>';;
+        echo '<p class="error_message">' . $message . '</p>';;
     }
 }
 
