@@ -1,4 +1,4 @@
-<a href="<?php get_site_url(); ?>/adminarea/">Back to admin area</a>
+
 
 <?php $user = get_user(); ?>
 <?php if ($user): ?>

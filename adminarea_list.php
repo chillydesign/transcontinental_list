@@ -5,6 +5,10 @@
 <div class="row">
 
     <div class="col-sm-6">
+
+        <p>List made by <a  href="<?php get_site_url(); ?>/adminarea/user?id=<?php echo $list->user_id; ?>"><?php echo $list->users_name; ?></a></p>
+
+
         <p>The public list number is  <a href="<?php get_site_url(); ?>/list/<?php echo $list->list_number; ?>"><?php echo $list->list_number; ?></a></p>
 
 
