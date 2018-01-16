@@ -55,13 +55,6 @@ if( $_SERVER['SERVER_PORT'] == 8888 ) {
 
 
 
-// // credit card integration with braintree
-//require_once './vendor/braintree/braintree_php/lib/Braintree.php';
-// Braintree_Configuration::environment(BRAINTREE_ENV);
-// Braintree_Configuration::merchantId(BRAINTREE_MERCHANT_ID);
-// Braintree_Configuration::publicKey(BRAINTREE_PUBLIC_KEY);
-// Braintree_Configuration::privateKey(BRAINTREE_PRIVATE_KEY);
-
 
 try {
 

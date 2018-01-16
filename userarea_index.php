@@ -6,7 +6,7 @@
         <li>
             <a href="<?php get_site_url(); ?>/userarea/list?id=<?php echo $list->list_number; ?>">
                 <strong><?php echo $list->name; ?></strong>
-                (Created <?php  echo $list->created_at; ?>)
+                (Created <?php  echo timeAgoInWords($list->created_at); ?>)
             </a>
 
         </li>

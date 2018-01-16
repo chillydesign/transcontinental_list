@@ -2,7 +2,7 @@
 
 <?php $list = get_list(); ?>
 <?php if ($list): ?>
-    <?php if ($list->user_id !== current_user()->id  ): ?>
+    <?php if ($list->user_id == current_user()->id  ): ?>
         <h1><?php echo $list->name; ?></h1>
         <p>Your list number is  <a href="<?php get_site_url(); ?>/list/<?php echo $list->list_number; ?>"><?php echo $list->list_number; ?></a></p>
 

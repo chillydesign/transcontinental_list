@@ -4,8 +4,20 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 
+
+// // credit card integration with braintree
+//require_once './vendor/braintree/braintree_php/lib/Braintree.php';
+// Braintree_Configuration::environment(BRAINTREE_ENV);
+// Braintree_Configuration::merchantId(BRAINTREE_MERCHANT_ID);
+// Braintree_Configuration::publicKey(BRAINTREE_PUBLIC_KEY);
+// Braintree_Configuration::privateKey(BRAINTREE_PRIVATE_KEY);
+
+
+require_once './vendor/autoload.php';
+
+
 function current_version(){
-    echo '0.1.0';
+    echo '0.1.1';
 }
 
 
@@ -418,7 +430,7 @@ function insert_new_list($list) {
 function update_list($list) {
     global $conn;
     if ($list->name != '' && $list->user_id > 0 ){
-    
+
 
         try {
             $query = "UPDATE tcg_lists
@@ -458,7 +470,7 @@ function insert_new_donation($donation) {
     if ($donation->amount > 0 && $donation->list_id > 0 ){
 
         try {
-            $query = "INSERT INTO tcg_donations (first_name, last_name, email, message, amount, list_id) VALUES (:first_name, :last_name, :email, :message,  :amount, :list_id)";
+            $query = "INSERT INTO tcg_donations (first_name, last_name, email, message, amount, list_id, status) VALUES (:first_name, :last_name, :email, :message,  :amount, :list_id, :status)";
             $donation_query = $conn->prepare($query);
             $donation_query->bindParam(':first_name', $donation->first_name);
             $donation_query->bindParam(':last_name', $donation->last_name);
@@ -466,6 +478,7 @@ function insert_new_donation($donation) {
             $donation_query->bindParam(':message', $donation->message);
             $donation_query->bindParam(':amount', $donation->amount);
             $donation_query->bindParam(':list_id', $donation->list_id);
+            $donation_query->bindParam(':status', $donation->status);
             $donation_query->execute();
             $donation_id = $conn->lastInsertId();
             unset($conn);
@@ -754,6 +767,16 @@ function decrypt_id($string){
 
 }
 
+
+// TIME DATE TEXT AGO
+$timeZone  = null; // just use the system timezone
+$timeAgo = new Westsworld\TimeAgo($timeZone, 'en'); // default language is en (english)
+
+function timeAgoInWords($time) {
+    global $timeAgo;
+    return $timeAgo->inWords($time);
+}
+// END OF TIME DATE TEXT AGO
 
 
 

@@ -1,5 +1,6 @@
 {
   "require" : {
-    "braintree/braintree_php" : "3.26.1"
+    "braintree/braintree_php" : "3.26.1",
+    "jimmiw/php-time-ago": "^2.0"
   }
 }

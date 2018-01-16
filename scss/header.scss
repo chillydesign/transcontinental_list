@@ -1,14 +1,22 @@
 header {
     background: #f32;
     color: white;
-    padding: 20px;
+
     font-size: $font_size;
     margin: 0 0 30px;
 
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+
     li {
         display: inline-block;
+        padding: 0;
         a {
             color: white;
+            display: inline-block;
+            padding: 20px 10px;
         }
     }
 }
