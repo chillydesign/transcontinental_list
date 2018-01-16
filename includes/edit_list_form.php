@@ -1,6 +1,8 @@
 <?php global $list; ?>
 
+
 <?php if ($list) : ?>
+    <?php $pictures = find_pictures('lists'); ?>
     <form action="<?php get_site_url(); ?>/actions/list_edit.php?id=<?php echo $list->list_number; ?>" method="post">
 
 
@@ -29,13 +31,16 @@
                 Active
             </label>
         </p>
+        <?php if (sizeof($pictures) > 0) : ?>
         <p>
             <select id="picture" name="picture">
-                <option <?php echo ($list->picture ==1 ) ? 'selected' : ''; ?> value="1">Picture 1</option>
-                <option <?php echo ($list->picture ==2 ) ? 'selected' : ''; ?> value="2">Picture 2</option>
-                <option <?php echo ($list->picture ==3 ) ? 'selected' : ''; ?> value="3">Picture 3</option>
+                <?php foreach ($pictures as $picture) : ?>
+                    <?php $selected = ( $picture->id == $list->picture ) ? 'selected="selected"'  : '' ; ?>
+                    <option <?php echo $selected; ?> value="<?php echo $picture->id; ?>">Picture <?php echo $picture->id; ?></option>
+                <?php endforeach; ?>
             </select>
         </p>
+        <?php endif; ?>
         <p>
             <input type="submit" name="submit_edit_list" value="Edit" />
         </p>
@@ -44,3 +49,13 @@
     </form>
 
 <?php endif; ?>
+
+
+<?php foreach ($pictures as $picture) : ?>
+    <figure>
+        <img src="<?php echo $picture->url; ?>"  alt="Picture <?php echo $picture->id; ?>" />
+        <figcaption>
+            Picture <?php echo $picture->id; ?>
+        </figcaption>
+    </figure>
+<?php endforeach; ?>

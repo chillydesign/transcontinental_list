@@ -1,3 +1,6 @@
+<?php $pictures = find_pictures('lists'); ?>
+
+
 
 <form action="<?php get_site_url(); ?>/actions/list_new.php" method="post">
 
@@ -23,16 +26,28 @@
             Active
         </label>
     </p>
+    <?php if (sizeof($pictures) > 0) : ?>
     <p>
         <select id="picture" name="picture">
-            <option value="1">Picture 1</option>
-            <option value="2">Picture 2</option>
-            <option value="3">Picture 3</option>
+            <?php foreach ($pictures as $picture) : ?>
+                <option value="<?php echo $picture->id; ?>">Picture <?php echo $picture->id; ?></option>
+            <?php endforeach; ?>
         </select>
     </p>
+    <?php endif; ?>
     <p>
         <input type="submit" name="submit_new_list" value="Submit" />
     </p>
 
 
 </form>
+
+
+<?php foreach ($pictures as $picture) : ?>
+    <figure>
+        <img src="<?php echo $picture->url; ?>"  alt="Picture <?php echo $picture->id; ?>" />
+        <figcaption>
+            Picture <?php echo $picture->id; ?>
+        </figcaption>
+    </figure>
+<?php endforeach; ?>

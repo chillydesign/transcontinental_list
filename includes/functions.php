@@ -427,12 +427,12 @@ function update_list($list) {
 
         try {
             $query = "UPDATE tcg_lists
-                    SET `name` = :name,
-                    `description` = :description,
-                    `picture` = :picture,
-                    `user_id` = :user_id,
-                    `active` = :active
-                    WHERE id = :id";
+            SET `name` = :name,
+            `description` = :description,
+            `picture` = :picture,
+            `user_id` = :user_id,
+            `active` = :active
+            WHERE id = :id";
             $list_query = $conn->prepare($query);
             $list_query->bindParam(':name', $list->name);
             $list_query->bindParam(':description', $list->description);
@@ -564,10 +564,10 @@ function insert_new_giftcard($giftcard) {
 
 
 function convert_gift_to_cookie($gift) {
-        $cookie = new stdClass();
-        $cookie->name = $gift->receiver_first_name . ' ' . $gift->receiver_last_name;
-        $cookie->amount = convert_cents_to_currency($gift->amount);
-        return json_encode( $cookie );
+    $cookie = new stdClass();
+    $cookie->name = $gift->receiver_first_name . ' ' . $gift->receiver_last_name;
+    $cookie->amount = convert_cents_to_currency($gift->amount);
+    return json_encode( $cookie );
 }
 
 function get_giftcard_cookie() {
@@ -824,6 +824,53 @@ function decrypt_id($string){
 }
 
 
+function find_pictures($type='lists') {
+    // find all the jpg or jpeg images in the image folder requested
+    // filename is the id of the image
+    if ($type == 'giftcards') {
+        $path =  __DIR__ . '/../images/giftcards/';
+        $site_url = site_url() . '/images/giftcards/';
+    } else {
+        $path =  __DIR__ . '/../images/lists/';
+        $site_url = site_url() . '/images/lists/';
+    }
+
+    $pictures = array();
+    foreach (new DirectoryIterator($path) as $file) {
+
+        if($file->isDot()) continue;
+        if($file->isDir()) continue;
+        if($file->isFile()){
+            $extension = $file->getExtension();
+            if ($extension == 'jpg' || $extension == 'jpeg') {
+                $filename = $file->getFilename();
+                $id = intval(explode( '.' , $filename)[0]);
+                $picture = new stdClass();
+                $picture->id = $id;
+                $picture->url = $site_url . $file->getFilename();
+                array_push($pictures, $picture);
+            }
+
+        }
+    }
+
+    usort($pictures, "sort_object_by_ids");
+    return $pictures;
+
+}
+
+
+function sort_object_by_ids($a, $b) {
+    return strcmp($a->id, $b->id);
+}
+
+
+
+
+
+
+
+//COMPOSER PACKAGES
 // TIME DATE TEXT AGO
 $timeZone  = null; // just use the system timezone
 $timeAgo = new Westsworld\TimeAgo($timeZone, 'en'); // default language is en (english)

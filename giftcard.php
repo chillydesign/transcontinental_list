@@ -7,6 +7,10 @@
     <?php $cookie = get_giftcard_cookie(); ?>
     <p>Thanks for buying the <?php echo $cookie->amount; ?> giftcard for  <?php echo $cookie->name; ?>.</p>
 <?php endif; ?>
+
+<?php $pictures = find_pictures('giftcards'); ?>
+
+
 <form action="<?php get_site_url(); ?>/actions/giftcard_new.php" method="post">
 
     <p>
@@ -30,13 +34,15 @@
     <p>
         <textarea name="message" placeholder="Message"></textarea>
     </p>
-    <p>
-        <select id="picture" name="picture">
-            <option value="1">Picture 1</option>
-            <option value="2">Picture 2</option>
-            <option value="3">Picture 3</option>
-        </select>
-    </p>
+    <?php if (sizeof($pictures) > 0) : ?>
+        <p>
+            <select id="picture" name="picture">
+                <?php foreach ($pictures as $picture) : ?>
+                    <option value="<?php echo $picture->id; ?>">Picture <?php echo $picture->id; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </p>
+    <?php endif; ?>
     <p>
         <input type="text" name="amount" placeholder="Amount">
     </p>
@@ -46,5 +52,15 @@
         <input type="submit" name="submit_new_giftcard" value="Submit" />
     </p>
 
-
 </form>
+
+
+
+<?php foreach ($pictures as $picture) : ?>
+    <figure>
+        <img src="<?php echo $picture->url; ?>"  alt="Picture <?php echo $picture->id; ?>" />
+        <figcaption>
+            Picture <?php echo $picture->id; ?>
+        </figcaption>
+    </figure>
+<?php endforeach; ?>
