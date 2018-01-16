@@ -102,6 +102,7 @@ function error_message_list() {
         'notallowedhereadmin' => 'You are not allowed to visit this page.',
         'usernotsave' => 'User account did not save. Please try again.',
         'passwordnotmatch' => 'Passwords do not match. Please try again.',
+        'passwordtooshort' => 'Password must be at least 6 characters. Please try again.',
         'couldntlogin' => 'Could not log in. Please try again.',
         'donationnotsave' => 'Donation did not save. Please try again.',
         'emailnotvalid' => 'Email address is not valid. Please try again.',
@@ -126,6 +127,7 @@ function encrypt_password($password) {
     $encrypted_password =  crypt( $password, $salt  );
     return $encrypted_password;
 }
+
 
 
 
@@ -161,8 +163,8 @@ function get_lists(){
 
     try {
         $query = "SELECT *, tcg_lists.id as id FROM tcg_lists
-                LEFT JOIN tcg_users ON tcg_users.id = tcg_lists.user_id
-                 ORDER BY tcg_lists.created_at DESC ";
+        LEFT JOIN tcg_users ON tcg_users.id = tcg_lists.user_id
+        ORDER BY tcg_lists.created_at DESC ";
         $lists_query = $conn->prepare($query);
         $lists_query->setFetchMode(PDO::FETCH_OBJ);
         $lists_query->execute();
@@ -189,12 +191,18 @@ function get_lists(){
 
 
 // return all the lists that belong to the current user
-function user_lists() {
+function user_lists($user_id = null) {
     global $conn;
-    if ( has_valid_user_cookie() ) {
 
-        $user_id =  decrypt_id($_COOKIE['tcg_user']);
 
+    if ($user_id == null) {
+        if ( has_valid_user_cookie()  ) {
+            $user_id =  decrypt_id($_COOKIE['tcg_user']);
+        }
+    }
+
+
+    if ($user_id) {
         try {
             $query = "SELECT * FROM tcg_lists WHERE user_id = :id  ORDER BY created_at DESC ";
             $lists_query = $conn->prepare($query);
@@ -223,6 +231,8 @@ function user_lists() {
     } else {
         return [];
     }
+
+
 }
 
 
@@ -262,6 +272,49 @@ function sum_donations($donations) {
         $total = $total + $donation->amount;
     }
     return convert_cents_to_currency($total);
+}
+
+
+
+function get_user($user_id = null) {
+
+    if ($user_id == null) {
+        if( current_subpage_is('user')) {
+            $user_id = intval($_GET['id']);
+        } else {
+            $user_id =  $_GET['subpage'];
+        }
+    }
+    if ($user_id == null) {
+        $user_id = intval($_GET['id']);
+    }
+
+    global $conn;
+    if ( $user_id > 0) {
+
+        try {
+            $query = "SELECT * FROM tcg_users WHERE id = :id LIMIT 1";
+            $user_query = $conn->prepare($query);
+            $user_query->bindParam(':id', $user_id);
+            $user_query->setFetchMode(PDO::FETCH_OBJ);
+            $user_query->execute();
+
+            $user_count = $user_query->rowCount();
+
+            if ($user_count == 1) {
+                $user =  $user_query->fetch();
+                return $user;
+            } else {
+                return null;
+            }
+
+            unset($conn);
+        } catch(PDOException $err) {
+            return null;
+        };
+    } else { // if user id is not greater than 0
+        return null;
+    }
 }
 
 
@@ -316,6 +369,7 @@ function process_list($list) {
     if (isset($list->first_name)) {
         $list->users_name = $list->first_name . ' ' .  $list->last_name;
     }
+    $list->status  = ($list->active == 1) ? 'active' : 'inactive';
     return $list;
 }
 
@@ -334,12 +388,13 @@ function insert_new_list($list) {
     if ($list->name != '' && $list->user_id > 0 ){
 
         try {
-            $query = "INSERT INTO tcg_lists (name, description, picture, user_id) VALUES (:name, :description, :picture, :user_id)";
+            $query = "INSERT INTO tcg_lists (name, description, picture, user_id, active) VALUES (:name, :description, :picture, :user_id, :active)";
             $list_query = $conn->prepare($query);
             $list_query->bindParam(':name', $list->name);
             $list_query->bindParam(':description', $list->description);
             $list_query->bindParam(':picture', $list->picture);
             $list_query->bindParam(':user_id', $list->user_id);
+            $list_query->bindParam(':active', $list->active);
             $list_query->execute();
             $list_id = $conn->lastInsertId();
             unset($conn);
@@ -357,6 +412,42 @@ function insert_new_list($list) {
         return false;
     }
 
+
+}
+
+function update_list($list) {
+    global $conn;
+    if ($list->name != '' && $list->user_id > 0 ){
+    
+
+        try {
+            $query = "UPDATE tcg_lists
+                    SET `name` = :name,
+                    `description` = :description,
+                    `picture` = :picture,
+                    `user_id` = :user_id,
+                    `active` = :active
+                    WHERE id = :id";
+            $list_query = $conn->prepare($query);
+            $list_query->bindParam(':name', $list->name);
+            $list_query->bindParam(':description', $list->description);
+            $list_query->bindParam(':picture', $list->picture);
+            $list_query->bindParam(':user_id', $list->user_id);
+            $list_query->bindParam(':active', $list->active);
+            $list_query->bindParam(':id', $list->id);
+            $list_query->execute();
+            unset($conn);
+
+            return true;
+
+        } catch(PDOException $err) {
+            return false;
+
+        };
+
+    } else { // list name was blank
+        return false;
+    }
 
 }
 

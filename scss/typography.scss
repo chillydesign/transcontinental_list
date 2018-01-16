@@ -39,11 +39,18 @@ form {
         font-size: 1em;
     }
 
+    label {
+        font-size: $font_size;
+    }
+
     input, textarea, button, select, option {
         width: 100%;
         padding: 15px;
         font-size: $font_size;
         font-family: $font_stack;
         border: 1px solid $font_color;
+    }
+    input[type="checkbox"] {
+        width: auto;
     }
 }

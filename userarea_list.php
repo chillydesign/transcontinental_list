@@ -29,5 +29,10 @@
 
 
 
+        <?php if (has_error()) : ?>
+            <?php show_error_message(); ?>
+        <?php endif; ?>
+        <h2>Edit list</h2>
+        <?php include('includes/edit_list_form.php'); ?>
 
 <?php endif; ?>
