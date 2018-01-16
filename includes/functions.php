@@ -5,15 +5,7 @@ ini_set('display_errors', 1);
 
 
 
-// // credit card integration with braintree
-//require_once './vendor/braintree/braintree_php/lib/Braintree.php';
-// Braintree_Configuration::environment(BRAINTREE_ENV);
-// Braintree_Configuration::merchantId(BRAINTREE_MERCHANT_ID);
-// Braintree_Configuration::publicKey(BRAINTREE_PUBLIC_KEY);
-// Braintree_Configuration::privateKey(BRAINTREE_PRIVATE_KEY);
 
-
-require_once './vendor/autoload.php';
 
 
 function current_version(){
@@ -121,6 +113,7 @@ function error_message_list() {
         'donationnameblank' => 'Donation name cannot be blank',
         'listnotsave' => 'List did not save. Please try again.',
         'listnameblank' => 'List name cannot be blank.',
+        'giftcardamountlow' => 'Amount is too low. Please try again',
         'unspecified' => 'An error occured. Please try again.',
     );
 }
@@ -529,6 +522,69 @@ function insert_new_user($user) {
 }
 
 
+
+function insert_new_giftcard($giftcard) {
+    global $conn;
+
+    if ($giftcard->receiver_email != '' && $giftcard->amount > 0 ){
+
+
+        try {
+            $query = "INSERT INTO tcg_giftcards ( sender_first_name, sender_last_name, sender_email, receiver_first_name, receiver_last_name, receiver_email, message, picture, amount, status) VALUES (:sender_first_name, :sender_last_name, :sender_email, :receiver_first_name, :receiver_last_name, :receiver_email, :message, :picture, :amount, :status)";
+
+            $giftcard_query = $conn->prepare($query);
+            $giftcard_query->bindParam(':sender_first_name', $giftcard->sender_first_name);
+            $giftcard_query->bindParam(':sender_last_name', $giftcard->sender_last_name);
+            $giftcard_query->bindParam(':sender_email', $giftcard->sender_email);
+            $giftcard_query->bindParam(':receiver_first_name', $giftcard->receiver_first_name);
+            $giftcard_query->bindParam(':receiver_last_name', $giftcard->receiver_last_name);
+            $giftcard_query->bindParam(':receiver_email', $giftcard->receiver_email);
+            $giftcard_query->bindParam(':message', $giftcard->message);
+            $giftcard_query->bindParam(':picture', $giftcard->picture);
+            $giftcard_query->bindParam(':amount', $giftcard->amount);
+            $giftcard_query->bindParam(':status', $giftcard->status);
+            $giftcard_query->execute();
+            $giftcard_id = $conn->lastInsertId();
+            unset($conn);
+
+            return $giftcard_id;
+
+        } catch(PDOException $err) {
+
+            return false;
+
+        };
+
+    } else { // giftcard name was blank
+        return false;
+    }
+
+
+}
+
+
+function convert_gift_to_cookie($gift) {
+        $cookie = new stdClass();
+        $cookie->name = $gift->receiver_first_name . ' ' . $gift->receiver_last_name;
+        $cookie->amount = convert_cents_to_currency($gift->amount);
+        return json_encode( $cookie );
+}
+
+function get_giftcard_cookie() {
+    $lgc = json_decode($_COOKIE['latest_giftcard']);
+    return $lgc;
+}
+
+function  has_giftcard_cookie() {
+    if (isset($_COOKIE['latest_giftcard'])) {
+        $lgc = get_giftcard_cookie();
+        return  ( isset($lgc->name)  ); // $cookie must have 3 items in array;
+    } else {
+        return false;
+    }
+}
+
+
 function convert_to_amount_in_cents($string) {
     return   round(  floatval($string) * 100);
 }
@@ -782,6 +838,13 @@ function timeAgoInWords($time) {
 
 
 // BRAINTREE AND PAYMENTS
+
+// // credit card integration with braintree
+
+Braintree_Configuration::environment(BRAINTREE_ENV);
+Braintree_Configuration::merchantId(BRAINTREE_MERCHANT_ID);
+Braintree_Configuration::publicKey(BRAINTREE_PUBLIC_KEY);
+Braintree_Configuration::privateKey(BRAINTREE_PRIVATE_KEY);
 
 
 
