@@ -23,18 +23,29 @@
                 <?php endif; ?>
 
 
-                <?php $donations = get_donations( $list->id  ); ?>
+                <?php $donations = get_donations( $list->id, 'paid'  ); ?>
                 <h2>List of donators</h2>
                 <p>Total donations to this list: <?php  echo sum_donations($donations);  ?>.</p>
-                <ul>
-                    <?php foreach (  $donations as $donation) : ?>
-                        <li>
-                            <strong><?php echo $donation->first_name; ?></strong> donated <?php echo convert_cents_to_currency($donation->amount); ?>  <?php  echo   timeAgoInWords($list->created_at);  ?>
-                            <blockquote><?php echo $donation->message ?></blockquote>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>From</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($donations as $donation) : ?>
+                            <tr>
+                                <td><strong><?php echo $donation->first_name;?> <?php echo $donation->last_name;?> (<?php echo timeAgoInWords($donation->created_at);?>)</strong><br/>
+                                    <em><?php echo $donation->message;?></em>
+                                </br/></td>
+                                <td><?php echo  convert_cents_to_currency($donation->amount); ?></td>
 
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
+                            </tr>
+                        <?php endforeach; ?>
+
+                    </tbody>
+                </table>
 
 
 

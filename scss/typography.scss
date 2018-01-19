@@ -111,3 +111,20 @@ figure {
 
     }
 }
+
+
+table {
+    width: 100%;
+
+    th, td {
+        padding: 10px;
+        font-size: $font_size;
+        text-align: left;
+        border-bottom: 1px solid $light_grey;
+
+
+    }
+    th {
+        font-weight: bold;
+    }
+}

@@ -3,7 +3,7 @@
 
 <?php if ($list): ?>
     <?php if ($list->status == 'active') : ?>
-        <?php $donations = get_donations( $list->id  ); ?>
+        <?php $donations = get_donations( $list->id , 'paid' ); ?>
         <h1><?php echo $list->name; ?> (List #<?php echo $list->list_number; ?>)</h1>
 
 
@@ -30,9 +30,21 @@
                 <p>So far this list has had <?php echo sum_donations($donations); ?> donated to it. </p>
                 <?php if (has_error()) : ?>
                     <?php show_error_message(); ?>
-                <?php elseif ( has_success() ):  ?>
-                    <p class="success_message">Thanks for the donation!</p>
+                <?php elseif (isset($_GET['donation_id'])  ) : ?>
+                    <?php $donation_id = ($_GET['donation_id']); ?>
+                    <?php $donation = get_donation( $donation_id ); ?>
+                    <?php if ($donation) : ?>
+                        <?php  if( isset($_GET['paynow'])  && isset($_GET['paypalurl'])  && $donation->status !== 'paid' ) : ?>
+                            <p class="success_message"><a href="<?php echo urldecode($_GET['paypalurl']); ?>">Click this link to finish payment of this donation for <?php echo convert_cents_to_currency($donation->amount); ?>.</a></p>
+                        <?php elseif (has_success()): ?>
+                            <p class="success_message">Thanks for the donation!</p>
+                        <?php endif; ?>
+                    <?php endif; ?>
                 <?php endif; ?>
+
+
+
+
                 <form action="<?php get_site_url(); ?>/actions/donation_new.php" method="post">
 
                     <p><input type="text" name="email" placeholder="email" /></p>

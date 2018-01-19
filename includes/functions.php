@@ -146,6 +146,46 @@ function get_var($str) {
 
 
 
+
+
+function get_donation($donation_id = null) {
+
+
+    if ($donation_id == null) {
+        $donation_id =  (isset($_GET['id']))  ? intval($_GET['id']) : null;
+    }
+
+    global $conn;
+    if ( $donation_id > 0) {
+
+        $donation_id = deconvert_donation_id($donation_id);
+
+        try {
+            $query = "SELECT *FROM tcg_donations WHERE tcg_donations.id = :id LIMIT 1";
+            $donation_query = $conn->prepare($query);
+            $donation_query->bindParam(':id', $donation_id);
+            $donation_query->setFetchMode(PDO::FETCH_OBJ);
+            $donation_query->execute();
+
+            $donation_count = $donation_query->rowCount();
+
+            if ($donation_count == 1) {
+                $donation =  $donation_query->fetch();
+                return $donation;
+            } else {
+                return null;
+            }
+            unset($conn);
+        } catch(PDOException $err) {
+            return null;
+        };
+    } else { // if donation id is not greated than 0
+        return null;
+    }
+}
+
+
+
 function get_giftcard($giftcard_id = null) {
 
 
@@ -155,6 +195,8 @@ function get_giftcard($giftcard_id = null) {
 
     global $conn;
     if ( $giftcard_id > 0) {
+
+        $giftcard_id = deconvert_giftcard_id($giftcard_id);
 
         try {
             $query = "SELECT *FROM tcg_giftcards WHERE tcg_giftcards.id = :id LIMIT 1";
@@ -314,11 +356,16 @@ function user_lists($user_id = null) {
 }
 
 
-function get_donations($list_id) {
+function get_donations($list_id, $status=false) {
     if ($list_id) {
         global $conn;
+
+
+        $status_sql =  ($status) ? '  AND STATUS =  "' . $status . '"' :  '';
+
+
         try {
-            $query = "SELECT * FROM tcg_donations WHERE list_id = :id  ORDER BY created_at DESC ";
+            $query = "SELECT * FROM tcg_donations WHERE list_id = :id $status_sql  ORDER BY created_at DESC ";
             $donations_query = $conn->prepare($query);
             $donations_query->bindParam(':id', $list_id);
             $donations_query->setFetchMode(PDO::FETCH_OBJ);
@@ -396,6 +443,9 @@ function get_user($user_id = null) {
 }
 
 
+
+
+
 function get_list($list_id = null) {
 
     if ($list_id == null) {
@@ -452,6 +502,24 @@ function process_list($list) {
 }
 
 
+
+// obfuscate the donation id a bit
+function convert_donation_id($donation_id) {
+    return intval($donation_id)  * 107  + 2089;
+}
+function deconvert_donation_id($donation_id) {
+    return ($donation_id - 2089) / 107;
+}
+
+
+// obfuscate the gift id a bit
+function convert_giftcard_id($giftcard_id) {
+    return intval($giftcard_id)  * 97  + 1789;
+}
+function deconvert_giftcard_id($giftcard_id) {
+    return ($giftcard_id - 1789) / 97;
+}
+
 // obfuscate the list id a bit
 function convert_list_id($list_id) {
     return intval($list_id)  * 83  + 1777;
@@ -490,6 +558,38 @@ function insert_new_list($list) {
         return false;
     }
 
+
+}
+
+
+
+function update_donation_status($donation) {
+    global $conn;
+    if ( $donation->id > 0 ){
+        try {
+
+            $query = "UPDATE tcg_donations SET `status` = :status,
+            `payment_id` = :payment_id,
+            `payer_id` = :payer_id
+            WHERE id = :id";
+            $donation_query = $conn->prepare($query);
+            $donation_query->bindParam(':status', $donation->status);
+            $donation_query->bindParam(':payment_id', $donation->payment_id);
+            $donation_query->bindParam(':payer_id', $donation->payer_id);
+            $donation_query->bindParam(':id', $donation->id);
+            $donation_query->execute();
+            unset($conn);
+
+            return true;
+
+        } catch(PDOException $err) {
+            return false;
+
+        };
+
+    } else { // donation name was blank
+        return false;
+    }
 
 }
 
@@ -583,7 +683,7 @@ function insert_new_donation($donation) {
             $donation_query->execute();
             $donation_id = $conn->lastInsertId();
             unset($conn);
-            return $donation_id;
+            return  convert_donation_id( $donation_id );
 
         } catch(PDOException $err) {
 
@@ -655,7 +755,7 @@ function insert_new_giftcard($giftcard) {
             $giftcard_id = $conn->lastInsertId();
             unset($conn);
 
-            return $giftcard_id;
+            return convert_giftcard_id($giftcard_id);
 
         } catch(PDOException $err) {
 
@@ -1075,6 +1175,28 @@ function send_giftcard_email( $giftcard  ) {
 }
 
 
+function send_donation_email( $donation , $list ) {
+
+
+
+
+    $sender = $donation->email;
+    $sender_subject = 'Thanks for sending a donation';
+    $sender_content = 'Thanks for sending a donation to ' .  $list->first_name;
+    send_php_mail($sender, $sender_subject, $sender_content);
+
+
+    $user = get_user($list->user_id);
+    if ($user) {
+        $receiver = $user->email;
+        $receiver_subject = 'You just got a donation';
+        $receiver_content = $donation->first_name . ' just send you a donation.';
+        send_php_mail($receiver, $receiver_subject, $receiver_content);
+    }
+
+
+}
+
 
 
 
@@ -1151,6 +1273,50 @@ function get_paypal_api_context() {
 
     }
 
+
+        function getDonationPaymentLink($donation_id, $amount_in_cents) {
+
+            $amountInCHF = money_format( '%i', ($amount_in_cents / 100)  );
+            $apiContext = get_paypal_api_context();
+            $baseURL = site_url() . '/actions/donation_payment_finish.php';
+            $returnURL = $baseURL . '?return=true&donation_id=' . $donation_id;
+            $cancelURL = $baseURL . '?cancel=true&donation_id=' . $donation_id;
+
+
+            $payer = new \PayPal\Api\Payer();
+            $payer->setPaymentMethod('paypal');
+
+            $amount = new \PayPal\Api\Amount();
+            $amount->setTotal( $amountInCHF  );
+            $amount->setCurrency('CHF');
+
+            $transaction = new \PayPal\Api\Transaction();
+            $transaction->setAmount($amount);
+
+            $redirectUrls = new \PayPal\Api\RedirectUrls();
+            $redirectUrls->setReturnUrl($returnURL)
+            ->setCancelUrl($cancelURL);
+
+            $payment = new \PayPal\Api\Payment();
+            $payment->setIntent('sale')
+            ->setPayer($payer)
+            ->setTransactions(array($transaction))
+            ->setRedirectUrls($redirectUrls);
+
+
+            try {
+                $payment->create($apiContext);
+                // echo $payment;
+                return  $payment->getApprovalLink();
+            }
+            catch (\PayPal\Exception\PayPalConnectionException $ex) {
+                // This will print the detailed information on the exception.
+                //REALLY HELPFUL FOR DEBUGGING
+                //echo $ex->getData();
+                return false;
+            }
+
+        }
     // END OF PAYPAL AND PAYMENTS
 
 

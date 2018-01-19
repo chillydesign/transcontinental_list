@@ -8,7 +8,7 @@ include('../includes/functions.php');
 
 if (isset($_GET['giftcard_id'])) {
 
-    $giftcard_id = $_GET['giftcard_id'];
+    $giftcard_id = ($_GET['giftcard_id']);
     $giftcard = get_giftcard($giftcard_id );
 
     if (isset($_GET['return'])) {

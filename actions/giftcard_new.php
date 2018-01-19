@@ -42,8 +42,6 @@ if ( isset($_POST['submit_new_giftcard']) && isset($_POST['receiver_email']) && 
 
             if(  $giftcard_id ) { // if giftcard saves fine
 
-                $giftcard->id = $giftcard_id;
-
                 // here do paypal stuff
                 // set up paypal payment and generate a link to send the user to
                 $giftcard_payment_redirect_link = getGiftCardPaymentLink($giftcard_id, $amount);

@@ -38,11 +38,16 @@ if ( isset($_POST['list_id'])  && isset($_POST['submit_new_donation']) &&   isse
             if(  $donation_id ) { // if donation saves fine
 
 
-                // here do braintree stuff
+                // here do paypal stuff
+                // set up paypal payment and generate a link to send the user to
+                $donation_payment_redirect_link = getDonationPaymentLink($donation_id, $amount);
+                if ($donation_payment_redirect_link) {
+                    header('Location: '  .  site_url() . '/list/'. $list_id  .  '?paynow&donation_id=' . $donation_id  . '&paypalurl=' . urlencode($donation_payment_redirect_link) );
+                } else {
+                    header('Location: ' .  site_url() . '/list/'. $list_id  . '?error=paypalnotwork');
+                }
 
 
-
-                header('Location: ' .  site_url() . '/list/'. $list_id  . '?success');
             } else { // if for some reason the donation doesnt save
                 header('Location: ' .  site_url() . '/list/'. $list_id  . '?error=donationnotsave'  );
             };
