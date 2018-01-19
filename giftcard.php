@@ -3,9 +3,19 @@
 
 <?php if (has_error()) : ?>
     <?php show_error_message(); ?>
-<?php elseif ( has_giftcard_cookie()) : ?>
-    <?php $cookie = get_giftcard_cookie(); ?>
-    <p class="success_message">Thanks for buying the <?php echo $cookie->amount; ?> giftcard for  <?php echo $cookie->name; ?>.</p>
+
+
+<?php elseif (isset($_GET['giftcard_id'])  ) : ?>
+
+    <?php $giftcard = get_giftcard($_GET['giftcard_id']); ?>
+    <?php  if( isset($_GET['paynow'])  && isset($_GET['paypalurl'])  && $giftcard->status !== 'paid' ) : ?>
+        <p class="success_message"><a href="<?php echo urldecode($_GET['paypalurl']); ?>">Click this link to finish payment of this giftcard for <?php echo convert_cents_to_currency($giftcard->amount); ?>.</a></p>
+    <?php elseif (has_success()): ?>
+        <p class="success_message">Thanks for buying the <?php echo convert_cents_to_currency($giftcard->amount); ?> giftcard for  <?php echo $giftcard->receiver_first_name; ?>.</p>
+    <?php endif; ?>
+
+
+
 <?php endif; ?>
 
 

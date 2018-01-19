@@ -29,7 +29,7 @@
                 <ul>
                     <?php foreach (  $donations as $donation) : ?>
                         <li>
-                            <strong><?php echo $donation->first_name; ?></strong> donated <?php echo convert_cents_to_currency($donation->amount); ?> on <?php  echo $list->created_at; ?>
+                            <strong><?php echo $donation->first_name; ?></strong> donated <?php echo convert_cents_to_currency($donation->amount); ?>  <?php  echo   timeAgoInWords($list->created_at);  ?>
                             <blockquote><?php echo $donation->message ?></blockquote>
 
                         </li>

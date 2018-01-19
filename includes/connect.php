@@ -21,10 +21,12 @@ define("SECRET_KEY", getenv('SECRET_KEY')  ) ;
 define("INITIALIZATION_VECTOR", hex2bin(getenv('INITIALIZATION_VECTOR'))  ) ;
 define("WEBSITE_URL",  getenv('WEBSITE_URL') );
 
-define("BRAINTREE_PUBLIC_KEY", getenv('BRAINTREE_PUBLIC_KEY'));
-define("BRAINTREE_PRIVATE_KEY", getenv('BRAINTREE_PRIVATE_KEY'));
-define("BRAINTREE_MERCHANT_ID", getenv('BRAINTREE_MERCHANT_ID'));
-define("BRAINTREE_ENV", getenv('BRAINTREE_ENV'));
+define("PAYPAL_CLIENT_ID", getenv('PAYPAL_CLIENT_ID'));
+define("PAYPAL_CLIENT_SECRET", getenv('PAYPAL_CLIENT_SECRET'));
+
+define("MAIL_USERNAME", getenv('MAIL_USERNAME'));
+define("MAIL_PASSWORD", getenv('MAIL_PASSWORD'));
+
 
 
 
@@ -44,9 +46,10 @@ try {
 
 
 
-
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 require_once __DIR__ . '/../vendor/autoload.php';
-
+$mail = new PHPMailer(true);                  // Passing `true` enables exceptions
 
 
 ?>

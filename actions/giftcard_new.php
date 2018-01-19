@@ -42,15 +42,17 @@ if ( isset($_POST['submit_new_giftcard']) && isset($_POST['receiver_email']) && 
 
             if(  $giftcard_id ) { // if giftcard saves fine
 
+                $giftcard->id = $giftcard_id;
 
-                // here do braintree stuff
+                // here do paypal stuff
+                // set up paypal payment and generate a link to send the user to
+                $giftcard_payment_redirect_link = getGiftCardPaymentLink($giftcard_id, $amount);
+                if ($giftcard_payment_redirect_link) {
+                    header('Location: ' .  site_url() . '/giftcard/?paynow&giftcard_id=' . $giftcard_id  . '&paypalurl=' . urlencode($giftcard_payment_redirect_link) );
+                } else {
+                    header('Location: ' .  site_url() . '/giftcard/?error=paypalnotwork'  );
+                }
 
-
-                $gift_cookie = convert_gift_to_cookie($giftcard);
-                // set cookie so user can see details of the giftcard he bought
-                setcookie('latest_giftcard', $gift_cookie , time()+600,  '/'  );
-
-                header('Location: ' .  site_url() . '/giftcard/?success');
             } else { // if for some reason the giftcard doesnt save
                 header('Location: ' .  site_url() . '/giftcard/?error=giftcardnotsave'  );
             };

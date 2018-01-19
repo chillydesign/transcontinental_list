@@ -102,6 +102,8 @@ function has_error() {
 
 function error_message_list() {
     return array(
+        'paypalnotwork' => 'We couldnt process this payment at this time. Please try again ',
+        'paymentcancelled' => 'You cancelled the payment. ',
         'notallowedhere' => 'You are not allowed to visit this page. Please try logging in.',
         'notallowedhereadmin' => 'You are not allowed to visit this page.',
         'usernotsave' => 'User account did not save. Please try again.',
@@ -491,6 +493,41 @@ function insert_new_list($list) {
 
 }
 
+
+
+function update_giftcard_status($giftcard) {
+    global $conn;
+    if ( $giftcard->id > 0 ){
+        try {
+
+
+
+            $query = "UPDATE tcg_giftcards SET `status` = :status,
+            `payment_id` = :payment_id,
+            `payer_id` = :payer_id
+            WHERE id = :id";
+            $giftcard_query = $conn->prepare($query);
+            $giftcard_query->bindParam(':status', $giftcard->status);
+            $giftcard_query->bindParam(':payment_id', $giftcard->payment_id);
+            $giftcard_query->bindParam(':payer_id', $giftcard->payer_id);
+            $giftcard_query->bindParam(':id', $giftcard->id);
+            $giftcard_query->execute();
+            unset($conn);
+
+            return true;
+
+        } catch(PDOException $err) {
+            return false;
+
+        };
+
+    } else { // giftcard name was blank
+        return false;
+    }
+
+}
+
+
 function update_list($list) {
     global $conn;
     if ($list->name != '' && $list->user_id > 0 ){
@@ -637,7 +674,8 @@ function insert_new_giftcard($giftcard) {
 function convert_gift_to_cookie($gift) {
     $cookie = new stdClass();
     $cookie->name = $gift->receiver_first_name . ' ' . $gift->receiver_last_name;
-    $cookie->amount = convert_cents_to_currency($gift->amount);
+    $cookie->amount = $gift->amount;
+    $cookie->id = $gift->id;
     return json_encode( $cookie );
 }
 
@@ -654,6 +692,23 @@ function  has_giftcard_cookie() {
         return false;
     }
 }
+
+
+
+function get_giftcard_paypal_url_cookie() {
+    $lgc = ($_COOKIE['giftcard_paypal_url']);
+    return $lgc;
+}
+
+function  has_giftcard_paypal_url_cookie() {
+    if (isset($_COOKIE['giftcard_paypal_url'])) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 
 
 function convert_to_amount_in_cents($string) {
@@ -964,6 +1019,61 @@ function sort_object_by_ids($a, $b) {
 
 
 
+function send_php_mail($to, $subject, $content) {
+
+    $email_header = file_get_contents(dirname(__FILE__) . '/../emails/email_header.html');
+    $email_footer = file_get_contents(dirname(__FILE__) . '/../emails/email_footer.html');
+
+    global $mail;
+
+    try {
+        //Server settings
+        //$mail->SMTPDebug = 2;                     // Enable verbose debug output
+        $mail->isSMTP();                          // Set mailer to use SMTP
+        $mail->Host = 'smtp.gmail.com';           // Specify main and backup SMTP servers
+        $mail->SMTPAuth = true;                   // Enable SMTP authentication
+        $mail->Username = MAIL_USERNAME;          // SMTP username
+        $mail->Password = MAIL_PASSWORD;          // SMTP password
+        $mail->SMTPSecure = 'tls';                // Enable TLS encryption, `ssl` also accepted
+        $mail->Port = 587;
+        //Recipients
+        $mail->setFrom('noreply@transcontinental.ch', 'Transcontinental');
+        $mail->addAddress( $to );     // Add a recipient
+        $mail->addReplyTo('noreply@transcontinental.ch', 'Transcontinental');
+        $mail->addBCC('harvey.charles@gmail.com');
+
+
+        //Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = $subject;
+        $mail->Body    = $email_header . $content . $email_footer;
+        $mail->AltBody = $content;
+
+        $mail->send();
+        return true;
+    } catch (Exception $e) {
+        return false;
+    }
+
+}
+
+
+
+function send_giftcard_email( $giftcard  ) {
+
+    $sender = $giftcard->sender_email;
+    $sender_subject = 'Thanks for sending a giftcard';
+    $sender_content = 'Thanks for sending a giftcard to ' .  $giftcard->receiver_first_name;
+    send_php_mail($sender, $sender_subject, $sender_content);
+
+    $receiver = $giftcard->receiver_email;
+    $receiver_subject = 'You just got a giftcard';
+    $receiver_content = $giftcard->sender_first_name . ' just send you a giftcard.';
+    send_php_mail($receiver, $receiver_subject, $receiver_content);
+
+
+}
+
 
 
 
@@ -982,23 +1092,66 @@ function timeAgoInWords($time) {
 
 
 
-// BRAINTREE AND PAYMENTS
+// PAYPAL AND PAYMENTS
 
-// // credit card integration with braintree
-
-Braintree_Configuration::environment(BRAINTREE_ENV);
-Braintree_Configuration::merchantId(BRAINTREE_MERCHANT_ID);
-Braintree_Configuration::publicKey(BRAINTREE_PUBLIC_KEY);
-Braintree_Configuration::privateKey(BRAINTREE_PRIVATE_KEY);
-
-
-
-function get_braintree_client_token() {
-    return Braintree_ClientToken::generate();
-}
+// // credit card integration with paypal
+function get_paypal_api_context() {
+    $apiContext = new \PayPal\Rest\ApiContext(
+        new \PayPal\Auth\OAuthTokenCredential(
+            PAYPAL_CLIENT_ID,     // ClientID
+            PAYPAL_CLIENT_SECRET     // ClientSecret
+            )
+        );
+        return $apiContext;
+    }
 
 
-// END OF BRAINTREE AND PAYMENTS
+
+    function getGiftCardPaymentLink($giftcard_id, $amount_in_cents) {
+
+        $amountInCHF = money_format( '%i', ($amount_in_cents / 100)  );
+        $apiContext = get_paypal_api_context();
+        $baseURL = site_url() . '/actions/giftcard_payment_finish.php';
+        $returnURL = $baseURL . '?return=true&giftcard_id=' . $giftcard_id;
+        $cancelURL = $baseURL . '?cancel=true&giftcard_id=' . $giftcard_id;
 
 
-?>
+        $payer = new \PayPal\Api\Payer();
+        $payer->setPaymentMethod('paypal');
+
+        $amount = new \PayPal\Api\Amount();
+        $amount->setTotal( $amountInCHF  );
+        $amount->setCurrency('CHF');
+
+        $transaction = new \PayPal\Api\Transaction();
+        $transaction->setAmount($amount);
+
+        $redirectUrls = new \PayPal\Api\RedirectUrls();
+        $redirectUrls->setReturnUrl($returnURL)
+        ->setCancelUrl($cancelURL);
+
+        $payment = new \PayPal\Api\Payment();
+        $payment->setIntent('sale')
+        ->setPayer($payer)
+        ->setTransactions(array($transaction))
+        ->setRedirectUrls($redirectUrls);
+
+
+        try {
+            $payment->create($apiContext);
+            // echo $payment;
+            return  $payment->getApprovalLink();
+        }
+        catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            // This will print the detailed information on the exception.
+            //REALLY HELPFUL FOR DEBUGGING
+            //echo $ex->getData();
+            return false;
+        }
+
+    }
+
+    // END OF PAYPAL AND PAYMENTS
+
+
+    ?>
