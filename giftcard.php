@@ -28,7 +28,7 @@
                 <input type="text" name="sender_last_name" placeholder="Your last name">
             </p>
             <p>
-                <input type="text" name="sender_email" placeholder="Your email">
+                <input type="email" name="sender_email" required placeholder="Your email">
             </p>
             <p>
                 <input type="text" name="receiver_first_name" placeholder="Their first name">
@@ -37,7 +37,7 @@
                 <input type="text" name="receiver_last_name" placeholder="Their last name">
             </p>
             <p>
-                <input type="text" name="receiver_email" placeholder="Their email">
+                <input type="email" name="receiver_email" required  placeholder="Their email">
             </p>
             <p>
                 <textarea name="message" placeholder="Message"></textarea>
@@ -55,7 +55,7 @@
                     <input type="hidden" value="<?php echo $pictures[0]->id; ?>" name="picture" id="picture" />
 
             <?php endif; ?>
-            <p id="amount_container"><input type="text" name="amount" placeholder="amount" id="amount"  /><span>CHF</span></p>
+            <p id="amount_container"><input step="1" required  min="0" max="10000" type="number" name="amount" placeholder="amount" id="amount"  /><span>CHF</span></p>
 
             <p>
                 <input type="submit"  id="submit_button"  name="submit_new_giftcard" value="Submit" />

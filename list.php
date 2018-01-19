@@ -44,15 +44,16 @@
 
                 <form action="<?php get_site_url(); ?>/actions/donation_new.php" method="post">
 
-                    <p><input type="text" name="email" placeholder="email" /></p>
+                    <p><input type="email" required name="email" placeholder="email" /></p>
                     <p><input type="text" name="first_name" placeholder="first name" /></p>
                     <p><input type="text" name="last_name" placeholder="last name" /></p>
                     <p><textarea name="message" placeholder="message"></textarea></p>
-                    <p id="amount_container"><input type="text" name="amount" placeholder="amount" id="amount"  /><span>CHF</span></p>
+                    <p id="amount_container"><input  required step="1"   min="0" max="10000" type="number" name="amount" placeholder="amount" id="amount"  /><span>CHF</span></p>
                     <p>
                         <input type="submit" id="submit_button" name="submit_new_donation" value="Submit" />
                         <input type="hidden" name="list_id" value="<?php echo $list->list_number; ?>" />
                         <div id="spinner"></div>
+
                     </p>
 
                 </form>
