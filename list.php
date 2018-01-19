@@ -48,10 +48,11 @@
                     <p><input type="text" name="first_name" placeholder="first name" /></p>
                     <p><input type="text" name="last_name" placeholder="last name" /></p>
                     <p><textarea name="message" placeholder="message"></textarea></p>
-                    <p><input type="text" name="amount" placeholder="amount" /></p>
+                    <p id="amount_container"><input type="text" name="amount" placeholder="amount" id="amount"  /><span>CHF</span></p>
                     <p>
-                        <input type="submit" name="submit_new_donation" value="Submit" />
+                        <input type="submit" id="submit_button" name="submit_new_donation" value="Submit" />
                         <input type="hidden" name="list_id" value="<?php echo $list->list_number; ?>" />
+                        <div id="spinner"></div>
                     </p>
 
                 </form>

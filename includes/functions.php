@@ -1328,7 +1328,7 @@ function get_paypal_api_context() {
             catch (\PayPal\Exception\PayPalConnectionException $ex) {
                 // This will print the detailed information on the exception.
                 //REALLY HELPFUL FOR DEBUGGING
-                //echo $ex->getData();
+                // var_dump($ex->getData());
                 return false;
             }
 

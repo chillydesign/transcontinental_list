@@ -43,21 +43,23 @@
                 <textarea name="message" placeholder="Message"></textarea>
             </p>
             <?php if (sizeof($pictures) > 0) : ?>
-                <p>
-                    <select id="picture" name="picture">
-                        <?php foreach ($pictures as $picture) : ?>
-                            <option value="<?php echo $picture->id; ?>">Picture <?php echo $picture->id; ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </p>
+                    <?php foreach ($pictures as $picture) : ?>
+                        <figure class="change_picture" data-picture="<?php echo $picture->id; ?>">
+                            <img src="<?php echo $picture->url; ?>"  alt="Picture <?php echo $picture->id; ?>" />
+                            <figcaption>
+                                Picture <?php echo $picture->id; ?>
+                            </figcaption>
+                        </figure>
+                    <?php endforeach; ?>
+
+                    <input type="hidden" value="<?php echo $pictures[0]->id; ?>" name="picture" id="picture" />
+
             <?php endif; ?>
-            <p>
-                <input type="text" name="amount" placeholder="Amount">
-            </p>
-
+            <p id="amount_container"><input type="text" name="amount" placeholder="amount" id="amount"  /><span>CHF</span></p>
 
             <p>
-                <input type="submit" name="submit_new_giftcard" value="Submit" />
+                <input type="submit"  id="submit_button"  name="submit_new_giftcard" value="Submit" />
+                <div id="spinner"></div>
             </p>
 
         </form>
@@ -65,14 +67,6 @@
     </div>
     <div class="col-sm-6">
 
-        <?php foreach ($pictures as $picture) : ?>
-            <figure>
-                <img src="<?php echo $picture->url; ?>"  alt="Picture <?php echo $picture->id; ?>" />
-                <figcaption>
-                    Picture <?php echo $picture->id; ?>
-                </figcaption>
-            </figure>
-        <?php endforeach; ?>
 
 
     </div>

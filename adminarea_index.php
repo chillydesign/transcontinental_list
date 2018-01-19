@@ -53,7 +53,7 @@
         <ul>
             <?php foreach ( get_giftcards() as $giftcard) : ?>
                 <li>
-                    <a href="<?php get_site_url(); ?>/adminarea/giftcard?id=<?php echo $giftcard->id; ?>">
+                    <a href="<?php get_site_url(); ?>/adminarea/giftcard?id=<?php echo  convert_giftcard_id($giftcard->id); ?>">
                         <strong><?php echo convert_cents_to_currency($giftcard->amount); ?> from <?php echo $giftcard->sender_first_name; ?> <?php echo $giftcard->sender_last_name; ?> to  <?php echo $giftcard->receiver_first_name; ?> <?php echo $giftcard->receiver_last_name; ?></strong></a>
                         <br /> Created <?php echo timeAgoInWords($giftcard->created_at); ?>
 

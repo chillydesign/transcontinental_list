@@ -6,6 +6,11 @@
 </footer>
 
 
+<script
+  src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
+  crossorigin="anonymous"></script>
+<script type="text/javascript" src="<?php get_site_url(); ?>/js/scripts.js"></script>
 
 </body>
 </html>

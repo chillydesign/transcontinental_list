@@ -93,6 +93,16 @@ figure {
     width: 100%;
     margin: 0 0 20px;
 
+    &.change_picture {
+        cursor: pointer;
+    }
+
+    &.selected {
+        img {
+            box-shadow: 0 0 10px $brand_color;
+        }
+    }
+
     img {
         max-width: 300px;
         width: 100%;
