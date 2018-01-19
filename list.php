@@ -31,13 +31,10 @@
                 <?php if (has_error()) : ?>
                     <?php show_error_message(); ?>
                 <?php elseif (isset($_GET['donation_id'])  ) : ?>
-                    <?php $donation_id = ($_GET['donation_id']); ?>
-                    <?php $donation = get_donation( $donation_id ); ?>
-                    <?php if ($donation) : ?>
-                        <?php  if( isset($_GET['paynow'])  && isset($_GET['paypalurl'])  && $donation->status !== 'paid' ) : ?>
-                            <p class="success_message"><a href="<?php echo urldecode($_GET['paypalurl']); ?>">Click this link to finish payment of this donation for <?php echo convert_cents_to_currency($donation->amount); ?>.</a></p>
-                        <?php elseif (has_success()): ?>
-                            <p class="success_message">Thanks for the donation!</p>
+                    <?php if (has_success()): ?>
+                        <?php $donation = get_donation($_GET['donation_id']); ?>
+                        <?php if ($donation) : ?>
+                            <p class="success_message">Thanks for the donation of <?php echo convert_cents_to_currency($donation->amount); ?>!</p>
                         <?php endif; ?>
                     <?php endif; ?>
                 <?php endif; ?>

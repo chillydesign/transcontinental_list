@@ -1238,6 +1238,13 @@ function get_paypal_api_context() {
         $cancelURL = $baseURL . '?cancel=true&giftcard_id=' . $giftcard_id;
 
 
+
+        $item1 = new \PayPal\Api\Item();
+        $item1->setName('Giftcard')->setCurrency('CHF')->setQuantity(1)->setPrice( $amountInCHF );
+
+        $itemList = new \PayPal\Api\ItemList();
+        $itemList->setItems(array($item1));
+
         $payer = new \PayPal\Api\Payer();
         $payer->setPaymentMethod('paypal');
 
@@ -1247,10 +1254,12 @@ function get_paypal_api_context() {
 
         $transaction = new \PayPal\Api\Transaction();
         $transaction->setAmount($amount);
+        $transaction->setItemList($itemList);
+        $transaction->setDescription("Buying a giftcard");
+
 
         $redirectUrls = new \PayPal\Api\RedirectUrls();
-        $redirectUrls->setReturnUrl($returnURL)
-        ->setCancelUrl($cancelURL);
+        $redirectUrls->setReturnUrl($returnURL)->setCancelUrl($cancelURL);
 
         $payment = new \PayPal\Api\Payment();
         $payment->setIntent('sale')
@@ -1283,6 +1292,12 @@ function get_paypal_api_context() {
             $cancelURL = $baseURL . '?cancel=true&donation_id=' . $donation_id;
 
 
+            $item1 = new \PayPal\Api\Item();
+            $item1->setName('Donation')->setCurrency('CHF')->setQuantity(1)->setPrice( $amountInCHF );
+
+            $itemList = new \PayPal\Api\ItemList();
+            $itemList->setItems(array($item1));
+
             $payer = new \PayPal\Api\Payer();
             $payer->setPaymentMethod('paypal');
 
@@ -1292,10 +1307,11 @@ function get_paypal_api_context() {
 
             $transaction = new \PayPal\Api\Transaction();
             $transaction->setAmount($amount);
+            $transaction->setItemList($itemList);
+            $transaction->setDescription("Donation");
 
             $redirectUrls = new \PayPal\Api\RedirectUrls();
-            $redirectUrls->setReturnUrl($returnURL)
-            ->setCancelUrl($cancelURL);
+            $redirectUrls->setReturnUrl($returnURL)->setCancelUrl($cancelURL);
 
             $payment = new \PayPal\Api\Payment();
             $payment->setIntent('sale')

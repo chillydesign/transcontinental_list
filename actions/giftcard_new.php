@@ -44,9 +44,11 @@ if ( isset($_POST['submit_new_giftcard']) && isset($_POST['receiver_email']) && 
 
                 // here do paypal stuff
                 // set up paypal payment and generate a link to send the user to
-                $giftcard_payment_redirect_link = getGiftCardPaymentLink($giftcard_id, $amount);
+                $giftcard_payment_redirect_link = getGiftCardPaymentLink($giftcard_id,  $giftcard->amount  );
                 if ($giftcard_payment_redirect_link) {
-                    header('Location: ' .  site_url() . '/giftcard/?paynow&giftcard_id=' . $giftcard_id  . '&paypalurl=' . urlencode($giftcard_payment_redirect_link) );
+                    //redirect user to paypal
+                    header("HTTP/1.1 402 Payment Required");
+                    header('Location: ' . ($giftcard_payment_redirect_link) );
                 } else {
                     header('Location: ' .  site_url() . '/giftcard/?error=paypalnotwork'  );
                 }

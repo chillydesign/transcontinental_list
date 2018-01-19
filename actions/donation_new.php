@@ -40,9 +40,11 @@ if ( isset($_POST['list_id'])  && isset($_POST['submit_new_donation']) &&   isse
 
                 // here do paypal stuff
                 // set up paypal payment and generate a link to send the user to
-                $donation_payment_redirect_link = getDonationPaymentLink($donation_id, $amount);
+                $donation_payment_redirect_link = getDonationPaymentLink($donation_id,  $donation->amount );
                 if ($donation_payment_redirect_link) {
-                    header('Location: '  .  site_url() . '/list/'. $list_id  .  '?paynow&donation_id=' . $donation_id  . '&paypalurl=' . urlencode($donation_payment_redirect_link) );
+                    //redirect user to paypal
+                    header("HTTP/1.1 402 Payment Required");
+                    header('Location: ' . ($donation_payment_redirect_link) );
                 } else {
                     header('Location: ' .  site_url() . '/list/'. $list_id  . '?error=paypalnotwork');
                 }
