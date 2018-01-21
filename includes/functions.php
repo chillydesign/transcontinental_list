@@ -444,6 +444,37 @@ function get_user($user_id = null) {
 
 
 
+function get_user_from_reset_code( $reset_password_token=null) {
+
+    global $conn;
+    if ( $reset_password_token != null ) {
+
+        try {
+            $query = "SELECT * FROM tcg_users WHERE reset_password_token = :reset_password_token";
+            $user_query = $conn->prepare($query);
+            $user_query->bindParam(':reset_password_token', $reset_password_token);
+            $user_query->setFetchMode(PDO::FETCH_OBJ);
+            $user_query->execute();
+
+            $user_count = $user_query->rowCount();
+
+
+            if ($user_count == 1) {
+                $user =  $user_query->fetch();
+                return $user;
+            } else {
+                return false;
+            }
+
+            unset($conn);
+        } catch(PDOException $err) {
+            return false;
+        };
+    } else { //  if no token sent
+        return false;
+    }
+}
+
 
 
 function get_list($list_id = null) {
@@ -560,6 +591,35 @@ function insert_new_list($list) {
 
 
 }
+
+
+function update_user_password($user) {
+    global $conn;
+    if ( $user && $user->reset_password_token != '' ){
+
+        # reset the password and update the token to be nil
+        try {
+
+            $query = "UPDATE tcg_users SET `password_digest` = :password_digest, reset_password_token = '' WHERE id = :id";
+            $user_query = $conn->prepare($query);
+            $user_query->bindParam(':password_digest', $user->password_digest);
+            $user_query->bindParam(':id', $user->id);
+            $user_query->execute();
+            unset($conn);
+
+            return true;
+
+        } catch(PDOException $err) {
+            return false;
+
+        };
+
+    } else { // user name was blank
+        return false;
+    }
+
+}
+
 
 
 
@@ -1194,6 +1254,48 @@ function send_donation_email( $donation , $list ) {
         send_php_mail($receiver, $receiver_subject, $receiver_content);
     }
 
+
+}
+
+
+function getRandomHex($num_bytes=4) {
+  return bin2hex(openssl_random_pseudo_bytes($num_bytes));
+}
+
+
+
+function generate_password_token($email) {
+    global $conn;
+
+    if (  is_valid_email($email)  ){
+        $reset_password_token = getRandomHex(8);
+        try {
+            $query = "UPDATE tcg_users SET `reset_password_token` = :reset_password_token,
+            `reset_password_sent_at` = CURRENT_TIMESTAMP WHERE email = :email";
+            $user_query = $conn->prepare($query);
+            $user_query->bindParam(':reset_password_token', $reset_password_token);
+            $user_query->bindParam(':email', $email);
+            $user_query->execute();
+            unset($conn);
+
+            $count = $user_query->rowCount();
+
+            if ($count > 0) {
+                return true;
+            } else {
+                return false;
+            }
+
+            return true;
+
+        } catch(PDOException $err) {
+            return false;
+
+        };
+
+    } else { // giftcard name was blank
+        return false;
+    }
 
 }
 
