@@ -42,14 +42,6 @@ body {
     height: 50px;
 }
 
-.creation_date {
-	display: block;
-	font-size: 0.8em;
-	font-style: italic;
-	color: #777;
-	margin-top: 5px;
-}
-
 .error_message, .success_message {
     display: block;
     background: $brand_color;
@@ -79,4 +71,45 @@ body {
 	padding: 30px;
 	background: #f7f7f7;
 	margin-bottom: 30px;
+}
+
+a.list_button {display: inline-block;}
+
+img {width: 100%; height: auto;}
+
+
+li.list_list_item {
+    border: solid 1px;
+    background: #fcfcfc;
+    margin-bottom: 20px;
+		max-width: 700px;
+}
+
+.list_list {
+	display: inline-block;
+	padding: 15px;
+	vertical-align: top;
+	color: #555;
+	font-size: 1.5em;
+}
+.list_list_img { width: 150px;}
+
+.list_list_desc{
+	 width: calc(100% - 320px);
+	 text-transform: uppercase;
+ }
+.list_list_amount {width: 150px; }
+
+.creation_date {
+	display: block;
+	font-size: 0.6em;
+	font-style: italic;
+	color: #777;
+	margin-top: 0px;
+	text-transform: none;
+}
+
+@media(max-width:650px){
+	.list_list {width: 100%;}
+	.list_list_img { display: none;}
 }
