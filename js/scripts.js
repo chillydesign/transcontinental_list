@@ -46,7 +46,7 @@
         });
 
 
-
+        $('.half_block').matchHeight();
 
 
 

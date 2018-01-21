@@ -20,10 +20,10 @@
         <?php endif; ?>
 
         <p>
-            <input type="text" name="name" placeholder="name" value="<?php echo $list->name; ?>"  />
+            <input type="text" name="name" placeholder="Nom" value="<?php echo $list->name; ?>"  />
         </p>
         <p>
-            <textarea name="description" placeholder="description"><?php echo $list->description; ?></textarea>
+            <textarea name="description" placeholder="Description"><?php echo $list->description; ?></textarea>
         </p>
         <p>
             <label for="active">
@@ -36,9 +36,9 @@
             <?php foreach ($pictures as $picture) : ?>
                 <?php $selected = ( $picture->id == $list->picture ) ? 'selected"'  : '' ; ?>
                 <figure class="change_picture <?php echo $selected; ?>" data-picture="<?php echo $picture->id; ?>">
-                    <img src="<?php echo $picture->url; ?>"  alt="Picture <?php echo $picture->id; ?>" />
+                    <img src="<?php echo $picture->url; ?>"  alt="Image <?php echo $picture->id; ?>" />
                     <figcaption>
-                        Picture <?php echo $picture->id; ?>
+                        Image <?php echo $picture->id; ?>
                     </figcaption>
                 </figure>
             <?php endforeach; ?>
@@ -48,7 +48,7 @@
 
         <?php endif; ?>
         <p>
-            <input type="submit" name="submit_edit_list" value="Edit" />
+            <input type="submit" name="submit_edit_list" value="Modifier" />
         </p>
 
 

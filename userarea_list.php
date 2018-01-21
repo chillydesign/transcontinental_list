@@ -9,7 +9,11 @@
 
 
 
-                <p>Your list number is  <a href="<?php get_site_url(); ?>/list/<?php echo $list->list_number; ?>"><?php echo $list->list_number; ?></a></p>
+                <p>
+                  Le numéro de votre liste est  <a href="<?php get_site_url(); ?>/list/<?php echo $list->list_number; ?>"><?php echo $list->list_number; ?></a><br>
+                  Vous pouvez envoyer ce numéro de liste à vos contacts, ou directement l'url suivante : <a href="<?php get_site_url(); ?>/list/<?php echo $list->list_number; ?>"><?php get_site_url(); ?>/list/<?php echo $list->list_number; ?></a>
+                </p>
+
 
 
                 <?php if($list->description != ''): ?>
@@ -24,13 +28,13 @@
 
 
                 <?php $donations = get_donations( $list->id, 'paid'  ); ?>
-                <h2>List of donators</h2>
-                <p>Total donations to this list: <?php  echo sum_donations($donations);  ?>.</p>
+                <h2>Donations</h2>
+                <p>Montant total contribué sur cette liste: <?php  echo sum_donations($donations);  ?>.</p>
                 <table>
                     <thead>
                         <tr>
-                            <th>From</th>
-                            <th>Amount</th>
+                            <th>De la part de</th>
+                            <th>Montant</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,7 +60,7 @@
                 <?php if (has_error()) : ?>
                     <?php show_error_message(); ?>
                 <?php endif; ?>
-                <h2>Edit list</h2>
+                <h2>Modifier la liste</h2>
                 <?php include('includes/edit_list_form.php'); ?>
 
             </div>
@@ -65,5 +69,5 @@
 
     <?php endif; // dont allow other users to see this list ?>
 <?php else: ?>
-    <p>Sorry, no list found. </p>
+    <p>Aucune liste trouvée </p>
 <?php endif; ?>

@@ -1,4 +1,4 @@
-<h1>User area</h1>
+<h1>Vos listes</h1>
 
 
 <ul>
@@ -6,11 +6,12 @@
         <li>
             <a href="<?php get_site_url(); ?>/userarea/list?id=<?php echo $list->list_number; ?>">
                 <strong><?php echo $list->name; ?></strong>
-                (Created <?php  echo timeAgoInWords($list->created_at); ?>)
+                <!-- (Créée le <?php  echo timeAgoInWords($list->created_at); ?>) -->
+                <span class="creation_date">Créée le <?php  echo date('d/m/Y', strtotime($list->created_at)); ?></span>
             </a>
 
         </li>
     <?php endforeach; ?>
 
-    <li><a href="<?php get_site_url(); ?>/userarea/newlist">Create a new list</a></li>
+    <li><a href="<?php get_site_url(); ?>/userarea/newlist">Créer une liste</a></li>
 </ul>

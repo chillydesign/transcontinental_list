@@ -66,8 +66,8 @@
 
 
     <?php else: ?>
-        <p>Sorry. This list is currently inactive. </p>
+        <p>Cette liste n'est pas active à l'heure actuelle.</p>
     <?php endif; ?>
 <?php else: ?>
-    <p>Sorry. No list matches this number. </p>
+    <p>Ce numéro de correspond à aucune liste. Veuillez réessayer. </p>
 <?php endif; ?>

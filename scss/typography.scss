@@ -36,29 +36,7 @@ li {
 }
 
 
-.error_message, .success_message {
-    display: block;
-    background: $brand_color;
-    padding: 10px;
-    margin: 0 0 20px;
-    color: white;
-    border-radius: 5px;
 
-    &.success_message {
-        background-color: adjust-hue($brand_color, 180);
-    }
-}
-
-
-.tc_button {
-    display: inline-block;
-    background: $brand_color;
-    padding: 10px;
-    margin: 0 0 5px;
-    border-radius: 5px;
-    color: white;
-    text-decoration: none;
-}
 
 
 form {

@@ -19,14 +19,14 @@
             </p>
             <?php endif; ?>
             <p>
-                <input type="text" name="name" placeholder="name" />
+                <input type="text" name="name" placeholder="Nom" />
             </p>
             <p>
-                <textarea name="description" placeholder="description"></textarea>
+                <textarea name="description" placeholder="Description"></textarea>
             </p>
             <p>
                 <label for="active">
-                    <input type="checkbox" id="active" name="active" value="1"  />
+                    <input type="checkbox" checked="checked" id="active" name="active" value="1"  />
                     Active
                 </label>
             </p>
@@ -34,9 +34,9 @@
 
                 <?php foreach ($pictures as $picture) : ?>
                     <figure class="change_picture" data-picture="<?php echo $picture->id; ?>">
-                        <img src="<?php echo $picture->url; ?>"  alt="Picture <?php echo $picture->id; ?>" />
+                        <img src="<?php echo $picture->url; ?>"  alt="Image <?php echo $picture->id; ?>" />
                         <figcaption>
-                            Picture <?php echo $picture->id; ?>
+                            Image <?php echo $picture->id; ?>
                         </figcaption>
                     </figure>
                 <?php endforeach; ?>
@@ -45,7 +45,7 @@
 
             <?php endif; ?>
             <p>
-                <input type="submit" name="submit_new_list" value="Submit" />
+                <input type="submit" name="submit_new_list" value="Créer la liste" />
             </p>
 
 

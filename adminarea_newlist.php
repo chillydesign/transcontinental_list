@@ -1,4 +1,4 @@
-<h1>New List</h1>
+<h1>Créer une liste</h1>
 
 
 <?php if (has_error()) : ?>

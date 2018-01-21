@@ -102,21 +102,21 @@ function has_error() {
 
 function error_message_list() {
     return array(
-        'paypalnotwork' => 'We couldnt process this payment at this time. Please try again ',
-        'paymentcancelled' => 'You cancelled the payment. ',
-        'notallowedhere' => 'You are not allowed to visit this page. Please try logging in.',
-        'notallowedhereadmin' => 'You are not allowed to visit this page.',
-        'usernotsave' => 'User account did not save. Please try again.',
-        'passwordnotmatch' => 'Passwords do not match. Please try again.',
-        'passwordtooshort' => 'Password must be at least 6 characters. Please try again.',
-        'couldntlogin' => 'Could not log in. Please try again.',
-        'donationnotsave' => 'Donation did not save. Please try again.',
-        'emailnotvalid' => 'Email address is not valid. Please try again.',
-        'donationnamountblank' => 'Amount and email cannot be blank',
-        'listnotsave' => 'List did not save. Please try again.',
-        'listnameblank' => 'List name cannot be blank.',
-        'giftcardamountlow' => 'Amount is too low. Please try again',
-        'unspecified' => 'An error occured. Please try again.',
+        'paypalnotwork' => 'La transaction a échoué. Veuillez réessayer.',
+        'paymentcancelled' => 'Vous avez annulé le paiement.',
+        'notallowedhere' => 'Vous n\'avez pas l\'autorisation d\'accéder à cette page. Veuillez vous connecter.',
+        'notallowedhereadmin' => 'Vous n\'avez pas l\'autorisation d\'accéder à cette page.',
+        'usernotsave' => 'Le compte utilisateur n\'a pas pu être enregistré. Veuillez réessayer.',
+        'passwordnotmatch' => 'Le mot de passe et sa confirmation doivent être identiques. Veuillez réessayer.',
+        'passwordtooshort' => 'Le mot de passe doit comprendre 6 caractères minimum. Veuillez réessayer.',
+        'couldntlogin' => 'Echec de connexion. Veuillez réessayer.',
+        'donationnotsave' => 'La donation n\'a pas pu être enregistrée. Veuillez réessayer.',
+        'emailnotvalid' => 'Cette adresse email n\'est pas valide. Veuillez réessayer.',
+        'donationnamountblank' => 'Veuillez saisir un montant et une adresse email.',
+        'listnotsave' => 'La liste n\'a pas pu être enregistrée. Veuillez réessayer.',
+        'listnameblank' => 'Veuillez saisir le nom de la liste.',
+        'giftcardamountlow' => 'Le montant est trop bas. Veuillez réessayer.',
+        'unspecified' => 'Une erreur s\'est produite. Veuillez réessayer.',
     );
 }
 
