@@ -23,7 +23,7 @@
           <p><input type="password" name="password" placeholder="mot de passe" /></p>
           <p><input type="submit" name="connect_user" value="Connexion" /></p>
       </form>
-        <p>Pas encore de compte? <a href="<?php echo get_site_url(); ?>">Créez-le ici.</a></p>
+        <p>Pas encore de compte? <a href="<?php echo get_site_url(); ?>">Créez-le ici.</a>  <a href="<?php echo get_site_url(); ?>/forgotpassword">Forgot your password?</a>  </p>
     </div>
   </div>
 
