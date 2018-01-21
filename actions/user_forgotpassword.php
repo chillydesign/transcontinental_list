@@ -14,8 +14,13 @@ if ( isset($_POST['email'])   && isset($_POST['user_forgotpassword'])  ) {
         if( $generate_password_token ) {
 
             //TODO SEND EMAIL HERE
-
-            header('Location: ' .  site_url() . "/forgotpassword/?success"  );
+            $user = get_user_from_email($email);
+            if ($user) {
+                send_user_reset_password_email($user);
+                header('Location: ' .  site_url() . "/forgotpassword/?success"  );
+            } else {
+                header('Location: ' .  site_url() . "/forgotpassword?error=couldntresetpassword"  );
+            }
         } else {
             header('Location: ' .  site_url() . "/forgotpassword?error=couldntresetpassword"  );
         };

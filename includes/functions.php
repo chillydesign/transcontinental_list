@@ -444,13 +444,48 @@ function get_user($user_id = null) {
 
 
 
+
+function get_user_from_email( $email=null) {
+
+    global $conn;
+    if ( $email != null ) {
+
+        try {
+            $query = "SELECT * FROM tcg_users WHERE email = :email LIMIT 1";
+            $user_query = $conn->prepare($query);
+            $user_query->bindParam(':email', $email);
+            $user_query->setFetchMode(PDO::FETCH_OBJ);
+            $user_query->execute();
+
+            $user_count = $user_query->rowCount();
+
+
+            if ($user_count == 1) {
+                $user =  $user_query->fetch();
+                return $user;
+            } else {
+                return false;
+            }
+
+            unset($conn);
+        } catch(PDOException $err) {
+            return false;
+        };
+    } else { //  if no token sent
+        return false;
+    }
+}
+
+
+
+
 function get_user_from_reset_code( $reset_password_token=null) {
 
     global $conn;
     if ( $reset_password_token != null ) {
 
         try {
-            $query = "SELECT * FROM tcg_users WHERE reset_password_token = :reset_password_token";
+            $query = "SELECT * FROM tcg_users WHERE reset_password_token = :reset_password_token LIMIT 1";
             $user_query = $conn->prepare($query);
             $user_query->bindParam(':reset_password_token', $reset_password_token);
             $user_query->setFetchMode(PDO::FETCH_OBJ);
@@ -1219,6 +1254,21 @@ function send_php_mail($to, $subject, $content) {
 
 
 
+function send_user_reset_password_email( $user  ) {
+
+    if ($user) {
+        $receiver = $user->email;
+        $receiver_subject = 'Your Savio password has been reset';
+        $receiver_content = 'Your password with Transcontinental gift list has been reset. Please go <a href="'. WEBSITE_URL  . "/resetpassword/" . $user->reset_password_token  . '">to this link</a> to reset your password. If you didnt ask for your password to be reset please ignore this email.';
+
+        send_php_mail($receiver, $receiver_subject, $receiver_content);
+    }
+
+
+}
+
+
+
 function send_giftcard_email( $giftcard  ) {
 
     $sender = $giftcard->sender_email;
@@ -1261,6 +1311,8 @@ function send_donation_email( $donation , $list ) {
 function getRandomHex($num_bytes=4) {
   return bin2hex(openssl_random_pseudo_bytes($num_bytes));
 }
+
+
 
 
 
