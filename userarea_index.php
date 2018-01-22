@@ -1,4 +1,4 @@
-<div class="page_image" style="background-image:url('<?php echo get_site_url(); ?>/images/honeymoon.jpg'); overflow: hidden;"></div>
+<div class="page_image" style="background-image:url('<?php echo site_url(); ?>/images/honeymoon.jpg'); overflow: hidden;"></div>
 
 <div class="container">
   <h1>Vos listes</h1>
@@ -9,7 +9,7 @@
           <li class="list_list_item">
               <a href="<?php get_site_url(); ?>/userarea/list?id=<?php echo $list->list_number; ?>">
                 <div class="list_list list_list_img">
-                  <img src="<?php echo get_site_url();?>/images/lists/<?php echo $list->picture; ?>.jpg">
+                  <img src="<?php echo site_url();?>/images/lists/<?php echo $list->picture; ?>.jpg">
                 </div>
                 <div class="list_list list_list_desc">
                   <strong><?php echo $list->name; ?></strong>

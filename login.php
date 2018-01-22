@@ -1,4 +1,4 @@
-<div class="page_image" style="background-image:url('<?php echo get_site_url(); ?>/images/honeymoon.jpg'); overflow: hidden;"></div>
+<div class="page_image" style="background-image:url('<?php echo site_url(); ?>/images/honeymoon.jpg'); overflow: hidden;"></div>
 <div class="container">
   <h1>Listes de mariage et d'anniversaire</h1>
 
@@ -20,7 +20,7 @@
           <p><input type="password" name="password" placeholder="mot de passe" /></p>
           <p><input type="submit" name="connect_user" value="Connexion" /></p>
       </form>
-        <p>Pas encore de compte? <a href="<?php echo get_site_url(); ?>">Créez-le ici.</a>  <a href="<?php echo get_site_url(); ?>/forgotpassword">Mot de passe oublié?</a>  </p>
+        <p>Pas encore de compte? <a href="<?php echo site_url(); ?>">Créez-le ici.</a>  <a href="<?php echo site_url(); ?>/forgotpassword">Mot de passe oublié?</a>  </p>
     </div>
   </div>
 

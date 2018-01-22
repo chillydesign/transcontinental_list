@@ -1,4 +1,4 @@
-<div class="page_image" style="background-image:url('<?php echo get_site_url(); ?>/images/giftcard.jpg'); overflow: hidden;"></div>
+<div class="page_image" style="background-image:url('<?php echo site_url(); ?>/images/giftcard.jpg'); overflow: hidden;"></div>
 <div class="container">
 
 <h1>Offrir un bon cadeau</h1>

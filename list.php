@@ -82,13 +82,13 @@
 </div>
 
     <?php else: ?>
-        <div class="page_image" style="background-image:url('<?php echo get_site_url() . '/images/honeymoon.jpg';?>'); overflow: hidden;"></div>
+        <div class="page_image" style="background-image:url('<?php echo site_url() . '/images/honeymoon.jpg';?>'); overflow: hidden;"></div>
         <div class="container">
           <p>Cette liste n'est pas active à l'heure actuelle.</p>
         </div>
     <?php endif; ?>
 <?php else: ?>
-  <div class="page_image" style="background-image:url('<?php echo get_site_url() . '/images/honeymoon.jpg';?>'); overflow: hidden;"></div>
+  <div class="page_image" style="background-image:url('<?php echo site_url() . '/images/honeymoon.jpg';?>'); overflow: hidden;"></div>
   <div class="container">
     <p>Ce numéro de correspond à aucune liste. Veuillez réessayer. </p>
   </div>
