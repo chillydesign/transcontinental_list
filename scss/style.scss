@@ -4,15 +4,15 @@
 
 
 body {
-	background: $background_color;
-	color: $font_color;
-	font-family: $font_stack;
-	font-size: 62.5%;
-	font-weight: normal;
+    background: $background_color;
+    color: $font_color;
+    font-family: $font_stack;
+    font-size: 62.5%;
+    font-weight: normal;
 }
 
 
- //@import 'typography';
+//@import 'typography';
 @import 'header';
 @import 'footer';
 
@@ -67,10 +67,10 @@ body {
 }
 
 .half_block {
-	border: solid 1px black;
-	padding: 30px;
-	background: #f7f7f7;
-	margin-bottom: 30px;
+    border: solid 1px black;
+    padding: 30px;
+    background: #f7f7f7;
+    margin-bottom: 30px;
 }
 
 a.list_button {display: inline-block;}
@@ -82,44 +82,44 @@ li.list_list_item {
     border: solid 1px;
     background: #fcfcfc;
     margin-bottom: 20px;
-		max-width: 700px;
+    max-width: 700px;
 }
 
 .list_list {
-	display: inline-block;
-	padding: 15px;
-	vertical-align: top;
-	color: #555;
-	font-size: 1.5em;
+    display: inline-block;
+    padding: 15px;
+    vertical-align: top;
+    color: #555;
+    font-size: 1.5em;
 }
 .list_list_img { width: 150px;}
 
 .list_list_desc{
-	 width: calc(100% - 320px);
-	 text-transform: uppercase;
- }
+    width: calc(100% - 320px);
+    text-transform: uppercase;
+}
 .list_list_amount {width: 150px; }
 
 .creation_date {
-	display: block;
-	font-size: 0.6em;
-	font-style: italic;
-	color: #777;
-	margin-top: 0px;
-	text-transform: none;
+    display: block;
+    font-size: 0.6em;
+    font-style: italic;
+    color: #777;
+    margin-top: 0px;
+    text-transform: none;
 }
 
 @media(max-width:650px){
-	.list_list {width: 100%;}
-	.list_list_img { display: none;}
+    .list_list {width: 100%;}
+    .list_list_img { display: none;}
 }
 
 a.list_button.right_list_button {
-	display: block;
-	text-align: center;
-	text-transform: uppercase;
-	font-size: 1.2em;
-	margin-top: 57px;
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.2em;
+    margin-top: 57px;
 }
 
 textarea {min-height: 120px;}
@@ -131,15 +131,17 @@ input[type="checkbox"] {
 .allfigs {margin: -20px -30px 20px -10px}
 figure.change_picture {
     width: calc(50% - 22px);
-    margin: 5px;
-		padding: 5px 5px 2px;
+    margin: 1px;
+    padding: 5px 5px 2px;
     display: inline-block;
-		cursor: pointer;
+    cursor: pointer;
+    border: solid 4px transparent;
+    &.selected {
+        border: solid 4px $brand_color;
+    }
 }
 
-figure.change_picture.selected {
-    border: solid 4px #e40129;
-}
+
 
 figcaption{text-indent: -99999px;}
 
@@ -148,7 +150,7 @@ tr {
 }
 
 .infos_supp {
-	color: #555;
-	font-style: italic;
-	margin: -15px 0 0;
+    color: #555;
+    font-style: italic;
+    margin: -15px 0 0;
 }
