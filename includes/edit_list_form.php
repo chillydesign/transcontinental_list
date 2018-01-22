@@ -20,9 +20,11 @@
         <?php endif; ?>
 
         <p>
+            <label for="name">Nom de la liste</label>
             <input type="text" name="name" placeholder="Nom" value="<?php echo $list->name; ?>"  />
         </p>
         <p>
+            <label for="description">Description</label>
             <textarea name="description" placeholder="Description"><?php echo $list->description; ?></textarea>
         </p>
         <p>
@@ -32,17 +34,18 @@
             </label>
         </p>
         <?php if (sizeof($pictures) > 0) : ?>
-
+              <p><label>Image</label></p>
+              <div class="allfigs">
             <?php foreach ($pictures as $picture) : ?>
                 <?php $selected = ( $picture->id == $list->picture ) ? 'selected"'  : '' ; ?>
                 <figure class="change_picture <?php echo $selected; ?>" data-picture="<?php echo $picture->id; ?>">
                     <img src="<?php echo $picture->url; ?>"  alt="Image <?php echo $picture->id; ?>" />
-                    <figcaption>
+                    <!-- <figcaption>
                         Image <?php echo $picture->id; ?>
-                    </figcaption>
+                    </figcaption> -->
                 </figure>
             <?php endforeach; ?>
-
+          </div>
             <input type="hidden" value="<?php echo $picture->id; ?>" name="picture" id="picture" />
 
 

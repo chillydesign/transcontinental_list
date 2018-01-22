@@ -1,3 +1,6 @@
+<div class="page_image" style="background-image:url('<?php echo get_site_url(); ?>/images/giftcard.jpg'); overflow: hidden;"></div>
+<div class="container">
+
 <h1>Offrir un bon cadeau</h1>
 <?php $pictures = find_pictures('giftcards'); ?>
 
@@ -18,6 +21,7 @@
 <div class="row">
 
     <div class="col-sm-6">
+      <div class="half_block">
 
         <form action="<?php get_site_url(); ?>/actions/giftcard_new.php" method="post">
             <p>De la part de: </p>
@@ -45,27 +49,34 @@
                 <textarea name="message" placeholder="Message"></textarea>
             </p>
             <?php if (sizeof($pictures) > 0) : ?>
+              <p><label>Image</label></p>
+              <div class="allfigs">
                     <?php foreach ($pictures as $picture) : ?>
                         <figure class="change_picture" data-picture="<?php echo $picture->id; ?>">
                             <img src="<?php echo $picture->url; ?>"  alt="Image <?php echo $picture->id; ?>" />
-                            <figcaption>
+                            <!-- <figcaption>
                                 Image <?php echo $picture->id; ?>
-                            </figcaption>
+                            </figcaption> -->
                         </figure>
                     <?php endforeach; ?>
+              </div>
 
                     <input type="hidden" value="<?php echo $pictures[0]->id; ?>" name="picture" id="picture" />
 
             <?php endif; ?>
-            <p id="amount_container"><input step="1" required  min="0" max="10000" type="number" name="amount" placeholder="Montant" id="amount"  /><span>CHF</span></p>
+            <p id="amount_container">
+              <label for="amount">Montant</label>
+              <input step="1" required  min="0" max="10000" type="number" name="amount" placeholder="" id="amount"  /><span style="margin-top: 13px;">CHF</span>
+            </p>
 
             <p>
-                <input type="submit"  id="submit_button"  name="submit_new_giftcard" value="Acheter" />
+                <input type="submit"  id="submit_button"  name="submit_new_giftcard" value="Offrir" />
                 <div id="spinner"></div>
             </p>
 
         </form>
 
+    </div>
     </div>
     <div class="col-sm-6">
 
@@ -73,4 +84,5 @@
 
     </div>
 
+</div>
 </div>

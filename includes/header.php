@@ -22,14 +22,14 @@
       <div class="col-md-9">
         <nav id="nav" class="nav" role="navigation">
           <ul>
-              <li><a href="<?php get_site_url(); ?>">Listes de mariage et d'anniversaire</a></li>
               <li><a href="<?php get_site_url(); ?>/giftcard">Bons cadeaux</a></li>
               <?php if (current_user() ): ?>
-              <li><a href="<?php get_site_url(); ?>/userarea">User area</a></li>
-              <li> <a href="<?php get_site_url(); ?>/actions/user_logout.php">Logout</a></li>
+              <li><a href="<?php get_site_url(); ?>/userarea">Mes listes</a></li>
+              <li><a href="<?php get_site_url(); ?>">Contribuer à une liste</a></li>
+              <li> <a href="<?php get_site_url(); ?>/actions/user_logout.php">Déconnexion</a></li>
               <?php else: ?>
-              <li><a href="<?php get_site_url(); ?>/login">Login</a></li>
-              <li><a href="<?php get_site_url(); ?>/register">Register</a></li>
+              <li><a href="<?php get_site_url(); ?>">Listes de mariage et d'anniversaire</a></li>
+              <li><a href="<?php get_site_url(); ?>/login">Connexion</a></li>
               <?php endif; ?>
           </ul>
         </nav>
