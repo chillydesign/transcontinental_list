@@ -7,8 +7,8 @@
     <meta name="description" content="">
     <title>Transcontintental</title>
     <link rel="shortcut icon" href="images/favicon.png">
-    <link href="http://transcontinental.ch/wp-content/themes/transcontinental2/css/reset.css?ver=1.0"  rel="stylesheet" />
-    <link href="http://transcontinental.ch/wp-content/themes/transcontinental2/style.css?v=<?php echo current_version(); ?>"  rel="stylesheet" />
+    <link href="https://transcontinental.ch/wp-content/themes/transcontinental2/css/reset.css?ver=1.0"  rel="stylesheet" />
+    <link href="https://transcontinental.ch/wp-content/themes/transcontinental2/style.css?v=<?php echo current_version(); ?>"  rel="stylesheet" />
     <link href="<?php get_site_url(); ?>/css/style.css?v=<?php echo current_version(); ?>"  rel="stylesheet" />
 </head>
 <body>
@@ -18,7 +18,7 @@
   <header class="header clear" id="header">
     <div class="container-fluid" >
     <div class="row">
-      <div class="col-md-3"><a class="logo" href="http://transcontinental.ch/"><img src="http://transcontinental.ch/wp-content/themes/transcontinental2/img/logo.png" alt="" /></a></div>
+      <div class="col-md-3"><a class="logo" href="https://transcontinental.ch/"><img src="https://transcontinental.ch/wp-content/themes/transcontinental2/img/logo.png" alt="" /></a></div>
       <div class="col-md-9">
         <nav id="nav" class="nav" role="navigation">
           <ul>
