@@ -25,7 +25,7 @@ if ( isset($_POST['reset_code'])   && isset($_POST['user_resetpassword'])  ) {
                     $update_user_password = update_user_password($user);
 
                     if ($update_user_password) {
-                        header('Location: ' . $redirect .  "/" . $reset_code . '?succcess' );
+                        header('Location: ' . $redirect .  "/" . $reset_code . '?success' );
                     } else {
                         header('Location: ' . $redirect .  "/" . $reset_code . '?error=couldntupdatepassword'  );
                     }
