@@ -41,11 +41,11 @@ function current_page(){
 function current_page_exists(){
     if ( isset($_GET['page']) ) {
         $page = $_GET['page'];
-        if ( strpos(  WEBSITE_URL, 'localhost') > -1 )  {
+        if ( strpos(  WEBSITE_URL, 'locasdflhost') > -1 )  {
             $file = '/Applications/MAMP/htdocs/transcontinental_list/' .$page . '.php';
         } else {
             $path = realpath(dirname(__FILE__));
-            $file = $path . '../' .$page . '.php';
+            $file = $path . '/../' .$page . '.php';
         }
 
         return(  file_exists($file) ) ;

@@ -6,6 +6,8 @@ require_once( $path  . '/includes/functions.php');
 
 
 
+var_dump(__FILE__);
+
 if ( current_page_exists()  ) :
 
     // only allow logged in people to the following pages
