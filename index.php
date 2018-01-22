@@ -1,6 +1,10 @@
 <?php
-require_once('./includes/connect.php');
-require_once('./includes/functions.php');
+
+$path = realpath(dirname(__FILE__));
+require_once( $path  . '/includes/connect.php');
+require_once( $path  . '/includes/functions.php');
+
+
 
 if ( current_page_exists()  ) :
 
