@@ -24,11 +24,11 @@ if ( current_page_exists()  ) :
 
 
     require_once($path  . '/includes/header.php');
-    require_once($path  . '/' .  current_page() );
+    require_once($path  .   current_page() );
 
 else :
     include('includes/header.php');
-    include('404.php');
+    include('pages/404.php');
 endif;
 
 

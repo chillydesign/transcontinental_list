@@ -28,10 +28,10 @@ function get_site_url(){
 
 function current_page(){
     if ( isset($_GET['page']) ) {
-        $page = $_GET['page'] .'.php';
+        $page = '/pages/' . $_GET['page'] .'.php';
 
     } else {
-        $page = 'home.php';
+        $page = '/pages/home.php';
     }
     return $page;
 
@@ -42,10 +42,10 @@ function current_page_exists(){
     if ( isset($_GET['page']) ) {
         $page = $_GET['page'];
         if ( strpos(  WEBSITE_URL, 'locasdflhost') > -1 )  {
-            $file = '/Applications/MAMP/htdocs/transcontinental_list/' .$page . '.php';
+            $file = '/Applications/MAMP/htdocs/transcontinental_list/pages/' .$page . '.php';
         } else {
             $path = realpath(dirname(__FILE__));
-            $file = $path . '/../' .$page . '.php';
+            $file = $path . '/../pages/' .$page . '.php';
         }
 
         return(  file_exists($file) ) ;
