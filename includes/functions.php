@@ -100,7 +100,8 @@ function error_message_list() {
         'paypalnotwork' => 'La transaction a échoué. Veuillez réessayer.',
         'paymentcancelled' => 'Vous avez annulé le paiement.',
         'notallowedhere' => 'Vous n\'avez pas l\'autorisation d\'accéder à cette page. Veuillez vous connecter.',
-        'notallowedhereadmin' => 'Vous n\'avez pas l\'autorisation d\'accéder à cette page.',
+        'notallowedhereadmin' => 'Vous n\'avez pas l\'autorisation d\'accéder à cette page. <a href="' . site_url() . '/adminlogin">Connexion administrateur</a>',
+        'nameblank' => 'Veuillez saisir votre nom et prénom.',
         'usernotsave' => 'Le compte utilisateur n\'a pas pu être enregistré. Veuillez réessayer.',
         'passwordnotmatch' => 'Le mot de passe et sa confirmation doivent être identiques. Veuillez réessayer.',
         'passwordtooshort' => 'Le mot de passe doit comprendre 6 caractères minimum. Veuillez réessayer.',
@@ -244,13 +245,32 @@ function get_giftcards(){
     };
 }
 
+function posts_per_page() {
+  return 2;
+}
+
 
 
 function get_users(){
     global $conn;
 
+    if(get_var('s')){
+      $s = get_var('s');
+      $search = "WHERE `first_name` LIKE '%" . $s . "%' OR `last_name` LIKE '%" . $s . "%'";
+    } else {
+      $search = '';
+    }
+
+    $users_per_page = posts_per_page();
+    if(get_var('p')){
+      $page = intval(get_var('p'));
+      $page_query = 'OFFSET ' . (($page -1) * $users_per_page) ;
+    } else {
+      $page_query = '';
+    }
+
     try {
-        $query = "SELECT * FROM tcg_users ORDER BY created_at DESC ";
+        $query = "SELECT * FROM tcg_users $search ORDER BY last_name ASC LIMIT $users_per_page $page_query";
         $users_query = $conn->prepare($query);
         $users_query->setFetchMode(PDO::FETCH_OBJ);
         $users_query->execute();
@@ -271,7 +291,32 @@ function get_users(){
     };
 }
 
+function count_users(){
+    global $conn;
 
+    if(get_var('s')){
+      $s = get_var('s');
+      $search = "WHERE `first_name` LIKE '%" . $s . "%' OR `last_name` LIKE '%" . $s . "%'";
+    } else {
+      $search = '';
+    }
+
+    try {
+        $query = "SELECT id FROM tcg_users $search";
+        $users_query = $conn->prepare($query);
+        $users_query->setFetchMode(PDO::FETCH_OBJ);
+        $users_query->execute();
+        $users_count = $users_query->rowCount();
+
+        return   $users_count;
+
+
+        unset($conn);
+
+    } catch(PDOException $err) {
+        return 0;
+    };
+}
 
 function get_lists(){
     global $conn;
@@ -1292,6 +1337,9 @@ function send_user_reset_password_email( $user  ) {
         $receiver_content = generate_email_header($receiver_subject);
         $receiver_content .= '<p>Your password with '. SITE_NAME.' gift list has been reset. Please go <a href="'. WEBSITE_URL  . "/resetpassword/" . $user->reset_password_token  . '">to this link</a> to reset your password. If you didnt ask for your password to be reset please ignore this email.</p><p>Your sincerely, <br /> The '. SITE_NAME.' team</p>';
 
+    //  $imagelocation = WEBSITE_URL . '/images/giftcard.jpg' ;
+    // send_php_mail($receiver, $receiver_subject, $receiver_content, $imagelocation);
+
         send_php_mail($receiver, $receiver_subject, $receiver_content);
     }
 
@@ -1305,12 +1353,13 @@ function send_giftcard_email( $giftcard  ) {
     $sender = $giftcard->sender_email;
     $sender_subject = 'Thanks for sending a giftcard';
     $sender_content = 'Thanks for sending a giftcard to ' .  $giftcard->receiver_first_name;
-    send_php_mail($sender, $sender_subject, $sender_content);
+    $imagelocation = WEBSITE_URL . '/images/giftcards/' . $giftcard->picture. '.jpg' ;
+    send_php_mail($sender, $sender_subject, $sender_content, $imagelocation);
 
     $receiver = $giftcard->receiver_email;
     $receiver_subject = 'You just got a giftcard';
     $receiver_content = $giftcard->sender_first_name . ' just send you a giftcard.';
-    send_php_mail($receiver, $receiver_subject, $receiver_content);
+  send_php_mail($receiver, $receiver_subject, $receiver_content, $imagelocation);
 
 
 }

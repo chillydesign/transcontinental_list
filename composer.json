@@ -2,6 +2,7 @@
   "require" : {
     "jimmiw/php-time-ago": "^2.0",
     "paypal/rest-api-sdk-php": "^1.13",
-    "phpmailer/phpmailer": "^6.0"
+    "phpmailer/phpmailer": "^6.0",
+    "jasongrimes/paginator": "~1.0"
   }
 }

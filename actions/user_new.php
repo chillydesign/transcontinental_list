@@ -16,6 +16,7 @@ if ( isset($_POST['submit_new_user']) && isset($_POST['email'])   && isset($_POS
     if (  is_valid_email($email)) {
         if ( $password == $password_confirmation  ) {
             if ( strlen($password) > 5 ){
+            if ($last_name != '' && $first_name !=''){
 
                 $user = new stdClass();
                 $user->password_digest = encrypt_password($password);
@@ -33,8 +34,12 @@ if ( isset($_POST['submit_new_user']) && isset($_POST['email'])   && isset($_POS
                         header('Location: ' .  site_url() . '/login?success'  );
                     }
 
+                  } else { // if for some reason the user doesnt save
+                      header('Location: ' .  site_url() . '/'.$redirect.'?error=usernotsave'  );
+                  };
+
                 } else { // if for some reason the user doesnt save
-                    header('Location: ' .  site_url() . '/'.$redirect.'?error=usernotsave'  );
+                    header('Location: ' .  site_url() . '/'.$redirect.'?error=nameblank'  );
                 };
 
             } else {  // if password is not long enough

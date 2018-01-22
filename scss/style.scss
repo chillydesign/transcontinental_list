@@ -53,6 +53,10 @@ body {
     &.success_message {
         background-color: adjust-hue($brand_color, 180);
     }
+    a {
+        color: white;
+        border-bottom: dotted 1px;
+    }
 }
 
 
@@ -66,7 +70,15 @@ body {
     text-decoration: none;
 }
 
-.half_block {
+h2 a.tc_button {
+    font-size: 0.6em;
+    margin-left: 10px;
+    padding: 5px 10px;
+    position: relative;
+    top: -3px;
+}
+
+.half_block, .third_block {
     border: solid 1px black;
     padding: 30px;
     background: #f7f7f7;
@@ -153,4 +165,38 @@ tr {
     color: #555;
     font-style: italic;
     margin: -15px 0 0;
+}
+
+input.search_input {
+  width: calc(100% - 150px);
+  margin-right: 10px;
+  display: inline-block;
+  padding: 8.5px;
+}
+
+button.search_button {
+  width: 132px;
+  display: inline-block;
+}
+
+
+ul.pagination {
+    text-align: center;
+    background: 0;
+    border:0;
+    li {
+      display: inline-block;
+      a {
+        display: inline-block;
+        padding: 8px 15px;
+        margin: 5px;
+        background: white;
+        border: solid 1px #eee;
+      }
+      &.active a {
+          border: solid 1px #e40129;
+          color: #e40129;
+      }
+    }
+
 }

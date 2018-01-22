@@ -17,6 +17,12 @@
                     <?php endforeach; ?>
                 </select>
             </p>
+            <p>
+                <label for="active">
+                    <input type="checkbox" name="active" id="active"  <?php echo ($list->active == 1) ? 'checked' : ''; ?> />
+                    Active (décocher pour désactiver la liste)
+                </label>
+            </p>
         <?php endif; ?>
 
         <p>
@@ -26,12 +32,6 @@
         <p>
             <label for="description">Description</label>
             <textarea name="description" placeholder="Description"><?php echo $list->description; ?></textarea>
-        </p>
-        <p>
-            <label for="active">
-                <input type="checkbox" name="active" id="active"  <?php echo ($list->active == 1) ? 'checked' : ''; ?> />
-                Active
-            </label>
         </p>
         <?php if (sizeof($pictures) > 0) : ?>
               <p><label>Image</label></p>

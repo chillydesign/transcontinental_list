@@ -11,11 +11,11 @@
       <div class="page_image" style="background-image:url('<?php echo $picture;?>'); overflow: hidden;"></div>
       <div class="container">
         <div class="row">
-          <div class="col-sm-9">
-            <h1><?php echo $list->name; ?><span class="creation_date">Créée le <?php  echo date('d/m/Y', strtotime($list->created_at)); ?></span></h1>
-          </div>
-          <div class="col-sm-3">
+          <div class="col-sm-3 col-sm-push-9">
             <a class="list_button right_list_button" href="<?php get_site_url(); ?>/userarea">Retour aux listes</a>
+          </div>
+          <div class="col-sm-9 col-sm-pull-3">
+            <h1><?php echo $list->name; ?><span class="creation_date">Créée le <?php  echo date('d/m/Y', strtotime($list->created_at)); ?></span></h1>
           </div>
         </div>
 

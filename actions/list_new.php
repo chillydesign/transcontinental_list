@@ -30,7 +30,7 @@ if ( isset($_POST['submit_new_list']) &&   isset($_POST['name'])   )  {
         $list->description = $description;
         $list->picture = $picture;
         $list->user_id = $user_id;
-        $list->active = $active;
+        $list->active = 1;
 
         $list_id = insert_new_list($list);
 
