@@ -1214,7 +1214,7 @@ function sort_object_by_ids($a, $b) {
 
 
 
-function send_php_mail($to, $subject, $content) {
+function send_php_mail($to, $subject, $content, $image = null) {
 
     $email_header = file_get_contents(dirname(__FILE__) . '/../emails/email_header.html');
     $email_footer = file_get_contents(dirname(__FILE__) . '/../emails/email_footer.html');
@@ -1237,11 +1237,13 @@ function send_php_mail($to, $subject, $content) {
         $mail->addReplyTo('noreply@transcontinental.ch', 'Transcontinental');
         $mail->addBCC('harvey.charles@gmail.com');
 
+        $top_image = add_image_to_email($image, true);
+        $logo_image =  add_image_to_email(WEBSITE_URL . '/images/logo_email.jpg', false);
 
         //Content
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = $subject;
-        $mail->Body    = $email_header . $content . $email_footer;
+        $mail->Body    = $email_header .  $top_image . $content .  $logo_image .   $email_footer;
         $mail->AltBody = $content;
 
         $mail->send();
@@ -1254,12 +1256,46 @@ function send_php_mail($to, $subject, $content) {
 
 
 
+function add_image_to_email($image= null, $top = false) {
+    if ($image == null) {
+        $image = WEBSITE_URL . '/images/giftcard.jpg' ;
+    }
+
+
+    $str =  '<tr>
+    <td bgcolor="#ffffff" align="center">
+    <a style="color:white; text-decoration: none;" href="'.  WEBSITE_URL .'"><img src="'. $image .'" width="600" height="" alt="'. SITE_NAME .'" border="0" align="center" style="width: 100%; max-width: 600px; height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555; margin: auto;" class="g-img"></a>
+    </td>
+    </tr>
+    <!-- Hero Image, Flush : END -->';
+
+    if ($top) {
+        $str .= '<!-- 1 Column Text + Button : BEGIN -->
+        <tr>
+        <td bgcolor="#ffffff">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+        <tr>
+        <td style="padding: 40px; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555;">';
+    }
+
+    return $str;
+
+
+
+}
+
+function generate_email_header($str) {
+    return '<h1 style="margin: 0 0 10px 0; font-family: sans-serif; font-size: 24px; line-height: 125%; color: #333333; font-weight: normal;">' . $str . '</h1>';
+}
+
+
 function send_user_reset_password_email( $user  ) {
 
     if ($user) {
         $receiver = $user->email;
-        $receiver_subject = 'Your Savio password has been reset';
-        $receiver_content = 'Your password with Transcontinental gift list has been reset. Please go <a href="'. WEBSITE_URL  . "/resetpassword/" . $user->reset_password_token  . '">to this link</a> to reset your password. If you didnt ask for your password to be reset please ignore this email.';
+        $receiver_subject = 'Your '. SITE_NAME . ' password has been reset';
+        $receiver_content = generate_email_header($receiver_subject);
+        $receiver_content .= '<p>Your password with '. SITE_NAME.' gift list has been reset. Please go <a href="'. WEBSITE_URL  . "/resetpassword/" . $user->reset_password_token  . '">to this link</a> to reset your password. If you didnt ask for your password to be reset please ignore this email.</p><p>Your sincerely, <br /> The '. SITE_NAME.' team</p>';
 
         send_php_mail($receiver, $receiver_subject, $receiver_content);
     }
@@ -1309,7 +1345,7 @@ function send_donation_email( $donation , $list ) {
 
 
 function getRandomHex($num_bytes=4) {
-  return bin2hex(openssl_random_pseudo_bytes($num_bytes));
+    return bin2hex(openssl_random_pseudo_bytes($num_bytes));
 }
 
 
@@ -1437,56 +1473,56 @@ function get_paypal_api_context() {
     }
 
 
-        function getDonationPaymentLink($donation_id, $amount_in_cents) {
+    function getDonationPaymentLink($donation_id, $amount_in_cents) {
 
-            $amountInCHF = money_format( '%i', ($amount_in_cents / 100)  );
-            $apiContext = get_paypal_api_context();
-            $baseURL = site_url() . '/actions/donation_payment_finish.php';
-            $returnURL = $baseURL . '?return=true&donation_id=' . $donation_id;
-            $cancelURL = $baseURL . '?cancel=true&donation_id=' . $donation_id;
-
-
-            $item1 = new \PayPal\Api\Item();
-            $item1->setName('Donation')->setCurrency('CHF')->setQuantity(1)->setPrice( $amountInCHF );
-
-            $itemList = new \PayPal\Api\ItemList();
-            $itemList->setItems(array($item1));
-
-            $payer = new \PayPal\Api\Payer();
-            $payer->setPaymentMethod('paypal');
-
-            $amount = new \PayPal\Api\Amount();
-            $amount->setTotal( $amountInCHF  );
-            $amount->setCurrency('CHF');
-
-            $transaction = new \PayPal\Api\Transaction();
-            $transaction->setAmount($amount);
-            $transaction->setItemList($itemList);
-            $transaction->setDescription("Donation");
-
-            $redirectUrls = new \PayPal\Api\RedirectUrls();
-            $redirectUrls->setReturnUrl($returnURL)->setCancelUrl($cancelURL);
-
-            $payment = new \PayPal\Api\Payment();
-            $payment->setIntent('sale')
-            ->setPayer($payer)
-            ->setTransactions(array($transaction))
-            ->setRedirectUrls($redirectUrls);
+        $amountInCHF = money_format( '%i', ($amount_in_cents / 100)  );
+        $apiContext = get_paypal_api_context();
+        $baseURL = site_url() . '/actions/donation_payment_finish.php';
+        $returnURL = $baseURL . '?return=true&donation_id=' . $donation_id;
+        $cancelURL = $baseURL . '?cancel=true&donation_id=' . $donation_id;
 
 
-            try {
-                $payment->create($apiContext);
-                // echo $payment;
-                return  $payment->getApprovalLink();
-            }
-            catch (\PayPal\Exception\PayPalConnectionException $ex) {
-                // This will print the detailed information on the exception.
-                //REALLY HELPFUL FOR DEBUGGING
-                // var_dump($ex->getData());
-                return false;
-            }
+        $item1 = new \PayPal\Api\Item();
+        $item1->setName('Donation')->setCurrency('CHF')->setQuantity(1)->setPrice( $amountInCHF );
 
+        $itemList = new \PayPal\Api\ItemList();
+        $itemList->setItems(array($item1));
+
+        $payer = new \PayPal\Api\Payer();
+        $payer->setPaymentMethod('paypal');
+
+        $amount = new \PayPal\Api\Amount();
+        $amount->setTotal( $amountInCHF  );
+        $amount->setCurrency('CHF');
+
+        $transaction = new \PayPal\Api\Transaction();
+        $transaction->setAmount($amount);
+        $transaction->setItemList($itemList);
+        $transaction->setDescription("Donation");
+
+        $redirectUrls = new \PayPal\Api\RedirectUrls();
+        $redirectUrls->setReturnUrl($returnURL)->setCancelUrl($cancelURL);
+
+        $payment = new \PayPal\Api\Payment();
+        $payment->setIntent('sale')
+        ->setPayer($payer)
+        ->setTransactions(array($transaction))
+        ->setRedirectUrls($redirectUrls);
+
+
+        try {
+            $payment->create($apiContext);
+            // echo $payment;
+            return  $payment->getApprovalLink();
         }
+        catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            // This will print the detailed information on the exception.
+            //REALLY HELPFUL FOR DEBUGGING
+            // var_dump($ex->getData());
+            return false;
+        }
+
+    }
     // END OF PAYPAL AND PAYMENTS
 
 
