@@ -44,7 +44,8 @@ function current_page_exists(){
         if ( strpos(  WEBSITE_URL, 'localhost') > -1 )  {
             $file = '/Applications/MAMP/htdocs/transcontinental_list/' .$page . '.php';
         } else {
-            $file = '/home/chillyde/webfactor.ch/projets/transcontinental_list/' .$page . '.php';
+            $path = realpath(dirname(__FILE__));
+            $file = $path . '../' .$page . '.php';
         }
 
         return(  file_exists($file) ) ;
