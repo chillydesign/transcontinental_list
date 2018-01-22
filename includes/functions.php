@@ -1414,6 +1414,16 @@ function get_paypal_api_context() {
             PAYPAL_CLIENT_SECRET     // ClientSecret
             )
         );
+
+        $apiContext->setConfig(
+            array(
+                'log.LogEnabled' => true,
+                'log.FileName' => 'payPal.log',
+                'log.LogLevel' => 'FINE',
+                // 'mode' => 'live'
+            )
+        );
+
         return $apiContext;
     }
 
@@ -1466,7 +1476,7 @@ function get_paypal_api_context() {
         catch (\PayPal\Exception\PayPalConnectionException $ex) {
             // This will print the detailed information on the exception.
             //REALLY HELPFUL FOR DEBUGGING
-            //echo $ex->getData();
+            // var_dump( $ex->getData() );
             return false;
         }
 
