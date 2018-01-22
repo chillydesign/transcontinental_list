@@ -1,6 +1,6 @@
 <?php
-include('includes/connect.php');
-include('includes/functions.php');
+require_once('includes/connect.php');
+require_once('includes/functions.php');
 
 if ( current_page_exists()  ) :
 
