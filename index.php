@@ -21,8 +21,8 @@ if ( current_page_exists()  ) :
     }
 
 
-    include('includes/header.php');
-    include(current_page() );
+    require_once($path  . '/includes/header.php');
+    require_once($path  . '/' .  current_page() );
 
 else :
     include('includes/header.php');
