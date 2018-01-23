@@ -14,10 +14,10 @@
                 <div class="list_list list_list_desc">
                   <strong><?php echo $list->name; ?></strong>
                   <!-- (Créée le <?php  echo timeAgoInWords($list->created_at); ?>) -->
-                  <span class="creation_date">Créée le <?php  echo date('d/m/Y', strtotime($list->created_at)); ?></span>
+                  <span class="creation_date">Créée le <?php  echo nice_date($list->created_at); ?></span>
                 </div>
                 <div class="list_list list_list_amount">
-                    <?php $donations = get_donations( $list->id , 'paid' ); ?>
+                    <?php $donations = get_donations( $list->id , 'payé' ); ?>
                     <?php echo sum_donations($donations); ?>
                 </div>
               </a>

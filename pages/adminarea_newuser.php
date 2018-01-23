@@ -31,7 +31,7 @@
             <li>
               <a href="<?php get_site_url(); ?>/adminarea/user?id=<?php echo $user->id; ?>">
                 <strong><?php echo $user->last_name . ' ' . $user->first_name; ?></strong></a>
-                <br> <em>Créé le <?php  echo date('d/m/Y', strtotime($user->created_at)); ?></em>
+                <br> <em>Créé le <?php  echo nice_date($user->created_at); ?></em>
 
               </li>
             <?php endforeach; ?>

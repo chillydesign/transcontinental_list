@@ -15,7 +15,7 @@
             <a class="list_button right_list_button" href="<?php get_site_url(); ?>/userarea">Retour aux listes</a>
           </div>
           <div class="col-sm-9 col-sm-pull-3">
-            <h1><?php echo $list->name; ?><span class="creation_date">Créée le <?php  echo date('d/m/Y', strtotime($list->created_at)); ?></span></h1>
+            <h1><?php echo $list->name; ?><span class="creation_date">Créée le <?php  echo nice_date($list->created_at); ?></span></h1>
           </div>
         </div>
 
@@ -52,7 +52,7 @@
             </div>
             <div class="col-sm-6">
               <div class="half_block">
-                <?php $donations = get_donations( $list->id, 'paid'  ); ?>
+                <?php $donations = get_donations( $list->id, 'payé'  ); ?>
                 <h2>Contributions</h2>
                 <?php if (sum_donations($donations) > 0) : ?>
                 <p>Montant total contribué sur cette liste: <?php  echo sum_donations($donations);  ?>.</p>

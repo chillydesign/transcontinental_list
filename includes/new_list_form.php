@@ -4,8 +4,9 @@
     <?php if(has_valid_admin_cookie()): ?>
     <p>
         <select id="user_id" name="user_id">
-            <?php foreach (  get_users() as $user) : ?>
-                <?php $selected = ( $user->id == get_var('user_id')  ) ? 'selected="selected"' : ''; ?>
+            <option value="-1">-</option>
+            <?php foreach (  get_users( array('posts_per_page' => -1) ) as $user) : ?>
+                <?php $selected = ( $user->id == get_var('id')  ) ? 'selected="selected"' : ''; ?>
                 <option <?php echo $selected; ?> value="<?php echo $user->id; ?>"><?php echo $user->first_name . ' ' . $user->last_name; ?></option>
             <?php endforeach; ?>
         </select>
@@ -19,16 +20,13 @@
         <label for="description">Description</label>
         <textarea name="description" placeholder="Description"></textarea>
     </p>
-
+     <?php $pictures = find_pictures('lists'); ?>
     <?php if (sizeof($pictures) > 0) : ?>
       <p><label>Image</label></p>
       <div class="allfigs">
           <?php foreach ($pictures as $picture) : ?>
               <figure class="change_picture" data-picture="<?php echo $picture->id; ?>">
                   <img src="<?php echo $picture->url; ?>"  alt="Image <?php echo $picture->id; ?>" />
-                  <figcaption>
-                      Image <?php echo $picture->id; ?>
-                  </figcaption>
               </figure>
           <?php endforeach; ?>
         </div>

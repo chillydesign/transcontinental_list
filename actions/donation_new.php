@@ -30,7 +30,8 @@ if ( isset($_POST['list_id'])  && isset($_POST['submit_new_donation']) &&   isse
             $donation->message = $message;
             $donation->amount = convert_to_amount_in_cents($amount);
             $donation->list_id = deconvert_list_id($list_id);
-            $donation->status = 'started';
+            $donation->status = 'créé';
+
 
 
             $donation_id = insert_new_donation($donation);

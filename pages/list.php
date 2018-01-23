@@ -14,7 +14,7 @@
 
 
     <?php if ($list->status == 'active') : ?>
-        <?php $donations = get_donations( $list->id , 'paid' ); ?>
+        <?php $donations = get_donations( $list->id , 'payé' ); ?>
         <h1><?php echo $list->name; ?></h1>
         <p class="infos_supp">Liste #<?php echo $list->list_number; ?> par <?php echo $list->users_name; ?></p>
         <?php if($list->description != ''): ?>

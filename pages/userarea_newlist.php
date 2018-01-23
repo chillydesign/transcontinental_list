@@ -4,7 +4,7 @@
   <?php if (has_error()) : ?>
       <?php show_error_message(); ?>
   <?php endif; ?>
-  <?php $pictures = find_pictures('lists'); ?>
+
 
 
   <div class="row">

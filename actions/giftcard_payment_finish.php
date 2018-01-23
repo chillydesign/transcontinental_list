@@ -16,10 +16,10 @@ if (isset($_GET['giftcard_id'])) {
         // send email to recipient and sender;
         send_giftcard_email($giftcard);
 
-        $giftcard->status = 'paid';
+        $giftcard->status = 'payé';
         $giftcard->payment_id = (isset($_GET['paymentId'])) ? $_GET['paymentId'] : '-';
         $giftcard->payer_id = (isset($_GET['PayerID'])) ? $_GET['PayerID'] : '-';
-        // changes status to paid
+        // changes status to payé
         if (update_giftcard_status($giftcard)) {
             header('Location: ' .  site_url() . '/giftcard/?success&giftcard_id='. $giftcard_id  );
         } else {
@@ -30,7 +30,7 @@ if (isset($_GET['giftcard_id'])) {
 
     } else if (  isset($_GET['cancel']) ) {
 
-        $giftcard->status = 'cancelled';
+        $giftcard->status = 'annulé';
         // change status to cancelled
         if (update_giftcard_status($giftcard)) {
             header('Location: ' .  site_url() . '/giftcard/?error=paymentcancelled'  );

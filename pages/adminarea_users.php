@@ -18,20 +18,13 @@
     <div class="col-sm-6">
       <div class="half_block">
         <h2>Liste des clients</h2>
-        <form action="" method="get">
-          <p>
-            <input class="search_input" type="text" name="s" placeholder="Rechercher un client"
-            <?php if(get_var('s')){echo 'value="' . get_var('s') .'"';}?>
-            />
-            <button type="submit" class="search_button">Chercher</button>
-          </p>
-        </form>
+        <?php include('includes/search_user_form.php'); ?>
         <ul>
           <?php foreach (  get_users() as $user) : ?>
             <li>
               <a href="<?php get_site_url(); ?>/adminarea/user?id=<?php echo $user->id; ?>">
                 <strong><?php echo $user->last_name . ' ' . $user->first_name; ?></strong></a>
-                <br> <em>Créé le <?php  echo date('d/m/Y', strtotime($user->created_at)); ?></em>
+                <br> <em>Créé le <?php  echo nice_date($user->created_at); ?></em>
 
               </li>
             <?php endforeach; ?>
@@ -41,13 +34,8 @@
           $totalItems = count_users();
           $itemsPerPage = posts_per_page();
           $currentPage = get_var('p');
-          if(get_var('s')){
-            $s="&s=" . get_var('s');
-          } else {
-            $s='';
-          }
+          $s = (get_var('s')) ? "&s=" . get_var('s') : '';
           $urlPattern = site_url() . '/adminarea/users?p=(:num)' . $s;
-
           $paginator = new Paginator($totalItems, $itemsPerPage, $currentPage, $urlPattern);
           $paginator->setMaxPagesToShow(3);
           $paginator->setPreviousText('Précédent');

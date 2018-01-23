@@ -35,7 +35,8 @@ if ( isset($_POST['submit_new_giftcard']) && isset($_POST['receiver_email']) && 
             $giftcard->message = $message;
             $giftcard->picture = $picture;
             $giftcard->amount = convert_to_amount_in_cents($amount);
-            $giftcard->status = 'started';
+            $giftcard->status = 'créé';
+
 
 
             $giftcard_id = insert_new_giftcard($giftcard);

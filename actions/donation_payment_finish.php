@@ -18,10 +18,10 @@ if (isset($_GET['donation_id'])) {
         // send email to recipient and sender;
         send_donation_email($donation, $list);
 
-        $donation->status = 'paid';
+        $donation->status = 'payé';
         $donation->payment_id = (isset($_GET['paymentId'])) ? $_GET['paymentId'] : '-';
         $donation->payer_id = (isset($_GET['PayerID'])) ? $_GET['PayerID'] : '-';
-        // changes status to paid
+        // changes status to payé
         if (update_donation_status($donation)) {
             header('Location: ' .  site_url() . '/list/'. $list_id  . '?success&donation_id='. $donation_id  );
         } else {
@@ -32,7 +32,7 @@ if (isset($_GET['donation_id'])) {
 
     } else if (  isset($_GET['cancel']) ) {
 
-        $donation->status = 'cancelled';
+        $donation->status = 'annulé';
         // change status to cancelled
         if (update_donation_status($donation)) {
             header('Location: ' .  site_url() . '/list/'. $list_id  . '?error=paymentcancelled'  );

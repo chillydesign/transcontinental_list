@@ -11,6 +11,10 @@ elseif (current_subpage_is('newlist')):
     include('adminarea_newlist.php');
 elseif (current_subpage_is('list')):
     include('adminarea_list.php');
+    elseif (current_subpage_is('lists')):
+        include('adminarea_lists.php');
+elseif (current_subpage_is('giftcards')):
+        include('adminarea_giftcards.php');
 elseif (current_subpage_is('giftcard')):
     include('adminarea_giftcard.php');
 else:

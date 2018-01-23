@@ -1,8 +1,21 @@
-<h1>Créer une liste</h1>
+<div class="page_image" style="background-image:url('<?php echo site_url(); ?>/images/honeymoon.jpg'); overflow: hidden;"></div>
+<div class="container">
 
 
-<?php if (has_error()) : ?>
-    <?php show_error_message(); ?>
-<?php endif; ?>
+    <h1>Créer une liste</h1>
 
-<?php include('includes/new_list_form.php'); ?>
+
+    <?php if (has_error()) : ?>
+        <?php show_error_message(); ?>
+    <?php endif; ?>
+
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="half_block">
+                <?php include('includes/new_list_form.php'); ?>
+
+            </div>
+        </div>
+    </div>
+</div>

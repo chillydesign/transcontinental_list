@@ -140,6 +140,10 @@ function get_var($str) {
     }
 }
 
+function valid_giftcard_statuses() {
+    return array('créé', 'annulé', 'payé', 'utilisé');
+}
+
 
 
 
@@ -223,8 +227,23 @@ function get_giftcard($giftcard_id = null) {
 function get_giftcards(){
     global $conn;
 
+    if(get_var('s')){
+      $s = get_var('s');
+      $search = "WHERE `sender_first_name` LIKE '%" . $s . "%' OR `sender_last_name` LIKE '%" . $s . "%' OR `receiver_first_name` LIKE '%" . $s . "%' OR `receiver_last_name` LIKE '%" . $s . "%' OR `receiver_email` LIKE '%" . $s . "%' OR `sender_email` LIKE '%" . $s . "%'";
+    } else {
+      $search = '';
+    }
+
+    $posts_per_page = posts_per_page();
+    if(get_var('p')){
+      $page = intval(get_var('p'));
+      $page_query = 'OFFSET ' . (($page -1) * $posts_per_page) ;
+    } else {
+      $page_query = '';
+    }
+
     try {
-        $query = "SELECT * FROM tcg_giftcards  ORDER BY created_at DESC ";
+        $query = "SELECT * FROM tcg_giftcards $search ORDER BY created_at DESC LIMIT $posts_per_page $page_query";
         $giftcards_query = $conn->prepare($query);
         $giftcards_query->setFetchMode(PDO::FETCH_OBJ);
         $giftcards_query->execute();
@@ -246,12 +265,12 @@ function get_giftcards(){
 }
 
 function posts_per_page() {
-  return 2;
+  return 10;
 }
 
 
 
-function get_users(){
+function get_users($options=null){
     global $conn;
 
     if(get_var('s')){
@@ -261,16 +280,24 @@ function get_users(){
       $search = '';
     }
 
-    $users_per_page = posts_per_page();
+    $posts_per_page = posts_per_page();
     if(get_var('p')){
       $page = intval(get_var('p'));
-      $page_query = 'OFFSET ' . (($page -1) * $users_per_page) ;
+      $page_query = "LIMIT $posts_per_page  OFFSET " . (($page -1) * $posts_per_page) ;
     } else {
-      $page_query = '';
+      $page_query = "LIMIT $posts_per_page ";
     }
 
+    if (is_array($options) ) {
+        if (isset($options['posts_per_page'])) {
+              $page_query = "";
+        }
+    }
+
+
+
     try {
-        $query = "SELECT * FROM tcg_users $search ORDER BY last_name ASC LIMIT $users_per_page $page_query";
+        $query = "SELECT * FROM tcg_users $search ORDER BY last_name ASC $page_query";
         $users_query = $conn->prepare($query);
         $users_query->setFetchMode(PDO::FETCH_OBJ);
         $users_query->execute();
@@ -318,13 +345,70 @@ function count_users(){
     };
 }
 
+
+
+function count_giftcards(){
+    global $conn;
+
+    if(get_var('s')){
+      $s = get_var('s');
+      $search = "WHERE `sender_first_name` LIKE '%" . $s . "%' OR `sender_last_name` LIKE '%" . $s . "%' OR `receiver_first_name` LIKE '%" . $s . "%' OR `receiver_last_name` LIKE '%" . $s . "%' OR `receiver_email` LIKE '%" . $s . "%' OR `sender_email` LIKE '%" . $s . "%'";
+    } else {
+      $search = '';
+    }
+
+    try {
+        $query = "SELECT id FROM tcg_giftcards $search";
+        $giftcards_query = $conn->prepare($query);
+        $giftcards_query->setFetchMode(PDO::FETCH_OBJ);
+        $giftcards_query->execute();
+        $giftcards_count = $giftcards_query->rowCount();
+
+        return   $giftcards_count;
+
+
+        unset($conn);
+
+    } catch(PDOException $err) {
+        return 0;
+    };
+}
+
+
+
+function count_lists(){
+    global $conn;
+    try {
+        $query = "SELECT id FROM tcg_lists ";
+        $lists_query = $conn->prepare($query);
+        $lists_query->setFetchMode(PDO::FETCH_OBJ);
+        $lists_query->execute();
+        $lists_count = $lists_query->rowCount();
+
+        return  $lists_count;
+        unset($conn);
+
+    } catch(PDOException $err) {
+        return 0;
+    };
+}
+
+
 function get_lists(){
     global $conn;
+
+    $posts_per_page = posts_per_page();
+    if(get_var('p')){
+      $page = intval(get_var('p'));
+      $page_query = 'OFFSET ' . (($page -1) * $posts_per_page) ;
+    } else {
+      $page_query = '';
+    }
 
     try {
         $query = "SELECT *, tcg_lists.id as id FROM tcg_lists
         LEFT JOIN tcg_users ON tcg_users.id = tcg_lists.user_id
-        ORDER BY tcg_lists.created_at DESC ";
+        ORDER BY tcg_lists.created_at DESC LIMIT $posts_per_page $page_query ";
         $lists_query = $conn->prepare($query);
         $lists_query->setFetchMode(PDO::FETCH_OBJ);
         $lists_query->execute();
@@ -763,6 +847,33 @@ function update_giftcard_status($giftcard) {
 }
 
 
+function update_giftcard($giftcard) {
+    global $conn;
+    if ( $giftcard->id > 0 ){
+        try {
+
+            $query = "UPDATE tcg_giftcards SET `status` = :status WHERE id = :id";
+            $giftcard_query = $conn->prepare($query);
+            $giftcard_query->bindParam(':status', $giftcard->status);
+            $giftcard_query->bindParam(':id', $giftcard->id);
+            $giftcard_query->execute();
+            unset($conn);
+
+            return true;
+
+        } catch(PDOException $err) {
+            return false;
+
+        };
+
+    } else { // giftcard name was blank
+        return false;
+    }
+
+}
+
+
+
 function update_list($list) {
     global $conn;
     if ($list->name != '' && $list->user_id > 0 ){
@@ -943,6 +1054,13 @@ function  has_giftcard_paypal_url_cookie() {
     }
 }
 
+
+function nice_date($date) {
+    return  date('d/m/Y', strtotime($date));
+}
+function nice_datetime($date) {
+    return  date('d/m/Y H:m', strtotime($date));
+}
 
 
 
