@@ -228,18 +228,18 @@ function get_giftcards(){
     global $conn;
 
     if(get_var('s')){
-      $s = get_var('s');
-      $search = "WHERE `sender_first_name` LIKE '%" . $s . "%' OR `sender_last_name` LIKE '%" . $s . "%' OR `receiver_first_name` LIKE '%" . $s . "%' OR `receiver_last_name` LIKE '%" . $s . "%' OR `receiver_email` LIKE '%" . $s . "%' OR `sender_email` LIKE '%" . $s . "%'";
+        $s = get_var('s');
+        $search = "WHERE `sender_first_name` LIKE '%" . $s . "%' OR `sender_last_name` LIKE '%" . $s . "%' OR `receiver_first_name` LIKE '%" . $s . "%' OR `receiver_last_name` LIKE '%" . $s . "%' OR `receiver_email` LIKE '%" . $s . "%' OR `sender_email` LIKE '%" . $s . "%'";
     } else {
-      $search = '';
+        $search = '';
     }
 
     $posts_per_page = posts_per_page();
     if(get_var('p')){
-      $page = intval(get_var('p'));
-      $page_query = 'OFFSET ' . (($page -1) * $posts_per_page) ;
+        $page = intval(get_var('p'));
+        $page_query = 'OFFSET ' . (($page -1) * $posts_per_page) ;
     } else {
-      $page_query = '';
+        $page_query = '';
     }
 
     try {
@@ -265,7 +265,7 @@ function get_giftcards(){
 }
 
 function posts_per_page() {
-  return 10;
+    return 10;
 }
 
 
@@ -274,23 +274,23 @@ function get_users($options=null){
     global $conn;
 
     if(get_var('s')){
-      $s = get_var('s');
-      $search = "WHERE `first_name` LIKE '%" . $s . "%' OR `last_name` LIKE '%" . $s . "%'";
+        $s = get_var('s');
+        $search = "WHERE `first_name` LIKE '%" . $s . "%' OR `last_name` LIKE '%" . $s . "%'";
     } else {
-      $search = '';
+        $search = '';
     }
 
     $posts_per_page = posts_per_page();
     if(get_var('p')){
-      $page = intval(get_var('p'));
-      $page_query = "LIMIT $posts_per_page  OFFSET " . (($page -1) * $posts_per_page) ;
+        $page = intval(get_var('p'));
+        $page_query = "LIMIT $posts_per_page  OFFSET " . (($page -1) * $posts_per_page) ;
     } else {
-      $page_query = "LIMIT $posts_per_page ";
+        $page_query = "LIMIT $posts_per_page ";
     }
 
     if (is_array($options) ) {
         if (isset($options['posts_per_page'])) {
-              $page_query = "";
+            $page_query = "";
         }
     }
 
@@ -322,10 +322,10 @@ function count_users(){
     global $conn;
 
     if(get_var('s')){
-      $s = get_var('s');
-      $search = "WHERE `first_name` LIKE '%" . $s . "%' OR `last_name` LIKE '%" . $s . "%'";
+        $s = get_var('s');
+        $search = "WHERE `first_name` LIKE '%" . $s . "%' OR `last_name` LIKE '%" . $s . "%'";
     } else {
-      $search = '';
+        $search = '';
     }
 
     try {
@@ -351,10 +351,10 @@ function count_giftcards(){
     global $conn;
 
     if(get_var('s')){
-      $s = get_var('s');
-      $search = "WHERE `sender_first_name` LIKE '%" . $s . "%' OR `sender_last_name` LIKE '%" . $s . "%' OR `receiver_first_name` LIKE '%" . $s . "%' OR `receiver_last_name` LIKE '%" . $s . "%' OR `receiver_email` LIKE '%" . $s . "%' OR `sender_email` LIKE '%" . $s . "%'";
+        $s = get_var('s');
+        $search = "WHERE `sender_first_name` LIKE '%" . $s . "%' OR `sender_last_name` LIKE '%" . $s . "%' OR `receiver_first_name` LIKE '%" . $s . "%' OR `receiver_last_name` LIKE '%" . $s . "%' OR `receiver_email` LIKE '%" . $s . "%' OR `sender_email` LIKE '%" . $s . "%'";
     } else {
-      $search = '';
+        $search = '';
     }
 
     try {
@@ -399,10 +399,10 @@ function get_lists(){
 
     $posts_per_page = posts_per_page();
     if(get_var('p')){
-      $page = intval(get_var('p'));
-      $page_query = 'OFFSET ' . (($page -1) * $posts_per_page) ;
+        $page = intval(get_var('p'));
+        $page_query = 'OFFSET ' . (($page -1) * $posts_per_page) ;
     } else {
-      $page_query = '';
+        $page_query = '';
     }
 
     try {
@@ -1381,7 +1381,7 @@ function send_php_mail($to, $subject, $content, $image = null) {
 
     try {
         //Server settings
-        //$mail->SMTPDebug = 2;                     // Enable verbose debug output
+        //$mail->SMTPDebug = 2;                   // Enable verbose debug output
         $mail->isSMTP();                          // Set mailer to use SMTP
         $mail->Host = 'smtp.gmail.com';           // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                   // Enable SMTP authentication
@@ -1395,13 +1395,13 @@ function send_php_mail($to, $subject, $content, $image = null) {
         $mail->addReplyTo('noreply@transcontinental.ch', 'Transcontinental');
         $mail->addBCC('harvey.charles@gmail.com');
 
-        $top_image = add_image_to_email($image, true);
-        $logo_image =  add_image_to_email(WEBSITE_URL . '/images/logo_email.jpg', false);
+        $logo_image = add_image_to_email(WEBSITE_URL . '/images/logo_email.jpg', false);
+        $top_image = add_image_to_email($image, true); // true means add spacing below the picture
 
         //Content
-        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->isHTML(true);                      // Set email format to HTML
         $mail->Subject = $subject;
-        $mail->Body    = $email_header .  $top_image . $content .  $logo_image .   $email_footer;
+        $mail->Body    = $email_header .  $logo_image .  $top_image . $content .  $email_footer;
         $mail->AltBody = $content;
 
         $mail->send();
@@ -1414,7 +1414,7 @@ function send_php_mail($to, $subject, $content, $image = null) {
 
 
 
-function add_image_to_email($image= null, $top = false) {
+function add_image_to_email($image= null, $add_spacing = false) {
     if ($image == null) {
         $image = WEBSITE_URL . '/images/giftcard.jpg' ;
     }
@@ -1427,7 +1427,7 @@ function add_image_to_email($image= null, $top = false) {
     </tr>
     <!-- Hero Image, Flush : END -->';
 
-    if ($top) {
+    if ($add_spacing) {
         $str .= '<!-- 1 Column Text + Button : BEGIN -->
         <tr>
         <td bgcolor="#ffffff">
@@ -1442,7 +1442,19 @@ function add_image_to_email($image= null, $top = false) {
 
 }
 
-function generate_email_header($str) {
+function generate_email_button($link, $text) {
+    return '<div style="padding: 0 40px; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555;"><table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto;">
+    <tr>
+    <td style="border-radius: 3px; background: #222222; text-align: center;" class="button-td">
+    <a href="'. $link .'" style="background: #222222; border: 15px solid #222222; font-family: sans-serif; font-size: 13px; line-height: 110%; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;" class="button-a">
+    <span style="color:#ffffff;" class="button-link">&nbsp;&nbsp;&nbsp;&nbsp;'. $text .'&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    </a>
+    </td>
+    </tr>
+    </table></div>';
+}
+
+function generate_email_title($str) {
     return '<h1 style="margin: 0 0 10px 0; font-family: sans-serif; font-size: 24px; line-height: 125%; color: #333333; font-weight: normal;">' . $str . '</h1>';
 }
 
@@ -1452,11 +1464,14 @@ function send_user_reset_password_email( $user  ) {
     if ($user) {
         $receiver = $user->email;
         $receiver_subject = 'Your '. SITE_NAME . ' password has been reset';
-        $receiver_content = generate_email_header($receiver_subject);
-        $receiver_content .= '<p>Your password with '. SITE_NAME.' gift list has been reset. Please go <a href="'. WEBSITE_URL  . "/resetpassword/" . $user->reset_password_token  . '">to this link</a> to reset your password. If you didnt ask for your password to be reset please ignore this email.</p><p>Your sincerely, <br /> The '. SITE_NAME.' team</p>';
+        $receiver_content = generate_email_title($receiver_subject);
+        $receiver_content .= '<p>Your password with '. SITE_NAME.' gift list has been reset. Please click the button below to reset your password. If you didnt ask for your password to be reset please ignore this email.</p>';
+        $link = WEBSITE_URL  . "/resetpassword/" . $user->reset_password_token ;
+        $receiver_content .= generate_email_button($link,  'Reset your password');
+        $receiver_content .= '<p>Your sincerely, <br /> The '. SITE_NAME.' team</p>';
 
-    //  $imagelocation = WEBSITE_URL . '/images/giftcard.jpg' ;
-    // send_php_mail($receiver, $receiver_subject, $receiver_content, $imagelocation);
+        //  $imagelocation = WEBSITE_URL . '/images/giftcard.jpg' ;
+        // send_php_mail($receiver, $receiver_subject, $receiver_content, $imagelocation);
 
         send_php_mail($receiver, $receiver_subject, $receiver_content);
     }
@@ -1468,16 +1483,30 @@ function send_user_reset_password_email( $user  ) {
 
 function send_giftcard_email( $giftcard  ) {
 
+    $image = WEBSITE_URL . '/images/giftcards/' . $giftcard->picture. '.jpg' ;
+    $sender_name = $giftcard->sender_first_name . ' ' . $giftcard->sender_last_name;
+    $receiver_name = $giftcard->receiver_first_name . ' ' . $giftcard->receiver_last_name;
+    $amount =  convert_cents_to_currency($giftcard->amount);
+
+
     $sender = $giftcard->sender_email;
     $sender_subject = 'Thanks for sending a giftcard';
-    $sender_content = 'Thanks for sending a giftcard to ' .  $giftcard->receiver_first_name;
-    $imagelocation = WEBSITE_URL . '/images/giftcards/' . $giftcard->picture. '.jpg' ;
-    send_php_mail($sender, $sender_subject, $sender_content, $imagelocation);
+    $sender_content = generate_email_title($sender_subject);
+    $sender_content .= 'Thanks for sending a giftcard to ' .  $receiver_name ;
+    send_php_mail($sender, $sender_subject, $sender_content, $image);
+
 
     $receiver = $giftcard->receiver_email;
     $receiver_subject = 'You just got a giftcard';
-    $receiver_content = $giftcard->sender_first_name . ' just send you a giftcard.';
-  send_php_mail($receiver, $receiver_subject, $receiver_content, $imagelocation);
+    $receiver_content = generate_email_title($receiver_subject);
+    $receiver_content .= $sender_name . ' just sent you a giftcard for '.  $amount . ' to spend at '. SITE_NAME .' .';
+    if ($giftcard->message != '') {
+        $receiver_content .= '<br /><br /><p style="padding:0 0 0px;margin:0;font-weight:bold">Message:</p>';
+        $receiver_content .= '<p style="font-style:italic; color: #888;">'. $giftcard->message .'</p><br /><br />';
+    }
+    $receiver_content .= generate_email_button(WEBSITE_URL,  'Visit ' .  SITE_NAME);
+
+    send_php_mail($receiver, $receiver_subject, $receiver_content, $image);
 
 
 }
@@ -1485,20 +1514,31 @@ function send_giftcard_email( $giftcard  ) {
 
 function send_donation_email( $donation , $list ) {
 
-
-
-
-    $sender = $donation->email;
-    $sender_subject = 'Thanks for sending a donation';
-    $sender_content = 'Thanks for sending a donation to ' .  $list->first_name;
-    send_php_mail($sender, $sender_subject, $sender_content);
-
-
     $user = get_user($list->user_id);
     if ($user) {
+
+        $sender_name = $donation->first_name . ' ' . $donation->last_name;
+        $receiver_name = $user->first_name . ' ' . $user->last_name;
+        $amount =  convert_cents_to_currency($giftcard->amount);
+
+
+        $sender = $donation->email;
+        $sender_subject = 'Thanks for sending a donation';
+        $sender_content = generate_email_title($sender_subject);
+        $sender_content .= 'Thanks for sending a donation to ' .  $receiver_name;
+        send_php_mail($sender, $sender_subject, $sender_content);
+
+
+
         $receiver = $user->email;
         $receiver_subject = 'You just got a donation';
-        $receiver_content = $donation->first_name . ' just send you a donation.';
+        $receiver_content = generate_email_title($receiver_subject);
+        $receiver_content .= $sender_name . ' just send you a donation for '.  $amount . ' to spend at '. SITE_NAME .' .';
+        if ($donation->message != '') {
+            $receiver_content .= '<br /><br /><p style="padding:0 0 10px;margin:0;font-weight:bold">Message:</p>';
+            $receiver_content .= '<p style="font-style:italic; color: #888;">'. $donation->message .'</p><br /><br />';
+        }
+        $receiver_content .= generate_email_button(WEBSITE_URL,  'Visit ' .  SITE_NAME);
         send_php_mail($receiver, $receiver_subject, $receiver_content);
     }
 
