@@ -45,7 +45,7 @@
         </div>
         <div class="col-sm-6">
           <div class="half_block">
-            <h2>Ajouter un list</h2>
+            <h2>Ajouter une liste</h2>
             <?php include('includes/new_list_form.php'); ?>
           </div>
         </div>

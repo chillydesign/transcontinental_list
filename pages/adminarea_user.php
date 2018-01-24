@@ -12,7 +12,7 @@
       <div class="half_block">
 
 
-              <h2>Lists</h2>
+              <h2>Listes</h2>
               <ul>
                   <?php foreach (  user_lists($user->id) as $list) : ?>
                       <li>
@@ -30,7 +30,7 @@
     </div>
     <div class="col-sm-6">
       <div class="half_block">
-        <h2>Ajouter un list</h2>
+        <h2>Ajouter une liste</h2>
         <?php include('includes/new_list_form.php'); ?>
       </div>
     </div>

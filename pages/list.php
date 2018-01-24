@@ -21,11 +21,12 @@
 
 
         <div class="row">
-          <?php if($list->description != ''): ?>
-              <p><?php echo $list->description; ?></p>
-          <?php endif ; ?>
+
 
             <div class="col-sm-6">
+              <?php if($list->description != ''): ?>
+                  <p><?php echo $list->description; ?></p>
+              <?php endif ; ?>
               <div class="half_block">
                 <h2>Contribuer</h2>
                 <!-- <p>Jusqu'à présent <?php echo sum_donations($donations); ?> ont été contribués sur cette liste. </p> -->
