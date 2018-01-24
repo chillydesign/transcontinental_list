@@ -30,7 +30,6 @@
             <?php endforeach; ?>
           </ul>
           <?php
-          // use JasonGrimes\Paginator;
           $totalItems = count_users();
           $itemsPerPage = posts_per_page();
           $currentPage = get_var('p');
