@@ -528,7 +528,7 @@ function sum_donations($donations) {
 function get_user($user_id = null) {
 
     if ($user_id == null) {
-        if( current_subpage_is('user')) {
+        if( current_subpage_is('user') || current_subpage_is('useredit')  ) {
             $user_id = intval($_GET['id']);
         } else {
             $user_id =  $_GET['subpage'];
@@ -748,6 +748,35 @@ function insert_new_list($list) {
         return false;
     }
 
+
+}
+
+
+
+function update_user($user) {
+    global $conn;
+    if ( $user->id > 0 ){
+        try {
+
+            $query = "UPDATE tcg_users SET `email` = :email, `first_name` = :first_name, `last_name` = :last_name WHERE id = :id";
+            $user_query = $conn->prepare($query);
+            $user_query->bindParam(':email', $user->email);
+            $user_query->bindParam(':first_name', $user->first_name);
+            $user_query->bindParam(':last_name', $user->last_name);
+            $user_query->bindParam(':id', $user->id);
+            $user_query->execute();
+            unset($conn);
+
+            return true;
+
+        } catch(PDOException $err) {
+            return false;
+
+        };
+
+    } else { // user name was blank
+        return false;
+    }
 
 }
 
@@ -1377,7 +1406,7 @@ function send_php_mail($to, $subject, $content, $image = null) {
     $email_header = file_get_contents(dirname(__FILE__) . '/../emails/email_header.html');
     $email_footer = file_get_contents(dirname(__FILE__) . '/../emails/email_footer.html');
 
-$mail = new PHPMailer(true);                  // Passing `true` enables exceptions
+    $mail = new PHPMailer\PHPMailer\PHPMailer(true);                 // Passing `true` enables exceptions
 
     try {
         //Server settings

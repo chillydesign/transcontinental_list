@@ -4,39 +4,27 @@
 
 <?php $user = get_user(); ?>
 <?php if ($user): ?>
-    <h1><?php echo $user->first_name . ' ' . $user->last_name; ?></h1>
+    <h1>Edit <?php echo $user->first_name . ' ' . $user->last_name; ?></h1>
 
+
+
+    <?php if (has_error()) : ?>
+        <?php show_error_message(); ?>
+    <?php elseif (has_success()): ?>
+    <p class="success_message">User Edited</p>
+    <?php endif; ?>
 
 
     <div class="col-sm-6">
       <div class="half_block">
 
+          <?php include('includes/edit_user_form.php'); ?>
 
-              <h2>Informations personnelles</h2>
-              <p><strong>Nom: </strong><?php echo $user->last_name; ?>
-              <p><strong>Prénom: </strong><?php echo $user->first_name; ?>
-              <p><strong>Email: </strong><?php echo $user->email; ?>
-              <h2>Listes</h2>
-              <ul>
-                  <?php foreach (  user_lists($user->id) as $list) : ?>
-                      <li>
-                          <a href="<?php get_site_url(); ?>/adminarea/list?id=<?php echo $list->list_number; ?>">
-                              <strong><?php echo $list->name; ?></strong>
-                              (Créée le <?php  echo nice_date($list->created_at); ?>)
-                          </a>
-
-                      </li>
-                  <?php endforeach; ?>
-
-              </ul>
 
       </div>
     </div>
     <div class="col-sm-6">
-      <div class="half_block">
-        <h2>Ajouter une liste</h2>
-        <?php include('includes/new_list_form.php'); ?>
-      </div>
+
     </div>
 
 

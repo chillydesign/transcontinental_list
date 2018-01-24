@@ -12,7 +12,7 @@
       <div class="half_block">
 
 
-              <h2>Informations personnelles</h2>
+              <h2>Informations personnelles   <a href="<?php get_site_url(); ?>/adminarea/useredit?id=<?php echo $user->id; ?>">Edit</a></h2>
               <p><strong>Nom: </strong><?php echo $user->last_name; ?>
               <p><strong>Prénom: </strong><?php echo $user->first_name; ?>
               <p><strong>Email: </strong><?php echo $user->email; ?>

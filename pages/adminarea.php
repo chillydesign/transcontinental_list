@@ -5,6 +5,8 @@ if (current_subpage_is('newuser')):
     include('adminarea_newuser.php');
 elseif (current_subpage_is('user')):
     include('adminarea_user.php');
+    elseif (current_subpage_is('useredit')):
+        include('adminarea_useredit.php');
 elseif (current_subpage_is('users')):
     include('adminarea_users.php');
 elseif (current_subpage_is('newlist')):
