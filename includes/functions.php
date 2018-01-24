@@ -1536,7 +1536,7 @@ function send_donation_email( $donation , $list ) {
         $receiver = $user->email;
         $receiver_subject = 'Vous avez reçu une contribution à votre liste '. SITE_NAME;
         $receiver_content = generate_email_title($receiver_subject);
-        $receiver_content .= '<p>' . $sender_name . ' vient contribuer un montant de ' . $amount . 'sur votre liste '. SITE_NAME .' .</p>';
+        $receiver_content .= '<p>' . $sender_name . ' vient contribuer un montant de ' . $amount . ' sur votre liste '. SITE_NAME .' .</p>';
         if ($donation->message != '') {
             $receiver_content .= '<br /><br /><p style="padding:0 0 10px;margin:0;font-weight:bold">Message:</p>';
             $receiver_content .= '<p style="font-style:italic; color: #888;">'. $donation->message .'</p><br /><br />';
