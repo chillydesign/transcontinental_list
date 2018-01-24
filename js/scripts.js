@@ -2,6 +2,19 @@
     $(function () {
         'use strict';
 
+
+        var $areyousurelinks = $('.areyousurelink');
+        $areyousurelinks.on('click', function (e) {
+            e.preventDefault();
+            var $this = $(this);
+            var $href = $this.attr('href');
+            if (confirm('are you sure?')) {
+                window.location.href = $href;
+            };
+        })
+
+
+
         // use pictures to change the picture id for the giftcard or list
         var $picture_select = $('#picture');
         var $change_pictures = $('.change_picture');
