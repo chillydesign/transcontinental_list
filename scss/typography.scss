@@ -60,6 +60,7 @@ form {
         font-family: $font_stack;
         border: 1px solid $font_color;
     }
+    p select {font-size: 1em;}
     input[type="checkbox"] {
         width: auto;
     }
