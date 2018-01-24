@@ -1526,7 +1526,7 @@ function send_donation_email( $donation , $list ) {
         $sender = $donation->email;
         $sender_subject = 'Merci pour votre contribution';
         $sender_content = generate_email_title($sender_subject);
-        $sender_content .= '<p>Merci pour votre contribution d\'un montant de ' . $amount . ' à la liste de ' .  $receiver_name '</p>';
+        $sender_content .= '<p>Merci pour votre contribution d\'un montant de ' . $amount . ' à la liste de ' .  $receiver_name  . '</p>';
         $sender_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
         send_php_mail($sender, $sender_subject, $sender_content);
 
