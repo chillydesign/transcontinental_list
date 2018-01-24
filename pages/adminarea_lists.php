@@ -6,7 +6,7 @@
             <a class="list_button right_list_button" href="<?php get_site_url(); ?>/adminarea">Retour à l'admin</a>
         </div>
         <div class="col-sm-9 col-sm-pull-3">
-            <h1>lists</h1>
+            <h1>listes</h1>
         </div>
     </div>
     <?php if (has_error()) : ?>
@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="half_block">
-                <h2>Liste des lists</h2>
+                <h2>Toutes les listes</h2>
                 <?php include('includes/list_search.php'); ?>
                 <ul>
                     <?php foreach (  get_lists() as $list) : ?>
