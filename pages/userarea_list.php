@@ -91,6 +91,7 @@
           <div class="page_image" style="background-image:url('<?php echo $picture;?>'); overflow: hidden;"></div>
           <div class="container">
                 <h1>Aucune liste trouvée </h1>
+                <p><a class="list_button" href="<?php get_site_url(); ?>/userarea/newlist">Créer une liste</a></p>
           </div>
     <?php endif; // dont allow other users to see this list ?>
 <?php else: ?>
@@ -98,5 +99,6 @@
   <div class="page_image" style="background-image:url('<?php echo $picture;?>'); overflow: hidden;"></div>
   <div class="container">
         <h1>Aucune liste trouvée </h1>
+          <p><a class="list_button" href="<?php get_site_url(); ?>/userarea/newlist">Créer une liste</a></p>
   </div>
 <?php endif; ?>
