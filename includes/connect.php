@@ -51,7 +51,6 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use JasonGrimes\Paginator;
 require_once __DIR__ . '/../vendor/autoload.php';
-$mail = new PHPMailer(true);                  // Passing `true` enables exceptions
 
 
 ?>
