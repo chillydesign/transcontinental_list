@@ -1069,7 +1069,7 @@ function convert_to_amount_in_cents($string) {
 }
 
 function convert_cents_to_currency($integer) {
-    return   money_format( 'CHF %i', ($integer / 100)  );
+    return   money_format( '%i CHF', ($integer / 100)  );
 }
 
 function has_valid_user_cookie() {
@@ -1521,7 +1521,7 @@ function send_donation_email( $donation , $list ) {
 
         $sender_name = $donation->first_name . ' ' . $donation->last_name;
         $receiver_name = $user->first_name . ' ' . $user->last_name;
-        $amount =  convert_cents_to_currency($giftcard->amount);
+        $amount =  convert_cents_to_currency($donation->amount);
 
 
         $sender = $donation->email;
