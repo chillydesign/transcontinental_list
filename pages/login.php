@@ -16,8 +16,8 @@
 
       <form action="<?php get_site_url(); ?>/actions/user_connect.php" method="post">
 
-          <p><input type="text" name="email" placeholder="email" /></p>
-          <p><input type="password" name="password" placeholder="mot de passe" /></p>
+          <p><input  autocomplete="email" type="text" name="email" placeholder="email" /></p>
+          <p><input  autocomplete="current-password" type="password" name="password" placeholder="mot de passe" /></p>
           <p><input type="submit" name="connect_user" value="Connexion" /></p>
       </form>
         <p>Pas encore de compte? <a href="<?php echo site_url(); ?>">Créez-le ici.</a>  <a href="<?php echo site_url(); ?>/forgotpassword">Mot de passe oublié?</a>  </p>

@@ -264,6 +264,33 @@ function get_giftcards(){
     };
 }
 
+
+function delete_list($list) {
+
+    global $conn;
+    if ($list->id > 0) {
+
+        try {
+            $query = "DELETE FROM tcg_lists  WHERE id = :id    ";
+            $list_query = $conn->prepare($query);
+            $list_query->bindParam(':id', $list->id);
+            $list_query->setFetchMode(PDO::FETCH_OBJ);
+            $list_query->execute();
+
+            return true;
+
+            unset($conn);
+
+        } catch(PDOException $err) {
+            return false;
+        };
+    } else {
+        return false;
+    }
+
+}
+
+
 function posts_per_page() {
     return 10;
 }
@@ -1551,7 +1578,7 @@ function send_giftcard_email( $giftcard  ) {
 }
 
 function admin_email(){
-  return 'rissel.melissa+admin@gmail.com';
+    return 'rissel.melissa+admin@gmail.com';
 }
 
 

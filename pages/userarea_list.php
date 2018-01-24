@@ -1,3 +1,6 @@
+<div class="page_image" style="background-image:url('<?php echo $picture;?>'); overflow: hidden;"></div>
+<div class="container">
+
 <?php $list = get_list(); ?>
 <?php if ($list): ?>
     <?php if ($list->user_id == current_user()->id  ): ?>
@@ -8,8 +11,7 @@
           <?php $picture = get_site_url() . '/images/honeymoon.jpg'; ?>
       <?php endif; ?>
 
-      <div class="page_image" style="background-image:url('<?php echo $picture;?>'); overflow: hidden;"></div>
-      <div class="container">
+
         <div class="row">
           <div class="col-sm-3 col-sm-push-9">
             <a class="list_button right_list_button" href="<?php get_site_url(); ?>/userarea">Retour aux listes</a>
@@ -48,6 +50,8 @@
                   <h2>Modifier la liste</h2>
                   <?php include('includes/edit_list_form.php'); ?>
 
+                  <p><a  class="areyousurelink"  href="<?php get_site_url(); ?>/actions/list_delete.php?id=<?php echo $list->list_number; ?>">Delete this list?</a></p>
+
               </div>
             </div>
             <div class="col-sm-6">
@@ -81,10 +85,13 @@
                 </table>
               </div>
             </div>
-        </div>
-
-</div>
+        <?php else: ?>
+                <p>Aucune liste trouvée </p>
     <?php endif; // dont allow other users to see this list ?>
 <?php else: ?>
     <p>Aucune liste trouvée </p>
 <?php endif; ?>
+
+</div>
+
+</div>

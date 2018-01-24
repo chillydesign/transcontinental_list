@@ -64,6 +64,9 @@
 
             <?php include('includes/edit_list_form.php'); ?>
 
+
+            <p><a  class="areyousurelink"  href="<?php get_site_url(); ?>/actions/list_delete.php?id=<?php echo $list->list_number; ?>">Delete this list?</a></p>
+
     </div>
     </div>
 </div>
