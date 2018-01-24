@@ -1,6 +1,3 @@
-<div class="page_image" style="background-image:url('<?php echo $picture;?>'); overflow: hidden;"></div>
-<div class="container">
-
 <?php $list = get_list(); ?>
 <?php if ($list): ?>
     <?php if ($list->user_id == current_user()->id  ): ?>
@@ -10,6 +7,8 @@
       <?php else: ?>
           <?php $picture = get_site_url() . '/images/honeymoon.jpg'; ?>
       <?php endif; ?>
+      <div class="page_image" style="background-image:url('<?php echo $picture;?>'); overflow: hidden;"></div>
+      <div class="container">
 
 
         <div class="row">
@@ -85,13 +84,19 @@
                 </table>
               </div>
             </div>
+          </div>
+
         <?php else: ?>
-                <p>Aucune liste trouvée </p>
+          <?php $picture = get_site_url() . '/images/honeymoon.jpg'; ?>
+          <div class="page_image" style="background-image:url('<?php echo $picture;?>'); overflow: hidden;"></div>
+          <div class="container">
+                <h1>Aucune liste trouvée </h1>
+          </div>
     <?php endif; // dont allow other users to see this list ?>
 <?php else: ?>
-    <p>Aucune liste trouvée </p>
+  <?php $picture = get_site_url() . '/images/honeymoon.jpg'; ?>
+  <div class="page_image" style="background-image:url('<?php echo $picture;?>'); overflow: hidden;"></div>
+  <div class="container">
+        <h1>Aucune liste trouvée </h1>
+  </div>
 <?php endif; ?>
-
-</div>
-
-</div>
