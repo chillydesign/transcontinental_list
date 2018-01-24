@@ -8,7 +8,7 @@
             e.preventDefault();
             var $this = $(this);
             var $href = $this.attr('href');
-            if (confirm('are you sure?')) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer ceci?')) {
                 window.location.href = $href;
             };
         })

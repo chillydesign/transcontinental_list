@@ -33,7 +33,7 @@
 
             <?php include('includes/edit_giftcard_form.php'); ?>
 
-            <p><a  class="areyousurelink"  href="<?php get_site_url(); ?>/actions/giftcard_delete.php?id=<?php echo  convert_giftcard_id( $giftcard->id) ?>">Delete this giftcard?</a></p>
+            <p><a  class="areyousurelink"  href="<?php get_site_url(); ?>/actions/giftcard_delete.php?id=<?php echo  convert_giftcard_id( $giftcard->id) ?>">Supprimer</a></p>
         </div>
 
 

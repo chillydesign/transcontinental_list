@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="col-sm-6">
-        <p><a  class="areyousurelink"  href="<?php get_site_url(); ?>/actions/user_delete.php?id=<?php echo $user->id; ?>">Delete this user?</a></p>
+        <p><a  class="areyousurelink"  href="<?php get_site_url(); ?>/actions/user_delete.php?id=<?php echo $user->id; ?>">Supprimer</a></p>
     </div>
 
 
