@@ -265,6 +265,32 @@ function get_giftcards(){
 }
 
 
+
+function delete_giftcard($giftcard) {
+
+    global $conn;
+    if ($giftcard->id > 0) {
+
+        try {
+            $query = "DELETE FROM tcg_giftcards  WHERE id = :id    ";
+            $giftcard_query = $conn->prepare($query);
+            $giftcard_query->bindParam(':id', $giftcard->id);
+            $giftcard_query->setFetchMode(PDO::FETCH_OBJ);
+            $giftcard_query->execute();
+
+            return true;
+
+            unset($conn);
+
+        } catch(PDOException $err) {
+            return false;
+        };
+    } else {
+        return false;
+    }
+
+}
+
 function delete_list($list) {
 
     global $conn;

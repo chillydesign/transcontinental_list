@@ -9,7 +9,7 @@
         <a class="list_button right_list_button" href="<?php get_site_url(); ?>/adminarea">Retour à l'admin</a>
       </div>
       <div class="col-sm-9 col-sm-pull-3">
-            <h1>Bon cadeau #<?php echo $giftcard->id; ?></h1>
+            <h1>Bon cadeau #<?php echo  convert_giftcard_id( $giftcard->id); ?></h1>
       </div>
     </div>
 
@@ -33,7 +33,7 @@
 
             <?php include('includes/edit_giftcard_form.php'); ?>
 
-
+            <p><a  class="areyousurelink"  href="<?php get_site_url(); ?>/actions/giftcard_delete.php?id=<?php echo  convert_giftcard_id( $giftcard->id) ?>">Delete this giftcard?</a></p>
         </div>
 
 
@@ -55,5 +55,7 @@
 
 
 
+<?php else: ?>
+    <p>No giftcard with this id.</p>
 <?php endif; ?>
     </div>
