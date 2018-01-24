@@ -218,3 +218,7 @@ ul.pagination {
     }
 
 }
+
+li.giftcard_used, li.list_inactive {
+    filter: grayscale(1);
+}
