@@ -490,7 +490,8 @@ function get_lists(){
         $query = "SELECT *, tcg_lists.id as id FROM tcg_lists
         LEFT JOIN tcg_users ON tcg_users.id = tcg_lists.user_id
         WHERE tcg_users.id IS NOT NULL
-        ORDER BY tcg_lists.created_at DESC LIMIT $posts_per_page $page_query ";
+        ORDER BY  tcg_lists.active DESC,  tcg_lists.created_at DESC
+        LIMIT $posts_per_page $page_query ";
         $lists_query = $conn->prepare($query);
         $lists_query->setFetchMode(PDO::FETCH_OBJ);
         $lists_query->execute();
