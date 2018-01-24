@@ -1542,7 +1542,7 @@ function send_giftcard_email( $giftcard  ) {
     $admin = admin_email();
     $admin_subject = 'Nouveau bon cadeau '. SITE_NAME;
     $admin_content = generate_email_title($admin_subject);
-    $admin_content .= '<p> De la part de ' . $sender_name . ' - ' . $sender_email . '<br>Pour : ' . $receiver_name . ' - ' . $receiver_email . '<br> Montant : '.  $amount;
+    $admin_content .= '<p> De la part de ' . $sender_name . ' - ' . $sender. '<br>Pour : ' . $receiver_name . ' - ' . $receiver . '<br> Montant : '.  $amount;
     $admin_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
 
     send_php_mail($admin, $admin_subject, $admin_content, $image);
@@ -1590,7 +1590,7 @@ function send_donation_email( $donation , $list ) {
         $admin = admin_email();
         $admin_subject = 'Nouvelle contribution - listes'. SITE_NAME;
         $admin_content = generate_email_title($admin_subject);
-        $admin_content .= '<p> De la part de ' . $sender_name . ' - ' . $sender_email . '<br>Pour : ' . $receiver_name . ' - ' . $receiver_email . '<br> Montant : '.  $amount . '<br>Liste : ' . $listname;
+        $admin_content .= '<p> De la part de ' . $sender_name . ' - ' . $sender . '<br>Pour : ' . $receiver_name . ' - ' . $receiver . '<br> Montant : '.  $amount . '<br>Liste : ' . $listname;
         $admin_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
 
         send_php_mail($admin, $admin_subject, $admin_content, $image);
