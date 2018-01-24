@@ -26,6 +26,7 @@
               <li><a href="<?php get_site_url(); ?>/giftcard">Bons cadeaux</a></li>
               <li><a href="<?php get_site_url(); ?>/userarea">Mes listes</a></li>
               <li><a href="<?php get_site_url(); ?>">Contribuer à une liste</a></li>
+              <li> <a href="<?php get_site_url(); ?>/actions/user_account.php">Compte</a></li>
               <li> <a href="<?php get_site_url(); ?>/actions/user_logout.php">Déconnexion</a></li>
               <?php elseif (has_valid_admin_cookie()): ?>
                 <li><a href="<?php get_site_url(); ?>/adminarea/users?p=1">Clients</a></li>

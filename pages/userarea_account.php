@@ -4,13 +4,13 @@
 
     <?php $user = current_user(); ?>
     <?php if ($user): ?>
-        <h1>Your account</h1>
+        <h1>Vos informations</h1>
 
 
         <?php if (has_error()) : ?>
             <?php show_error_message(); ?>
         <?php elseif (has_success()): ?>
-            <p class="success_message">Your account has been updated</p>
+            <p class="success_message">Vos informations ont été mises à jour.</p>
         <?php endif; ?>
 
 

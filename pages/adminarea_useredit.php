@@ -4,14 +4,14 @@
 
 <?php $user = get_user(); ?>
 <?php if ($user): ?>
-    <h1>Edit <?php echo $user->first_name . ' ' . $user->last_name; ?></h1>
+    <h1>Modifier <?php echo $user->first_name . ' ' . $user->last_name; ?></h1>
 
 
 
     <?php if (has_error()) : ?>
         <?php show_error_message(); ?>
     <?php elseif (has_success()): ?>
-    <p class="success_message">User Edited</p>
+    <p class="success_message">Le client a bien été modifié!</p>
     <?php endif; ?>
 
 
