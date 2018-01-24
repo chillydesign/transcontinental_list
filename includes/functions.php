@@ -1382,6 +1382,7 @@ function send_php_mail($to, $subject, $content, $image = null) {
     try {
         //Server settings
         //$mail->SMTPDebug = 2;                   // Enable verbose debug output
+        $mail->CharSet = 'UTF-8';
         $mail->isSMTP();                          // Set mailer to use SMTP
         $mail->Host = 'smtp.gmail.com';           // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                   // Enable SMTP authentication
