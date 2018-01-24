@@ -17,11 +17,12 @@
 <div class="row">
 
     <div class="col-sm-6">
+      <div class="half_block">
 
-        <p>List made by <a  href="<?php get_site_url(); ?>/adminarea/user?id=<?php echo $list->user_id; ?>"><?php echo $list->users_name; ?></a></p>
+        <p>Liste crée par <a  href="<?php get_site_url(); ?>/adminarea/user?id=<?php echo $list->user_id; ?>"><?php echo $list->users_name; ?></a></p>
 
 
-        <p>The public list number is  <a href="<?php get_site_url(); ?>/list/<?php echo $list->list_number; ?>"><?php echo $list->list_number; ?></a></p>
+        <p>Le numéro de la liste est  <a href="<?php get_site_url(); ?>/list/<?php echo $list->list_number; ?>"><?php echo $list->list_number; ?></a></p>
 
 
             <?php $donations = get_donations( $list->id  ); ?>
@@ -29,9 +30,9 @@
             <table>
                 <thead>
                     <tr>
-                        <th>From</th>
-                        <th>Amount</th>
-                        <th>Status</th>
+                        <th>De la part de</th>
+                        <th>Montant</th>
+                        <th>Statut</th>
                         <th>Date</th>
                     </tr>
                 </thead>
@@ -53,15 +54,17 @@
 
 
     </div>
+    </div>
 
     <div class="col-sm-6">
-
+      <div class="half_block">
             <?php if (has_error()) : ?>
                 <?php show_error_message(); ?>
             <?php endif; ?>
 
             <?php include('includes/edit_list_form.php'); ?>
 
+    </div>
     </div>
 </div>
 
