@@ -1423,7 +1423,6 @@ function send_php_mail($to, $subject, $content, $image = null) {
         $mail->setFrom('noreply@transcontinental.ch', 'Transcontinental');
         $mail->addAddress( $to );     // Add a recipient
         $mail->addReplyTo('noreply@transcontinental.ch', 'Transcontinental');
-        $mail->addBCC('harvey.charles@gmail.com');
 
         $logo_image = add_image_to_email(WEBSITE_URL . '/images/logo_email.jpg', false);
         $top_image = add_image_to_email($image, true); // true means add spacing below the picture
@@ -1540,6 +1539,19 @@ function send_giftcard_email( $giftcard  ) {
     send_php_mail($receiver, $receiver_subject, $receiver_content, $image);
 
 
+    $admin = admin_email();
+    $admin_subject = 'Nouveau bon cadeau '. SITE_NAME;
+    $admin_content = generate_email_title($admin_subject);
+    $admin_content .= '<p> De la part de ' . $sender_name . ' - ' . $sender_email . '<br>Pour : ' . $receiver_name . ' - ' . $receiver_email . '<br> Montant : '.  $amount;
+    $admin_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
+
+    send_php_mail($admin, $admin_subject, $admin_content, $image);
+
+
+}
+
+function admin_email(){
+  return 'rissel.melissa+admin@gmail.com';
 }
 
 
@@ -1551,7 +1563,7 @@ function send_donation_email( $donation , $list ) {
         $sender_name = $donation->first_name . ' ' . $donation->last_name;
         $receiver_name = $user->first_name . ' ' . $user->last_name;
         $amount =  convert_cents_to_currency($donation->amount);
-
+        $listname = $list->name;
 
         $sender = $donation->email;
         $sender_subject = 'Merci pour votre contribution';
@@ -1565,13 +1577,25 @@ function send_donation_email( $donation , $list ) {
         $receiver = $user->email;
         $receiver_subject = 'Vous avez reçu une contribution à votre liste '. SITE_NAME;
         $receiver_content = generate_email_title($receiver_subject);
-        $receiver_content .= '<p>' . $sender_name . ' vient contribuer un montant de ' . $amount . ' sur votre liste '. SITE_NAME .' .</p>'; if ($donation->message != '') {
+        $receiver_content .= '<p>' . $sender_name . ' vient contribuer un montant de ' . $amount . ' sur votre liste '. $listname .' .</p>'; if ($donation->message != '') {
             $receiver_content .= '<br /><br /><p style="padding:0 0 10px;margin:0;font-weight:bold">Message:</p>';
             $receiver_content .= '<p style="font-style:italic; color: #888;">'. $donation->message .'</p><br /><br />';
         }
         $receiver_content .= generate_email_button(WEBSITE_URL,  'Aller sur le site ' .  SITE_NAME);
         $receiver_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
         send_php_mail($receiver, $receiver_subject, $receiver_content);
+
+
+
+        $admin = admin_email();
+        $admin_subject = 'Nouvelle contribution - listes'. SITE_NAME;
+        $admin_content = generate_email_title($admin_subject);
+        $admin_content .= '<p> De la part de ' . $sender_name . ' - ' . $sender_email . '<br>Pour : ' . $receiver_name . ' - ' . $receiver_email . '<br> Montant : '.  $amount . '<br>Liste : ' . $listname;
+        $admin_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
+
+        send_php_mail($admin, $admin_subject, $admin_content, $image);
+
+
     }
 
 
