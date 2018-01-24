@@ -1463,12 +1463,12 @@ function send_user_reset_password_email( $user  ) {
 
     if ($user) {
         $receiver = $user->email;
-        $receiver_subject = 'Your '. SITE_NAME . ' password has been reset';
+        $receiver_subject = 'Réinitialiser votre mot de passe sur '. SITE_NAME . '.';
         $receiver_content = generate_email_title($receiver_subject);
-        $receiver_content .= '<p>Your password with '. SITE_NAME.' gift list has been reset. Please click the button below to reset your password. If you didnt ask for your password to be reset please ignore this email.</p>';
+        $receiver_content .= '<p>Vous avez demandé à réinitialiser votre mot de passe pour le site '. SITE_NAME.'. Veuillez cliquer sur le bouton ci-dessous pour réinitialiser votre mot de passe. Si vous ne souhaitez pas réinitialiser votre mot de passe ignorez cet email.</p>';
         $link = WEBSITE_URL  . "/resetpassword/" . $user->reset_password_token ;
-        $receiver_content .= generate_email_button($link,  'Reset your password');
-        $receiver_content .= '<p>Your sincerely, <br /> The '. SITE_NAME.' team</p>';
+        $receiver_content .= generate_email_button($link,  'Réinitialiser votre mot de passe');
+        $receiver_content .= '<p>Meilleures Salutations, <br /> L\'équipe '. SITE_NAME.'</p>';
 
         //  $imagelocation = WEBSITE_URL . '/images/giftcard.jpg' ;
         // send_php_mail($receiver, $receiver_subject, $receiver_content, $imagelocation);
@@ -1490,21 +1490,22 @@ function send_giftcard_email( $giftcard  ) {
 
 
     $sender = $giftcard->sender_email;
-    $sender_subject = 'Thanks for sending a giftcard';
+    $sender_subject = 'Merci d\'avoir envoyé un bon cadeau';
     $sender_content = generate_email_title($sender_subject);
-    $sender_content .= 'Thanks for sending a giftcard to ' .  $receiver_name ;
+    $sender_content .= '<p>Vous avez envoyé un bon cadeau d\'une valeur de ' . $amount' à ' .  $receiver_name '.<br>Merci pour votre envoi!</p><p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
     send_php_mail($sender, $sender_subject, $sender_content, $image);
 
 
     $receiver = $giftcard->receiver_email;
-    $receiver_subject = 'You just got a giftcard';
+    $receiver_subject = 'Vous avez reçu un bon cadeau '. SITE_NAME;
     $receiver_content = generate_email_title($receiver_subject);
-    $receiver_content .= $sender_name . ' just sent you a giftcard for '.  $amount . ' to spend at '. SITE_NAME .' .';
+    $receiver_content .= '<p>' . $sender_name . ' vous a envoyé un bon cadeau d\'une valeur de '.  $amount . ' pour acheter un voyage chez '. SITE_NAME .' .';
     if ($giftcard->message != '') {
         $receiver_content .= '<br /><br /><p style="padding:0 0 0px;margin:0;font-weight:bold">Message:</p>';
         $receiver_content .= '<p style="font-style:italic; color: #888;">'. $giftcard->message .'</p><br /><br />';
     }
-    $receiver_content .= generate_email_button(WEBSITE_URL,  'Visit ' .  SITE_NAME);
+    $receiver_content .= generate_email_button(WEBSITE_URL,  'Aller sur le site ' .  SITE_NAME);
+    $receiver_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
 
     send_php_mail($receiver, $receiver_subject, $receiver_content, $image);
 
@@ -1523,22 +1524,24 @@ function send_donation_email( $donation , $list ) {
 
 
         $sender = $donation->email;
-        $sender_subject = 'Thanks for sending a donation';
+        $sender_subject = 'Merci pour votre contribution';
         $sender_content = generate_email_title($sender_subject);
-        $sender_content .= 'Thanks for sending a donation to ' .  $receiver_name;
+        $sender_content .= '<p>Merci pour votre contribution d\'un montant de ' . $amount . ' à la liste de ' .  $receiver_name '</p>';
+        $sender_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
         send_php_mail($sender, $sender_subject, $sender_content);
 
 
 
         $receiver = $user->email;
-        $receiver_subject = 'You just got a donation';
+        $receiver_subject = 'Vous avez reçu une contribution à votre liste '. SITE_NAME;
         $receiver_content = generate_email_title($receiver_subject);
-        $receiver_content .= $sender_name . ' just send you a donation for '.  $amount . ' to spend at '. SITE_NAME .' .';
+        $receiver_content .= '<p>' . $sender_name . ' vient contribuer un montant de ' . $amount . 'sur votre liste '. SITE_NAME .' .</p>';
         if ($donation->message != '') {
             $receiver_content .= '<br /><br /><p style="padding:0 0 10px;margin:0;font-weight:bold">Message:</p>';
             $receiver_content .= '<p style="font-style:italic; color: #888;">'. $donation->message .'</p><br /><br />';
         }
-        $receiver_content .= generate_email_button(WEBSITE_URL,  'Visit ' .  SITE_NAME);
+        $receiver_content .= generate_email_button(WEBSITE_URL,  'Aller sur le site ' .  SITE_NAME);
+        $receiver_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
         send_php_mail($receiver, $receiver_subject, $receiver_content);
     }
 

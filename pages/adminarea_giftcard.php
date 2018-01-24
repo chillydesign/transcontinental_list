@@ -9,7 +9,7 @@
         <a class="list_button right_list_button" href="<?php get_site_url(); ?>/adminarea">Retour à l'admin</a>
       </div>
       <div class="col-sm-9 col-sm-pull-3">
-            <h1>Giftcard #<?php echo $giftcard->id; ?></h1>
+            <h1>Bon cadeau #<?php echo $giftcard->id; ?></h1>
       </div>
     </div>
 
@@ -23,9 +23,9 @@
         <div class="col-sm-6">
 
             <ul>
-                <li><strong>Sender:</strong> <?php echo $giftcard->sender_first_name; ?> <?php echo $giftcard->sender_last_name; ?> ( <?php echo $giftcard->sender_email; ?>)</li>
-                <li><strong>Receiver:</strong> <?php echo $giftcard->receiver_first_name; ?> <?php echo $giftcard->receiver_last_name; ?> ( <?php echo $giftcard->receiver_email; ?>)</li>
-                <li><strong>Amount:</strong> <?php echo convert_cents_to_currency($giftcard->amount); ?></li>
+                <li><strong>De la part de:</strong> <?php echo $giftcard->sender_first_name ; ?> <?php echo $giftcard->sender_last_name; ?> ( <?php echo $giftcard->sender_email; ?>)</li>
+                <li><strong>Pour:</strong> <?php echo $giftcard->receiver_first_name; ?> <?php echo $giftcard->receiver_last_name; ?> ( <?php echo $giftcard->receiver_email; ?>)</li>
+                <li><strong>Montant:</strong> <?php echo convert_cents_to_currency($giftcard->amount); ?></li>
                 <li><strong>Date:</strong> <?php echo $giftcard->created_at; ?></li>
             </ul>
 

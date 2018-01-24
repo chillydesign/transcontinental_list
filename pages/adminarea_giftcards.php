@@ -6,7 +6,7 @@
             <a class="list_button right_list_button" href="<?php get_site_url(); ?>/adminarea">Retour à l'admin</a>
         </div>
         <div class="col-sm-9 col-sm-pull-3">
-            <h1>Giftcards</h1>
+            <h1>Bons cadeaux</h1>
         </div>
     </div>
     <?php if (has_error()) : ?>
@@ -17,13 +17,14 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="half_block">
-                <h2>Liste des giftcards</h2>
+                <h2>Liste des bons cadeaux</h2>
                 <?php include('includes/search_giftcard_form.php'); ?>
                 <ul>
                     <?php foreach (  get_giftcards() as $giftcard) : ?>
                         <li>
                             <a href="<?php get_site_url(); ?>/adminarea/giftcard?id=<?php echo convert_giftcard_id($giftcard->id); ?>">
-                                <strong> Sender: <?php echo $giftcard->sender_first_name; ?> <?php echo $giftcard->sender_last_name; ?></strong>
+                                <strong> Bon de <?php echo convert_cents_to_currency($giftcard->amount); ?>  pour: <?php echo $giftcard->receiver_first_name; ?> <?php echo $giftcard->receiver_last_name; ?></strong><br>
+                                De la part de: <?php echo $giftcard->sender_first_name; ?> <?php echo $giftcard->sender_last_name; ?>
                             </a>
                             <br> <em>Créé le <?php  echo nice_date($giftcard->created_at); ?></em>
 

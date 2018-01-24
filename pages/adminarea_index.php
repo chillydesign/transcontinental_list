@@ -6,7 +6,7 @@
 
   <div class="row">
     <div class="col-sm-4">
-      <div class="third_block">
+      <div class="half_block">
 
         <h2><a href="<?php get_site_url(); ?>/adminarea/users?p=1">Clients</a> <a class="tc_button" href="<?php get_site_url(); ?>/adminarea/newuser">+</a></h2>
         <?php include('includes/search_user_form.php'); ?>
@@ -21,6 +21,7 @@
               </li>
             <?php endforeach; ?>
           </ul>
+          <p><br><a class="list_button" href="<?php get_site_url(); ?>/adminarea/newuser">Tous les clients</a></p>
 
 
 
@@ -44,6 +45,7 @@
                 </li>
               <?php endforeach; ?>
             </ul>
+            <p><br><a class="list_button"  href="<?php get_site_url(); ?>/adminarea/newlist">Toutes les listes</a></p>
 
 
 
@@ -60,13 +62,16 @@
               <?php foreach ( get_giftcards() as $giftcard) : ?>
                 <li>
                   <a href="<?php get_site_url(); ?>/adminarea/giftcard?id=<?php echo  convert_giftcard_id($giftcard->id); ?>">
-                    <strong><?php echo convert_cents_to_currency($giftcard->amount); ?> from <?php echo $giftcard->sender_first_name; ?> <?php echo $giftcard->sender_last_name; ?> to  <?php echo $giftcard->receiver_first_name; ?> <?php echo $giftcard->receiver_last_name; ?></strong></a>
-                    <br /> Créé le <?php  echo nice_date($giftcard->created_at); ?>
+                    <strong> Bon de <?php echo convert_cents_to_currency($giftcard->amount); ?>  pour: <?php echo $giftcard->receiver_first_name; ?> <?php echo $giftcard->receiver_last_name; ?></strong><br>
+                    De la part de: <?php echo $giftcard->sender_first_name; ?> <?php echo $giftcard->sender_last_name; ?>
+                </a>
+                <br> <em>Créé le <?php  echo nice_date($giftcard->created_at); ?></em>
 
 
                   </li>
                 <?php endforeach; ?>
               </ul>
+              <p><br><a class="list_button"  href="<?php get_site_url(); ?>/adminarea/giftcards">Tous les bons cadeaux</a></p>
 
 
 

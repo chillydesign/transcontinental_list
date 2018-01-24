@@ -2,8 +2,6 @@
     $(function () {
         'use strict';
 
-
-
         // use pictures to change the picture id for the giftcard or list
         var $picture_select = $('#picture');
         var $change_pictures = $('.change_picture');
