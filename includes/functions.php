@@ -291,6 +291,34 @@ function delete_giftcard($giftcard) {
 
 }
 
+
+
+function delete_user($user) {
+
+    global $conn;
+    if ($user->id > 0) {
+
+        try {
+            $query = "DELETE FROM tcg_users  WHERE id = :id    ";
+            $user_query = $conn->prepare($query);
+            $user_query->bindParam(':id', $user->id);
+            $user_query->setFetchMode(PDO::FETCH_OBJ);
+            $user_query->execute();
+
+            return true;
+
+            unset($conn);
+
+        } catch(PDOException $err) {
+            return false;
+        };
+    } else {
+        return false;
+    }
+
+}
+
+
 function delete_list($list) {
 
     global $conn;
@@ -461,6 +489,7 @@ function get_lists(){
     try {
         $query = "SELECT *, tcg_lists.id as id FROM tcg_lists
         LEFT JOIN tcg_users ON tcg_users.id = tcg_lists.user_id
+        WHERE tcg_users.id IS NOT NULL
         ORDER BY tcg_lists.created_at DESC LIMIT $posts_per_page $page_query ";
         $lists_query = $conn->prepare($query);
         $lists_query->setFetchMode(PDO::FETCH_OBJ);
@@ -708,7 +737,8 @@ function get_list($list_id = null) {
         try {
             $query = "SELECT *, tcg_lists.id as id FROM tcg_lists
             LEFT JOIN tcg_users ON tcg_users.id = tcg_lists.user_id
-            WHERE tcg_lists.id = :id
+            WHERE tcg_users.id IS NOT NULL
+            AND tcg_lists.id = :id
             LIMIT 1";
             $list_query = $conn->prepare($query);
             $list_query->bindParam(':id', $list_id);

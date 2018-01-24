@@ -9,10 +9,10 @@
         <?php if(has_valid_admin_cookie()): ?>
             <p>
                 <select id="user_id" name="user_id">
-                    <?php foreach ( get_users( array('posts_per_page' => -1) ) as $user) : ?>
-                        <?php $selected = ( $user->id == $list->user_id ) ? 'selected="selected"'  : '' ; ?>
-                        <option <?php echo $selected; ?>   value="<?php echo $user->id; ?>">
-                            <?php echo $user->first_name . ' ' . $user->last_name; ?>
+                    <?php foreach ( get_users( array('posts_per_page' => -1) ) as $user_for_list) : ?>
+                        <?php $selected = ( $user_for_list->id == $list->user_id ) ? 'selected="selected"'  : '' ; ?>
+                        <option <?php echo $selected; ?>   value="<?php echo $user_for_list->id; ?>">
+                            <?php echo $user_for_list->first_name . ' ' . $user_for_list->last_name; ?>
                         </option>
                     <?php endforeach; ?>
                 </select>

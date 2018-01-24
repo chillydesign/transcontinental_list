@@ -5,9 +5,9 @@
     <p>
         <select id="user_id" name="user_id">
             <option value="-1">-</option>
-            <?php foreach (  get_users( array('posts_per_page' => -1) ) as $user) : ?>
-                <?php $selected = ( $user->id == get_var('id')  ) ? 'selected="selected"' : ''; ?>
-                <option <?php echo $selected; ?> value="<?php echo $user->id; ?>"><?php echo $user->first_name . ' ' . $user->last_name; ?></option>
+            <?php foreach (  get_users( array('posts_per_page' => -1) ) as $user_for_list) : ?>
+                <?php $selected = ( $user_for_list->id == get_var('id')  ) ? 'selected="selected"' : ''; ?>
+                <option <?php echo $selected; ?> value="<?php echo $user_for_list->id; ?>"><?php echo $user_for_list->first_name . ' ' . $user_for_list->last_name; ?></option>
             <?php endforeach; ?>
         </select>
     </p>

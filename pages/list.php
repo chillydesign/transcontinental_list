@@ -1,6 +1,6 @@
 <?php $list = get_list(); ?>
 
-
+<?php echo  deconvert_list_id($_GET['subpage']); ?>
 <?php if ($list): ?>
 
   <?php if (picture_exists( $list->picture, 'lists' )) : ?>
@@ -78,17 +78,18 @@
 
             </div>
         </div>
-      </div>
-
-
 </div>
 
     <?php else: ?>
-        <div class="page_image" style="background-image:url('<?php echo site_url() . '/images/honeymoon.jpg';?>'); overflow: hidden;"></div>
-        <div class="container">
-          <p>Cette liste n'est pas active à l'heure actuelle.</p>
-        </div>
+
+          <h1>Cette liste n'est pas active à l'heure actuelle.</h1>
+
     <?php endif; ?>
+
+
+
+
+</div>
 <?php else: ?>
   <div class="page_image" style="background-image:url('<?php echo site_url() . '/images/honeymoon.jpg';?>'); overflow: hidden;"></div>
   <div class="container">
