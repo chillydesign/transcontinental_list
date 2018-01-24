@@ -1492,7 +1492,7 @@ function send_giftcard_email( $giftcard  ) {
     $sender = $giftcard->sender_email;
     $sender_subject = 'Merci d\'avoir envoyé un bon cadeau';
     $sender_content = generate_email_title($sender_subject);
-    $sender_content .= '<p>Vous avez envoyé un bon cadeau d\'une valeur de ' . $amount . ' à ' .  $receiver_name '.<br>Merci pour votre envoi!</p><p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
+    $sender_content .= '<p>Vous avez envoyé un bon cadeau d\'une valeur de ' . $amount . ' à ' .  $receiver_name  . '<br>Merci pour votre envoi!</p><p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
     send_php_mail($sender, $sender_subject, $sender_content, $image);
 
 
