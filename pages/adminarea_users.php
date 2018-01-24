@@ -35,7 +35,7 @@
           $currentPage = get_var('p');
           $s = (get_var('s')) ? "&s=" . get_var('s') : '';
           $urlPattern = site_url() . '/adminarea/users?p=(:num)' . $s;
-          $paginator = new Paginator($totalItems, $itemsPerPage, $currentPage, $urlPattern);
+          $paginator = new \JasonGrimes\Paginator($totalItems, $itemsPerPage, $currentPage, $urlPattern);
           $paginator->setMaxPagesToShow(3);
           $paginator->setPreviousText('Précédent');
           $paginator->setNextText('Suivant');
