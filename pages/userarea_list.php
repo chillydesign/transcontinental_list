@@ -87,14 +87,14 @@
           </div>
 
         <?php else: ?>
-          <?php $picture = get_site_url() . '/images/honeymoon.jpg'; ?>
+          <?php $picture = site_url() . '/images/honeymoon.jpg'; ?>
           <div class="page_image" style="background-image:url('<?php echo $picture;?>'); overflow: hidden;"></div>
           <div class="container">
                 <h1>Aucune liste trouvée </h1>
           </div>
     <?php endif; // dont allow other users to see this list ?>
 <?php else: ?>
-  <?php $picture = get_site_url() . '/images/honeymoon.jpg'; ?>
+  <?php $picture = site_url() . '/images/honeymoon.jpg'; ?>
   <div class="page_image" style="background-image:url('<?php echo $picture;?>'); overflow: hidden;"></div>
   <div class="container">
         <h1>Aucune liste trouvée </h1>
