@@ -1,6 +1,4 @@
 <?php $list = get_list(); ?>
-
-<?php echo  deconvert_list_id($_GET['subpage']); ?>
 <?php if ($list): ?>
 
   <?php if (picture_exists( $list->picture, 'lists' )) : ?>
