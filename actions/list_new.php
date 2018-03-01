@@ -14,7 +14,7 @@ if ( isset($_POST['submit_new_list']) &&   isset($_POST['name'])   )  {
         $user = get_user($user_id);
     } else {
         $user  = current_user();
-        $user_id = ($user)  ? intval($current_user->id) : 0;
+        $user_id = ($user)  ? intval($user->id) : 0;
     }
 
     $name = $_POST['name'];
