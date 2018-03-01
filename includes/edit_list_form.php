@@ -34,7 +34,7 @@
             <textarea name="description" placeholder="Description"><?php echo $list->description; ?></textarea>
         </p>
         <?php if (sizeof($pictures) > 0) : ?>
-              <p><label>Image</label></p>
+              <p><label>Image <br> <em>Choisissez une photo en cliquant dessus.</em></label></p>
               <div class="allfigs">
             <?php foreach ($pictures as $picture) : ?>
                 <?php $selected = ( $picture->id == $list->picture ) ? 'selected"'  : '' ; ?>

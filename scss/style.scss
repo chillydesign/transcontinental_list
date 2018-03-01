@@ -141,6 +141,12 @@ input[type="checkbox"] {
     width: 15px;
 }
 
+label {
+    em {
+                    color: #888;
+    }
+}
+
 .allfigs {margin: -20px -30px 20px -10px}
 figure.change_picture {
     width: calc(50% - 22px);

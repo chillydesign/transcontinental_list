@@ -49,7 +49,7 @@
                 <textarea name="message" placeholder="Message"></textarea>
             </p>
             <?php if (sizeof($pictures) > 0) : ?>
-              <p><label>Image</label></p>
+              <p><label>Image <br> <em>Choisissez une photo en cliquant dessus.</em></label></p>
               <div class="allfigs">
                     <?php foreach ($pictures as $picture) : ?>
                         <figure class="change_picture" data-picture="<?php echo $picture->id; ?>">
