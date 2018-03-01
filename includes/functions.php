@@ -1576,7 +1576,6 @@ function generate_email_title($str) {
 function send_list_created_email($list, $user) {
     if ($list && $user) {
 
-        $list = process_list($list);
 
         $receiver = $user->email;
         $link = WEBSITE_URL  . "/list/" . $list->list_number ;

@@ -37,6 +37,9 @@ if ( isset($_POST['submit_new_list']) &&   isset($_POST['name'])   )  {
 
         if(  $list_id ) { // if list saves fine
 
+            $list->id = $list_id;
+            $list = process_list($list);
+
             if (has_valid_admin_cookie() == false) {
                 send_list_created_email( $list, $user );
             }
