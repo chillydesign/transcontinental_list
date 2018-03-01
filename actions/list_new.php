@@ -11,9 +11,10 @@ if ( isset($_POST['submit_new_list']) &&   isset($_POST['name'])   )  {
     // if user id has been posted, add that, otherwise take the logged in users id
     if (isset($_POST['user_id'])) {
         $user_id = intval($_POST['user_id']);
+        $user = get_user($user_id);
     } else {
-        $current_user  = current_user();
-        $user_id = ($current_user)  ? intval($current_user->id) : 0;
+        $user  = current_user();
+        $user_id = ($user)  ? intval($current_user->id) : 0;
     }
 
     $name = $_POST['name'];
@@ -35,6 +36,7 @@ if ( isset($_POST['submit_new_list']) &&   isset($_POST['name'])   )  {
         $list_id = insert_new_list($list);
 
         if(  $list_id ) { // if list saves fine
+            send_list_created_email( $list, $user );
             header('Location: ' .  site_url() . '/'. $redirect.'/list?id=' . $list_id  );
         } else { // if for some reason the list doesnt save
             header('Location: ' .  site_url() . '/'. $redirect.'/newlist?error=listnotsave'  );

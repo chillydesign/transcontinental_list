@@ -1572,12 +1572,46 @@ function generate_email_title($str) {
 }
 
 
+
+function send_list_created_email($list, $user) {
+    if ($list && $user) {
+
+        $receiver = $user->email;
+        $link = WEBSITE_URL  . "/list/" . $list->list_number ;
+        $admin_link = WEBSITE_URL  . "/adminarea/list?id=" . $list->list_number ;
+        $receiver_subject = 'Votre liste  '. SITE_NAME . '.';
+        $receiver_content = generate_email_title($receiver_subject);
+        $receiver_content .= "<p>Bonjour ".  $user->first_name . ' ' . $user->last_name  .". </p><p>Votre liste <strong>". $list->name ."</strong> sur ". SITE_NAME ." a bien été créée. </p><p> Le numéro de liste est ". $list->list_number .". Elle est accessible directement depuis l'adresse <a href='".  $link  ."'>". $link ."</a>.</p><p>Vous pouvez partager ces informations à votre famille et vos amis pour qu'ils puissent contribuer à la liste.</p><p>Vous pouvez consulter l'état de votre liste en vous connectant à votre compte ". SITE_NAME .".  Nous vous tiendrons également informés par email au fur et à mesure des contributions.</p><p> Merci pour votre confiance et à bientôt! </p>";
+        $receiver_content .= '<p>L\'équipe '. SITE_NAME.'</p>';
+        send_php_mail($receiver, $receiver_subject, $receiver_content);
+
+
+
+        $admin = admin_email();
+        $admin_subject = 'Nouvelle liste  '. SITE_NAME;
+        $admin_content = generate_email_title($admin_subject);
+        $admin_content .= "<p>Nouvelle liste Transcontinental </p><p>
+        <strong>Client: </strong>" . $user->first_name . ' ' . $user->last_name   . " <br />
+        <strong>Liste: </strong><a href='". $admin_link ."'>" . $list->list_name . "</a> <br />
+        <strong>Numéro de liste : </strong>" . $list->list_number . " </p>";
+
+        send_php_mail($admin, $admin_subject, $admin_content);
+
+
+
+
+
+    }
+}
+
+
+
 function send_user_welcome_email($user) {
     if ($user) {
         $receiver = $user->email;
         $receiver_subject = 'Création de votre compte '. SITE_NAME . '.';
         $receiver_content = generate_email_title($receiver_subject);
-        $receiver_content .= "<p>Bonjour ".  $user->first_name . ' ' . $user->last_name  ."</p><p>Votre compte ". SITE_NAME ." a bien été créé. </p><p>Vous pouvez à présent créer des listes de mariage, anniversaire ou pour toute occasion à l'adresse" .  '<a href="'. WEBSITE_URL .'">' . WEBSITE_URL . "</a></p>";
+        $receiver_content .= "<p>Bonjour ".  $user->first_name . ' ' . $user->last_name  .". Votre compte ". SITE_NAME ." a bien été créé. </p><p>Vous pouvez à présent créer des listes de mariage, anniversaire ou pour toute occasion à l'adresse " .  '<a href="'. WEBSITE_URL .'">' . WEBSITE_URL . "</a></p>";
         $receiver_content .= '<p>A bientôt! <br /> L\'équipe '. SITE_NAME.'</p>';
         send_php_mail($receiver, $receiver_subject, $receiver_content);
 
@@ -1586,9 +1620,9 @@ function send_user_welcome_email($user) {
         $admin_subject = 'Nouveau compte  '. SITE_NAME;
         $admin_content = generate_email_title($admin_subject);
         $admin_content .= "<p>Nouvelle création de compte - Listes de Mariage et Anniversaire sur le site Transcontinental</p><p>
-        <strong>Prénom:</strong>" . $user->first_name . " <br />
-        <strong>Nom:</strong>" . $user->last_name . " <br />
-        <strong>Adresse email:</strong>" . $user->email . " </p>";
+        <strong>Prénom: </strong>" . $user->first_name . " <br />
+        <strong>Nom: </strong>" . $user->last_name . " <br />
+        <strong>Adresse email: </strong>" . $user->email . " </p>";
 
         send_php_mail($admin, $admin_subject, $admin_content);
 
@@ -1632,7 +1666,7 @@ function send_giftcard_email( $giftcard  ) {
     $sender_subject = 'Merci d\'avoir envoyé un bon cadeau';
     $sender_content = generate_email_title($sender_subject);
     $sender_content .= '<p>Vous avez envoyé un bon cadeau d\'une valeur de ' . $amount . ' à ' .  $receiver_name  . '<br>Merci pour votre envoi!</p><p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
-    send_php_mail($sender, $sender_subject, $sender_content, $image);
+    send_php_mail($sender, $sender_subject, $sender_content);
 
 
     $receiver = $giftcard->receiver_email;
@@ -1646,7 +1680,7 @@ function send_giftcard_email( $giftcard  ) {
     $receiver_content .= generate_email_button(WEBSITE_URL,  'Aller sur le site ' .  SITE_NAME);
     $receiver_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
 
-    send_php_mail($receiver, $receiver_subject, $receiver_content, $image);
+    send_php_mail($receiver, $receiver_subject, $receiver_content);
 
 
     $admin = admin_email();
@@ -1703,7 +1737,7 @@ function send_donation_email( $donation , $list ) {
         $admin_content .= '<p> De la part de ' . $sender_name . ' - ' . $sender . '<br>Pour : ' . $receiver_name . ' - ' . $receiver . '<br> Montant : '.  $amount . '<br>Liste : ' . $listname;
         $admin_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
 
-        send_php_mail($admin, $admin_subject, $admin_content, $image);
+        send_php_mail($admin, $admin_subject, $admin_content);
 
 
     }
