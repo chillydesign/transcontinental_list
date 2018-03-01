@@ -31,6 +31,7 @@ if ( isset($_POST['submit_new_user']) && isset($_POST['email'])   && isset($_POS
                     if (has_valid_admin_cookie()) {
                         header('Location: ' .  site_url() . '/adminarea?success'  );
                     } else { // if not an admin creating a new user
+                        send_user_welcome_email($user);
                         header('Location: ' .  site_url() . '/login?success'  );
                     }
 

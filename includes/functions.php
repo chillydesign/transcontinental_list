@@ -1572,6 +1572,32 @@ function generate_email_title($str) {
 }
 
 
+function send_user_welcome_email($user) {
+    if ($user) {
+        $receiver = $user->email;
+        $receiver_subject = 'Création de votre compte '. SITE_NAME . '.';
+        $receiver_content = generate_email_title($receiver_subject);
+        $receiver_content .= "<p>Bonjour ".  $user->first_name . ' ' . $user->last_name  ."</p><p>Votre compte ". SITE_NAME ." a bien été créé. </p><p>Vous pouvez à présent créer des listes de mariage, anniversaire ou pour toute occasion à l'adresse" .  '<a href="'. WEBSITE_URL .'">' . WEBSITE_URL . "</a></p>";
+        $receiver_content .= '<p>A bientôt! <br /> L\'équipe '. SITE_NAME.'</p>';
+        send_php_mail($receiver, $receiver_subject, $receiver_content);
+
+
+        $admin = admin_email();
+        $admin_subject = 'Nouveau compte  '. SITE_NAME;
+        $admin_content = generate_email_title($admin_subject);
+        $admin_content .= "<p>Nouvelle création de compte - Listes de Mariage et Anniversaire sur le site Transcontinental</p><p>
+        <strong>Prénom:</strong>" . $user->first_name . " <br />
+        <strong>Nom:</strong>" . $user->last_name . " <br />
+        <strong>Adresse email:</strong>" . $user->email . " </p>";
+
+        send_php_mail($admin, $admin_subject, $admin_content);
+
+
+
+
+    }
+}
+
 function send_user_reset_password_email( $user  ) {
 
     if ($user) {
