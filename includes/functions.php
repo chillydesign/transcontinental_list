@@ -1593,7 +1593,7 @@ function send_list_created_email($list, $user) {
         $admin_content = generate_email_title($admin_subject);
         $admin_content .= "<p>Nouvelle liste Transcontinental </p><p>
         <strong>Client: </strong>" . $user->first_name . ' ' . $user->last_name   . " <br />
-        <strong>Liste: </strong><a href='". $admin_link ."'>" . $list->list_name . "</a> <br />
+        <strong>Liste: </strong><a href='". $admin_link ."'>" . $list->name . "</a> <br />
         <strong>Numéro de liste : </strong>" . $list->list_number . " </p>";
 
         send_php_mail($admin, $admin_subject, $admin_content);
