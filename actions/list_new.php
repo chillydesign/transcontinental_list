@@ -36,7 +36,12 @@ if ( isset($_POST['submit_new_list']) &&   isset($_POST['name'])   )  {
         $list_id = insert_new_list($list);
 
         if(  $list_id ) { // if list saves fine
-            send_list_created_email( $list, $user );
+
+            if (has_valid_admin_cookie() == false) {
+                send_list_created_email( $list, $user );
+            }
+
+
             header('Location: ' .  site_url() . '/'. $redirect.'/list?id=' . $list_id  );
         } else { // if for some reason the list doesnt save
             header('Location: ' .  site_url() . '/'. $redirect.'/newlist?error=listnotsave'  );
