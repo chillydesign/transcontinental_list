@@ -1696,7 +1696,7 @@ function send_giftcard_email( $giftcard  ) {
 }
 
 function admin_email(){
-    return 'rissel.melissa+admin@gmail.com';
+    return 'Aline.Odier@transcontinental.ch';
 }
 
 
