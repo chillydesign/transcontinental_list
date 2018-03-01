@@ -191,13 +191,15 @@ p.search_container {
 
     button.search_button {
         flex:1 auto 0;
-        width: 50px;
-        background-image: url('../images/search.svg');
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: 20px;
-        padding: 10px 0;
-        text-indent: -9999px;
+        // width: 50px;
+        // background-image: url('../images/search.svg');
+        // background-repeat: no-repeat;
+        // background-position: center center;
+        // background-size: 20px;
+        // text-indent: -9999px;
+        // padding: 10px 0;
+        padding:10px 15px;
+
         display: inline-block;
     }
 
