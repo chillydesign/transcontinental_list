@@ -788,8 +788,9 @@ function process_giftcard($giftcard) {
 
     $created_at = date("Y-m-d", strtotime($giftcard->created_at));
     $expires_at = date("Y-m-d", strtotime( $created_at  . " + 365 day"));
-
     $giftcard->expires_at  =  $expires_at;
+
+    $giftcard->number = convert_giftcard_id($giftcard->id);
     return $giftcard;
 }
 
@@ -1681,7 +1682,11 @@ function send_user_reset_password_email( $user  ) {
 
 
 
+
+
 function send_giftcard_email( $giftcard  ) {
+
+    // Bon cadeau n°
 
     $image = WEBSITE_URL . '/images/giftcards/' . $giftcard->picture. '.jpg' ;
     $sender_name = $giftcard->sender_first_name . ' ' . $giftcard->sender_last_name;
@@ -1693,21 +1698,40 @@ function send_giftcard_email( $giftcard  ) {
     $sender_subject = 'Merci d\'avoir envoyé un bon cadeau';
     $sender_content = generate_email_title($sender_subject);
     $sender_content .= '<p>Vous avez envoyé un bon cadeau d\'une valeur de ' . $amount . ' à ' .  $receiver_name  . '. Valide jusqu\'au : '. nice_date($giftcard->expires_at)  .'. <br>Merci pour votre envoi!</p><p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
-    send_php_mail($sender, $sender_subject, $sender_content);
+//    send_php_mail($sender, $sender_subject, $sender_content);
 
 
     $receiver = $giftcard->receiver_email;
     $receiver_subject = 'Vous avez reçu un bon cadeau '. SITE_NAME;
     $receiver_content = generate_email_title($receiver_subject);
-    $receiver_content .= '<p>' . $sender_name . ' vous a envoyé un bon cadeau d\'une valeur de '.  $amount . ' pour acheter un voyage chez '. SITE_NAME .' . Valide jusqu\'au : '. nice_date($giftcard->expires_at)  .'.' ;
+    $receiver_content .= '<p>' . $sender_name . ' vous a envoyé un bon cadeau n° '. $giftcard->number .' d\'une valeur de '.  $amount . ' pour acheter un voyage chez '. SITE_NAME .' . Valide jusqu\'au : '. nice_date($giftcard->expires_at)  .'.' ;
 
     if ($giftcard->message != '') {
         $receiver_content .= '<br /><br /><p style="padding:0 0 0px;margin:0;font-weight:bold">Message:</p>';
-        $receiver_content .= '<p style="font-style:italic; color: #888;">'. $giftcard->message .'</p><br /><br />';
+        $receiver_content .= '<p style="font-style:italic; color: #888;">'. $giftcard->message .'</p><br />';
     }
-    $receiver_content .= generate_email_button(WEBSITE_URL,  'Aller sur le site ' .  SITE_NAME);
-    $receiver_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
+    $receiver_content .= "<p>Nos conseillers en voyages d’agréments vous attendent à l’une de nos agences de voyages et se réjouissent déjà de vous aider à organiser vos prochaines vacances.</p>";
 
+
+    $receiver_content .= '<table cellspacing="0" cellpadding="0" border="0" align="left" width="100%"><tr>
+        <td>
+            <p> <b>Agence de Florissant</b> <br />
+            66, route de Florissant <br />
+            CH – 1206 Genève <br />
+            T +41 22 347 27 27</p>
+        </td>
+        <td>
+            <p> <b>Agence de Chêne</b> <br />
+            48, rue de Genève <br />
+            CH – 1225 Chêne-Bourg <br />
+            T +41 22 869 18 18
+            </p>
+        </td>
+    </tr></table> <br /><br />';
+
+
+    $receiver_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p><br />';
+    $receiver_content .= generate_email_button(WEBSITE_URL,  'Aller sur le site ' .  SITE_NAME);
     send_php_mail($receiver, $receiver_subject, $receiver_content);
 
 
@@ -1720,7 +1744,7 @@ function send_giftcard_email( $giftcard  ) {
     $admin_content .= '<p> De la part de ' . $sender_name . ' - ' . $sender. '<br>Pour : ' . $receiver_name . ' - ' . $receiver . '<br> Montant : '.  $amount;
     $admin_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
 
-    send_php_mail($admin, $admin_subject, $admin_content, $image);
+//    send_php_mail($admin, $admin_subject, $admin_content, $image);
 
 
 }

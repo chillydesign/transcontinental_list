@@ -1,6 +1,7 @@
 <div class="page_image" style="background-image:url('<?php echo site_url(); ?>/images/giftcard.jpg'); overflow: hidden;"></div>
 <div class="container">
 <?php $giftcard = get_giftcard(); ?>
+<?php send_giftcard_email($giftcard); ?>
 <?php if ($giftcard): ?>
 
 
@@ -9,7 +10,7 @@
         <a class="list_button right_list_button" href="<?php get_site_url(); ?>/adminarea">Retour à l'admin</a>
       </div>
       <div class="col-sm-9 col-sm-pull-3">
-            <h1>Bon cadeau #<?php echo  convert_giftcard_id( $giftcard->id); ?></h1>
+            <h1>Bon cadeau #<?php echo   $giftcard->number; ?></h1>
       </div>
     </div>
 
