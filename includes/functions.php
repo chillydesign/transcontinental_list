@@ -209,7 +209,7 @@ function get_giftcard($giftcard_id = null) {
 
             if ($giftcard_count == 1) {
                 $giftcard =  $giftcard_query->fetch();
-                return $giftcard;
+                return  process_giftcard($giftcard);
             } else {
                 return null;
             }
@@ -229,7 +229,15 @@ function get_giftcards(){
 
     if(get_var('s')){
         $s = get_var('s');
-        $search = "WHERE `sender_first_name` LIKE '%" . $s . "%' OR `sender_last_name` LIKE '%" . $s . "%' OR `receiver_first_name` LIKE '%" . $s . "%' OR `receiver_last_name` LIKE '%" . $s . "%' OR `receiver_email` LIKE '%" . $s . "%' OR `sender_email` LIKE '%" . $s . "%'";
+
+        if ( intval( $s) > 0  ) {
+            $gcid = deconvert_giftcard_id( $s ) ;
+            $search = "WHERE `id` = " . $gcid ;
+        } else {
+            $search = "WHERE `sender_first_name` LIKE '%" . $s . "%' OR `sender_last_name` LIKE '%" . $s . "%' OR `receiver_first_name` LIKE '%" . $s . "%' OR `receiver_last_name` LIKE '%" . $s . "%' OR `receiver_email` LIKE '%" . $s . "%' OR `sender_email` LIKE '%" . $s . "%'";
+        }
+
+
     } else {
         $search = '';
     }
@@ -773,6 +781,16 @@ function process_list($list) {
     }
     $list->status  = ($list->active == 1) ? 'active' : 'inactive';
     return $list;
+}
+
+
+function process_giftcard($giftcard) {
+
+    $created_at = date("Y-m-d", strtotime($giftcard->created_at));
+    $expires_at = date("Y-m-d", strtotime( $created_at  . " + 365 day"));
+
+    $giftcard->expires_at  =  $expires_at;
+    return $giftcard;
 }
 
 
@@ -1505,7 +1523,15 @@ function send_php_mail($to, $subject, $content, $image = null) {
         $mail->Port = 587;
         //Recipients
         $mail->setFrom('noreply@transcontinental.ch', 'Transcontinental');
-        $mail->addAddress( $to );     // Add a recipient
+
+        if ( is_array($to) ) {
+            foreach ($to as $person) {
+                $mail->addAddress( $person );
+            }
+        } else {
+            $mail->addAddress( $to );     // Add a recipient
+        }
+
         $mail->addReplyTo('noreply@transcontinental.ch', 'Transcontinental');
 
         $logo_image = add_image_to_email(WEBSITE_URL . '/images/logo_email.jpg', false);
@@ -1666,14 +1692,15 @@ function send_giftcard_email( $giftcard  ) {
     $sender = $giftcard->sender_email;
     $sender_subject = 'Merci d\'avoir envoyé un bon cadeau';
     $sender_content = generate_email_title($sender_subject);
-    $sender_content .= '<p>Vous avez envoyé un bon cadeau d\'une valeur de ' . $amount . ' à ' .  $receiver_name  . '<br>Merci pour votre envoi!</p><p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
+    $sender_content .= '<p>Vous avez envoyé un bon cadeau d\'une valeur de ' . $amount . ' à ' .  $receiver_name  . '. Valide jusqu\'au : '. nice_date($giftcard->expires_at)  .'. <br>Merci pour votre envoi!</p><p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
     send_php_mail($sender, $sender_subject, $sender_content);
 
 
     $receiver = $giftcard->receiver_email;
     $receiver_subject = 'Vous avez reçu un bon cadeau '. SITE_NAME;
     $receiver_content = generate_email_title($receiver_subject);
-    $receiver_content .= '<p>' . $sender_name . ' vous a envoyé un bon cadeau d\'une valeur de '.  $amount . ' pour acheter un voyage chez '. SITE_NAME .' .';
+    $receiver_content .= '<p>' . $sender_name . ' vous a envoyé un bon cadeau d\'une valeur de '.  $amount . ' pour acheter un voyage chez '. SITE_NAME .' . Valide jusqu\'au : '. nice_date($giftcard->expires_at)  .'.' ;
+
     if ($giftcard->message != '') {
         $receiver_content .= '<br /><br /><p style="padding:0 0 0px;margin:0;font-weight:bold">Message:</p>';
         $receiver_content .= '<p style="font-style:italic; color: #888;">'. $giftcard->message .'</p><br /><br />';
@@ -1684,7 +1711,10 @@ function send_giftcard_email( $giftcard  ) {
     send_php_mail($receiver, $receiver_subject, $receiver_content);
 
 
-    $admin = admin_email();
+    //$admin = admin_email();
+    $admin = array('Info@transcontinental.ch',  'Silvana.Jahiu@transcontinental.ch', admin_email() );
+
+
     $admin_subject = 'Nouveau bon cadeau '. SITE_NAME;
     $admin_content = generate_email_title($admin_subject);
     $admin_content .= '<p> De la part de ' . $sender_name . ' - ' . $sender. '<br>Pour : ' . $receiver_name . ' - ' . $receiver . '<br> Montant : '.  $amount;
@@ -1696,6 +1726,7 @@ function send_giftcard_email( $giftcard  ) {
 }
 
 function admin_email(){
+    // should return string
     return 'Aline.Odier@transcontinental.ch';
 }
 
