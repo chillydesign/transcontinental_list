@@ -1,7 +1,6 @@
 <div class="page_image" style="background-image:url('<?php echo site_url(); ?>/images/giftcard.jpg'); overflow: hidden;"></div>
 <div class="container">
 <?php $giftcard = get_giftcard(); ?>
-<?php send_giftcard_email($giftcard); ?>
 <?php if ($giftcard): ?>
 
 
