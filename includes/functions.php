@@ -1743,11 +1743,10 @@ function send_giftcard_email( $giftcard  ) {
 
     $admin_subject = 'Nouveau bon cadeau '. SITE_NAME;
     $admin_content = generate_email_title($admin_subject);
-    $admin_content .= '<p> De la part de ' . $sender_name . ' - ' . $sender. '<br>Pour : ' . $receiver_name . ' - ' . $receiver . '<br> Montant : '.  $amount;
+    $admin_content .= '<p> De la part de ' . $sender_name . ' - ' . $sender. '<br>Phone: '. $giftcard->sender_phone.'<br>Adresse: '. $giftcard->sender_address .'<br><br><br>Pour : ' . $receiver_name . ' - ' . $receiver . '<br> Montant : '.  $amount;
     $admin_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
 
 //    send_php_mail($admin, $admin_subject, $admin_content, $image);
-
 
 }
 

@@ -29,7 +29,7 @@
 
             <ul>
                 <li><strong>Pour:</strong> <?php echo $giftcard->receiver_first_name; ?> <?php echo $giftcard->receiver_last_name; ?> <br />
-                    <strong>Email</strong>: ( <?php echo $giftcard->receiver_email; ?>) <br> <br> </li>
+                    <strong>Email</strong>: <?php echo $giftcard->receiver_email; ?><br> <br> </li>
                 <li><strong>De la part de:</strong> <?php echo $giftcard->sender_first_name ; ?> <?php echo $giftcard->sender_last_name; ?> <br />
                     <strong>Email</strong>: <?php echo $giftcard->sender_email; ?> <br />
                     <strong>Téléphone</strong>: <?php echo $giftcard->sender_phone; ?><br />
