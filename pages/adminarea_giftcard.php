@@ -28,11 +28,15 @@
             <?php endif; ?>
 
             <ul>
-                <li><strong>De la part de:</strong> <?php echo $giftcard->sender_first_name ; ?> <?php echo $giftcard->sender_last_name; ?> ( <?php echo $giftcard->sender_email; ?>) <br />
-                    (<?php echo $giftcard->sender_phone; ?> <?php echo $giftcard->sender_address; ?>)
+                <li><strong>Pour:</strong> <?php echo $giftcard->receiver_first_name; ?> <?php echo $giftcard->receiver_last_name; ?> <br />
+                    <strong>Email</strong>: ( <?php echo $giftcard->receiver_email; ?>) <br> <br> </li>
+                <li><strong>De la part de:</strong> <?php echo $giftcard->sender_first_name ; ?> <?php echo $giftcard->sender_last_name; ?>
+                    <strong>Email</strong>: <?php echo $giftcard->sender_email; ?> <br />
+                    <strong>Phone</strong>: <?php echo $giftcard->sender_phone; ?><br />
+                    <strong>Addresse</strong>: <?php echo $giftcard->sender_address; ?>)
 
                 </li>
-                <li><strong>Pour:</strong> <?php echo $giftcard->receiver_first_name; ?> <?php echo $giftcard->receiver_last_name; ?> ( <?php echo $giftcard->receiver_email; ?>)</li>
+
                 <li><strong>Montant:</strong> <?php echo convert_cents_to_currency($giftcard->amount); ?></li>
                 <li><strong>Créé:</strong> <?php echo nice_datetime($giftcard->created_at); ?></li>
                 <li><strong>Valide jusqu'au:</strong> <?php echo nice_date($giftcard->expires_at); ?></li>
