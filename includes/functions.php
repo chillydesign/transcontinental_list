@@ -3,7 +3,7 @@
 
 
 function current_version(){
-    echo '0.1.1';
+    echo '0.1.2';
 }
 
 
@@ -1116,12 +1116,14 @@ function insert_new_giftcard($giftcard) {
 
 
         try {
-            $query = "INSERT INTO tcg_giftcards ( sender_first_name, sender_last_name, sender_email, receiver_first_name, receiver_last_name, receiver_email, message, picture, amount, status) VALUES (:sender_first_name, :sender_last_name, :sender_email, :receiver_first_name, :receiver_last_name, :receiver_email, :message, :picture, :amount, :status)";
+            $query = "INSERT INTO tcg_giftcards ( sender_first_name, sender_last_name, sender_email, receiver_first_name, receiver_last_name, receiver_email, message, picture, amount, status) VALUES (:sender_first_name, :sender_last_name, :sender_email, :sender_phone, :sender_address,  :receiver_first_name, :receiver_last_name, :receiver_email, :message, :picture, :amount, :status)";
 
             $giftcard_query = $conn->prepare($query);
             $giftcard_query->bindParam(':sender_first_name', $giftcard->sender_first_name);
             $giftcard_query->bindParam(':sender_last_name', $giftcard->sender_last_name);
             $giftcard_query->bindParam(':sender_email', $giftcard->sender_email);
+            $giftcard_query->bindParam(':sender_phone', $giftcard->sender_phone);
+            $giftcard_query->bindParam(':sender_address', $giftcard->sender_address);
             $giftcard_query->bindParam(':receiver_first_name', $giftcard->receiver_first_name);
             $giftcard_query->bindParam(':receiver_last_name', $giftcard->receiver_last_name);
             $giftcard_query->bindParam(':receiver_email', $giftcard->receiver_email);

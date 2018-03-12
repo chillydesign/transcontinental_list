@@ -11,6 +11,8 @@ if ( isset($_POST['submit_new_giftcard']) && isset($_POST['receiver_email']) && 
     $sender_first_name = $_POST['sender_first_name'];
     $sender_last_name = $_POST['sender_last_name'];
     $sender_email = $_POST['sender_email'];
+    $sender_phone = $_POST['sender_phone'];
+    $sender_address = $_POST['sender_address'];
     $receiver_first_name = $_POST['receiver_first_name'];
     $receiver_last_name = $_POST['receiver_last_name'];
     $receiver_email = $_POST['receiver_email'];
@@ -29,6 +31,8 @@ if ( isset($_POST['submit_new_giftcard']) && isset($_POST['receiver_email']) && 
             $giftcard->sender_first_name = $sender_first_name;
             $giftcard->sender_last_name = $sender_last_name;
             $giftcard->sender_email = $sender_email;
+            $giftcard->sender_phone = $sender_phone;
+            $giftcard->sender_address = $sender_address;
             $giftcard->receiver_first_name = $receiver_first_name;
             $giftcard->receiver_last_name = $receiver_last_name;
             $giftcard->receiver_email = $receiver_email;

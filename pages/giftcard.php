@@ -35,6 +35,14 @@
                 <input type="email" name="sender_email" required placeholder="Votre adresse email">
             </p>
 
+            <p>
+                <input type="email" name="sender_phone" required placeholder="Votre Téléphone">
+            </p>
+            <p>
+                <input type="email" name="sender_address" required placeholder="Votre adresse ">
+            </p>
+
+
             <p>Pour: </p>
             <p>
                 <input type="text" name="receiver_first_name" placeholder="Prénom">

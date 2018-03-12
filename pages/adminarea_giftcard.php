@@ -28,7 +28,10 @@
             <?php endif; ?>
 
             <ul>
-                <li><strong>De la part de:</strong> <?php echo $giftcard->sender_first_name ; ?> <?php echo $giftcard->sender_last_name; ?> ( <?php echo $giftcard->sender_email; ?>)</li>
+                <li><strong>De la part de:</strong> <?php echo $giftcard->sender_first_name ; ?> <?php echo $giftcard->sender_last_name; ?> ( <?php echo $giftcard->sender_email; ?>) <br />
+                    (<?php echo $giftcard->sender_phone; ?> <?php echo $giftcard->sender_address; ?>)
+
+                </li>
                 <li><strong>Pour:</strong> <?php echo $giftcard->receiver_first_name; ?> <?php echo $giftcard->receiver_last_name; ?> ( <?php echo $giftcard->receiver_email; ?>)</li>
                 <li><strong>Montant:</strong> <?php echo convert_cents_to_currency($giftcard->amount); ?></li>
                 <li><strong>Créé:</strong> <?php echo nice_datetime($giftcard->created_at); ?></li>
@@ -39,7 +42,7 @@
 
             <?php include('includes/edit_giftcard_form.php'); ?>
 
-            <p><a  class="areyousurelink"  href="<?php get_site_url(); ?>/actions/giftcard_delete.php?id=<?php echo  convert_giftcard_id( $giftcard->id) ?>">Supprimer</a></p>
+            <p><a  class="areyousurelink"  href="<?php get_site_url(); ?>/actions/giftcard_delete.php?id=<?php echo  $giftcard->number; ?>">Supprimer</a></p>
         </div>
 
 
