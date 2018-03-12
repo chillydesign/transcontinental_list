@@ -33,7 +33,7 @@
                 <li><strong>De la part de:</strong> <?php echo $giftcard->sender_first_name ; ?> <?php echo $giftcard->sender_last_name; ?>
                     <strong>Email</strong>: <?php echo $giftcard->sender_email; ?> <br />
                     <strong>Phone</strong>: <?php echo $giftcard->sender_phone; ?><br />
-                    <strong>Addresse</strong>: <?php echo $giftcard->sender_address; ?>)
+                    <strong>Addresse</strong>: <?php echo $giftcard->sender_address; ?> <br><br>
 
                 </li>
 
