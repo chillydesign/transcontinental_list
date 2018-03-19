@@ -25,6 +25,7 @@ if ( $user_id ) {
         $first_name = (isset($_POST['first_name'])) ? $_POST['first_name'] : '';
         $last_name = (isset($_POST['last_name'])) ? $_POST['last_name'] : '';
         $address = (isset($_POST['address'])) ? $_POST['address'] : '';
+        $phone = (isset($_POST['phone'])) ? $_POST['phone'] : '';
 
 
         if ($first_name != '' && $last_name != ''  && is_valid_email($email) ) {
@@ -33,6 +34,7 @@ if ( $user_id ) {
             $user->last_name = $last_name;
             $user->email = $email;
             $user->address = $address;
+            $user->phone = $phone;
 
             $user_updated = update_user($user);
 

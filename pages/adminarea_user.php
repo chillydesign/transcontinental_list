@@ -16,6 +16,7 @@
                 <p><strong>Nom: </strong><?php echo $user->last_name; ?></p>
                 <p><strong>Prénom: </strong><?php echo $user->first_name; ?></p>
                 <p><strong>Email: </strong><?php echo $user->email; ?></p>
+                <p><strong>Téléphone: </strong><?php echo $user->phone; ?></p>
                 <p><strong>Adresse: </strong><?php echo ($user->address != '') ? $user->address : '-'; ?></p>
                 <p><a class="list_button" href="<?php get_site_url(); ?>/adminarea/useredit?id=<?php echo $user->id; ?>">Modifier</a></p>
                 <br>

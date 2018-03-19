@@ -13,6 +13,7 @@ if ( isset($_POST['submit_new_user']) && isset($_POST['email'])   && isset($_POS
     $first_name = (isset($_POST['first_name'])) ? $_POST['first_name'] : '';
     $last_name = (isset($_POST['last_name'])) ? $_POST['last_name'] : '';
     $address = (isset($_POST['address'])) ? $_POST['address'] : '';
+    $phone = (isset($_POST['phone'])) ? $_POST['phone'] : '';
 
     if (  is_valid_email($email)) {
         if ( $password == $password_confirmation  ) {
@@ -25,6 +26,7 @@ if ( isset($_POST['submit_new_user']) && isset($_POST['email'])   && isset($_POS
                 $user->first_name = $first_name;
                 $user->last_name = $last_name;
                 $user->address = $address;
+                $user->phone = $phone;
 
                 $user_id = insert_new_user($user);
 

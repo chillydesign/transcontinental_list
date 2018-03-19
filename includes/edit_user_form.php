@@ -22,6 +22,10 @@
             <input type="text"  required  name="last_name" required name="last_name" placeholder="" value="<?php echo $user->last_name; ?>"  />
         </p>
         <p>
+            <label for="last_name">Téléphone</label>
+                <input type="text"  autocomplete="tel"  name="phone"  name="phone" placeholder="" value="<?php echo $user->phone; ?>"  />
+        </p>
+        <p>
             <label for="last_name">Adresse</label>
             <textarea autocomplete="address-level1" name="address"  placeholder="Votre adresse "><?php echo $user->address; ?></textarea>
         </p>
