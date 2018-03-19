@@ -230,3 +230,16 @@ ul.pagination {
 li.giftcard_used, li.list_inactive {
     filter: grayscale(1);
 }
+
+a.button {
+    background: $brand_color;
+    display:block;
+    padding:10px   20px;
+    text-align: center;
+    border-radius:5px;
+    color:white;
+    transition: all 0.3s;
+    &:hover {
+        background-color: darken($brand_color, 10);
+    }
+}
