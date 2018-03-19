@@ -21,9 +21,10 @@ if ( $user_id ) {
 
 
 
-        $first_name = $_POST['first_name'];
-        $last_name = $_POST['last_name'];
-        $email = $_POST['email'];
+        $email = (isset($_POST['email'])) ? $_POST['email'] : '';
+        $first_name = (isset($_POST['first_name'])) ? $_POST['first_name'] : '';
+        $last_name = (isset($_POST['last_name'])) ? $_POST['last_name'] : '';
+        $address = (isset($_POST['address'])) ? $_POST['address'] : '';
 
 
         if ($first_name != '' && $last_name != ''  && is_valid_email($email) ) {
@@ -31,6 +32,7 @@ if ( $user_id ) {
             $user->first_name = $first_name;
             $user->last_name = $last_name;
             $user->email = $email;
+            $user->address = $address;
 
             $user_updated = update_user($user);
 

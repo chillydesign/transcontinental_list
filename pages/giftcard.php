@@ -36,10 +36,10 @@
             </p>
 
             <p>
-                <input type="email" name="sender_phone" required placeholder="Votre Téléphone">
+                <input type="text" name="sender_phone" required placeholder="Votre téléphone">
             </p>
             <p>
-                <input type="email" name="sender_address" required placeholder="Votre adresse ">
+                <textarea  name="sender_address" required placeholder="Votre adresse "></textarea>
             </p>
 
 

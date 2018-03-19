@@ -861,11 +861,12 @@ function update_user($user) {
     if ( $user->id > 0 ){
         try {
 
-            $query = "UPDATE tcg_users SET `email` = :email, `first_name` = :first_name, `last_name` = :last_name WHERE id = :id";
+            $query = "UPDATE tcg_users SET `email` = :email, `first_name` = :first_name, `last_name` = :last_name, `address` = :address WHERE id = :id";
             $user_query = $conn->prepare($query);
             $user_query->bindParam(':email', $user->email);
             $user_query->bindParam(':first_name', $user->first_name);
             $user_query->bindParam(':last_name', $user->last_name);
+            $user_query->bindParam(':address', $user->address);
             $user_query->bindParam(':id', $user->id);
             $user_query->execute();
             unset($conn);
@@ -1082,11 +1083,12 @@ function insert_new_user($user) {
     global $conn;
     if ($user->email != '' && $user->password_digest != ''){
         try {
-            $query = "INSERT INTO tcg_users (email, first_name, last_name, password_digest) VALUES (:email, :first_name, :last_name, :password_digest)";
+            $query = "INSERT INTO tcg_users (email, first_name, last_name, address, password_digest) VALUES (:email, :first_name, :last_name, :address, :password_digest)";
             $user_query = $conn->prepare($query);
             $user_query->bindParam(':email', $user->email);
             $user_query->bindParam(':first_name', $user->first_name);
             $user_query->bindParam(':last_name', $user->last_name);
+            $user_query->bindParam(':address', $user->address);
             $user_query->bindParam(':password_digest', $user->password_digest);
             $user_query->execute();
             $user_id = $conn->lastInsertId();
@@ -1652,6 +1654,7 @@ function send_user_welcome_email($user) {
         $admin_content .= "<p>Nouvelle création de compte - Listes de Mariage et Anniversaire sur le site Transcontinental</p><p>
         <strong>Prénom: </strong>" . $user->first_name . " <br />
         <strong>Nom: </strong>" . $user->last_name . " <br />
+        <strong>Adresse: </strong>" . $user->address . " <br />
         <strong>Adresse email: </strong>" . $user->email . " </p>";
 
         send_php_mail($admin, $admin_subject, $admin_content);

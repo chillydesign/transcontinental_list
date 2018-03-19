@@ -11,17 +11,20 @@
 
         <p>
             <label for="email">Email</label>
-            <input type="email" name="email" placeholder="" value="<?php echo $user->email; ?>"  />
+            <input type="email"  required name="email"  requiredname="email" placeholder="" value="<?php echo $user->email; ?>"  />
         </p>
         <p>
             <label for="first_name">Prénom</label>
-            <input type="text" name="first_name" placeholder="" value="<?php echo $user->first_name; ?>"  />
+            <input type="text"  required name="first_name" required name="first_name" placeholder="" value="<?php echo $user->first_name; ?>"  />
         </p>
         <p>
             <label for="last_name">Nom</label>
-            <input type="text" name="last_name" placeholder="" value="<?php echo $user->last_name; ?>"  />
+            <input type="text"  required  name="last_name" required name="last_name" placeholder="" value="<?php echo $user->last_name; ?>"  />
         </p>
-
+        <p>
+            <label for="last_name">Adresse</label>
+            <textarea autocomplete="address-level1" name="address"  placeholder="Votre adresse "><?php echo $user->address; ?></textarea>
+        </p>
         <p>
             <input type="submit" name="submit_edit_user" value="Modifier" />
         </p>
