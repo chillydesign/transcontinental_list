@@ -1657,6 +1657,7 @@ function send_user_welcome_email($user) {
         <strong>Prénom: </strong>" . $user->first_name . " <br />
         <strong>Nom: </strong>" . $user->last_name . " <br />
         <strong>Adresse: </strong>" . $user->address . " <br />
+        <strong>Téléphone: </strong>" . $user->phone . " <br />
         <strong>Adresse email: </strong>" . $user->email . " </p>";
 
         send_php_mail($admin, $admin_subject, $admin_content);
