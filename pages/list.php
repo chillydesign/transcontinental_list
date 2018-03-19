@@ -16,6 +16,26 @@
         <h1><?php echo $list->name; ?></h1>
         <p class="infos_supp">Liste #<?php echo $list->list_number; ?> par <?php echo $list->users_name; ?></p>
 
+        <?php if (has_error()) : ?>
+            <?php show_error_message(); ?>
+        <?php elseif (isset($_GET['donation_id'])  ) : ?>
+            <?php if (has_success()): ?>
+                <?php $donation = get_donation($_GET['donation_id']); ?>
+                <?php if ($donation) : ?>
+                    <div class="row">
+                        <div class="col-sm-9">
+                    <p class="success_message">Merci pour votre contribution d'un montant de <?php echo convert_cents_to_currency($donation->amount); ?>!</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p><a href="<?php echo site_url(); ?>/" class="button">Retour</a></p>
+                        </div>
+                    </div>
+
+                <?php endif; ?>
+            <?php endif; ?>
+        <?php endif; ?>
+
+
 
 
         <div class="row">
@@ -28,16 +48,6 @@
               <div class="half_block">
                 <h2>Contribuer</h2>
                 <!-- <p>Jusqu'à présent <?php echo sum_donations($donations); ?> ont été contribués sur cette liste. </p> -->
-                <?php if (has_error()) : ?>
-                    <?php show_error_message(); ?>
-                <?php elseif (isset($_GET['donation_id'])  ) : ?>
-                    <?php if (has_success()): ?>
-                        <?php $donation = get_donation($_GET['donation_id']); ?>
-                        <?php if ($donation) : ?>
-                            <p class="success_message">Merci pour votre contribution d'un montant de <?php echo convert_cents_to_currency($donation->amount); ?>!</p>
-                        <?php endif; ?>
-                    <?php endif; ?>
-                <?php endif; ?>
 
 
 

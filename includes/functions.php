@@ -1643,7 +1643,7 @@ function send_user_welcome_email($user) {
         $receiver = $user->email;
         $receiver_subject = 'Création de votre compte '. SITE_NAME . '.';
         $receiver_content = generate_email_title($receiver_subject);
-        $receiver_content .= "<p>Bonjour ".  $user->first_name . ' ' . $user->last_name  .". Votre compte ". SITE_NAME ." a bien été créé. </p><p>Vous pouvez à présent créer des listes de mariage, anniversaire ou pour toute occasion à l'adresse " .  '<a href="'. WEBSITE_URL .'">' . WEBSITE_URL . "</a></p>";
+        $receiver_content .= "<p>Bonjour ".  $user->first_name . ' ' . $user->last_name  .". Votre compte ". SITE_NAME ." a bien été créé. </p><p>Vous pouvez à présent créer des listes de mariage, anniversaire ou pour toute occasion à l'adresse " .  '<a href="'. WEBSITE_URL .'/login">' . WEBSITE_URL . "</a></p>";
         $receiver_content .= '<p>A bientôt! <br /> L\'équipe '. SITE_NAME.'</p>';
         send_php_mail($receiver, $receiver_subject, $receiver_content);
 
@@ -1781,17 +1781,19 @@ function send_donation_email( $donation , $list ) {
         $receiver = $user->email;
         $receiver_subject = 'Vous avez reçu une contribution à votre liste '. SITE_NAME;
         $receiver_content = generate_email_title($receiver_subject);
-        $receiver_content .= '<p>' . $sender_name . ' vient contribuer un montant de ' . $amount . ' sur votre liste '. $listname .' .</p>'; if ($donation->message != '') {
+        $receiver_content .= '<p>' . $sender_name . ' vient contribuer un montant de ' . $amount . ' sur votre liste '. $listname .' .</p>';
+        if ($donation->message != '') {
             $receiver_content .= '<br /><br /><p style="padding:0 0 10px;margin:0;font-weight:bold">Message:</p>';
             $receiver_content .= '<p style="font-style:italic; color: #888;">'. $donation->message .'</p><br /><br />';
-        }
+        };
+        $receiver_content .= '<p>Vous pouvez accéder à votre compte pour consulter votre liste à l’adresse <a href="'. WEBSITE_URL .'/login">' . WEBSITE_URL . "</a></p>';
         $receiver_content .= generate_email_button(WEBSITE_URL,  'Aller sur le site ' .  SITE_NAME);
         $receiver_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
         send_php_mail($receiver, $receiver_subject, $receiver_content);
 
 
 
-        $admin = admin_email();
+        $admin = array('info@transcontinental.ch',  'silvana.jahiu@transcontinental.ch',  admin_email());
         $admin_subject = 'Nouvelle contribution - listes'. SITE_NAME;
         $admin_content = generate_email_title($admin_subject);
         $admin_content .= '<p> De la part de ' . $sender_name . ' - ' . $sender . '<br>Pour : ' . $receiver_name . ' - ' . $receiver . '<br> Montant : '.  $amount . '<br>Liste : ' . $listname;

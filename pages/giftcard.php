@@ -14,13 +14,12 @@
         <?php if ($giftcard) : ?>
             <div class="row">
                 <div class="col-sm-9">
-
-            <p class="success_message">Merci d'avoir offert ce bon cadeau d'une valeur de <?php echo convert_cents_to_currency($giftcard->amount); ?> pour <?php echo $giftcard->receiver_first_name; ?>.</p>
-            </div>
-                <div class="col-sm-3">
-                    <p><a href="<?php echo site_url(); ?>/" class="button">Accueil</a></p>
+                    <p class="success_message">Merci d'avoir offert ce bon cadeau d'une valeur de <?php echo convert_cents_to_currency($giftcard->amount); ?> pour <?php echo $giftcard->receiver_first_name; ?>.</p>
                 </div>
-        </div>
+                <div class="col-sm-3">
+                    <p><a href="<?php echo site_url(); ?>/" class="button">Retour</a></p>
+                </div>
+            </div>
         <?php endif; ?>
     <?php endif; ?>
 <?php endif; ?>
