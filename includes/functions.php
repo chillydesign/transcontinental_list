@@ -1621,10 +1621,10 @@ function send_list_created_email($list, $user) {
 
 
 
-        $admin = admin_email();
+        $admin = admin_emails();
         $admin_subject = 'Nouvelle liste  '. SITE_NAME;
         $admin_content = generate_email_title($admin_subject);
-        $admin_content .= "<p>Nouvelle liste Transcontinental </p><p>
+        $admin_content .= "<p>Nouvelle liste ". SITE_NAME." </p><p>
         <strong>Client: </strong>" . $user->first_name . ' ' . $user->last_name   . " <br />
         <strong>Liste: </strong><a href='". $admin_link ."'>" . $list->name . "</a> <br />
         <strong>Numéro de liste : </strong>" . $list->list_number . " </p>";
@@ -1650,10 +1650,10 @@ function send_user_welcome_email($user) {
         send_php_mail($receiver, $receiver_subject, $receiver_content);
 
 
-        $admin = admin_email();
+        $admin = admin_emails();
         $admin_subject = 'Nouveau compte  '. SITE_NAME;
         $admin_content = generate_email_title($admin_subject);
-        $admin_content .= "<p>Nouvelle création de compte - Listes de Mariage et Anniversaire sur le site Transcontinental</p><p>
+        $admin_content .= "<p>Nouvelle création de compte - Listes de Mariage et Anniversaire sur le site " . SITE_NAME . "</p><p>
         <strong>Prénom: </strong>" . $user->first_name . " <br />
         <strong>Nom: </strong>" . $user->last_name . " <br />
         <strong>Adresse: </strong>" . $user->address . " <br />
@@ -1744,9 +1744,7 @@ function send_giftcard_email( $giftcard  ) {
 
 
     //$admin = admin_email();
-    $admin = array('Info@transcontinental.ch',  'Silvana.Jahiu@transcontinental.ch', admin_email() );
-
-
+    $admin = admin_emails();
     $admin_subject = 'Nouveau bon cadeau '. SITE_NAME;
     $admin_content = generate_email_title($admin_subject);
     $admin_content .= '<p> De la part de ' . $sender_name . ' - ' . $sender. '<br>Phone: '. $giftcard->sender_phone.'<br>Adresse: '. $giftcard->sender_address .'<br><br><br>Pour : ' . $receiver_name . ' - ' . $receiver . '<br> Montant : '.  $amount;
@@ -1759,6 +1757,10 @@ function send_giftcard_email( $giftcard  ) {
 function admin_email(){
     // should return string
     return 'Aline.Odier@transcontinental.ch';
+}
+
+function admin_emails() {
+    return  array('info@transcontinental.ch',  'silvana.jahiu@transcontinental.ch', 'Aline.Odier@transcontinental.ch' );
 }
 
 
@@ -1796,7 +1798,7 @@ function send_donation_email( $donation , $list ) {
 
 
 
-        $admin = array('info@transcontinental.ch',  'silvana.jahiu@transcontinental.ch',  admin_email());
+        $admin =  admin_emails();
         $admin_subject = 'Nouvelle contribution - listes'. SITE_NAME;
         $admin_content = generate_email_title($admin_subject);
         $admin_content .= '<p> De la part de ' . $sender_name . ' - ' . $sender . '<br>Pour : ' . $receiver_name . ' - ' . $receiver . '<br> Montant : '.  $amount . '<br>Liste : ' . $listname;

@@ -10,7 +10,7 @@
   <div class="col-sm-6">
     <div class="half_block">
       <h2>Créer un compte</h2>
-      <p>Aimeriez-vous que vos proches vous offrent un voyage pour votre mariage, votre anniversaire ou une autre occasion? Inscrivez-vous sur Transcontinental, créez une ou plusieurs listes, et partagez-les avec vos proches, puis profitez de vos vacances de rêve!</p>
+      <p>Aimeriez-vous que vos proches vous offrent un voyage pour votre mariage, votre anniversaire ou une autre occasion? Inscrivez-vous sur <?php echo SITE_NAME; ?>, créez une ou plusieurs listes, et partagez-les avec vos proches, puis profitez de vos vacances de rêve!</p>
       <?php include('includes/new_user_form.php'); ?>
       <p>Vous avez déjà un compte? <a href="<?php echo site_url(); ?>/login">Connectez-vous ici.</a></p>
     </div>

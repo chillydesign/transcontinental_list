@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <title>Transcontintental</title>
+    <title><?php echo SITE_NAME; ?></title>
     <link rel="shortcut icon" href="images/favicon.png">
     <link href="https://transcontinental.ch/wp-content/themes/transcontinental2/css/reset.css?ver=1.0"  rel="stylesheet" />
     <link href="https://transcontinental.ch/wp-content/themes/transcontinental2/style.css?v=<?php echo current_version(); ?>"  rel="stylesheet" />

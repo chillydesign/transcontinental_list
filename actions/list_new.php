@@ -39,9 +39,7 @@ if ( isset($_POST['submit_new_list']) &&   isset($_POST['name'])   )  {
 
             // need to add list number so email with proper links will send
             $list->list_number = $list_id;
-            if (has_valid_admin_cookie() == false) {
-                send_list_created_email( $list, $user );
-            }
+            send_list_created_email( $list, $user );
 
 
             header('Location: ' .  site_url() . '/'. $redirect.'/list?id=' . $list_id  );
