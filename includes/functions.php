@@ -1120,7 +1120,7 @@ function insert_new_giftcard($giftcard) {
 
 
         try {
-            $query = "INSERT INTO tcg_giftcards ( sender_first_name, sender_last_name, sender_email, receiver_first_name, receiver_last_name, receiver_email, message, picture, amount, status) VALUES (:sender_first_name, :sender_last_name, :sender_email, :sender_phone, :sender_address,  :receiver_first_name, :receiver_last_name, :receiver_email, :message, :picture, :amount, :status)";
+            $query = "INSERT INTO tcg_giftcards ( sender_first_name, sender_last_name, sender_email,  sender_phone, sender_address,  receiver_first_name, receiver_last_name, receiver_email, message, picture, amount, status) VALUES (:sender_first_name, :sender_last_name, :sender_email, :sender_phone, :sender_address,  :receiver_first_name, :receiver_last_name, :receiver_email, :message, :picture, :amount, :status)";
 
             $giftcard_query = $conn->prepare($query);
             $giftcard_query->bindParam(':sender_first_name', $giftcard->sender_first_name);
