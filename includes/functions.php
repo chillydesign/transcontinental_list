@@ -1706,7 +1706,7 @@ function send_giftcard_email( $giftcard  ) {
     $sender_subject = 'Merci d\'avoir envoyé un bon cadeau';
     $sender_content = generate_email_title($sender_subject);
     $sender_content .= '<p>Vous avez envoyé un bon cadeau d\'une valeur de ' . $amount . ' à ' .  $receiver_name  . '. Valide jusqu\'au : '. nice_date($giftcard->expires_at)  .'. <br>Merci pour votre envoi!</p><p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
-//    send_php_mail($sender, $sender_subject, $sender_content);
+    send_php_mail($sender, $sender_subject, $sender_content, $image);
 
 
     $receiver = $giftcard->receiver_email;
@@ -1740,7 +1740,7 @@ function send_giftcard_email( $giftcard  ) {
 
     $receiver_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p><br />';
     $receiver_content .= generate_email_button(WEBSITE_URL,  'Aller sur le site ' .  SITE_NAME);
-    send_php_mail($receiver, $receiver_subject, $receiver_content);
+    send_php_mail($receiver, $receiver_subject, $receiver_content, $image);
 
 
     //$admin = admin_email();
@@ -1749,8 +1749,7 @@ function send_giftcard_email( $giftcard  ) {
     $admin_content = generate_email_title($admin_subject);
     $admin_content .= '<p> De la part de ' . $sender_name . ' - ' . $sender. '<br>Phone: '. $giftcard->sender_phone.'<br>Adresse: '. $giftcard->sender_address .'<br><br><br>Pour : ' . $receiver_name . ' - ' . $receiver . '<br> Montant : '.  $amount;
     $admin_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
-
-//    send_php_mail($admin, $admin_subject, $admin_content, $image);
+    send_php_mail($admin, $admin_subject, $admin_content, $image);
 
 }
 
