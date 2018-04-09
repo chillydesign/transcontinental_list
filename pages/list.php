@@ -56,15 +56,15 @@
 
                     <p>
                       <label for="email">Votre adresse email</label>
-                      <input type="email" required name="email" placeholder="Email" />
+                      <input type="email" required name="email" autocomplete='email' placeholder="Email" />
                     </p>
                     <p>
                       <label for="first_name">Votre prénom</label>
-                      <input type="text" name="first_name" placeholder="Prénom" /
+                      <input type="text" name="first_name" autocomplete='given-name' placeholder="Prénom" /
                       ></p>
                     <p>
                       <label for="last_name">Votre nom</label>
-                      <input type="text" name="last_name" placeholder="Nom" />
+                      <input type="text" name="last_name" autocomplete='family-name' placeholder="Nom" />
                     </p>
                     <p>
                       <label for="message">Message (optionnel)</label>

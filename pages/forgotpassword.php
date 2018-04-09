@@ -10,7 +10,7 @@
 
     <form action="<?php get_site_url(); ?>/actions/user_forgotpassword.php" method="post">
 
-        <p><input type="text" name="email" placeholder="Email" /></p>
+        <p><input type="text" name="email" autocomplete="email" placeholder="Email" /></p>
         <p><input type="submit" name="user_forgotpassword" value="Réinitialiser" /></p>
     </form>
 
