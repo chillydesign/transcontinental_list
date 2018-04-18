@@ -5,7 +5,7 @@
     <?php if (has_error()) : ?>
         <?php show_error_message(); ?>
     <?php elseif ( has_success() ):  ?>
-    <p class="success_message"><a href ="<?php get_site_url(); ?>/login">Votre mot de passe a bien été réinitialisé. Veuillez vous connecter <strong>ici</strong> pour continuer.</a></p>
+    <p class="success_message"><a href ="<?php get_site_url(); ?>/login">Votre mot de passe a bien été réinitialisé. Veuillez vous connecter <strong style="color: black">ici</strong> pour continuer.</a></p>
     <?php endif; ?>
 
     <?php $reset_code = get_var('subpage');  ?>
