@@ -1888,7 +1888,7 @@ function get_paypal_api_context() {
                 'log.LogEnabled' => true,
                 'log.FileName' => 'payPal.log',
                 'log.LogLevel' => 'FINE',
-                // 'mode' => 'live'
+                'mode' => PAYPAL_MODE
             )
         );
 
