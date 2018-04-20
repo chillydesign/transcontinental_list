@@ -1887,7 +1887,7 @@ function get_paypal_api_context() {
             array(
                 'log.LogEnabled' => true,
                 'log.FileName' => 'payPal.log',
-                'log.LogLevel' => 'FINE',
+                'log.LogLevel' => 'INFO',
                 'mode' => PAYPAL_MODE
             )
         );
@@ -1930,7 +1930,7 @@ function get_paypal_api_context() {
         $redirectUrls->setReturnUrl($returnURL)->setCancelUrl($cancelURL);
 
         $payment = new \PayPal\Api\Payment();
-        $payment->setIntent('authorize')
+        $payment->setIntent('sale')
         ->setPayer($payer)
         ->setTransactions(array($transaction))
         ->setRedirectUrls($redirectUrls);
@@ -1982,7 +1982,7 @@ function get_paypal_api_context() {
         $redirectUrls->setReturnUrl($returnURL)->setCancelUrl($cancelURL);
 
         $payment = new \PayPal\Api\Payment();
-        $payment->setIntent('authorize')
+        $payment->setIntent('sale')
         ->setPayer($payer)
         ->setTransactions(array($transaction))
         ->setRedirectUrls($redirectUrls);
