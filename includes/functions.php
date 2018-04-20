@@ -1790,7 +1790,7 @@ function send_donation_email( $donation , $list ) {
             $receiver_content .= '<br /><br /><p style="padding:0 0 10px;margin:0;font-weight:bold">Message:</p>';
             $receiver_content .= '<p style="font-style:italic; color: #888;">'. $donation->message .'</p><br /><br />';
         };
-        $receiver_content .= '<p>Vous pouvez accéder à votre compte pour consulter votre liste à l’adresse <a href="'. WEBSITE_URL .'/login">' . WEBSITE_URL . '"</a></p>';
+        $receiver_content .= '<p>Vous pouvez accéder à votre compte pour consulter votre liste à l’adresse <a href="'. WEBSITE_URL .'/login">' . WEBSITE_URL . '</a></p>';
         $receiver_content .= generate_email_button(WEBSITE_URL,  'Aller sur le site ' .  SITE_NAME);
         $receiver_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
         send_php_mail($receiver, $receiver_subject, $receiver_content);
