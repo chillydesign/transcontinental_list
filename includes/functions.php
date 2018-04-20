@@ -1930,7 +1930,7 @@ function get_paypal_api_context() {
         $redirectUrls->setReturnUrl($returnURL)->setCancelUrl($cancelURL);
 
         $payment = new \PayPal\Api\Payment();
-        $payment->setIntent('sale')
+        $payment->setIntent('authorize')
         ->setPayer($payer)
         ->setTransactions(array($transaction))
         ->setRedirectUrls($redirectUrls);
