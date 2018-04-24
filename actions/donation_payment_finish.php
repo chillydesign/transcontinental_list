@@ -16,7 +16,7 @@ if (isset($_GET['donation_id'])) {
     if (isset($_GET['return'])) {
 
         // send email to recipient and sender;
-        send_donation_email($donation, $list);
+    //    send_donation_email($donation, $list);
 
         $donation->status = 'payé';
         $donation->payment_id = (isset($_GET['paymentId'])) ? $_GET['paymentId'] : '-';

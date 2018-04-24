@@ -14,7 +14,7 @@ if (isset($_GET['giftcard_id'])) {
     if (isset($_GET['return'])) {
 
         // send email to recipient and sender;
-        send_giftcard_email($giftcard);
+    //    send_giftcard_email($giftcard);
 
         $giftcard->status = 'payé';
         $giftcard->payment_id = (isset($_GET['paymentId'])) ? $_GET['paymentId'] : '-';
