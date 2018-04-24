@@ -23,9 +23,9 @@ if (isset($_GET['donation_id'])) {
         $donation->payer_id = (isset($_GET['PayerID'])) ? $_GET['PayerID'] : '-';
         // changes status to payé
         if (update_donation_status($donation)) {
-            header('Location: ' .  site_url() . '/list/'. $list_id  . '?success&donation_id='. $donation_id  );
+    //        header('Location: ' .  site_url() . '/list/'. $list_id  . '?success&donation_id='. $donation_id  );
         } else {
-            header('Location: ' .  site_url() . '/list/'. $list_id  . '?error=statusnotupdated'  );
+    //        header('Location: ' .  site_url() . '/list/'. $list_id  . '?error=statusnotupdated'  );
         };
 
 
@@ -35,9 +35,9 @@ if (isset($_GET['donation_id'])) {
         $donation->status = 'annulé';
         // change status to cancelled
         if (update_donation_status($donation)) {
-            header('Location: ' .  site_url() . '/list/'. $list_id  . '?error=paymentcancelled'  );
+    //        header('Location: ' .  site_url() . '/list/'. $list_id  . '?error=paymentcancelled'  );
         } else {
-            header('Location: ' .  site_url() . '/list/'. $list_id  . '?error=statusnotupdated'  );
+    //        header('Location: ' .  site_url() . '/list/'. $list_id  . '?error=statusnotupdated'  );
         };
 
 
