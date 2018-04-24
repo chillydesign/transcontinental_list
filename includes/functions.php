@@ -2001,6 +2001,37 @@ function get_paypal_api_context() {
         }
 
     }
+
+
+
+    // return boolean if ok
+    executeDonationPayment($payment_id, $payer_id,  $donation) {
+
+
+        $apiContext = get_paypal_api_context();
+        $payment = Payment::get($payment_id, $apiContext);
+        $execution = new PaymentExecution();
+        $execution->setPayerId( $payer_id  );
+
+
+
+        try {
+
+            $result = $payment->execute($execution, $apiContext);
+            $return = true;
+
+
+        } catch (Exception $ex) {
+            var_dump(" Payment didnt execute");
+            $return = false;
+        }
+
+
+
+        return $return;
+    }
+
+
     // END OF PAYPAL AND PAYMENTS
 
 
