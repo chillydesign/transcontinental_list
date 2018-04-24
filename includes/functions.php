@@ -2005,7 +2005,7 @@ function get_paypal_api_context() {
 
 
     // return boolean if ok
-    executePayment($payment_id, $payer_id) {
+    function executePayment($payment_id, $payer_id) {
 
 
         $apiContext = get_paypal_api_context();
