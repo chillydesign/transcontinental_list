@@ -27,6 +27,7 @@ define("PAYPAL_MODE", getenv('PAYPAL_MODE'));
 
 define("MAIL_USERNAME", getenv('MAIL_USERNAME'));
 define("MAIL_PASSWORD", getenv('MAIL_PASSWORD'));
+define("THEME_DIRECTORY", getenv('THEME_DIRECTORY'));
 
 
 
