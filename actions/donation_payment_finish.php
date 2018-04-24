@@ -28,7 +28,7 @@ if (isset($_GET['donation_id'])) {
                 $donation->status = 'payé';
                 $donation->payment_id = $payment_id;
                 $donation->payer_id = $payer_id;
-                update_donation_status($donation)
+                update_donation_status($donation);
                 send_donation_email($donation, $list);
                 header('Location: ' . site_url() . '/list/'. $list_id  . '?success&donation_id='. $donation_id  );
             } else {
