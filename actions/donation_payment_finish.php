@@ -20,7 +20,7 @@ if (isset($_GET['donation_id'])) {
             $payment_id = (isset($_GET['paymentId'])) ? $_GET['paymentId'] : '-';
             $payer_id = (isset($_GET['PayerID'])) ? $_GET['PayerID'] : '-';
 
-            $payment_executed  = executeDonationPayment( $payment_id, $payer_id, $donation );
+            $payment_executed  = executePayment( $payment_id, $payer_id );
 
 
             if ( $payment_executed  ) {

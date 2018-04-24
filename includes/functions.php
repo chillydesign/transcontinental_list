@@ -2005,15 +2005,13 @@ function get_paypal_api_context() {
 
 
     // return boolean if ok
-    executeDonationPayment($payment_id, $payer_id,  $donation) {
+    executePayment($payment_id, $payer_id) {
 
 
         $apiContext = get_paypal_api_context();
         $payment = Payment::get($payment_id, $apiContext);
         $execution = new PaymentExecution();
         $execution->setPayerId( $payer_id  );
-
-
 
         try {
 
