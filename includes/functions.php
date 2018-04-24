@@ -2009,8 +2009,8 @@ function get_paypal_api_context() {
 
 
         $apiContext = get_paypal_api_context();
-        $payment = Payment::get($payment_id, $apiContext);
-        $execution = new PaymentExecution();
+        $payment = \PayPal\Api\Payment::get($payment_id, $apiContext);
+        $execution = new \PayPal\Api\PaymentExecution();
         $execution->setPayerId( $payer_id  );
 
         try {
