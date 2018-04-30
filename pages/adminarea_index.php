@@ -21,7 +21,7 @@
               </li>
             <?php endforeach; ?>
           </ul>
-          <p><br><a class="list_button" href="<?php get_site_url(); ?>/adminarea/newuser">Tous les clients</a></p>
+          <p><br><a class="list_button" href="<?php get_site_url(); ?>/adminarea/users?p=1">Tous les clients</a></p>
 
 
 
@@ -46,7 +46,7 @@
                 </li>
               <?php endforeach; ?>
             </ul>
-            <p><br><a class="list_button"  href="<?php get_site_url(); ?>/adminarea/newlist">Toutes les listes</a></p>
+            <p><br><a class="list_button"  href="<?php get_site_url(); ?>/adminarea/lists?p=1">Toutes les listes</a></p>
 
 
 
@@ -73,7 +73,7 @@
                   </li>
                 <?php endforeach; ?>
               </ul>
-              <p><br><a class="list_button"  href="<?php get_site_url(); ?>/adminarea/giftcards">Tous les bons cadeaux</a></p>
+              <p><br><a class="list_button"  href="<?php get_site_url(); ?>/adminarea/giftcards?p=1">Tous les bons cadeaux</a></p>
 
 
 
