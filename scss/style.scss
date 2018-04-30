@@ -63,12 +63,16 @@ p select {font-size: 1em!important;}
 
 .tc_button {
     display: inline-block;
-    background: $brand_color;
+    background-color: $brand_color;
     padding: 10px;
     margin: 0 0 5px;
     border-radius: 5px;
     color: white;
     text-decoration: none;
+
+    &:visited, &:hover, &:active {
+        color: white;
+    }
 }
 
 h2 a.tc_button {
