@@ -3,7 +3,8 @@
 <?php $giftcard = get_giftcard(); ?>
 <?php if ($giftcard): ?>
 
-
+    <?php $withdrawals = get_withdrawals( $giftcard->id ); ?>
+    <?php $withdrawals_total = total_of_withdrawals($withdrawals); ?>
     <div class="row">
       <div class="col-sm-3 col-sm-push-9">
         <a class="list_button right_list_button" href="<?php get_site_url(); ?>/adminarea">Retour à l'admin</a>
@@ -20,7 +21,7 @@
 
     <div class="row">
 
-        <div class="col-sm-6">
+        <div class="col-sm-8">
 
             <?php if ($giftcard->expires_at  < date('Y-m-d')  ): ?>
                 <p class="error_message">Ce bon cadeau est expiré.</p>
@@ -37,6 +38,7 @@
                 </li>
 
                 <li><strong>Montant:</strong> <?php echo convert_cents_to_currency($giftcard->amount); ?></li>
+                <li><strong>Montant restant:</strong> <?php echo convert_cents_to_currency(  $giftcard->amount  - $withdrawals_total   ); ?></li>
                 <li><strong>Créé:</strong> <?php echo nice_datetime($giftcard->created_at); ?></li>
                 <li><strong>Valide jusqu'au:</strong> <?php echo nice_date($giftcard->expires_at); ?></li>
             </ul>
@@ -45,6 +47,36 @@
 
             <?php include('includes/edit_giftcard_form.php'); ?>
 
+            <br><br>
+            <h2>Utilisations</h2>
+            <form action="<?php get_site_url(); ?>/actions/withdrawal_new.php" method="post">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Montant</th>
+                        <th>Notes</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($withdrawals as $withdrawal) : ?>
+                    <tr>
+
+                        <td><?php echo convert_cents_to_currency($withdrawal->amount); ?></td>
+                        <td><?php echo $withdrawal->message; ?></td>
+                        <td><?php echo nice_datetime($withdrawal->created_at); ?></td>
+                    </tr>
+                <?php endforeach;?>
+                <tr>
+                    <td><input type="number" required name="amount" id="amount" placeholder="montant" /></td>
+                    <td><input type="text" name="message" id="message" placeholder="notes" /></td>
+                    <td><input type="submit" name="submit_new_withdrawal" value="Ajouter" /><input type="hidden" name="giftcard_id" value="<?php echo $giftcard->id; ?>"></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+
+
 
             <p><a  class="areyousurelink"  href="<?php get_site_url(); ?>/actions/giftcard_delete.php?id=<?php echo  $giftcard->number; ?>">Supprimer</a></p>
         </div>
@@ -52,7 +84,7 @@
 
 
 
-        <div class="col-sm-6">
+        <div class="col-sm-4">
 
 
             <figure>
@@ -69,6 +101,6 @@
 
 
 <?php else: ?>
-    <p>No giftcard with this id.</p>
+    <p>Aucun bon cadeau avec cet ID.</p>
 <?php endif; ?>
     </div>

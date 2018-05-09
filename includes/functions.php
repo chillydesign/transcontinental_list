@@ -615,6 +615,47 @@ function sum_donations($donations) {
 }
 
 
+function get_withdrawals( $giftcard_id  ){
+    global $conn;
+
+    try {
+        $query = "SELECT * FROM tcg_withdrawals WHERE giftcard_id = :giftcard_id   ORDER BY created_at DESC ";
+        $withdrawals_query = $conn->prepare($query);
+        $withdrawals_query->bindParam(':giftcard_id', $giftcard_id);
+        $withdrawals_query->setFetchMode(PDO::FETCH_OBJ);
+        $withdrawals_query->execute();
+
+        $withdrawals_count = $withdrawals_query->rowCount();
+
+        if ($withdrawals_count > 0) {
+            $withdrawals =  $withdrawals_query->fetchAll();
+            return $withdrawals;
+        } else {
+            return [];
+        }
+
+        unset($conn);
+
+    } catch(PDOException $err) {
+        return [];
+    };
+}
+
+
+function total_of_withdrawals($withdrawals) {
+    if (sizeof($withdrawals) > 0) {
+
+        $total = 0;
+        foreach ($withdrawals as $withdrawal) :
+            $total = $total + $withdrawal->amount;
+        endforeach;
+        return $total;
+    } else {
+        return 0;
+    }
+}
+
+
 
 function get_user($user_id = null) {
 
@@ -819,6 +860,38 @@ function convert_list_id($list_id) {
 }
 function deconvert_list_id($list_id) {
     return ($list_id - 1777) / 83;
+}
+
+
+
+function insert_new_withdrawal($withdrawal) {
+    global $conn;
+    if ($withdrawal->amount > 0 && $withdrawal->giftcard_id > 0 ){
+
+        try {
+            $query = "INSERT INTO tcg_withdrawals (amount, giftcard_id, message) VALUES (:amount, :giftcard_id, :message)";
+            $withdrawal_query = $conn->prepare($query);
+            $withdrawal_query->bindParam(':amount', $withdrawal->amount);
+            $withdrawal_query->bindParam(':giftcard_id', $withdrawal->giftcard_id);
+            $withdrawal_query->bindParam(':message', $withdrawal->message);
+            $withdrawal_query->execute();
+            $withdrawal_id = $conn->lastInsertId();
+            unset($conn);
+
+
+            return ($withdrawal_id);
+
+        } catch(PDOException $err) {
+
+            return false;
+
+        };
+
+    } else { // withdrawal name was blank
+        return false;
+    }
+
+
 }
 
 
@@ -1207,7 +1280,7 @@ function convert_to_amount_in_cents($string) {
 }
 
 function convert_cents_to_currency($integer) {
-    return   money_format( '%i CHF', ($integer / 100)  );
+    return   sprintf('%.2f',  ($integer/ 100) ) . ' CHF'; //  money_format( '%i CHF', ($integer / 100)  );
 }
 
 function has_valid_user_cookie() {
