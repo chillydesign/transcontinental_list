@@ -14,13 +14,16 @@
     <?php endif; ?>
 
 
+    <?php $archive = ( get_var('archive') )  ? $_GET['archive']  :  'active'; ?>
+    <?php $lists = get_lists($archive); ?>
+
     <div class="row">
         <div class="col-sm-6">
             <div class="half_block">
                 <h2>Toutes les listes</h2>
                 <?php include('includes/list_search.php'); ?>
                 <ul>
-                    <?php foreach (  get_lists() as $list) : ?>
+                    <?php foreach (  $lists as $list) : ?>
                         <?php $list_status = ( $list->active == 0 ? 'list_inactive' : '' ); ?>
                         <li  class="<?php echo $list_status ?>">
                           <a href="<?php get_site_url(); ?>/adminarea/list?id=<?php echo $list->list_number; ?>">
@@ -31,17 +34,20 @@
                 </ul>
                 <?php
                 use JasonGrimes\Paginator;
-                $totalItems = count_lists();
+                $totalItems = count_lists( $archive );
                 $itemsPerPage = posts_per_page();
                 $currentPage = get_var('p');
                 $s = (get_var('s')) ? "&s=" . get_var('s') : '';
-                $urlPattern = site_url() . '/adminarea/lists?p=(:num)' . $s;
+                $urlPattern = site_url() . '/adminarea/lists?p=(:num)' . $s . '&archive=' . $archive;
                 $paginator = new Paginator($totalItems, $itemsPerPage, $currentPage, $urlPattern);
                 $paginator->setMaxPagesToShow(3);
                 $paginator->setPreviousText('Précédent');
                 $paginator->setNextText('Suivant');
                 echo $paginator;
                 ?>
+                <hr>
+                <p><a href="<?php echo site_url(); ?>/adminarea/lists?p=1&archive=active">active</a> |
+                <a href="<?php echo site_url(); ?>/adminarea/lists?p=1&archive=inactive">inactive</a></p>
             </div>
         </div>
         <div class="col-sm-6">

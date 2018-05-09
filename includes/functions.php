@@ -224,7 +224,7 @@ function get_giftcard($giftcard_id = null) {
 
 
 
-function get_giftcards(){
+function get_giftcards($archive = "créé"){
     global $conn;
 
     if(get_var('s')){
@@ -234,12 +234,12 @@ function get_giftcards(){
             $gcid = deconvert_giftcard_id( $s ) ;
             $search = "WHERE `id` = " . $gcid ;
         } else {
-            $search = "WHERE `sender_first_name` LIKE '%" . $s . "%' OR `sender_last_name` LIKE '%" . $s . "%' OR `receiver_first_name` LIKE '%" . $s . "%' OR `receiver_last_name` LIKE '%" . $s . "%' OR `receiver_email` LIKE '%" . $s . "%' OR `sender_email` LIKE '%" . $s . "%'";
+            $search = "WHERE (`sender_first_name` LIKE '%" . $s . "%' OR `sender_last_name` LIKE '%" . $s . "%' OR `receiver_first_name` LIKE '%" . $s . "%' OR `receiver_last_name` LIKE '%" . $s . "%' OR `receiver_email` LIKE '%" . $s . "%' OR `sender_email` LIKE '%" . $s . "%')";
         }
 
 
     } else {
-        $search = '';
+        $search = ' WHERE  status = "' . $archive . '"  ';
     }
 
     $posts_per_page = posts_per_page();
@@ -251,7 +251,7 @@ function get_giftcards(){
     }
 
     try {
-        $query = "SELECT * FROM tcg_giftcards $search ORDER BY created_at DESC LIMIT $posts_per_page $page_query";
+        $query = "SELECT * FROM tcg_giftcards $search   ORDER BY created_at DESC LIMIT $posts_per_page $page_query";
         $giftcards_query = $conn->prepare($query);
         $giftcards_query->setFetchMode(PDO::FETCH_OBJ);
         $giftcards_query->execute();
@@ -436,14 +436,16 @@ function count_users(){
 
 
 
-function count_giftcards(){
+function count_giftcards($archive = "créé"){
     global $conn;
 
     if(get_var('s')){
         $s = get_var('s');
         $search = "WHERE `sender_first_name` LIKE '%" . $s . "%' OR `sender_last_name` LIKE '%" . $s . "%' OR `receiver_first_name` LIKE '%" . $s . "%' OR `receiver_last_name` LIKE '%" . $s . "%' OR `receiver_email` LIKE '%" . $s . "%' OR `sender_email` LIKE '%" . $s . "%'";
     } else {
-        $search = '';
+
+        $search = ' WHERE  status = "' . $archive . '"  ';
+
     }
 
     try {
@@ -465,10 +467,15 @@ function count_giftcards(){
 
 
 
-function count_lists(){
+function count_lists($archive){
     global $conn;
+
+    $archive_int = ($archive == 'active') ? 1 : 0;
+    $search = ' active = ' . $archive_int;
+
+
     try {
-        $query = "SELECT id FROM tcg_lists ";
+        $query = "SELECT id FROM tcg_lists WHERE $search ";
         $lists_query = $conn->prepare($query);
         $lists_query->setFetchMode(PDO::FETCH_OBJ);
         $lists_query->execute();
@@ -483,7 +490,7 @@ function count_lists(){
 }
 
 
-function get_lists(){
+function get_lists($archive){
     global $conn;
 
     $posts_per_page = posts_per_page();
@@ -494,10 +501,13 @@ function get_lists(){
         $page_query = '';
     }
 
+    $archive_int = ($archive == 'active') ? 1 : 0;
+    $search = ' tcg_lists.active = ' . $archive_int;
+
     try {
         $query = "SELECT *, tcg_lists.id as id FROM tcg_lists
         LEFT JOIN tcg_users ON tcg_users.id = tcg_lists.user_id
-        WHERE tcg_users.id IS NOT NULL
+        WHERE  $search AND tcg_users.id IS NOT NULL
         ORDER BY  tcg_lists.active DESC,  tcg_lists.created_at DESC
         LIMIT $posts_per_page $page_query ";
         $lists_query = $conn->prepare($query);
