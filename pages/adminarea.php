@@ -19,6 +19,8 @@ elseif (current_subpage_is('giftcards')):
         include('adminarea_giftcards.php');
 elseif (current_subpage_is('giftcard')):
     include('adminarea_giftcard.php');
+elseif (current_subpage_is('newgiftcard')):
+    include('adminarea_newgiftcard.php');
 else:
     include('adminarea_index.php');
 endif;

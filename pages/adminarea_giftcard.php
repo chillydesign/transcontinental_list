@@ -45,6 +45,7 @@
 
             <?php include('includes/edit_giftcard_form.php'); ?>
 
+
             <p><a  class="areyousurelink"  href="<?php get_site_url(); ?>/actions/giftcard_delete.php?id=<?php echo  $giftcard->number; ?>">Supprimer</a></p>
         </div>
 
