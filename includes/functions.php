@@ -1838,11 +1838,11 @@ function send_giftcard_email( $giftcard  ) {
 
 function admin_email(){
     // should return string
-    return 'Aline.Odier@transcontinental.ch';
+    return 'claude.luterbacher@transcontinental.ch';
 }
 
 function admin_emails() {
-    return  array('info@transcontinental.ch',  'silvana.jahiu@transcontinental.ch', 'Aline.Odier@transcontinental.ch' );
+    return  array('info@transcontinental.ch',  'silvana.jahiu@transcontinental.ch', 'claude.luterbacher@transcontinental.ch' );
 }
 
 
