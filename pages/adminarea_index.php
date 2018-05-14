@@ -35,7 +35,7 @@
           <?php include('includes/list_search.php'); ?>
 
           <ul>
-            <?php foreach ( get_lists() as $list) : ?>
+            <?php foreach ( get_lists('active') as $list) : ?>
                 <?php $list_status = ( $list->active == 0 ? 'list_inactive' : '' ); ?>
                 <li  class="<?php echo $list_status ?>">
                 <a href="<?php get_site_url(); ?>/adminarea/list?id=<?php echo $list->list_number; ?>">
@@ -60,7 +60,7 @@
             <h2><a href="<?php get_site_url(); ?>/adminarea/giftcards?p=1"> Bons cadeaux</a></h2>
             <?php include('includes/search_giftcard_form.php'); ?>
             <ul>
-              <?php foreach ( get_giftcards('active') as $giftcard) : ?>
+              <?php foreach ( get_giftcards('payé') as $giftcard) : ?>
                 <?php $giftcard_status = ( $giftcard->status == 'utilisé' ? 'giftcard_used' : '' ); ?>
                 <li  class="<?php echo $giftcard_status ?>">
                   <a href="<?php get_site_url(); ?>/adminarea/giftcard?id=<?php echo  convert_giftcard_id($giftcard->id); ?>">
