@@ -227,6 +227,12 @@ function get_giftcard($giftcard_id = null) {
 function get_giftcards($archive = "créé"){
     global $conn;
 
+    if ($archive == 'cree' ) $archive = 'créé';
+    if ($archive == 'annule' ) $archive = 'annulé';
+    if ($archive == 'paye' ) $archive = 'payé';
+    if ($archive == 'utilise' ) $archive = 'utilisé';
+
+
     if(get_var('s')){
         $s = get_var('s');
 

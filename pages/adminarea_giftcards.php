@@ -12,7 +12,7 @@
     <?php if (has_error()) : ?>
         <?php show_error_message(); ?>
     <?php endif; ?>
-    <?php $archive = ( get_var('archive') )  ? $_GET['archive']  :  'créé'; ?>
+    <?php $archive = ( get_var('archive') )  ? $_GET['archive']  :  'cree'; ?>
     <?php $giftcards =  get_giftcards( $archive); ?>
     <div class="row">
         <div class="col-sm-6">
@@ -46,10 +46,10 @@
                 echo $paginator;
                 ?>
                 <hr>
-                <p><a href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=créé">créé</a> |
-                <a href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=annulé">annulé</a> |
-                <a href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=payé">payé</a> |
-                <a href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=utilisé">utilisé</a></p>
+                <p><a href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=cree">créé</a> |
+                <a href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=annule">annulé</a> |
+                <a href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=paye">payé</a> |
+                <a href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=utilise">utilisé</a></p>
 
 
             </div>
