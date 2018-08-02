@@ -68,7 +68,7 @@
                     </tr>
                 <?php endforeach;?>
                 <tr>
-                    <td><input max="<?php echo floor((  $giftcard->amount  - $withdrawals_total   ) / 100)  ;?>" type="number" required name="amount" id="amount" placeholder="montant" /></td>
+                    <td><input max="<?php echo ((  $giftcard->amount  - $withdrawals_total   ) / 100)  ;?>" step="0.01" type="number" required name="amount" id="amount" placeholder="montant" /></td>
                     <td><input type="text" name="message" id="message" placeholder="notes" /></td>
                     <td><input type="submit" name="submit_new_withdrawal" value="Ajouter" /><input type="hidden" name="giftcard_id" value="<?php echo $giftcard->id; ?>"></td>
                 </tr>

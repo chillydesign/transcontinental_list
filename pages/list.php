@@ -72,7 +72,7 @@
                     </p>
                     <p id="amount_container">
                       <label for="amount">Montant</label>
-                      <input  required step="1"   min="0" max="10000" type="number" name="amount" placeholder="" id="amount"  /><span style="margin-top: 13px;">CHF</span>
+                      <input  required step="0.01"   min="0" max="10000" type="number" name="amount" placeholder="" id="amount"  /><span style="margin-top: 13px;">CHF</span>
                     </p>
                     <p>
                         <input type="submit" id="submit_button" name="submit_new_donation" value="Envoyer" />
