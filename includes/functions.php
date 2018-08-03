@@ -223,6 +223,13 @@ function get_giftcard($giftcard_id = null) {
 }
 
 
+function giftcardArchiveSelected($type) {
+    global $archive;
+    if ($archive == $type) {
+        echo ' style="font-weight: bold" ';
+    }
+}
+
 
 function get_giftcards($archive = "créé"){
     global $conn;

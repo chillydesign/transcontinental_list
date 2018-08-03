@@ -40,7 +40,7 @@ if ( isset($_POST['submit_new_giftcard']) && isset($_POST['receiver_email']) && 
             $giftcard->message = $message;
             $giftcard->picture = $picture;
             $giftcard->amount = convert_to_amount_in_cents($amount);
-            $giftcard->status = 'créé';
+            $giftcard->status =   (has_valid_admin_cookie()) ? 'payé' :  'créé';
 
 
 
@@ -50,7 +50,9 @@ if ( isset($_POST['submit_new_giftcard']) && isset($_POST['receiver_email']) && 
 
                 // if an admin making it, dont do paypal stuff
                 if(has_valid_admin_cookie()):
-
+                    // send emails now if an admin is cretaing it
+                    $giftcard = get_giftcard($giftcard_id );
+                    send_giftcard_email($giftcard);
                     header('Location: ' .  site_url() .  '/adminarea/giftcard/?id=' .  $giftcard_id  );
 
                 else:  // if a normal user making it, send them to paypal

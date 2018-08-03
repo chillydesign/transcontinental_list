@@ -5,6 +5,7 @@
 
     <?php $withdrawals = get_withdrawals( $giftcard->id ); ?>
     <?php $withdrawals_total = total_of_withdrawals($withdrawals); ?>
+    <?php $money_left = $giftcard->amount  - $withdrawals_total; ?>
     <div class="row">
       <div class="col-sm-3 col-sm-push-9">
         <a class="list_button right_list_button" href="<?php get_site_url(); ?>/adminarea">Retour à l'admin</a>
@@ -38,7 +39,7 @@
                 </li>
 
                 <li><strong>Montant:</strong> <?php echo convert_cents_to_currency($giftcard->amount); ?></li>
-                <li><strong>Montant restant:</strong> <?php echo convert_cents_to_currency(  $giftcard->amount  - $withdrawals_total   ); ?></li>
+                <li><strong>Montant restant:</strong> <?php echo convert_cents_to_currency( $money_left  ); ?></li>
                 <li><strong>Créé:</strong> <?php echo nice_datetime($giftcard->created_at); ?></li>
                 <li><strong>Valide jusqu'au:</strong> <?php echo nice_date($giftcard->expires_at); ?></li>
             </ul>
@@ -47,6 +48,7 @@
 
             <?php include('includes/edit_giftcard_form.php'); ?>
 
+            <?php if ($giftcard->status != 'créé') : ?>
             <br><br>
             <h2>Utilisations</h2>
             <form action="<?php get_site_url(); ?>/actions/withdrawal_new.php" method="post">
@@ -66,19 +68,20 @@
                         <td><?php echo $withdrawal->message; ?></td>
                         <td><?php echo nice_datetime($withdrawal->created_at); ?></td>
                     </tr>
-                <?php endforeach;?>
-                <tr>
-                    <td><input max="<?php echo ((  $giftcard->amount  - $withdrawals_total   ) / 100)  ;?>" step="0.01" type="number" required name="amount" id="amount" placeholder="montant" /></td>
-                    <td><input type="text" name="message" id="message" placeholder="notes" /></td>
-                    <td><input type="submit" name="submit_new_withdrawal" value="Ajouter" /><input type="hidden" name="giftcard_id" value="<?php echo $giftcard->id; ?>"></td>
-                </tr>
-            </tbody>
-        </table>
-    </form>
+                    <?php endforeach;?>
+                    <?php if ($giftcard->status == 'payé'  &&  $money_left > 0 ) : ?>
+                    <tr>
+                        <td><input max="<?php echo ((  $money_left  ) / 100)  ;?>" step="0.01" type="number" required name="amount" id="amount" placeholder="montant" /></td>
+                        <td><input type="text" name="message" id="message" placeholder="notes" /></td>
+                        <td><input type="submit" name="submit_new_withdrawal" value="Ajouter" /><input type="hidden" name="giftcard_id" value="<?php echo $giftcard->id; ?>"></td>
+                    </tr>
+                <?php endif;  // end if status is paye and has money to withdraw ?>
+                </tbody>
+            </table>
+        </form>
+    <?php endif;  // end of if status is not cree ?>
 
-
-
-            <p><a  class="areyousurelink"  href="<?php get_site_url(); ?>/actions/giftcard_delete.php?id=<?php echo  $giftcard->number; ?>">Supprimer</a></p>
+            <!-- <p><a  class="areyousurelink"  href="<?php get_site_url(); ?>/actions/giftcard_delete.php?id=<?php echo  $giftcard->number; ?>">Supprimer</a></p> -->
         </div>
 
 
