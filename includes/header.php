@@ -19,6 +19,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="<?php echo THEME_DIRECTORY; ?>/img/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="<?php echo THEME_DIRECTORY; ?>/img/favicon/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="<?php echo THEME_DIRECTORY; ?>/img/favicon/favicon-16x16.png">
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href="<?php echo THEME_DIRECTORY; ?>/css/reset.css?ver=<?php echo current_version(); ?>"  rel="stylesheet" />
     <link href="<?php echo THEME_DIRECTORY; ?>/style.css?v=<?php echo current_version(); ?>"  rel="stylesheet" />
     <link href="<?php get_site_url(); ?>/css/style.css?v=<?php echo current_version(); ?>"  rel="stylesheet" />

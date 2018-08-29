@@ -23,13 +23,13 @@
 
 
     <p>
-        <label for="deadline">Deadline</label>
+        <label for="deadline">Date du mariage / de l'anniversaire</label>
         <input type="date" name="deadline" id="deadline" />
     </p>
 
 
     <p>
-        <label for="category">Categorie</label>
+        <label for="category">Catégorie</label>
         <span class="radio_container">
             <label>
                 <input type="radio" value="anniversaire" name="category" />

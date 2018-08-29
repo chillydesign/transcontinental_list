@@ -84,7 +84,9 @@
 
                 </form>
                 <?php else: // end of if list has not expired ?>
-                    <p>This list has expired. You can no longer contribute to it.</p>
+                    <p>Cette liste a expiré. Il n'est plus possible d'y contribuer, mais vous pouvez si vous le souhaitez envoyer un bon cadeau.</p>
+                    <p><a href="<?php echo site_url(); ?>/giftcard" class="button">Envoyer un bon cadeau</a></p>
+
                 <?php endif; // end of if list has  expired ?>
 
 
