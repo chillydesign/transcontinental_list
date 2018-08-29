@@ -512,8 +512,15 @@ function get_lists($archive){
         $page_query = '';
     }
 
-    $archive_int = ($archive == 'active') ? 1 : 0;
-    $search = ' tcg_lists.active = ' . $archive_int;
+    if ($archive == 'expired') {
+        $now = date("Y-m-d", time());
+        $search =  ' tcg_lists.active =  1 AND deadline < "' . $now . '"' ;
+    } else {
+        $archive_int = ($archive == 'active') ? 1 : 0;
+        $search = ' tcg_lists.active = ' . $archive_int;
+    }
+
+
 
     try {
         $query = "SELECT *, tcg_lists.id as id, tcg_lists.created_at as created_at FROM tcg_lists

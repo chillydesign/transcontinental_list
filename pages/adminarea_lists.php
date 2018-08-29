@@ -47,7 +47,8 @@
                 ?>
                 <hr>
                 <p><a href="<?php echo site_url(); ?>/adminarea/lists?p=1&archive=active">active</a> |
-                <a href="<?php echo site_url(); ?>/adminarea/lists?p=1&archive=inactive">inactive</a></p>
+                <a href="<?php echo site_url(); ?>/adminarea/lists?p=1&archive=inactive">inactive</a> |
+                <a href="<?php echo site_url(); ?>/adminarea/lists?p=1&archive=expired">expirée</a></p>
             </div>
         </div>
         <div class="col-sm-6">

@@ -32,7 +32,7 @@
         <label for="category">Catégorie</label>
         <span class="radio_container">
             <label>
-                <input type="radio" value="anniversaire" name="category" />
+                <input  checked type="radio" value="anniversaire" name="category" />
                 Anniversaire
             </label>
         </span>
