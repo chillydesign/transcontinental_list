@@ -14,12 +14,36 @@
     <?php endif; ?>
     <p>
         <label for="name">Nom de la liste</label>
-        <input type="text" name="name" placeholder="Nom" />
+        <input id="name" type="text" name="name" placeholder="Nom" />
     </p>
     <p>
         <label for="description">Description</label>
-        <textarea name="description" placeholder="Description"></textarea>
+        <textarea id="description" name="description" placeholder="Description"></textarea>
     </p>
+
+
+    <p>
+        <label for="deadline">Deadline</label>
+        <input type="date" name="deadline" id="deadline" />
+    </p>
+
+
+    <p>
+        <label for="category">Categorie</label>
+        <span class="radio_container">
+            <label>
+                <input type="radio" value="anniversaire" name="category" />
+                Anniversaire
+            </label>
+        </span>
+        <span class="radio_container">
+            <label >
+                <input type="radio" value="mariage" name="category" />
+                Mariage
+            </label>
+        </span>
+    </p>
+
      <?php $pictures = find_pictures('lists'); ?>
     <?php if (sizeof($pictures) > 0) : ?>
       <p><label>Image <br> <em>Choisissez une photo en cliquant dessus.</em></label> </p>

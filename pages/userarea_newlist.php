@@ -14,17 +14,6 @@
           <?php include('includes/new_list_form.php'); ?>
         </div>
       </div>
-      <div class="col-sm-6">
 
-
-
-      </div>
-  </div>
-</div>
-
-
-
-
-
-
-<?php //include('includes/new_list_form.php'); ?>
+  </div><!--  END OF ROW -->
+</div><!--  END OF CONTAINER -->

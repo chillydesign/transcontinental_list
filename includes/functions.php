@@ -923,13 +923,15 @@ function insert_new_list($list) {
     if ($list->name != '' && $list->user_id > 0 ){
 
         try {
-            $query = "INSERT INTO tcg_lists (name, description, picture, user_id, active) VALUES (:name, :description, :picture, :user_id, :active)";
+            $query = "INSERT INTO tcg_lists (name, description, picture, user_id, active, category, deadline) VALUES (:name, :description, :picture, :user_id, :active, :category, :deadline)";
             $list_query = $conn->prepare($query);
             $list_query->bindParam(':name', $list->name);
             $list_query->bindParam(':description', $list->description);
             $list_query->bindParam(':picture', $list->picture);
             $list_query->bindParam(':user_id', $list->user_id);
             $list_query->bindParam(':active', $list->active);
+            $list_query->bindParam(':category', $list->category);
+            $list_query->bindParam(':deadline', $list->deadline);
             $list_query->execute();
             $list_id = $conn->lastInsertId();
             unset($conn);
@@ -1104,6 +1106,14 @@ function update_giftcard($giftcard) {
 
 
 
+
+function list_has_expired($list) {
+    $deadline =  strtotime("midnight", strtotime( $list->deadline));
+    $now = strtotime("midnight", time() );
+    return $now <= $deadline;
+}
+
+
 function update_list($list) {
     global $conn;
     if ($list->name != '' && $list->user_id > 0 ){
@@ -1115,7 +1125,9 @@ function update_list($list) {
             `description` = :description,
             `picture` = :picture,
             `user_id` = :user_id,
-            `active` = :active
+            `active` = :active,
+            `category` = :category,
+            `deadline` = :deadline
             WHERE id = :id";
             $list_query = $conn->prepare($query);
             $list_query->bindParam(':name', $list->name);
@@ -1123,6 +1135,8 @@ function update_list($list) {
             $list_query->bindParam(':picture', $list->picture);
             $list_query->bindParam(':user_id', $list->user_id);
             $list_query->bindParam(':active', $list->active);
+            $list_query->bindParam(':category', $list->category);
+            $list_query->bindParam(':deadline', $list->deadline);
             $list_query->bindParam(':id', $list->id);
             $list_query->execute();
             unset($conn);
@@ -1289,6 +1303,9 @@ function  has_giftcard_paypal_url_cookie() {
 }
 
 
+function date_for_input($date) {
+    return  date('Y-m-d', strtotime($date));
+}
 function nice_date($date) {
     return  date('d/m/Y', strtotime($date));
 }

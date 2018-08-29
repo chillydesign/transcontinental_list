@@ -47,11 +47,12 @@
               <?php endif ; ?>
               <div class="half_block">
                 <h2>Contribuer</h2>
-                <!-- <p>Jusqu'à présent <?php echo sum_donations($donations); ?> ont été contribués sur cette liste. </p> -->
 
 
+                <?php if( false) : ?><!--<p>Jusqu'à présent <?php echo sum_donations($donations); ?> ont été contribués sur cette liste. </p>--><?php endif; ?>
 
 
+                <?php if ( list_has_expired($list)) : // if list has not expired ?>
                 <form action="<?php get_site_url(); ?>/actions/donation_new.php" method="post">
 
                     <p>
@@ -82,6 +83,9 @@
                     </p>
 
                 </form>
+                <?php else: // end of if list has not expired ?>
+                    <p>This list has expired. You can no longer contribute to it.</p>
+                <?php endif; // end of if list has  expired ?>
 
 
             </div>
@@ -90,7 +94,7 @@
 
     <?php else: ?>
 
-          <h1>Cette liste n'est pas active à l'heure actuelle.</h1>
+          <h1 style="padding-bottom: 400px">Cette liste n'est pas active à l'heure actuelle.</h1>
 
     <?php endif; ?>
 

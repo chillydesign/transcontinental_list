@@ -25,8 +25,8 @@
               <?php if($list->description != ''): ?>
                   <p><?php echo $list->description; ?></p>
               <?php endif ; ?>
-              <p><strong>Numéro de liste :</strong>  <a href="<?php get_site_url(); ?>/list/<?php echo $list->list_number; ?>"><?php echo $list->list_number; ?></a><br>
-              Partagez ce numéro de liste à vos contacts, ou directement l'url suivante : <a href="<?php get_site_url(); ?>/list/<?php echo $list->list_number; ?>"><?php get_site_url(); ?>/list/<?php echo $list->list_number; ?></a></p>
+              <p><strong>Numéro de liste :</strong>  <a target="_blank" href="<?php get_site_url(); ?>/list/<?php echo $list->list_number; ?>"><?php echo $list->list_number; ?></a><br>
+              Partagez ce numéro de liste à vos contacts, ou directement l'url suivante : <a target="_blank" href="<?php get_site_url(); ?>/list/<?php echo $list->list_number; ?>"><?php get_site_url(); ?>/list/<?php echo $list->list_number; ?></a></p>
             </div>
             <div class="col-sm-3">
               <?php if (picture_exists( $list->picture, 'lists' )) : ?>

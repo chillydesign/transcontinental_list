@@ -21,9 +21,19 @@ if ( $list_id ) {
         }
 
         $name = $_POST['name'];
-        $active = (isset($_POST['active']))  ? 1 : 0;
+
+        // only change active status if set by an admin
+        if ( has_valid_admin_cookie() ) {
+            $active = (isset($_POST['active']))  ? 1 : 0;
+        } else {
+            $active = $list->active;
+        }
+
         $description = $_POST['description'];
         $picture = (isset($_POST['picture'])) ? $_POST['picture'] : 1;
+        $category = (isset($_POST['category'])) ? $_POST['category'] : 'anniversaire';
+        $deadline =  $_POST['deadline'];
+
 
         if ( has_valid_admin_cookie() || $user_id == $list->user_id ) {
 
@@ -34,6 +44,8 @@ if ( $list_id ) {
                 $list->picture = $picture;
                 $list->user_id = $user_id;
                 $list->active = $active;
+                $list->category = $category;
+                $list->deadline = $deadline;
 
                 $list_updated = update_list($list);
 

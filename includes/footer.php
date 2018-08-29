@@ -1,5 +1,5 @@
 
- </div> <!-- END OF CONTAINER -->
+
 
 <footer>
   <p class="container">&copy; <?php echo date('Y'); ?> <?php echo SITE_NAME; ?> </p>

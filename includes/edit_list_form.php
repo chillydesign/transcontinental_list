@@ -33,11 +33,35 @@
             <label for="description">Description</label>
             <textarea name="description" placeholder="Description"><?php echo $list->description; ?></textarea>
         </p>
+
+
+        <p>
+            <label for="deadline">Deadline</label>
+            <input type="date" name="deadline" id="deadline"  value="<?php echo date_for_input($list->deadline); ?>"  />
+        </p>
+
+        <p>
+            <label for="category">Categorie</label>
+            <span class="radio_container">
+                <label>
+                    <input <?php echo ( $list->category == 'anniversaire' ) ? ' checked ' : ''; ?>type="radio" value="anniversaire" name="category" />
+                    Anniversaire
+                </label>
+            </span>
+            <span class="radio_container">
+                <label >
+                    <input <?php echo ( $list->category == 'mariage' ) ? ' checked ' : ''; ?>type="radio" value="mariage" name="category" />
+                    Mariage
+                </label>
+            </span>
+        </p>
+
+
         <?php if (sizeof($pictures) > 0) : ?>
               <p><label>Image <br> <em>Choisissez une photo en cliquant dessus.</em></label></p>
               <div class="allfigs">
             <?php foreach ($pictures as $picture) : ?>
-                <?php $selected = ( $picture->id == $list->picture ) ? 'selected"'  : '' ; ?>
+                <?php $selected = ( $picture->id == $list->picture ) ? ' selected '  : '' ; ?>
                 <figure class="change_picture <?php echo $selected; ?>" data-picture="<?php echo $picture->id; ?>">
                     <img src="<?php echo $picture->url; ?>"  alt="Image <?php echo $picture->id; ?>" />
                 </figure>

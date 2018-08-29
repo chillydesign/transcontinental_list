@@ -254,3 +254,19 @@ a.button {
         background-color: darken($brand_color, 10);
     }
 }
+
+
+
+.radio_container {
+
+    display: inline-block;
+    margin: 0 15px 15px 0;
+    label {
+        display: inline-block;
+
+    }
+    input {
+        width: auto;
+        margin: 0;
+    }
+}
