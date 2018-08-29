@@ -19,7 +19,7 @@ if (isset($_GET['giftcard_id'])) {
         $payment_executed  = executePayment( $payment_id, $payer_id );
 
         if ( $payment_executed  ) {
-            $giftcard->status = 'payé';
+            $giftcard->status = 'actif';
             $giftcard->payment_id = $payment_id;
             $giftcard->payer_id = $payer_id;
             update_giftcard_status($giftcard);

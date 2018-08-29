@@ -40,7 +40,7 @@ if ( isset($_POST['submit_new_giftcard']) && isset($_POST['receiver_email']) && 
             $giftcard->message = $message;
             $giftcard->picture = $picture;
             $giftcard->amount = convert_to_amount_in_cents($amount);
-            $giftcard->status =   (has_valid_admin_cookie()) ? 'payé' :  'créé';
+            $giftcard->status =   (has_valid_admin_cookie()) ? 'actif' :  'non payé';
 
 
 

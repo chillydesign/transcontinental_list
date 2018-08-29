@@ -12,7 +12,7 @@
     <?php if (has_error()) : ?>
         <?php show_error_message(); ?>
     <?php endif; ?>
-    <?php $archive = ( get_var('archive') )  ? $_GET['archive']  :  'paye'; ?>
+    <?php $archive = ( get_var('archive') )  ? $_GET['archive']  :  'actif'; ?>
     <?php $giftcards =  get_giftcards( $archive); ?>
     <div class="row">
         <div class="col-sm-6">
@@ -47,8 +47,8 @@
                 ?>
                 <hr>
                 <p>
-                <a <?php giftcardArchiveSelected('paye'); ?> href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=paye">payé</a> |
-                <a <?php giftcardArchiveSelected('cree'); ?> href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=cree">créé</a> |
+                <a <?php giftcardArchiveSelected('actif'); ?> href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=actif">actif</a> |
+                <a <?php giftcardArchiveSelected('nonpaye'); ?> href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=nonpaye">non payé</a> |
                 <a <?php giftcardArchiveSelected('annule'); ?> href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=annule">annulé</a> |
                 <a <?php giftcardArchiveSelected('utilise'); ?> href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=utilise">utilisé</a>
                 </p>

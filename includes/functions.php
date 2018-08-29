@@ -141,11 +141,9 @@ function get_var($str) {
 }
 
 function valid_giftcard_statuses() {
-    return array('créé', 'annulé', 'payé', 'utilisé');
+    // return array('créé', 'annulé', 'payé', 'utilisé');
+    return array( 'actif', 'non payé', 'annulé', 'utilisé'  );
 }
-
-
-
 
 
 function get_donation($donation_id = null) {
@@ -231,12 +229,12 @@ function giftcardArchiveSelected($type) {
 }
 
 
-function get_giftcards($archive = "créé"){
+function get_giftcards($archive = "actif"){
     global $conn;
 
-    if ($archive == 'cree' ) $archive = 'créé';
+    if ($archive == 'nonpaye' ) $archive = 'non payé';
     if ($archive == 'annule' ) $archive = 'annulé';
-    if ($archive == 'paye' ) $archive = 'payé';
+    if ($archive == 'actif' ) $archive = 'actif';
     if ($archive == 'utilise' ) $archive = 'utilisé';
 
 
