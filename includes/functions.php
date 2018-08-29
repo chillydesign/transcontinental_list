@@ -3,7 +3,7 @@
 
 
 function current_version(){
-    echo '0.1.5';
+    echo '0.1.6';
 }
 
 
@@ -199,7 +199,7 @@ function get_giftcard($giftcard_id = null) {
         $giftcard_id = deconvert_giftcard_id($giftcard_id);
 
         try {
-            $query = "SELECT *FROM tcg_giftcards WHERE tcg_giftcards.id = :id LIMIT 1";
+            $query = "SELECT * FROM tcg_giftcards WHERE tcg_giftcards.id = :id LIMIT 1";
             $giftcard_query = $conn->prepare($query);
             $giftcard_query->bindParam(':id', $giftcard_id);
             $giftcard_query->setFetchMode(PDO::FETCH_OBJ);
@@ -518,7 +518,7 @@ function get_lists($archive){
     $search = ' tcg_lists.active = ' . $archive_int;
 
     try {
-        $query = "SELECT *, tcg_lists.id as id FROM tcg_lists
+        $query = "SELECT *, tcg_lists.id as id, tcg_lists.created_at as created_at FROM tcg_lists
         LEFT JOIN tcg_users ON tcg_users.id = tcg_lists.user_id
         WHERE  $search AND tcg_users.id IS NOT NULL
         ORDER BY  tcg_lists.active DESC,  tcg_lists.created_at DESC
@@ -808,7 +808,7 @@ function get_list($list_id = null) {
     if ( $list_id > 0) {
         $list_id = deconvert_list_id($list_id);
         try {
-            $query = "SELECT *, tcg_lists.id as id FROM tcg_lists
+            $query = "SELECT *, tcg_lists.id as id,  tcg_lists.created_at as created_at FROM tcg_lists
             LEFT JOIN tcg_users ON tcg_users.id = tcg_lists.user_id
             WHERE tcg_users.id IS NOT NULL
             AND tcg_lists.id = :id

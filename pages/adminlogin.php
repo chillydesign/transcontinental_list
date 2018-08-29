@@ -5,10 +5,23 @@
 <?php if (has_error()) : ?>
     <?php show_error_message(); ?>
 <?php endif; ?>
+
+
+<div class="row">
+  <div class="col-sm-6">
+    <div class="half_block">
+
 <form action="<?php get_site_url(); ?>/actions/admin_connect.php" method="post">
 
     <p><input type="text" name="email" placeholder="Email" /></p>
     <p><input type="password" name="password" placeholder="Mot de passe" /></p>
     <p><input type="submit" name="connect_admin" value="Connexion" /></p>
 </form>
+
+    </div>
+  </div>
+</div>
+
+
+
 </div>

@@ -64,7 +64,7 @@
                 <?php $giftcard_status = ( $giftcard->status == 'utilisé' ? 'giftcard_used' : '' ); ?>
                 <li  class="<?php echo $giftcard_status ?>">
                   <a href="<?php get_site_url(); ?>/adminarea/giftcard?id=<?php echo  convert_giftcard_id($giftcard->id); ?>">
-                    <strong> Bon de <?php echo convert_cents_to_currency($giftcard->amount); ?>  pour: <?php echo $giftcard->receiver_first_name; ?> <?php echo $giftcard->receiver_last_name; ?></strong><br>
+                    <strong> Bon #<?php echo  convert_giftcard_id($giftcard->id) ; ?> de <?php echo convert_cents_to_currency($giftcard->amount); ?>  pour: <?php echo $giftcard->receiver_first_name; ?> <?php echo $giftcard->receiver_last_name; ?></strong><br>
                     De la part de: <?php echo $giftcard->sender_first_name; ?> <?php echo $giftcard->sender_last_name; ?>
                 </a>
                 <br> <em>Créé le <?php  echo nice_date($giftcard->created_at); ?></em>
