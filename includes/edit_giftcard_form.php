@@ -10,7 +10,7 @@
 
         <?php if(has_valid_admin_cookie()): ?>
              <p>
-                <select  <?php echo $disabled; ?> id="status" name="status">
+                <select  <?php // echo $disabled; ?> id="status" name="status">
                     <?php foreach   ( valid_giftcard_statuses() as $status_text) : ?>
                         <?php $selected = ( $status_text == $giftcard->status ) ? 'selected="selected"'  : '' ; ?>
                         <option <?php echo $selected; ?>   value="<?php echo $status_text; ?>">
