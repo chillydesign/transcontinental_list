@@ -38,23 +38,23 @@
             $spinner.show();
         });
 
-        // check amount is properly formatted
-        // only allow numbers
-        var $amount = $('#amount');
-
-        $amount.on('keyup blur paste', function(e){
-            var $this = $(this);
-            var $value = $this.val();
-            // only allow numbers
-            // only allow upto 5 digits, ie no numbers above CHF 100,000
-            // remove anything after the decimal
-            var $newValue = $value.replace(/,+/g,'.').replace(/[^0-9\.]+/g,'');
-            // var $newValue = $value.split('.')[0].substring(0,5);
-             $this.val($newValue);
-            // var $hasOnlyNumbers = $value.match(/[0-9]+/g) == $value;
-
-
-        });
+        // // check amount is properly formatted
+        // // only allow numbers
+        // var $amount = $('#amount');
+        //
+        // $amount.on('keyup blur paste', function(e){
+        //     var $this = $(this);
+        //     var $value = $this.val();
+        //     // only allow numbers
+        //     // only allow upto 5 digits, ie no numbers above CHF 100,000
+        //     // remove anything after the decimal
+        //     var $newValue = $value.replace(/,+/g,'.').replace(/[^0-9\.]+/g,'');
+        //     // var $newValue = $value.split('.')[0].substring(0,5);
+        //      $this.val($newValue);
+        //     // var $hasOnlyNumbers = $value.match(/[0-9]+/g) == $value;
+        //
+        //
+        // });
 
 
         $('.half_block').matchHeight();
