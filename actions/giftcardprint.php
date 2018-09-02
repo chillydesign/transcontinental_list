@@ -62,7 +62,7 @@ if (isset($_GET['id'])  ) :
     }
     h1 {
       font-size: 3em;
-      padding: 30px 0;
+      padding: 30px 50px;
       text-align: center;
       background: rgba(255,255,255,0.8);
       margin: -40px -50px 50px;
@@ -185,7 +185,7 @@ blockquote:after{
 
           <div class="col">
             <blockquote>
-              <?php echo $giftcard->message; ?> 
+              <?php echo $giftcard->message; ?>
             </blockquote>
           </div>
             <h2>Venez organiser votre voyage à notre agence à l'adresse Transcontinental, route de Florissant 66 à Genève<br> ou contactez-nous par email à l'adresse info@transcontinental.ch ou par téléphone au +41 22 347 27 27.</h2>
