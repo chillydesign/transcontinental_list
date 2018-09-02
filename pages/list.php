@@ -14,7 +14,7 @@
     <?php if ($list->status == 'active') : ?>
         <?php $donations = get_donations( $list->id , 'payé' ); ?>
         <h1><?php echo $list->name; ?></h1>
-        <p class="infos_supp">Liste #<?php echo $list->list_number; ?> par <?php echo $list->users_name; ?></p>
+        <p class="infos_supp">Liste #<?php echo $list->id; ?> par <?php echo $list->users_name; ?></p>
 
         <?php if (has_error()) : ?>
             <?php show_error_message(); ?>
@@ -77,7 +77,7 @@
                     </p>
                     <p>
                         <input type="submit" id="submit_button" name="submit_new_donation" value="Envoyer" />
-                        <input type="hidden" name="list_id" value="<?php echo $list->list_number; ?>" />
+                        <input type="hidden" name="list_id" value="<?php echo $list->id; ?>" />
                         <div id="spinner"></div>
 
                     </p>

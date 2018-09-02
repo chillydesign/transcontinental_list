@@ -11,7 +11,7 @@
         <a class="list_button right_list_button" href="<?php get_site_url(); ?>/adminarea">Retour à l'admin</a>
       </div>
       <div class="col-sm-9 col-sm-pull-3">
-            <h1>Bon cadeau #<?php echo   $giftcard->number; ?></h1>
+            <h1>Bon cadeau #<?php echo   $giftcard->id; ?></h1>
       </div>
     </div>
 
@@ -81,7 +81,7 @@
         </form>
     <?php endif;  // end of if status is not cree ?>
 
-            <!-- <p><a  class="areyousurelink"  href="<?php get_site_url(); ?>/actions/giftcard_delete.php?id=<?php echo  $giftcard->number; ?>">Supprimer</a></p> -->
+            <!-- <p><a  class="areyousurelink"  href="<?php get_site_url(); ?>/actions/giftcard_delete.php?id=<?php echo  $giftcard->id; ?>">Supprimer</a></p> -->
         </div>
 
 

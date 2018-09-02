@@ -10,7 +10,7 @@ if (isset($_GET['donation_id'])) {
 
     $donation_id = ($_GET['donation_id']);
     $donation = get_donation($donation_id );
-    $list_id = convert_list_id($donation->list_id);
+    $list_id = ($donation->list_id);
     $list = get_list($list_id);
 
 

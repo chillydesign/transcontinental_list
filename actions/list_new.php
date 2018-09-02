@@ -41,8 +41,8 @@ if ( isset($_POST['submit_new_list']) &&   isset($_POST['name'])   )  {
 
         if(  $list_id ) { // if list saves fine
 
-            // need to add list number so email with proper links will send
-            $list->list_number = $list_id;
+            // need to add list id so email with proper links will send
+            $list->id = $list_id;
             send_list_created_email( $list, $user );
 
 

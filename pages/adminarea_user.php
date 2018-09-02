@@ -25,8 +25,8 @@
                 <ul>
                     <?php foreach (  $lists as $list) : ?>
                         <li>
-                            <a href="<?php get_site_url(); ?>/adminarea/list?id=<?php echo $list->list_number; ?>">
-                                <strong><?php echo $list->name; ?></strong>
+                            <a href="<?php get_site_url(); ?>/adminarea/list?id=<?php echo $list->id; ?>">
+                                <strong>#<?php echo $list->id; ?> <?php echo $list->name; ?></strong>
                                 (Créée le <?php  echo nice_date($list->created_at); ?>)
                             </a>
 

@@ -3,7 +3,7 @@
 
 <?php if ($giftcard) : ?>
 
-    <form action="<?php get_site_url(); ?>/actions/giftcard_edit.php?id=<?php echo convert_giftcard_id($giftcard->id); ?>" method="post">
+    <form action="<?php get_site_url(); ?>/actions/giftcard_edit.php?id=<?php echo $giftcard->id; ?>" method="post">
 
         <?php $disabled =  ($giftcard->status === 'utilisé') ? 'disabled' : ''; ?>
 

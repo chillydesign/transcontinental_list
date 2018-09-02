@@ -8,7 +8,7 @@
         <ul>
             <?php foreach (  $lists as $list) : ?>
                 <li class="list_list_item">
-                    <a href="<?php get_site_url(); ?>/userarea/list?id=<?php echo $list->list_number; ?>">
+                    <a href="<?php get_site_url(); ?>/userarea/list?id=<?php echo $list->id; ?>">
                         <div class="list_list list_list_img">
                             <img src="<?php echo site_url();?>/images/lists/<?php echo $list->picture; ?>.jpg">
                         </div>

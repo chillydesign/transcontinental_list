@@ -156,7 +156,7 @@ function get_donation($donation_id = null) {
     global $conn;
     if ( $donation_id > 0) {
 
-        $donation_id = deconvert_donation_id($donation_id);
+
 
         try {
             $query = "SELECT *FROM tcg_donations WHERE tcg_donations.id = :id LIMIT 1";
@@ -194,7 +194,6 @@ function get_giftcard($giftcard_id = null) {
     global $conn;
     if ( $giftcard_id > 0) {
 
-        $giftcard_id = deconvert_giftcard_id($giftcard_id);
 
         try {
             $query = "SELECT * FROM tcg_giftcards WHERE tcg_giftcards.id = :id LIMIT 1";
@@ -242,8 +241,8 @@ function get_giftcards($archive = "actif"){
         $s = get_var('s');
 
         if ( intval( $s) > 0  ) {
-            $gcid = deconvert_giftcard_id( $s ) ;
-            $search = "WHERE `id` = " . $gcid ;
+
+            $search = "WHERE `id` = " . $s ;
         } else {
             $search = "WHERE (`sender_first_name` LIKE '%" . $s . "%' OR `sender_last_name` LIKE '%" . $s . "%' OR `receiver_first_name` LIKE '%" . $s . "%' OR `receiver_last_name` LIKE '%" . $s . "%' OR `receiver_email` LIKE '%" . $s . "%' OR `sender_email` LIKE '%" . $s . "%')";
         }
@@ -811,7 +810,7 @@ function get_list($list_id = null) {
 
     global $conn;
     if ( $list_id > 0) {
-        $list_id = deconvert_list_id($list_id);
+
         try {
             $query = "SELECT *, tcg_lists.id as id,  tcg_lists.created_at as created_at FROM tcg_lists
             LEFT JOIN tcg_users ON tcg_users.id = tcg_lists.user_id
@@ -844,7 +843,6 @@ function get_list($list_id = null) {
 
 function process_list($list) {
 
-    $list->list_number = convert_list_id($list->id); // obfuscate the list id a bit
     if (isset($list->first_name)) {
         $list->users_name = $list->first_name . ' ' .  $list->last_name;
     }
@@ -859,36 +857,35 @@ function process_giftcard($giftcard) {
     $expires_at = date("Y-m-d", strtotime( $created_at  . " + 365 day"));
     $giftcard->expires_at  =  $expires_at;
 
-    $giftcard->number = convert_giftcard_id($giftcard->id);
     return $giftcard;
 }
 
 
 
-// obfuscate the donation id a bit
-function convert_donation_id($donation_id) {
-    return intval($donation_id)  * 107  + 2089;
-}
-function deconvert_donation_id($donation_id) {
-    return ($donation_id - 2089) / 107;
-}
-
-
-// obfuscate the gift id a bit
-function convert_giftcard_id($giftcard_id) {
-    return intval($giftcard_id)  * 97  + 1789;
-}
-function deconvert_giftcard_id($giftcard_id) {
-    return ($giftcard_id - 1789) / 97;
-}
-
-// obfuscate the list id a bit
-function convert_list_id($list_id) {
-    return intval($list_id)  * 83  + 1777;
-}
-function deconvert_list_id($list_id) {
-    return ($list_id - 1777) / 83;
-}
+// // obfuscate the donation id a bit
+// function convert_donation_id($donation_id) {
+//     return intval($donation_id)  * 107  + 2089;
+// }
+// function deconvert_donation_id($donation_id) {
+//     return ($donation_id - 2089) / 107;
+// }
+//
+//
+// // obfuscate the gift id a bit
+// function convert_giftcard_id($giftcard_id) {
+//     return intval($giftcard_id)  * 97  + 1789;
+// }
+// function deconvert_giftcard_id($giftcard_id) {
+//     return ($giftcard_id - 1789) / 97;
+// }
+//
+// // obfuscate the list id a bit
+// function convert_list_id($list_id) {
+//     return intval($list_id)  * 83  + 1777;
+// }
+// function deconvert_list_id($list_id) {
+//     return ($list_id - 1777) / 83;
+// }
 
 
 
@@ -942,7 +939,7 @@ function insert_new_list($list) {
             unset($conn);
 
 
-            return convert_list_id($list_id);
+            return ($list_id);
 
         } catch(PDOException $err) {
 
@@ -1178,7 +1175,7 @@ function insert_new_donation($donation) {
             $donation_query->execute();
             $donation_id = $conn->lastInsertId();
             unset($conn);
-            return  convert_donation_id( $donation_id );
+            return  ( $donation_id );
 
         } catch(PDOException $err) {
 
@@ -1254,7 +1251,7 @@ function insert_new_giftcard($giftcard) {
             $giftcard_id = $conn->lastInsertId();
             unset($conn);
 
-            return convert_giftcard_id($giftcard_id);
+            return $giftcard_id;
 
         } catch(PDOException $err) {
 
@@ -1729,11 +1726,11 @@ function send_list_created_email($list, $user) {
 
 
         $receiver = $user->email;
-        $link = WEBSITE_URL  . "/list/" . $list->list_number ;
-        $admin_link = WEBSITE_URL  . "/adminarea/list?id=" . $list->list_number ;
+        $link = WEBSITE_URL  . "/list/" . $list->id ;
+        $admin_link = WEBSITE_URL  . "/adminarea/list?id=" . $list->id ;
         $receiver_subject = 'Votre liste  '. SITE_NAME . '.';
         $receiver_content = generate_email_title($receiver_subject);
-        $receiver_content .= "<p>Bonjour ".  $user->first_name . ' ' . $user->last_name  .". </p><p>Votre liste <strong>". $list->name ."</strong> sur ". SITE_NAME ." a bien été créée. </p><p> Le numéro de liste est ". $list->list_number .". Elle est accessible directement depuis l'adresse <a href='".  $link  ."'>". $link ."</a>.</p><p>Vous pouvez partager ces informations à votre famille et vos amis pour qu'ils puissent contribuer à la liste.</p><p>Vous pouvez consulter l'état de votre liste en vous connectant à votre compte ". SITE_NAME .".  Nous vous tiendrons également informés par email au fur et à mesure des contributions.</p><p> Merci pour votre confiance et à bientôt! </p>";
+        $receiver_content .= "<p>Bonjour ".  $user->first_name . ' ' . $user->last_name  .". </p><p>Votre liste <strong>". $list->name ."</strong> sur ". SITE_NAME ." a bien été créée. </p><p> Le numéro de liste est ". $list->id .". Elle est accessible directement depuis l'adresse <a href='".  $link  ."'>". $link ."</a>.</p><p>Vous pouvez partager ces informations à votre famille et vos amis pour qu'ils puissent contribuer à la liste.</p><p>Vous pouvez consulter l'état de votre liste en vous connectant à votre compte ". SITE_NAME .".  Nous vous tiendrons également informés par email au fur et à mesure des contributions.</p><p> Merci pour votre confiance et à bientôt! </p>";
         $receiver_content .= '<p>L\'équipe '. SITE_NAME.'</p>';
         send_php_mail($receiver, $receiver_subject, $receiver_content);
 
@@ -1745,7 +1742,7 @@ function send_list_created_email($list, $user) {
         $admin_content .= "<p>Nouvelle liste ". SITE_NAME." </p><p>
         <strong>Client: </strong>" . $user->first_name . ' ' . $user->last_name   . " <br />
         <strong>Liste: </strong><a href='". $admin_link ."'>" . $list->name . "</a> <br />
-        <strong>Numéro de liste : </strong>" . $list->list_number . " </p>";
+        <strong>Numéro de liste : </strong>" . $list->id . " </p>";
 
         send_php_mail($admin, $admin_subject, $admin_content);
 
@@ -1830,7 +1827,7 @@ function send_giftcard_email( $giftcard  ) {
     $receiver = $giftcard->receiver_email;
     $receiver_subject = 'Vous avez reçu un bon cadeau '. SITE_NAME;
     $receiver_content = generate_email_title($receiver_subject);
-    $receiver_content .= '<p>' . $sender_name . ' vous a envoyé un bon cadeau n° '. $giftcard->number .' d\'une valeur de '.  $amount . ' pour acheter un voyage chez '. SITE_NAME .' . Valide jusqu\'au : '. nice_date($giftcard->expires_at)  .'.' ;
+    $receiver_content .= '<p>' . $sender_name . ' vous a envoyé un bon cadeau n° '. $giftcard->id .' d\'une valeur de '.  $amount . ' pour acheter un voyage chez '. SITE_NAME .' . Valide jusqu\'au : '. nice_date($giftcard->expires_at)  .'.' ;
 
     if ($giftcard->message != '') {
         $receiver_content .= '<br /><br /><p style="padding:0 0 0px;margin:0;font-weight:bold">Message:</p>';

@@ -3,7 +3,7 @@
 
 <?php if ($list) : ?>
     <?php $pictures = find_pictures('lists'); ?>
-    <form action="<?php get_site_url(); ?>/actions/list_edit.php?id=<?php echo $list->list_number; ?>" method="post">
+    <form action="<?php get_site_url(); ?>/actions/list_edit.php?id=<?php echo $list->id; ?>" method="post">
 
 
         <?php if(has_valid_admin_cookie()): ?>

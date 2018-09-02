@@ -22,7 +22,7 @@
         <p><?php echo ucfirst($list->category); ?> liste crée par <a  href="<?php get_site_url(); ?>/adminarea/user?id=<?php echo $list->user_id; ?>"><?php echo $list->users_name; ?></a></p>
 
 
-        <p>Le numéro de la liste est  <a href="<?php get_site_url(); ?>/list/<?php echo $list->list_number; ?>"><?php echo $list->list_number; ?></a></p>
+        <p>Le numéro de la liste est  <a href="<?php get_site_url(); ?>/list/<?php echo $list->id; ?>"><?php echo $list->id; ?></a></p>
 
 
             <?php $donations = get_donations( $list->id  ); ?>
@@ -65,7 +65,7 @@
             <?php include('includes/edit_list_form.php'); ?>
 
 
-            <p><a  class="areyousurelink"  href="<?php get_site_url(); ?>/actions/list_delete.php?id=<?php echo $list->list_number; ?>">Supprimer</a></p>
+            <p><a  class="areyousurelink"  href="<?php get_site_url(); ?>/actions/list_delete.php?id=<?php echo $list->id; ?>">Supprimer</a></p>
 
     </div>
     </div>

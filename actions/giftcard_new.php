@@ -48,6 +48,8 @@ if ( isset($_POST['submit_new_giftcard']) && isset($_POST['receiver_email']) && 
 
             if(  $giftcard_id ) { // if giftcard saves fine
 
+                $giftcard->id = $giftcard_id;
+
                 // if an admin making it, dont do paypal stuff
                 if(has_valid_admin_cookie()):
                     // send emails now if an admin is cretaing it

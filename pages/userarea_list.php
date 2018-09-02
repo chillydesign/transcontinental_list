@@ -25,8 +25,8 @@
               <?php if($list->description != ''): ?>
                   <p><?php echo $list->description; ?></p>
               <?php endif ; ?>
-              <p><strong>Numéro de liste :</strong>  <a target="_blank" href="<?php get_site_url(); ?>/list/<?php echo $list->list_number; ?>"><?php echo $list->list_number; ?></a><br>
-              Partagez ce numéro de liste à vos contacts, ou directement l'url suivante : <a target="_blank" href="<?php get_site_url(); ?>/list/<?php echo $list->list_number; ?>"><?php get_site_url(); ?>/list/<?php echo $list->list_number; ?></a></p>
+              <p><strong>Numéro de liste :</strong>  <a target="_blank" href="<?php get_site_url(); ?>/list/<?php echo $list->id; ?>"><?php echo $list->id; ?></a><br>
+              Partagez ce numéro de liste à vos contacts, ou directement l'url suivante : <a target="_blank" href="<?php get_site_url(); ?>/list/<?php echo $list->id; ?>"><?php get_site_url(); ?>/list/<?php echo $list->id; ?></a></p>
             </div>
             <div class="col-sm-3">
               <?php if (picture_exists( $list->picture, 'lists' )) : ?>
@@ -49,7 +49,7 @@
                   <h2>Modifier la liste</h2>
                   <?php include('includes/edit_list_form.php'); ?>
 
-                  <p><a  class="areyousurelink"  href="<?php get_site_url(); ?>/actions/list_delete.php?id=<?php echo $list->list_number; ?>">Supprimer cette liste?</a></p>
+                  <p><a  class="areyousurelink"  href="<?php get_site_url(); ?>/actions/list_delete.php?id=<?php echo $list->id; ?>">Supprimer cette liste?</a></p>
 
               </div>
             </div>

@@ -12,7 +12,7 @@ if ( has_valid_admin_cookie() && isset($_POST['submit_new_withdrawal']) &&   iss
     $amount = floatval($_POST['amount']);
     $message = $_POST['message'];
 
-    $giftcard_number = convert_giftcard_id($giftcard_id);
+
 
 
     $withdrawal = new stdClass();
@@ -24,13 +24,13 @@ if ( has_valid_admin_cookie() && isset($_POST['submit_new_withdrawal']) &&   iss
 
     if(  $withdrawal_id ) { // if list saves fine
 
-        header('Location: ' .  site_url() . '/adminarea/giftcard?id=' . $giftcard_number  );
+        header('Location: ' .  site_url() . '/adminarea/giftcard?id=' . $giftcard_id  );
     } else { // if for some reason the list doesnt save
-        header('Location: ' .  site_url() . '/adminarea/giftcard?error=nowithdrawal&id=' . $giftcard_number  );
+        header('Location: ' .  site_url() . '/adminarea/giftcard?error=nowithdrawal&id=' . $giftcard_id  );
     };
 
 } else { // if not all post variables have been sent
-    header('Location: ' .  site_url() . '/adminarea/giftcard?error=unspecified&id=' . $giftcard_number  );
+    header('Location: ' .  site_url() . '/adminarea/giftcard?error=unspecified&id=' . $giftcard_id  );
 }
 
 ?>

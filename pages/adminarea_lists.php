@@ -26,8 +26,8 @@
                     <?php foreach (  $lists as $list) : ?>
                         <?php $list_status = ( $list->active == 0 ? 'list_inactive' : '' ); ?>
                         <li  class="<?php echo $list_status ?>">
-                          <a href="<?php get_site_url(); ?>/adminarea/list?id=<?php echo $list->list_number; ?>">
-                            <strong>#<?php echo $list->list_number;?> | <?php echo $list->name; ?> par <?php echo $list->first_name; ?> <?php echo $list->last_name; ?> </strong></a>
+                          <a href="<?php get_site_url(); ?>/adminarea/list?id=<?php echo $list->id; ?>">
+                            <strong>#<?php echo $list->id;?> | <?php echo $list->name; ?> par <?php echo $list->first_name; ?> <?php echo $list->last_name; ?> </strong></a>
                             <br> <em>Créée le <?php  echo nice_date($list->created_at); ?></em>
                           </li>
                     <?php endforeach; ?>
