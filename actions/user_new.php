@@ -18,7 +18,7 @@ if ( isset($_POST['submit_new_user']) && isset($_POST['email'])   && isset($_POS
     if (  is_valid_email($email)) {
         if ( $password == $password_confirmation  ) {
             if ( strlen($password) > 5 ){
-            if ($last_name != '' && $first_name !=''){
+            if ($last_name != '' && $first_name !='' && $address != ''){
 
                 $user = new stdClass();
                 $user->password_digest = encrypt_password($password);

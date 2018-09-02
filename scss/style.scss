@@ -253,6 +253,10 @@ a.button {
     &:hover {
         background-color: darken($brand_color, 10);
     }
+
+    &.button_inline {
+        display: inline-block;
+    }
 }
 
 

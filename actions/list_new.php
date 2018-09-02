@@ -21,7 +21,7 @@ if ( isset($_POST['submit_new_list']) &&   isset($_POST['name'])   )  {
     $active = (isset($_POST['active']))  ? 1 : 0;
     $description = $_POST['description'];
     $picture = (isset($_POST['picture'])) ? $_POST['picture'] : 1;
-    $category = (isset($_POST['category'])) ? $_POST['category'] : 'anniversaire';
+    $category = (isset($_POST['category'])) ? $_POST['category'] : 'mariage';
     $deadline = $_POST['deadline'];
 
 

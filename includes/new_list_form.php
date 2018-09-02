@@ -13,8 +13,8 @@
     </p>
     <?php endif; ?>
     <p>
-        <label for="name">Nom de la liste</label>
-        <input id="name" type="text" name="name" placeholder="Nom" />
+        <label for="name">Nom de la liste *</label>
+        <input id="name" required type="text" name="name" placeholder="Nom" />
     </p>
     <p>
         <label for="description">Description</label>
@@ -24,22 +24,22 @@
 
     <p>
         <label for="deadline">Date du mariage / de l'anniversaire</label>
-        <input type="date" name="deadline" id="deadline" />
+        <input type="date"  name="deadline" id="deadline" />
     </p>
 
 
     <p>
         <label for="category">Catégorie</label>
         <span class="radio_container">
-            <label>
-                <input  checked type="radio" value="anniversaire" name="category" />
-                Anniversaire
+            <label >
+                <input checked type="radio" value="mariage" name="category" />
+                Mariage
             </label>
         </span>
         <span class="radio_container">
-            <label >
-                <input type="radio" value="mariage" name="category" />
-                Mariage
+            <label>
+                <input  type="radio" value="anniversaire" name="category" />
+                Anniversaire
             </label>
         </span>
     </p>

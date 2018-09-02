@@ -26,8 +26,8 @@
         <?php endif; ?>
 
         <p>
-            <label for="name">Nom de la liste</label>
-            <input type="text" name="name" placeholder="Nom" value="<?php echo $list->name; ?>"  />
+            <label for="name">Nom de la liste *</label>
+            <input type="text" required name="name" placeholder="Nom" value="<?php echo $list->name; ?>"  />
         </p>
         <p>
             <label for="description">Description</label>

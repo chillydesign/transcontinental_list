@@ -52,7 +52,7 @@
                 <?php if( false) : ?><!--<p>Jusqu'à présent <?php echo sum_donations($donations); ?> ont été contribués sur cette liste. </p>--><?php endif; ?>
 
 
-                <?php if ( list_has_expired($list)) : // if list has not expired ?>
+
                 <form action="<?php get_site_url(); ?>/actions/donation_new.php" method="post">
 
                     <p>
@@ -83,11 +83,13 @@
                     </p>
 
                 </form>
-                <?php else: // end of if list has not expired ?>
-                    <p>Cette liste a expiré. Il n'est plus possible d'y contribuer, mais vous pouvez si vous le souhaitez envoyer un bon cadeau.</p>
-                    <p><a href="<?php echo site_url(); ?>/giftcard" class="button">Envoyer un bon cadeau</a></p>
 
+
+                <?php if ( list_has_expired($list)) : // if list has not expired ?>
+                <?php else: // end of if list has not expired ?>
                 <?php endif; // end of if list has  expired ?>
+
+
 
 
             </div>
@@ -96,7 +98,9 @@
 
     <?php else: ?>
 
-          <h1 style="padding-bottom: 400px">Cette liste n'est pas active à l'heure actuelle.</h1>
+          <h1 >Liste inactive</h1>
+          <p>Cette liste n'est pas active à l'heure actuelle ou a expiré. Il n'est plus possible d'y contribuer, mais vous pouvez si vous le souhaitez envoyer un bon cadeau.</p>
+          <p style="padding-bottom: 400px"><a href="<?php echo site_url(); ?>/giftcard" class="button button_inline" >Envoyer un bon cadeau</a></p>
 
     <?php endif; ?>
 
