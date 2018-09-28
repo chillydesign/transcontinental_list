@@ -16,6 +16,7 @@ if ( isset($_POST['email'])   && isset($_POST['password'])  ) {
     if(  $admin_id ) {
 
         $encrypted_id = encrypt_id($admin_id);
+        setcookie('tcg_user', false, time() - 1, '/'  );
         setcookie('tcg_admin', $encrypted_id, time()+60*60,  '/'  );
         header('Location: ' .  site_url() . '/adminarea'  );
 
