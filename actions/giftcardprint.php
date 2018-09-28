@@ -61,7 +61,7 @@ if (isset($_GET['id'])  ) :
 
     }
     h1 {
-      font-size: 3em;
+      font-size: 25px;
       padding: 30px 50px;
       text-align: center;
       background: rgba(255,255,255,0.8);
