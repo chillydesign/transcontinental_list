@@ -179,8 +179,7 @@ blockquote:after{
               Valide jusqu'au: <?php echo nice_date($giftcard->expires_at); ?>
 
 
-            <ul>
-              <li>
+
           </div>
 
           <div class="col">

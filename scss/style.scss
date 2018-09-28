@@ -166,7 +166,13 @@ figure.change_picture {
 
 
 
-figcaption{text-indent: -99999px;}
+figcaption{
+    font-size: $font_size;
+    font-style: italic;
+    color: #999;
+    text-align: right;
+    margin: 5px 0 0;
+}
 
 tr {
     border-bottom: solid 1px #e2e2e2;

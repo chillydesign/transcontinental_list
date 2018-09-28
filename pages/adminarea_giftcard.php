@@ -94,8 +94,9 @@
                 <?php if (picture_exists( $giftcard->picture, 'giftcards' )) : ?>
                     <img src="<?php echo get_picture_url($giftcard->picture, 'giftcards'); ?>" alt="Giftcard image" />
                 <?php endif; ?>
-                <figcaption><?php echo $giftcard->message; ?></figcaption>
+                <figcaption><?php echo $giftcard->message; ?> | <a target="printgiftcard" href="<?php echo site_url(); ?>/actions/giftcardprint.php?id=<?php echo $giftcard->id; ?>">Print.</a> </figcaption>
             </figure>
+
 
 
         </div>
