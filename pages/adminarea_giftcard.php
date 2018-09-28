@@ -94,8 +94,13 @@
                 <?php if (picture_exists( $giftcard->picture, 'giftcards' )) : ?>
                     <img src="<?php echo get_picture_url($giftcard->picture, 'giftcards'); ?>" alt="Giftcard image" />
                 <?php endif; ?>
-                <figcaption><?php echo $giftcard->message; ?> | <a target="printgiftcard" href="<?php echo  giftcard_print_url($giftcard); ?>">Imprimer le bon cadeau.</a> </figcaption>
+                <figcaption><?php echo $giftcard->message; ?> </figcaption>
             </figure>
+        <br>
+        <br>
+        <br>
+
+                <a class="list_button right_list_button" target="printgiftcard" href="<?php echo  giftcard_print_url($giftcard); ?>">Imprimer le bon cadeau.</a>
 
 
 
