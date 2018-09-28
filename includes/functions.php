@@ -1806,6 +1806,10 @@ function send_user_reset_password_email( $user  ) {
 
 
 
+function giftcard_print_url($giftcard) {
+    return   site_url() . '/actions/giftcardprint.php?id=' . $giftcard->id;
+}
+
 
 function send_giftcard_email( $giftcard  ) {
 
@@ -1820,7 +1824,9 @@ function send_giftcard_email( $giftcard  ) {
     $sender = $giftcard->sender_email;
     $sender_subject = 'Merci d\'avoir envoyé un bon cadeau';
     $sender_content = generate_email_title($sender_subject);
-    $sender_content .= '<p>Vous avez envoyé un bon cadeau d\'une valeur de ' . $amount . ' à ' .  $receiver_name  . '. Valide jusqu\'au : '. nice_date($giftcard->expires_at)  .'. <br>Merci pour votre envoi!</p><p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
+    $sender_content .= '<p>Vous avez envoyé un bon cadeau d\'une valeur de ' . $amount . ' à ' .  $receiver_name  . '. Valide jusqu\'au : '. nice_date($giftcard->expires_at)  . '</p>';
+    $sender_content .= generate_email_button(  giftcard_print_url($giftcard)  ,  'Imprimer le bon cadeau');
+    $sender_content .= '<p>Merci pour votre envoi! <br /><br /> Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
     send_php_mail($sender, $sender_subject, $sender_content, $image);
 
 
@@ -1833,6 +1839,8 @@ function send_giftcard_email( $giftcard  ) {
         $receiver_content .= '<br /><br /><p style="padding:0 0 0px;margin:0;font-weight:bold">Message:</p>';
         $receiver_content .= '<p style="font-style:italic; color: #888;">'. $giftcard->message .'</p><br />';
     }
+
+    $receiver_content .= generate_email_button(  giftcard_print_url($giftcard)  ,  'Imprimer le bon cadeau');
     $receiver_content .= "<p>Nos conseillers en voyages d’agréments vous attendent à l’une de nos agences de voyages et se réjouissent déjà de vous aider à organiser vos prochaines vacances.</p>";
 
 
@@ -1863,6 +1871,8 @@ function send_giftcard_email( $giftcard  ) {
     $admin_subject = 'Nouveau bon cadeau '. SITE_NAME;
     $admin_content = generate_email_title($admin_subject);
     $admin_content .= '<p> De la part de ' . $sender_name . ' - ' . $sender. '<br>Phone: '. $giftcard->sender_phone.'<br>Adresse: '. $giftcard->sender_address .'<br><br><br>Pour : ' . $receiver_name . ' - ' . $receiver . '<br> Montant : '.  $amount;
+
+    $admin_content .= generate_email_button(  giftcard_print_url($giftcard)  ,  'Imprimer le bon cadeau');
     $admin_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
     send_php_mail($admin, $admin_subject, $admin_content, $image);
 
