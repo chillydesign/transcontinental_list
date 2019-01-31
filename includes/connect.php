@@ -21,6 +21,14 @@ define("SECRET_KEY", getenv('SECRET_KEY')  ) ;
 define("INITIALIZATION_VECTOR", hex2bin(getenv('INITIALIZATION_VECTOR'))  ) ;
 define("WEBSITE_URL",  getenv('WEBSITE_URL') );
 
+
+define("TLPRIME1",  getenv('TLPRIME1') );
+define("TLPRIME2",  getenv('TLPRIME2') );
+define("TLPRIME3",  getenv('TLPRIME3') );
+
+
+
+
 define("PAYPAL_CLIENT_ID", getenv('PAYPAL_CLIENT_ID'));
 define("PAYPAL_CLIENT_SECRET", getenv('PAYPAL_CLIENT_SECRET'));
 define("PAYPAL_MODE", getenv('PAYPAL_MODE'));

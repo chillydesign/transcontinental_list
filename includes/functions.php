@@ -1536,22 +1536,41 @@ function log_in_user($user) {
 }
 
 
+function simple_encrypt_id($string) {
+    $id = intval($string);
+    $multi = ($id + TLPRIME1) * TLPRIME2 * TLPRIME3;
+    $encrypted = dechex($multi);
+    return $encrypted;
+
+}
+
+function simple_decrypt_id($hex) {
+
+    $dec = hexdec($hex);
+    $decrypted = $dec / TLPRIME3 / TLPRIME2 - TLPRIME1;
+    return $decrypted;
+
+}
+
+
 
 function encrypt_id($string){
 
 
-    $encrypted_string = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, SECRET_KEY , $string, MCRYPT_MODE_CBC,  INITIALIZATION_VECTOR );
-    $encrypted_string = bin2hex($encrypted_string);
-    return $encrypted_string;
+    // $encrypted_string = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, SECRET_KEY , $string, MCRYPT_MODE_CBC,  INITIALIZATION_VECTOR );
+    // $encrypted_string = bin2hex($encrypted_string);
+    // return $encrypted_string;
+    return simple_encrypt_id($string);
 
 };
 
 function decrypt_id($string){
 
-    $encrypted_string = hex2bin($string);
-    $decrypted_string = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, SECRET_KEY, $encrypted_string, MCRYPT_MODE_CBC, INITIALIZATION_VECTOR );
-    $decrypted = intval($decrypted_string);
-    return $decrypted;
+    // $encrypted_string = hex2bin($string);
+    // $decrypted_string = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, SECRET_KEY, $encrypted_string, MCRYPT_MODE_CBC, INITIALIZATION_VECTOR );
+    // $decrypted = intval($decrypted_string);
+    // return $decrypted;
+    return simple_decrypt_id($string);
 
 }
 
