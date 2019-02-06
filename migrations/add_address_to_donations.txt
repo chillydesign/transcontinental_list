@@ -1,0 +1,1 @@
+ALTER TABLE `tcg_donations` ADD `address` TEXT NOT NULL AFTER `payer_id`, ADD `phone` VARCHAR(255) NOT NULL AFTER `address`, ADD `validated` TINYINT(1) NOT NULL DEFAULT '0' AFTER `phone`;
