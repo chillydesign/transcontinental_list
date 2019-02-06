@@ -55,7 +55,9 @@
                             <td><input class="update_donation_validated" type="checkbox" name="validated" data-id="<?php echo $donation->id; ?>" <?php echo ( $donation->validated  ) ? 'checked'  : '' ;   ?>  ></td>
                         </tr>
                     <?php endforeach; ?>
-
+                        <tr>
+                            <td colspan="5"><a href="<?php echo site_url(); ?>/adminarea/newdonation?list_id=<?php echo $list->id; ?>">Add Donation</a></td>
+                        </tr>
                 </tbody>
             </table>
 
@@ -86,5 +88,5 @@
 
 
 
-<?php endif; ?>
+<?php endif;  # end if list ?>
 </div>

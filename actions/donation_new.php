@@ -5,7 +5,6 @@ include('../includes/functions.php');
 
 
 
-
 if ( isset($_POST['list_id'])  && isset($_POST['submit_new_donation']) &&   isset($_POST['email'])  &&   isset($_POST['amount'])  )  {
 
     $email = $_POST['email'];
@@ -37,22 +36,44 @@ if ( isset($_POST['list_id'])  && isset($_POST['submit_new_donation']) &&   isse
             $donation->status = 'créé';
 
 
+            // if form being submitted by admin
+            // let them choose the status
+            if (has_valid_admin_cookie()) {
+                if (isset($_POST['status'])) {
+                    $donation->status = $_POST['status'];
+                }
+            }
+
 
             $donation_id = insert_new_donation($donation);
 
             if(  $donation_id ) { // if donation saves fine
 
 
-                // here do paypal stuff
-                // set up paypal payment and generate a link to send the user to
-                $donation_payment_redirect_link = getDonationPaymentLink($donation_id,  $donation->amount );
-                if ($donation_payment_redirect_link) {
-                    //redirect user to paypal
-                    header("HTTP/1.1 402 Payment Required");
-                    header('Location: ' . ($donation_payment_redirect_link) );
-                } else {
-                    header('Location: ' .  site_url() . '/list/'. $list_id  . '?error=paypalnotwork');
-                }
+                // if form being submitted by admin
+                // dont need to redirec thtem to PAYPAL
+                if (has_valid_admin_cookie()) {
+                    header('Location: ' .  site_url() . '/adminarea/list?id='. $list_id  . '?success='. $donation_id  );
+
+                } else { // if submitted by normal user
+
+
+                    // here do paypal stuff
+                    // set up paypal payment and generate a link to send the user to
+                    $donation_payment_redirect_link = getDonationPaymentLink($donation_id,  $donation->amount );
+                    if ($donation_payment_redirect_link) {
+                        //redirect user to paypal
+                        header("HTTP/1.1 402 Payment Required");
+                        header('Location: ' . ($donation_payment_redirect_link) );
+                    } else {
+                        header('Location: ' .  site_url() . '/list/'. $list_id  . '?error=paypalnotwork');
+                    }
+
+
+                } // end if submitted by normal user
+
+
+
 
 
             } else { // if for some reason the donation doesnt save

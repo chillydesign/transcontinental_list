@@ -183,6 +183,10 @@ tr {
     text-align: left;
 }
 
+th {
+    word-break: normal;
+}
+
 .donation_address {
     color: #999;
     font-style: italic;

@@ -633,7 +633,7 @@ function get_donations($list_id, $status=false) {
 }
 
 
-function donationIsPaid($donation){
+function donation_is_paid($donation){
     return ($donation->status == 'payé');
 }
 
@@ -641,8 +641,8 @@ function donationIsPaid($donation){
 function sum_donations($donations) {
     $total = 0;
     foreach ($donations as $donation) {
-        if (  donationIsPaid($donation)    ) {
-                $total = $total + $donation->amount;
+        if (  donation_is_paid($donation)  ) {
+            $total = $total + $donation->amount;
         }
 
     }
@@ -1981,6 +1981,13 @@ function send_donation_email( $donation , $list ) {
         $admin_subject = 'Nouvelle contribution - listes'. SITE_NAME;
         $admin_content = generate_email_title($admin_subject);
         $admin_content .= '<p> De la part de ' . $sender_name . ' - ' . $sender . '<br>Pour : ' . $receiver_name . ' - ' . $receiver . '<br> Montant : '.  $amount . '<br>Liste : ' . $listname;
+        if ($donation->address) {
+            $admin_content .= '<br /> Addresse: ' . $donation->address;
+        }
+        if ($donation->phone) {
+            $admin_content .= '<br />Téléphone: ' . $donation->phone;
+        }
+        $admin_content .= '</p>';
         $admin_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
 
         send_php_mail($admin, $admin_subject, $admin_content);
