@@ -3,7 +3,7 @@
 
 
 function current_version(){
-    echo '0.1.6';
+    echo '0.1.7';
 }
 
 
