@@ -633,10 +633,18 @@ function get_donations($list_id, $status=false) {
 }
 
 
+function donationIsPaid($donation){
+    return ($donation->status == 'payé');
+}
+
+
 function sum_donations($donations) {
     $total = 0;
     foreach ($donations as $donation) {
-        $total = $total + $donation->amount;
+        if (  donationIsPaid($donation)    ) {
+                $total = $total + $donation->amount;
+        }
+
     }
     return convert_cents_to_currency($total);
 }
@@ -1014,6 +1022,30 @@ function update_user_password($user) {
 }
 
 
+function update_donation_validated($donation) {
+    global $conn;
+    if ( $donation->id > 0 ){
+        try {
+
+            $query = "UPDATE tcg_donations SET `validated` = :validated WHERE id = :id";
+            $donation_query = $conn->prepare($query);
+            $donation_query->bindParam(':validated', $donation->validated);
+            $donation_query->bindParam(':id', $donation->id);
+            $donation_query->execute();
+            unset($conn);
+
+            return true;
+
+        } catch(PDOException $err) {
+            return false;
+
+        };
+
+    } else { // donation id was less than 0
+        return false;
+    }
+
+}
 
 
 function update_donation_status($donation) {
@@ -1040,7 +1072,7 @@ function update_donation_status($donation) {
 
         };
 
-    } else { // donation name was blank
+    } else { // donation id was less than 0
         return false;
     }
 
@@ -1163,10 +1195,14 @@ function insert_new_donation($donation) {
     if ($donation->amount > 0 && $donation->list_id > 0 ){
 
         try {
-            $query = "INSERT INTO tcg_donations (first_name, last_name, email, message, amount, list_id, status) VALUES (:first_name, :last_name, :email, :message,  :amount, :list_id, :status)";
+            $query = "INSERT INTO tcg_donations
+            (first_name, last_name,  address, phone, email, message, amount, list_id, status) VALUES
+            (:first_name, :last_name, :address, :phone,  :email, :message,  :amount, :list_id, :status)";
             $donation_query = $conn->prepare($query);
             $donation_query->bindParam(':first_name', $donation->first_name);
             $donation_query->bindParam(':last_name', $donation->last_name);
+            $donation_query->bindParam(':address', $donation->address);
+            $donation_query->bindParam(':phone', $donation->phone);
             $donation_query->bindParam(':email', $donation->email);
             $donation_query->bindParam(':message', $donation->message);
             $donation_query->bindParam(':amount', $donation->amount);

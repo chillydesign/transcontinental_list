@@ -61,6 +61,41 @@
 
 
 
+        if (typeof donation_edit_url !== 'undefined') {
+            var $donation_checkboxes = $('.update_donation_validated');
+            $donation_checkboxes.on('click', function(e) {
+                var $val = 0;
+                var $this = $(this);
+                var $id = $this.data('id');
+                var $checked = $this.prop('checked');
+                if ($checked) {
+                    $val = 1;
+                };
+
+                var request = $.ajax({
+                    method: "POST",
+                    url: donation_edit_url,
+                    data: {
+                        donation_id: $id,
+                        submit_ajax: true,
+                        validated: $val
+                    }
+                });
+                request.done(function( msg ) {
+                    console.log(msg);
+                });
+                request.fail(function() {
+                    alert( "error" );
+                })
+
+
+                console.log($id, $val);
+            })
+        }; // end of if have donation_edit_url
+
+
+
+
     });
 
 })(jQuery, this);

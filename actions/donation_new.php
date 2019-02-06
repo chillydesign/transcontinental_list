@@ -11,6 +11,8 @@ if ( isset($_POST['list_id'])  && isset($_POST['submit_new_donation']) &&   isse
     $email = $_POST['email'];
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
+    $phone = $_POST['phone'];
+    $address = $_POST['address'];
     $message = $_POST['message'];
     $amount = floatval($_POST['amount']);
     $list_id = $_POST['list_id'];
@@ -27,6 +29,8 @@ if ( isset($_POST['list_id'])  && isset($_POST['submit_new_donation']) &&   isse
             $donation->email = $email;
             $donation->first_name = $first_name;
             $donation->last_name = $last_name;
+            $donation->address = $address;
+            $donation->phone = $phone;
             $donation->message = $message;
             $donation->amount = convert_to_amount_in_cents($amount);
             $donation->list_id = ($list_id);

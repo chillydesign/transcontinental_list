@@ -11,22 +11,22 @@
 
         <p>
             <label for="email">Email</label>
-            <input type="email"  required name="email"  requiredname="email" placeholder="" value="<?php echo $user->email; ?>"  />
+            <input type="email"  required name="email"  requiredname="email"  value="<?php echo $user->email; ?>"  />
         </p>
         <p>
             <label for="first_name">Prénom</label>
-            <input type="text"  required name="first_name" required name="first_name" placeholder="" value="<?php echo $user->first_name; ?>"  />
+            <input type="text"  required name="first_name" required name="first_name"  value="<?php echo $user->first_name; ?>"  />
         </p>
         <p>
             <label for="last_name">Nom</label>
-            <input type="text"  required  name="last_name" required name="last_name" placeholder="" value="<?php echo $user->last_name; ?>"  />
+            <input type="text"  required  name="last_name" required name="last_name"  value="<?php echo $user->last_name; ?>"  />
         </p>
         <p>
-            <label for="last_name">Téléphone</label>
-                <input type="text"  autocomplete="tel"  name="phone"  name="phone" placeholder="" value="<?php echo $user->phone; ?>"  />
+            <label for="phone">Téléphone</label>
+                <input type="text"  autocomplete="tel"  name="phone"  name="phone"  value="<?php echo $user->phone; ?>"  />
         </p>
         <p>
-            <label for="last_name">Adresse</label>
+            <label for="address">Adresse</label>
             <textarea autocomplete="address-level1" name="address"  placeholder="Votre adresse "><?php echo $user->address; ?></textarea>
         </p>
         <p>

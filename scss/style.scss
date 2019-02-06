@@ -139,6 +139,10 @@ a.list_button.right_list_button {
     margin-top: 57px;
 }
 
+select, input, textarea {
+    width: 100%;
+}
+
 textarea {min-height: 120px; font-family:  sans-serif;}
 input[type="checkbox"] {
     display: inline;
@@ -177,6 +181,12 @@ figcaption{
 tr {
     border-bottom: solid 1px #e2e2e2;
     text-align: left;
+}
+
+.donation_address {
+    color: #999;
+    font-style: italic;
+    font-size: 80%;
 }
 
 .infos_supp {
