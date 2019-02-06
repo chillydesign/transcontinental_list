@@ -294,3 +294,21 @@ a.button {
         margin: 0;
     }
 }
+.col-xs-right {
+    text-align: right;
+}
+
+@media(min-width:768px){
+    .col-sm-right {
+        text-align: right;
+    }
+}
+
+.hide_mobile {
+    display: none;
+}
+@media(min-width:768px){
+    .hide_mobile {
+        display: block;
+    }
+}

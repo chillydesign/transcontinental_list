@@ -46,7 +46,7 @@
                 echo $paginator;
                 ?>
                 <hr>
-                <p><a href="<?php echo site_url(); ?>/adminarea/lists?p=1&archive=active">active</a> |
+                <p><a href="<?php echo site_url(); ?>/adminarea/lists?p=1&archive=active">actif</a> |
                 <a href="<?php echo site_url(); ?>/adminarea/lists?p=1&archive=inactive">inactive</a> |
                 <a href="<?php echo site_url(); ?>/adminarea/lists?p=1&archive=expired">expirée</a></p>
             </div>
