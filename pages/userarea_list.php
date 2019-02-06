@@ -69,9 +69,9 @@
                     <tbody>
                         <?php foreach ($donations as $donation) : ?>
                             <tr>
-                                <td><strong><?php echo $donation->first_name;?> <?php echo $donation->last_name;?> (<?php echo timeAgoInWords($donation->created_at);?>)</strong><br/>
+                                <td><strong><?php echo $donation->first_name;?> <?php echo $donation->last_name;?></strong><br/>
                                     <em><?php echo $donation->message;?></em>
-                                </br/></td>
+                                </td>
                                 <td><?php echo  convert_cents_to_currency($donation->amount); ?></td>
 
                             </tr>
@@ -84,6 +84,7 @@
                 </table>
               </div>
             </div>
+          </div>
           </div>
 
         <?php else: ?>

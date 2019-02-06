@@ -72,7 +72,7 @@
                 <a href="<?php echo site_url(); ?>/adminarea/list?id=<?php echo $list->id; ?>&status=annulé">annulé</a></p>
             </div>
             <div class="col-xs-6 col-xs-right ">
-                <p><a href="<?php echo site_url(); ?>/adminarea/newdonation?list_id=<?php echo $list->id; ?>">Add Donation</a></p>
+                <p><a href="<?php echo site_url(); ?>/adminarea/newdonation?list_id=<?php echo $list->id; ?>">Ajouter contribution</a></p>
             </div>
         </div>
 
