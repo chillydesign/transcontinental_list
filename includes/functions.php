@@ -8,14 +8,40 @@ function current_version(){
 
 
 
+function site_theme() {
+    if (defined('SITE_THEME')) {
+        return SITE_THEME;
+    } else {
+        return 'transcontinental';
+    }
+
+}
+
+function zenith_site() {
+    return (site_theme() == 'zenith');
+}
+
+
 
 function site_url(){
 
-    if (WEBSITE_URL) {
+    if (defined('WEBSITE_URL')) {
         return WEBSITE_URL;
     } else {
         return 'http://localhost:8888/transcontinentalgifts';
     }
+
+}
+
+
+function site_homepage() {
+    if ( zenith_site() ) {
+        echo 'https://zenithvoyages.ch/';
+    } else {
+        echo 'https://transcontinental.ch/';
+
+    }
+
 
 }
 
@@ -24,6 +50,18 @@ function get_site_url(){
 }
 
 
+
+function chilly_list_site_logo() {
+
+    if ( zenith_site() ) {
+        echo '<img src="' .  THEME_DIRECTORY . '/img/zenith.svg" alt="Zenith Voyages" />';
+    } else {
+        echo '<img src="' .  THEME_DIRECTORY . '/img/logo.png" alt="Transcontinental" />';
+    }
+
+
+
+}
 
 
 function current_page(){

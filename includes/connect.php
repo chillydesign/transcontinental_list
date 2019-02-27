@@ -15,6 +15,7 @@ define("DB_USER",  getenv('DB_USER') );
 define("DB_PASSWORD",  getenv('DB_PASSWORD') );
 
 
+define("SITE_THEME", getenv('SITE_THEME')  ) ;
 define("SITE_NAME", getenv('SITE_NAME')  ) ;
 define("PW_SALT", getenv('PW_SALT')  ) ;
 define("SECRET_KEY", getenv('SECRET_KEY')  ) ;

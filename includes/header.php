@@ -23,6 +23,9 @@
     <link href="<?php echo THEME_DIRECTORY; ?>/css/reset.css?ver=<?php echo current_version(); ?>"  rel="stylesheet" />
     <link href="<?php echo THEME_DIRECTORY; ?>/style.css?v=<?php echo current_version(); ?>"  rel="stylesheet" />
     <link href="<?php get_site_url(); ?>/css/style.css?v=<?php echo current_version(); ?>"  rel="stylesheet" />
+    <?php if (zenith_site()) : ?>
+        <link href="<?php echo THEME_DIRECTORY; ?>/zenith.css?v=<?php echo current_version(); ?>"  rel="stylesheet" />
+    <?php endif; ?>
 </head>
 <body>
 
@@ -31,7 +34,11 @@
   <header class="header clear" id="header">
     <div class="container-fluid" >
     <div class="row">
-      <div class="col-md-3"><a class="logo" href="https://transcontinental.ch/"><img src="https://transcontinental.ch/wp-content/themes/transcontinental2/img/logo.png" alt="" /></a></div>
+      <div class="col-md-3">
+          <a class="logo" href="<?php site_homepage(); ?>">
+             <?php  chilly_list_site_logo(); ?>
+          </a>
+      </div>
       <div class="col-md-9">
         <nav id="nav" class="nav" role="navigation">
           <ul>
