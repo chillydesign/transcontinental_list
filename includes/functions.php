@@ -2,7 +2,7 @@
 
 
 
-function current_version(){
+function current_version() {
     echo '0.1.7';
 }
 
@@ -14,7 +14,6 @@ function site_theme() {
     } else {
         return 'transcontinental';
     }
-
 }
 
 function zenith_site() {
@@ -23,29 +22,25 @@ function zenith_site() {
 
 
 
-function site_url(){
+function site_url() {
 
     if (defined('WEBSITE_URL')) {
         return WEBSITE_URL;
     } else {
         return 'http://localhost:8888/transcontinentalgifts';
     }
-
 }
 
 
 function site_homepage() {
-    if ( zenith_site() ) {
+    if (zenith_site()) {
         echo 'https://zenithvoyages.ch/';
     } else {
         echo 'https://transcontinental.ch/';
-
     }
-
-
 }
 
-function get_site_url(){
+function get_site_url() {
     echo site_url();
 }
 
@@ -53,40 +48,34 @@ function get_site_url(){
 
 function chilly_list_site_logo() {
 
-    if ( zenith_site() ) {
+    if (zenith_site()) {
         echo '<img src="' .  THEME_DIRECTORY . '/img/zenith.svg" alt="Zenith Voyages" />';
     } else {
         echo '<img src="' .  THEME_DIRECTORY . '/img/logo.png" alt="Transcontinental" />';
     }
-
-
-
 }
 
 
-function current_page(){
-    if ( isset($_GET['page']) ) {
-        $page = '/pages/' . $_GET['page'] .'.php';
-
+function current_page() {
+    if (isset($_GET['page'])) {
+        $page = '/pages/' . $_GET['page'] . '.php';
     } else {
         $page = '/pages/home.php';
     }
     return $page;
-
-
 }
 
-function current_page_exists(){
-    if ( isset($_GET['page']) ) {
+function current_page_exists() {
+    if (isset($_GET['page'])) {
         $page = $_GET['page'];
-        if ( strpos(  WEBSITE_URL, 'locasdflhost') > -1 )  {
-            $file = '/Applications/MAMP/htdocs/transcontinental_list/pages/' .$page . '.php';
+        if (strpos(WEBSITE_URL, 'locasdflhost') > -1) {
+            $file = '/Applications/MAMP/htdocs/transcontinental_list/pages/' . $page . '.php';
         } else {
             $path = realpath(dirname(__FILE__));
-            $file = $path . '/../pages/' .$page . '.php';
+            $file = $path . '/../pages/' . $page . '.php';
         }
 
-        return(  file_exists($file) ) ;
+        return (file_exists($file));
     } else {
         return true; // home page does exist
     }
@@ -95,7 +84,7 @@ function current_page_exists(){
 
 
 function current_subpage_is($slug) {
-    if ( isset($_GET['subpage']) ) {
+    if (isset($_GET['subpage'])) {
         return ($_GET['subpage'] == $slug);
     } else {
         return false;
@@ -103,20 +92,18 @@ function current_subpage_is($slug) {
 }
 
 
-function current_page_is($slug){
+function current_page_is($slug) {
 
-    if ( isset($_GET['page']) ) {
-        return  ($_GET['page'] == $slug  );
+    if (isset($_GET['page'])) {
+        return ($_GET['page'] == $slug);
     } else {
         return false;
     }
-
 }
 
-function page_link($slug, $text, $classes='') {
+function page_link($slug, $text, $classes = '') {
 
-    echo '<a href="'. site_url() . '/'  .  $slug   .'" class="'. $classes .'">'. ($text) .'</a>';
-
+    echo '<a href="' . site_url() . '/'  .  $slug   . '" class="' . $classes . '">' . ($text) . '</a>';
 }
 
 function is_valid_email($email) {
@@ -155,9 +142,9 @@ function error_message_list() {
 }
 
 function show_error_message() {
-    if (has_error() ) {
+    if (has_error()) {
         $list = error_message_list();
-        $message =  (isset( $list[$_GET['error']] )) ? $list[$_GET['error']] : $list['unspecified'];
+        $message =  (isset($list[$_GET['error']])) ? $list[$_GET['error']] : $list['unspecified'];
         echo '<p class="error_message">' . $message . '</p>';;
     }
 }
@@ -165,13 +152,13 @@ function show_error_message() {
 
 function encrypt_password($password) {
     $salt = PW_SALT;
-    $encrypted_password =  crypt( $password, $salt  );
+    $encrypted_password =  crypt($password, $salt);
     return $encrypted_password;
 }
 
 
 function get_var($str) {
-    if (isset( $_GET[$str] )) {
+    if (isset($_GET[$str])) {
         return $_GET[$str];
     } else {
         return false;
@@ -180,7 +167,7 @@ function get_var($str) {
 
 function valid_giftcard_statuses() {
     // return array('créé', 'annulé', 'payé', 'utilisé');
-    return array( 'actif', 'non payé', 'annulé', 'utilisé'  );
+    return array('actif', 'non payé', 'annulé', 'utilisé');
 }
 
 
@@ -192,7 +179,7 @@ function get_donation($donation_id = null) {
     }
 
     global $conn;
-    if ( $donation_id > 0) {
+    if ($donation_id > 0) {
 
 
 
@@ -212,7 +199,7 @@ function get_donation($donation_id = null) {
                 return null;
             }
             unset($conn);
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
             return null;
         };
     } else { // if donation id is not greated than 0
@@ -230,7 +217,7 @@ function get_giftcard($giftcard_id = null) {
     }
 
     global $conn;
-    if ( $giftcard_id > 0) {
+    if ($giftcard_id > 0) {
 
 
         try {
@@ -249,7 +236,7 @@ function get_giftcard($giftcard_id = null) {
                 return null;
             }
             unset($conn);
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
             return null;
         };
     } else { // if giftcard id is not greated than 0
@@ -266,34 +253,32 @@ function giftcardArchiveSelected($type) {
 }
 
 
-function get_giftcards($archive = "actif"){
+function get_giftcards($archive = "actif") {
     global $conn;
 
-    if ($archive == 'nonpaye' ) $archive = 'non payé';
-    if ($archive == 'annule' ) $archive = 'annulé';
-    if ($archive == 'actif' ) $archive = 'actif';
-    if ($archive == 'utilise' ) $archive = 'utilisé';
+    if ($archive == 'nonpaye') $archive = 'non payé';
+    if ($archive == 'annule') $archive = 'annulé';
+    if ($archive == 'actif') $archive = 'actif';
+    if ($archive == 'utilise') $archive = 'utilisé';
 
 
-    if(get_var('s')){
+    if (get_var('s')) {
         $s = get_var('s');
 
-        if ( intval( $s) > 0  ) {
+        if (intval($s) > 0) {
 
-            $search = "WHERE `id` = " . $s ;
+            $search = "WHERE `id` = " . $s;
         } else {
             $search = "WHERE (`sender_first_name` LIKE '%" . $s . "%' OR `sender_last_name` LIKE '%" . $s . "%' OR `receiver_first_name` LIKE '%" . $s . "%' OR `receiver_last_name` LIKE '%" . $s . "%' OR `receiver_email` LIKE '%" . $s . "%' OR `sender_email` LIKE '%" . $s . "%')";
         }
-
-
     } else {
         $search = ' WHERE  status = "' . $archive . '"  ';
     }
 
     $posts_per_page = posts_per_page();
-    if(get_var('p')){
+    if (get_var('p')) {
         $page = intval(get_var('p'));
-        $page_query = 'OFFSET ' . (($page -1) * $posts_per_page) ;
+        $page_query = 'OFFSET ' . (($page - 1) * $posts_per_page);
     } else {
         $page_query = '';
     }
@@ -314,8 +299,7 @@ function get_giftcards($archive = "actif"){
         }
 
         unset($conn);
-
-    } catch(PDOException $err) {
+    } catch (PDOException $err) {
         return [];
     };
 }
@@ -337,14 +321,12 @@ function delete_giftcard($giftcard) {
             return true;
 
             unset($conn);
-
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
             return false;
         };
     } else {
         return false;
     }
-
 }
 
 
@@ -364,14 +346,12 @@ function delete_user($user) {
             return true;
 
             unset($conn);
-
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
             return false;
         };
     } else {
         return false;
     }
-
 }
 
 
@@ -390,14 +370,12 @@ function delete_list($list) {
             return true;
 
             unset($conn);
-
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
             return false;
         };
     } else {
         return false;
     }
-
 }
 
 
@@ -407,10 +385,10 @@ function posts_per_page() {
 
 
 
-function get_users($options=null){
+function get_users($options = null) {
     global $conn;
 
-    if(get_var('s')){
+    if (get_var('s')) {
         $s = get_var('s');
         $search = "WHERE `first_name` LIKE '%" . $s . "%' OR `last_name` LIKE '%" . $s . "%'";
     } else {
@@ -418,14 +396,14 @@ function get_users($options=null){
     }
 
     $posts_per_page = posts_per_page();
-    if(get_var('p')){
+    if (get_var('p')) {
         $page = intval(get_var('p'));
-        $page_query = "LIMIT $posts_per_page  OFFSET " . (($page -1) * $posts_per_page) ;
+        $page_query = "LIMIT $posts_per_page  OFFSET " . (($page - 1) * $posts_per_page);
     } else {
         $page_query = "LIMIT $posts_per_page ";
     }
 
-    if (is_array($options) ) {
+    if (is_array($options)) {
         if (isset($options['posts_per_page'])) {
             $page_query = "";
         }
@@ -449,16 +427,15 @@ function get_users($options=null){
         }
 
         unset($conn);
-
-    } catch(PDOException $err) {
+    } catch (PDOException $err) {
         return [];
     };
 }
 
-function count_users(){
+function count_users() {
     global $conn;
 
-    if(get_var('s')){
+    if (get_var('s')) {
         $s = get_var('s');
         $search = "WHERE `first_name` LIKE '%" . $s . "%' OR `last_name` LIKE '%" . $s . "%'";
     } else {
@@ -476,24 +453,22 @@ function count_users(){
 
 
         unset($conn);
-
-    } catch(PDOException $err) {
+    } catch (PDOException $err) {
         return 0;
     };
 }
 
 
 
-function count_giftcards($archive = "créé"){
+function count_giftcards($archive = "créé") {
     global $conn;
 
-    if(get_var('s')){
+    if (get_var('s')) {
         $s = get_var('s');
         $search = "WHERE `sender_first_name` LIKE '%" . $s . "%' OR `sender_last_name` LIKE '%" . $s . "%' OR `receiver_first_name` LIKE '%" . $s . "%' OR `receiver_last_name` LIKE '%" . $s . "%' OR `receiver_email` LIKE '%" . $s . "%' OR `sender_email` LIKE '%" . $s . "%'";
     } else {
 
         $search = ' WHERE  status = "' . $archive . '"  ';
-
     }
 
     try {
@@ -507,15 +482,14 @@ function count_giftcards($archive = "créé"){
 
 
         unset($conn);
-
-    } catch(PDOException $err) {
+    } catch (PDOException $err) {
         return 0;
     };
 }
 
 
 
-function count_lists($archive){
+function count_lists($archive) {
     global $conn;
 
     $archive_int = ($archive == 'active') ? 1 : 0;
@@ -531,27 +505,26 @@ function count_lists($archive){
 
         return  $lists_count;
         unset($conn);
-
-    } catch(PDOException $err) {
+    } catch (PDOException $err) {
         return 0;
     };
 }
 
 
-function get_lists($archive){
+function get_lists($archive) {
     global $conn;
 
     $posts_per_page = posts_per_page();
-    if(get_var('p')){
+    if (get_var('p')) {
         $page = intval(get_var('p'));
-        $page_query = 'OFFSET ' . (($page -1) * $posts_per_page) ;
+        $page_query = 'OFFSET ' . (($page - 1) * $posts_per_page);
     } else {
         $page_query = '';
     }
 
     if ($archive == 'expired') {
         $now = date("Y-m-d", time());
-        $search =  ' tcg_lists.active =  1 AND deadline < "' . $now . '"' ;
+        $search =  ' tcg_lists.active =  1 AND deadline < "' . $now . '"';
     } else {
         $archive_int = ($archive == 'active') ? 1 : 0;
         $search = ' tcg_lists.active = ' . $archive_int;
@@ -574,7 +547,7 @@ function get_lists($archive){
         if ($lists_count > 0) {
             $lists =  $lists_query->fetchAll();
             // process every list to add extra properties
-            foreach ($lists as $list ) {
+            foreach ($lists as $list) {
                 $list = process_list($list);
             }
             return $lists;
@@ -583,8 +556,7 @@ function get_lists($archive){
         }
 
         unset($conn);
-
-    } catch(PDOException $err) {
+    } catch (PDOException $err) {
         return [];
     };
 }
@@ -596,7 +568,7 @@ function user_lists($user_id = null) {
 
 
     if ($user_id == null) {
-        if ( has_valid_user_cookie()  ) {
+        if (has_valid_user_cookie()) {
             $user_id =  decrypt_id($_COOKIE['tcg_user']);
         }
     }
@@ -615,7 +587,7 @@ function user_lists($user_id = null) {
             if ($lists_count > 0) {
                 $lists =  $lists_query->fetchAll();
                 // process every list to add extra properties
-                foreach ($lists as $list ) {
+                foreach ($lists as $list) {
                     $list = process_list($list);
                 }
                 return $lists;
@@ -624,19 +596,16 @@ function user_lists($user_id = null) {
             }
 
             unset($conn);
-
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
             return [];
         };
     } else {
         return [];
     }
-
-
 }
 
 
-function get_donations($list_id, $status=false) {
+function get_donations($list_id, $status = false) {
     if ($list_id) {
         global $conn;
 
@@ -661,8 +630,7 @@ function get_donations($list_id, $status=false) {
             }
 
             unset($conn);
-
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
             return [];
         };
     } else {
@@ -671,7 +639,7 @@ function get_donations($list_id, $status=false) {
 }
 
 
-function donation_is_paid($donation){
+function donation_is_paid($donation) {
     return ($donation->status == 'payé');
 }
 
@@ -679,16 +647,15 @@ function donation_is_paid($donation){
 function sum_donations($donations) {
     $total = 0;
     foreach ($donations as $donation) {
-        if (  donation_is_paid($donation)  ) {
+        if (donation_is_paid($donation)) {
             $total = $total + $donation->amount;
         }
-
     }
     return convert_cents_to_currency($total);
 }
 
 
-function get_withdrawals( $giftcard_id  ){
+function get_withdrawals($giftcard_id) {
     global $conn;
 
     try {
@@ -708,8 +675,7 @@ function get_withdrawals( $giftcard_id  ){
         }
 
         unset($conn);
-
-    } catch(PDOException $err) {
+    } catch (PDOException $err) {
         return [];
     };
 }
@@ -733,7 +699,7 @@ function total_of_withdrawals($withdrawals) {
 function get_user($user_id = null) {
 
     if ($user_id == null) {
-        if( current_subpage_is('user') || current_subpage_is('useredit')  ) {
+        if (current_subpage_is('user') || current_subpage_is('useredit')) {
             $user_id = intval($_GET['id']);
         } else {
             $user_id =  $_GET['subpage'];
@@ -744,7 +710,7 @@ function get_user($user_id = null) {
     }
 
     global $conn;
-    if ( $user_id > 0) {
+    if ($user_id > 0) {
 
         try {
             $query = "SELECT * FROM tcg_users WHERE id = :id LIMIT 1";
@@ -763,7 +729,7 @@ function get_user($user_id = null) {
             }
 
             unset($conn);
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
             return null;
         };
     } else { // if user id is not greater than 0
@@ -774,10 +740,10 @@ function get_user($user_id = null) {
 
 
 
-function get_user_from_email( $email=null) {
+function get_user_from_email($email = null) {
 
     global $conn;
-    if ( $email != null ) {
+    if ($email != null) {
 
         try {
             $query = "SELECT * FROM tcg_users WHERE email = :email LIMIT 1";
@@ -797,7 +763,7 @@ function get_user_from_email( $email=null) {
             }
 
             unset($conn);
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
             return false;
         };
     } else { //  if no token sent
@@ -808,10 +774,10 @@ function get_user_from_email( $email=null) {
 
 
 
-function get_user_from_reset_code( $reset_password_token=null) {
+function get_user_from_reset_code($reset_password_token = null) {
 
     global $conn;
-    if ( $reset_password_token != null ) {
+    if ($reset_password_token != null) {
 
         try {
             $query = "SELECT * FROM tcg_users WHERE reset_password_token = :reset_password_token LIMIT 1";
@@ -831,7 +797,7 @@ function get_user_from_reset_code( $reset_password_token=null) {
             }
 
             unset($conn);
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
             return false;
         };
     } else { //  if no token sent
@@ -844,7 +810,7 @@ function get_user_from_reset_code( $reset_password_token=null) {
 function get_list($list_id = null) {
 
     if ($list_id == null) {
-        if( current_subpage_is('list')) {
+        if (current_subpage_is('list')) {
             $list_id = (isset($_GET['id']))  ? intval($_GET['id']) : null;
         } else {
             $list_id =  $_GET['subpage'];
@@ -855,7 +821,7 @@ function get_list($list_id = null) {
     }
 
     global $conn;
-    if ( $list_id > 0) {
+    if ($list_id > 0) {
 
         try {
             $query = "SELECT *, tcg_lists.id as id,  tcg_lists.created_at as created_at FROM tcg_lists
@@ -878,7 +844,7 @@ function get_list($list_id = null) {
             }
 
             unset($conn);
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
             return null;
         };
     } else { // if list id is not greated than 0
@@ -900,7 +866,7 @@ function process_list($list) {
 function process_giftcard($giftcard) {
 
     $created_at = date("Y-m-d", strtotime($giftcard->created_at));
-    $expires_at = date("Y-m-d", strtotime( $created_at  . " + 365 day"));
+    $expires_at = date("Y-m-d", strtotime($created_at  . " + 365 day"));
     $giftcard->expires_at  =  $expires_at;
 
     return $giftcard;
@@ -937,7 +903,7 @@ function process_giftcard($giftcard) {
 
 function insert_new_withdrawal($withdrawal) {
     global $conn;
-    if ($withdrawal->amount > 0 && $withdrawal->giftcard_id > 0 ){
+    if ($withdrawal->amount > 0 && $withdrawal->giftcard_id > 0) {
 
         try {
             $query = "INSERT INTO tcg_withdrawals (amount, giftcard_id, message) VALUES (:amount, :giftcard_id, :message)";
@@ -951,24 +917,19 @@ function insert_new_withdrawal($withdrawal) {
 
 
             return ($withdrawal_id);
-
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
 
             return false;
-
         };
-
     } else { // withdrawal name was blank
         return false;
     }
-
-
 }
 
 
 function insert_new_list($list) {
     global $conn;
-    if ($list->name != '' && $list->user_id > 0 ){
+    if ($list->name != '' && $list->user_id > 0) {
 
         try {
             $query = "INSERT INTO tcg_lists (name, description, picture, user_id, active, category, deadline) VALUES (:name, :description, :picture, :user_id, :active, :category, :deadline)";
@@ -986,25 +947,20 @@ function insert_new_list($list) {
 
 
             return ($list_id);
-
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
 
             return false;
-
         };
-
     } else { // list name was blank
         return false;
     }
-
-
 }
 
 
 
 function update_user($user) {
     global $conn;
-    if ( $user->id > 0 ){
+    if ($user->id > 0) {
         try {
 
             $query = "UPDATE tcg_users SET `email` = :email, `first_name` = :first_name, `last_name` = :last_name, `address` = :address, `phone` = :phone WHERE id = :id";
@@ -1019,22 +975,18 @@ function update_user($user) {
             unset($conn);
 
             return true;
-
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
             return false;
-
         };
-
     } else { // user name was blank
         return false;
     }
-
 }
 
 
 function update_user_password($user) {
     global $conn;
-    if ( $user && $user->reset_password_token != '' ){
+    if ($user && $user->reset_password_token != '') {
 
         # reset the password and update the token to be nil
         try {
@@ -1047,22 +999,18 @@ function update_user_password($user) {
             unset($conn);
 
             return true;
-
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
             return false;
-
         };
-
     } else { // user name was blank
         return false;
     }
-
 }
 
 
 function update_donation_validated($donation) {
     global $conn;
-    if ( $donation->id > 0 ){
+    if ($donation->id > 0) {
         try {
 
             $query = "UPDATE tcg_donations SET `validated` = :validated WHERE id = :id";
@@ -1073,22 +1021,18 @@ function update_donation_validated($donation) {
             unset($conn);
 
             return true;
-
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
             return false;
-
         };
-
     } else { // donation id was less than 0
         return false;
     }
-
 }
 
 
 function update_donation_status($donation) {
     global $conn;
-    if ( $donation->id > 0 ){
+    if ($donation->id > 0) {
         try {
 
             $query = "UPDATE tcg_donations SET `status` = :status,
@@ -1104,23 +1048,19 @@ function update_donation_status($donation) {
             unset($conn);
 
             return true;
-
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
             return false;
-
         };
-
     } else { // donation id was less than 0
         return false;
     }
-
 }
 
 
 
 function update_giftcard_status($giftcard) {
     global $conn;
-    if ( $giftcard->id > 0 ){
+    if ($giftcard->id > 0) {
         try {
 
 
@@ -1138,22 +1078,18 @@ function update_giftcard_status($giftcard) {
             unset($conn);
 
             return true;
-
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
             return false;
-
         };
-
     } else { // giftcard name was blank
         return false;
     }
-
 }
 
 
 function update_giftcard($giftcard) {
     global $conn;
-    if ( $giftcard->id > 0 ){
+    if ($giftcard->id > 0) {
         try {
 
             $query = "UPDATE tcg_giftcards SET `status` = :status WHERE id = :id";
@@ -1164,31 +1100,27 @@ function update_giftcard($giftcard) {
             unset($conn);
 
             return true;
-
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
             return false;
-
         };
-
     } else { // giftcard name was blank
         return false;
     }
-
 }
 
 
 
 
 function list_has_expired($list) {
-    $deadline =  strtotime("midnight", strtotime( $list->deadline));
-    $now = strtotime("midnight", time() );
+    $deadline =  strtotime("midnight", strtotime($list->deadline));
+    $now = strtotime("midnight", time());
     return $now <= $deadline;
 }
 
 
 function update_list($list) {
     global $conn;
-    if ($list->name != '' && $list->user_id > 0 ){
+    if ($list->name != '' && $list->user_id > 0) {
 
 
         try {
@@ -1214,23 +1146,19 @@ function update_list($list) {
             unset($conn);
 
             return true;
-
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
             return false;
-
         };
-
     } else { // list name was blank
         return false;
     }
-
 }
 
 
 
 function insert_new_donation($donation) {
     global $conn;
-    if ($donation->amount > 0 && $donation->list_id > 0 ){
+    if ($donation->amount > 0 && $donation->list_id > 0) {
 
         try {
             $query = "INSERT INTO tcg_donations
@@ -1249,26 +1177,21 @@ function insert_new_donation($donation) {
             $donation_query->execute();
             $donation_id = $conn->lastInsertId();
             unset($conn);
-            return  ( $donation_id );
-
-        } catch(PDOException $err) {
+            return ($donation_id);
+        } catch (PDOException $err) {
 
             return false;
-
         };
-
     } else { // donation name was blank
         return false;
     }
-
-
 }
 
 
 
 function insert_new_user($user) {
     global $conn;
-    if ($user->email != '' && $user->password_digest != ''){
+    if ($user->email != '' && $user->password_digest != '') {
         try {
             $query = "INSERT INTO tcg_users (email, first_name, last_name, address, phone, password_digest) VALUES (:email, :first_name, :last_name, :address, :phone, :password_digest)";
             $user_query = $conn->prepare($query);
@@ -1283,18 +1206,13 @@ function insert_new_user($user) {
             unset($conn);
 
             return $user_id;
-
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
 
             return false;
-
         };
-
     } else {
         return false;
     }
-
-
 }
 
 
@@ -1302,7 +1220,7 @@ function insert_new_user($user) {
 function insert_new_giftcard($giftcard) {
     global $conn;
 
-    if ($giftcard->receiver_email != '' && $giftcard->amount > 0 ){
+    if ($giftcard->receiver_email != '' && $giftcard->amount > 0) {
 
 
         try {
@@ -1326,18 +1244,13 @@ function insert_new_giftcard($giftcard) {
             unset($conn);
 
             return $giftcard_id;
-
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
 
             return false;
-
         };
-
     } else { // giftcard name was blank
         return false;
     }
-
-
 }
 
 
@@ -1346,7 +1259,7 @@ function convert_gift_to_cookie($gift) {
     $cookie->name = $gift->receiver_first_name . ' ' . $gift->receiver_last_name;
     $cookie->amount = $gift->amount;
     $cookie->id = $gift->id;
-    return json_encode( $cookie );
+    return json_encode($cookie);
 }
 
 function get_giftcard_cookie() {
@@ -1357,7 +1270,7 @@ function get_giftcard_cookie() {
 function  has_giftcard_cookie() {
     if (isset($_COOKIE['latest_giftcard'])) {
         $lgc = get_giftcard_cookie();
-        return  ( isset($lgc->name)  ); // $cookie must have 3 items in array;
+        return (isset($lgc->name)); // $cookie must have 3 items in array;
     } else {
         return false;
     }
@@ -1392,17 +1305,17 @@ function nice_datetime($date) {
 
 
 function convert_to_amount_in_cents($string) {
-    return   round(  floatval($string) * 100);
+    return   round(floatval($string) * 100);
 }
 
 function convert_cents_to_currency($integer) {
-    return   sprintf('%.2f',  ($integer/ 100) ) . ' CHF'; //  money_format( '%i CHF', ($integer / 100)  );
+    return   sprintf('%.2f', ($integer / 100)) . ' CHF'; //  money_format( '%i CHF', ($integer / 100)  );
 }
 
 function has_valid_user_cookie() {
-    if  ( isset( $_COOKIE['tcg_user'] ) ) {
+    if (isset($_COOKIE['tcg_user'])) {
         $user_id = decrypt_id($_COOKIE['tcg_user']);
-        if ( is_numeric($user_id) && $user_id > 0  ) {
+        if (is_numeric($user_id) && $user_id > 0) {
             return true;
         } else {
             return false;
@@ -1410,13 +1323,12 @@ function has_valid_user_cookie() {
     } else {
         return false;
     }
-
 }
 
 function has_valid_admin_cookie() {
-    if  ( isset( $_COOKIE['tcg_admin'] ) ) {
+    if (isset($_COOKIE['tcg_admin'])) {
         $admin_id = decrypt_id($_COOKIE['tcg_admin']);
-        if ( is_numeric($admin_id) && $admin_id > 0  ) {
+        if (is_numeric($admin_id) && $admin_id > 0) {
             return true;
         } else {
             return false;
@@ -1424,22 +1336,20 @@ function has_valid_admin_cookie() {
     } else {
         return false;
     }
-
 }
 
 
 function only_allow_users() {
-    if ( current_user() === null ) {
-        header('Location: ' .  site_url() . '?error=notallowedhere'  );
-
+    if (current_user() === null) {
+        header('Location: ' .  site_url() . '?error=notallowedhere');
     } else {
         return true;
     }
 }
 
 function only_allow_admins() {
-    if ( current_admin() === null ) {
-        header('Location: ' .  site_url() . '?error=notallowedhereadmin'  );
+    if (current_admin() === null) {
+        header('Location: ' .  site_url() . '?error=notallowedhereadmin');
     } else {
         return true;
     }
@@ -1450,7 +1360,7 @@ function only_allow_admins() {
 function current_admin() {
 
     global $conn;
-    if ( has_valid_admin_cookie() ) {
+    if (has_valid_admin_cookie()) {
 
         $admin_id =  decrypt_id($_COOKIE['tcg_admin']);
 
@@ -1469,20 +1379,14 @@ function current_admin() {
                 $admin =  $admin_query->fetch();
                 return $admin;
             } else {
-                header('Location: ' .  site_url() . '/actions/user_logout.php'  );
+                header('Location: ' .  site_url() . '/actions/user_logout.php');
             }
 
             unset($conn);
+        } catch (PDOException $err) {
 
-
-
-        } catch(PDOException $err) {
-
-            header('Location: ' .  site_url() . '/actions/user_logout.php'  );
-
+            header('Location: ' .  site_url() . '/actions/user_logout.php');
         };
-
-
     } else {
         return null;
     }
@@ -1494,7 +1398,7 @@ function current_admin() {
 function current_user() {
 
     global $conn;
-    if ( has_valid_user_cookie() ) {
+    if (has_valid_user_cookie()) {
 
         $user_id =  decrypt_id($_COOKIE['tcg_user']);
 
@@ -1513,20 +1417,14 @@ function current_user() {
                 $user =  $user_query->fetch();
                 return $user;
             } else {
-                header('Location: ' .  site_url() . '/actions/user_logout.php'  );
+                header('Location: ' .  site_url() . '/actions/user_logout.php');
             }
 
             unset($conn);
+        } catch (PDOException $err) {
 
-
-
-        } catch(PDOException $err) {
-
-            header('Location: ' .  site_url() . '/actions/user_logout.php'  );
-
+            header('Location: ' .  site_url() . '/actions/user_logout.php');
         };
-
-
     } else {
         return null;
     }
@@ -1537,7 +1435,7 @@ function current_user() {
 
 function log_in_admin($admin) {
     global $conn;
-    if ($admin->email != '' && $admin->password_digest != ''){
+    if ($admin->email != '' && $admin->password_digest != '') {
         try {
             $query = "SELECT id FROM tcg_admins WHERE email = :email AND  password_digest = :password_digest LIMIT 1";
             $admin_query = $conn->prepare($query);
@@ -1557,25 +1455,20 @@ function log_in_admin($admin) {
             unset($conn);
 
             return $admin_id;
-
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
 
             return false;
-
         };
-
     } else {
         return false;
     }
-
-
 }
 
 
 
 function log_in_user($user) {
     global $conn;
-    if ($user->email != '' && $user->password_digest != ''){
+    if ($user->email != '' && $user->password_digest != '') {
         try {
             $query = "SELECT id FROM tcg_users WHERE email = :email AND  password_digest = :password_digest LIMIT 1";
             $user_query = $conn->prepare($query);
@@ -1595,18 +1488,13 @@ function log_in_user($user) {
             unset($conn);
 
             return $user_id;
-
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
 
             return false;
-
         };
-
     } else {
         return false;
     }
-
-
 }
 
 
@@ -1615,7 +1503,6 @@ function simple_encrypt_id($string) {
     $multi = ($id + TLPRIME1) * TLPRIME2 * TLPRIME3;
     $encrypted = dechex($multi);
     return $encrypted;
-
 }
 
 function simple_decrypt_id($hex) {
@@ -1623,29 +1510,26 @@ function simple_decrypt_id($hex) {
     $dec = hexdec($hex);
     $decrypted = $dec / TLPRIME3 / TLPRIME2 - TLPRIME1;
     return $decrypted;
-
 }
 
 
 
-function encrypt_id($string){
+function encrypt_id($string) {
 
 
     // $encrypted_string = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, SECRET_KEY , $string, MCRYPT_MODE_CBC,  INITIALIZATION_VECTOR );
     // $encrypted_string = bin2hex($encrypted_string);
     // return $encrypted_string;
     return simple_encrypt_id($string);
-
 };
 
-function decrypt_id($string){
+function decrypt_id($string) {
 
     // $encrypted_string = hex2bin($string);
     // $decrypted_string = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, SECRET_KEY, $encrypted_string, MCRYPT_MODE_CBC, INITIALIZATION_VECTOR );
     // $decrypted = intval($decrypted_string);
     // return $decrypted;
     return simple_decrypt_id($string);
-
 }
 
 
@@ -1676,7 +1560,7 @@ function picture_exists($id, $type) {
 
 
 
-function find_pictures($type='lists') {
+function find_pictures($type = 'lists') {
     // find all the jpg or jpeg images in the image folder requested
     // filename is the id of the image
     if ($type == 'giftcards') {
@@ -1690,25 +1574,23 @@ function find_pictures($type='lists') {
     $pictures = array();
     foreach (new DirectoryIterator($path) as $file) {
 
-        if($file->isDot()) continue;
-        if($file->isDir()) continue;
-        if($file->isFile()){
+        if ($file->isDot()) continue;
+        if ($file->isDir()) continue;
+        if ($file->isFile()) {
             $extension = $file->getExtension();
             if ($extension == 'jpg' || $extension == 'jpeg') {
                 $filename = $file->getFilename();
-                $id = intval(explode( '.' , $filename)[0]);
+                $id = intval(explode('.', $filename)[0]);
                 $picture = new stdClass();
                 $picture->id = $id;
                 $picture->url = $site_url . $file->getFilename();
                 array_push($pictures, $picture);
             }
-
         }
     }
 
     usort($pictures, "sort_object_by_ids");
     return $pictures;
-
 }
 
 
@@ -1739,12 +1621,12 @@ function send_php_mail($to, $subject, $content, $image = null) {
         //Recipients
         $mail->setFrom('noreply@transcontinental.ch', 'Transcontinental');
 
-        if ( is_array($to) ) {
+        if (is_array($to)) {
             foreach ($to as $person) {
-                $mail->addAddress( $person );
+                $mail->addAddress($person);
             }
         } else {
-            $mail->addAddress( $to );     // Add a recipient
+            $mail->addAddress($to);     // Add a recipient
         }
 
         $mail->addReplyTo('noreply@transcontinental.ch', 'Transcontinental');
@@ -1763,20 +1645,19 @@ function send_php_mail($to, $subject, $content, $image = null) {
     } catch (Exception $e) {
         return false;
     }
-
 }
 
 
 
-function add_image_to_email($image= null, $add_spacing = false) {
+function add_image_to_email($image = null, $add_spacing = false) {
     if ($image == null) {
-        $image = WEBSITE_URL . '/images/giftcard.jpg' ;
+        $image = WEBSITE_URL . '/images/giftcard.jpg';
     }
 
 
     $str =  '<tr>
     <td bgcolor="#ffffff" align="center">
-    <a style="color:white; text-decoration: none;" href="'.  WEBSITE_URL .'"><img src="'. $image .'" width="600" height="" alt="'. SITE_NAME .'" border="0" align="center" style="width: 100%; max-width: 600px; height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555; margin: auto;" class="g-img"></a>
+    <a style="color:white; text-decoration: none;" href="' .  WEBSITE_URL . '"><img src="' . $image . '" width="600" height="" alt="' . SITE_NAME . '" border="0" align="center" style="width: 100%; max-width: 600px; height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555; margin: auto;" class="g-img"></a>
     </td>
     </tr>
     <!-- Hero Image, Flush : END -->';
@@ -1791,17 +1672,14 @@ function add_image_to_email($image= null, $add_spacing = false) {
     }
 
     return $str;
-
-
-
 }
 
 function generate_email_button($link, $text) {
     return '<div style="padding: 0 40px; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555;"><table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto;">
     <tr>
     <td style="border-radius: 3px; background: #222222; text-align: center;" class="button-td">
-    <a href="'. $link .'" style="background: #222222; border: 15px solid #222222; font-family: sans-serif; font-size: 13px; line-height: 110%; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;" class="button-a">
-    <span style="color:#ffffff;" class="button-link">&nbsp;&nbsp;&nbsp;&nbsp;'. $text .'&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <a href="' . $link . '" style="background: #222222; border: 15px solid #222222; font-family: sans-serif; font-size: 13px; line-height: 110%; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;" class="button-a">
+    <span style="color:#ffffff;" class="button-link">&nbsp;&nbsp;&nbsp;&nbsp;' . $text . '&nbsp;&nbsp;&nbsp;&nbsp;</span>
     </a>
     </td>
     </tr>
@@ -1819,30 +1697,25 @@ function send_list_created_email($list, $user) {
 
 
         $receiver = $user->email;
-        $link = WEBSITE_URL  . "/list/" . $list->id ;
-        $admin_link = WEBSITE_URL  . "/adminarea/list?id=" . $list->id ;
-        $receiver_subject = 'Votre liste  '. SITE_NAME . '.';
+        $link = WEBSITE_URL  . "/list/" . $list->id;
+        $admin_link = WEBSITE_URL  . "/adminarea/list?id=" . $list->id;
+        $receiver_subject = 'Votre liste  ' . SITE_NAME . '.';
         $receiver_content = generate_email_title($receiver_subject);
-        $receiver_content .= "<p>Bonjour ".  $user->first_name . ' ' . $user->last_name  .". </p><p>Votre liste <strong>". $list->name ."</strong> sur ". SITE_NAME ." a bien été créée. </p><p> Le numéro de liste est ". $list->id .". Elle est accessible directement depuis l'adresse <a href='".  $link  ."'>". $link ."</a>.</p><p>Vous pouvez partager ces informations à votre famille et vos amis pour qu'ils puissent contribuer à la liste.</p><p>Vous pouvez consulter l'état de votre liste en vous connectant à votre compte ". SITE_NAME .".  Nous vous tiendrons également informés par email au fur et à mesure des contributions.</p><p> Merci pour votre confiance et à bientôt! </p>";
-        $receiver_content .= '<p>L\'équipe '. SITE_NAME.'</p>';
+        $receiver_content .= "<p>Bonjour " .  $user->first_name . ' ' . $user->last_name  . ". </p><p>Votre liste <strong>" . $list->name . "</strong> sur " . SITE_NAME . " a bien été créée. </p><p> Le numéro de liste est " . $list->id . ". Elle est accessible directement depuis l'adresse <a href='" .  $link  . "'>" . $link . "</a>.</p><p>Vous pouvez partager ces informations à votre famille et vos amis pour qu'ils puissent contribuer à la liste.</p><p>Vous pouvez consulter l'état de votre liste en vous connectant à votre compte " . SITE_NAME . ".  Nous vous tiendrons également informés par email au fur et à mesure des contributions.</p><p> Merci pour votre confiance et à bientôt! </p>";
+        $receiver_content .= '<p>L\'équipe ' . SITE_NAME . '</p>';
         send_php_mail($receiver, $receiver_subject, $receiver_content);
 
 
 
         $admin = admin_emails();
-        $admin_subject = 'Nouvelle liste  '. SITE_NAME;
+        $admin_subject = 'Nouvelle liste  ' . SITE_NAME;
         $admin_content = generate_email_title($admin_subject);
-        $admin_content .= "<p>Nouvelle liste ". SITE_NAME." </p><p>
+        $admin_content .= "<p>Nouvelle liste " . SITE_NAME . " </p><p>
         <strong>Client: </strong>" . $user->first_name . ' ' . $user->last_name   . " <br />
-        <strong>Liste: </strong><a href='". $admin_link ."'>" . $list->name . "</a> <br />
+        <strong>Liste: </strong><a href='" . $admin_link . "'>" . $list->name . "</a> <br />
         <strong>Numéro de liste : </strong>" . $list->id . " </p>";
 
         send_php_mail($admin, $admin_subject, $admin_content);
-
-
-
-
-
     }
 }
 
@@ -1851,15 +1724,15 @@ function send_list_created_email($list, $user) {
 function send_user_welcome_email($user) {
     if ($user) {
         $receiver = $user->email;
-        $receiver_subject = 'Création de votre compte '. SITE_NAME . '.';
+        $receiver_subject = 'Création de votre compte ' . SITE_NAME . '.';
         $receiver_content = generate_email_title($receiver_subject);
-        $receiver_content .= "<p>Bonjour ".  $user->first_name . ' ' . $user->last_name  .". Votre compte ". SITE_NAME ." a bien été créé. </p><p>Vous pouvez à présent créer des listes de mariage, anniversaire ou pour toute occasion à l'adresse " .  '<a href="'. WEBSITE_URL .'/login">' . WEBSITE_URL . "</a></p>";
-        $receiver_content .= '<p>A bientôt! <br /> L\'équipe '. SITE_NAME.'</p>';
+        $receiver_content .= "<p>Bonjour " .  $user->first_name . ' ' . $user->last_name  . ". Votre compte " . SITE_NAME . " a bien été créé. </p><p>Vous pouvez à présent créer des listes de mariage, anniversaire ou pour toute occasion à l'adresse " .  '<a href="' . WEBSITE_URL . '/login">' . WEBSITE_URL . "</a></p>";
+        $receiver_content .= '<p>A bientôt! <br /> L\'équipe ' . SITE_NAME . '</p>';
         send_php_mail($receiver, $receiver_subject, $receiver_content);
 
 
         $admin = admin_emails();
-        $admin_subject = 'Nouveau compte  '. SITE_NAME;
+        $admin_subject = 'Nouveau compte  ' . SITE_NAME;
         $admin_content = generate_email_title($admin_subject);
         $admin_content .= "<p>Nouvelle création de compte - Listes de Mariage et Anniversaire sur le site " . SITE_NAME . "</p><p>
         <strong>Prénom: </strong>" . $user->first_name . " <br />
@@ -1869,31 +1742,25 @@ function send_user_welcome_email($user) {
         <strong>Adresse email: </strong>" . $user->email . " </p>";
 
         send_php_mail($admin, $admin_subject, $admin_content);
-
-
-
-
     }
 }
 
-function send_user_reset_password_email( $user  ) {
+function send_user_reset_password_email($user) {
 
     if ($user) {
         $receiver = $user->email;
-        $receiver_subject = 'Réinitialiser votre mot de passe sur '. SITE_NAME . '.';
+        $receiver_subject = 'Réinitialiser votre mot de passe sur ' . SITE_NAME . '.';
         $receiver_content = generate_email_title($receiver_subject);
-        $receiver_content .= '<p>Vous avez demandé à réinitialiser votre mot de passe pour le site '. SITE_NAME.'. Veuillez cliquer sur le bouton ci-dessous pour réinitialiser votre mot de passe. Si vous ne souhaitez pas réinitialiser votre mot de passe ignorez cet email.</p>';
-        $link = WEBSITE_URL  . "/resetpassword/" . $user->reset_password_token ;
+        $receiver_content .= '<p>Vous avez demandé à réinitialiser votre mot de passe pour le site ' . SITE_NAME . '. Veuillez cliquer sur le bouton ci-dessous pour réinitialiser votre mot de passe. Si vous ne souhaitez pas réinitialiser votre mot de passe ignorez cet email.</p>';
+        $link = WEBSITE_URL  . "/resetpassword/" . $user->reset_password_token;
         $receiver_content .= generate_email_button($link,  'Réinitialiser votre mot de passe');
-        $receiver_content .= '<p>Meilleures Salutations, <br /> L\'équipe '. SITE_NAME.'</p>';
+        $receiver_content .= '<p>Meilleures Salutations, <br /> L\'équipe ' . SITE_NAME . '</p>';
 
         //  $imagelocation = WEBSITE_URL . '/images/giftcard.jpg' ;
         // send_php_mail($receiver, $receiver_subject, $receiver_content, $imagelocation);
 
         send_php_mail($receiver, $receiver_subject, $receiver_content);
     }
-
-
 }
 
 
@@ -1904,11 +1771,11 @@ function giftcard_print_url($giftcard) {
 }
 
 
-function send_giftcard_email( $giftcard  ) {
+function send_giftcard_email($giftcard) {
 
     // Bon cadeau n°
 
-    $image = WEBSITE_URL . '/images/giftcards/' . $giftcard->picture. '.jpg' ;
+    $image = WEBSITE_URL . '/images/giftcards/' . $giftcard->picture . '.jpg';
     $sender_name = $giftcard->sender_first_name . ' ' . $giftcard->sender_last_name;
     $receiver_name = $giftcard->receiver_first_name . ' ' . $giftcard->receiver_last_name;
     $amount =  convert_cents_to_currency($giftcard->amount);
@@ -1917,28 +1784,37 @@ function send_giftcard_email( $giftcard  ) {
     $sender = $giftcard->sender_email;
     $sender_subject = 'Merci d\'avoir envoyé un bon cadeau';
     $sender_content = generate_email_title($sender_subject);
-    $sender_content .= '<p>Vous avez envoyé un bon cadeau d\'une valeur de ' . $amount . ' à ' .  $receiver_name  . '. Valide jusqu\'au : '. nice_date($giftcard->expires_at)  . '</p>';
-    $sender_content .= generate_email_button(  giftcard_print_url($giftcard)  ,  'Imprimer le bon cadeau');
-    $sender_content .= '<p>Merci pour votre envoi! <br /><br /> Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
+    $sender_content .= '<p>Vous avez envoyé un bon cadeau d\'une valeur de ' . $amount . ' à ' .  $receiver_name  . '. Valide jusqu\'au : ' . nice_date($giftcard->expires_at)  . '</p>';
+    $sender_content .= generate_email_button(giftcard_print_url($giftcard),  'Imprimer le bon cadeau');
+    $sender_content .= '<p>Merci pour votre envoi! <br /><br /> Meilleures Salutations,<br>L\'équipe ' . SITE_NAME . '</p>';
     send_php_mail($sender, $sender_subject, $sender_content, $image);
 
 
     $receiver = $giftcard->receiver_email;
-    $receiver_subject = 'Vous avez reçu un bon cadeau '. SITE_NAME;
+    $receiver_subject = 'Vous avez reçu un bon cadeau ' . SITE_NAME;
     $receiver_content = generate_email_title($receiver_subject);
-    $receiver_content .= '<p>' . $sender_name . ' vous a envoyé un bon cadeau n° '. $giftcard->id .' d\'une valeur de '.  $amount . ' pour acheter un voyage chez '. SITE_NAME .' . Valide jusqu\'au : '. nice_date($giftcard->expires_at)  .'.' ;
+    $receiver_content .= '<p>' . $sender_name . ' vous a envoyé un bon cadeau n° ' . $giftcard->id . ' d\'une valeur de ' .  $amount . ' pour acheter un voyage chez ' . SITE_NAME . ' . Valide jusqu\'au : ' . nice_date($giftcard->expires_at)  . '.';
 
     if ($giftcard->message != '') {
         $receiver_content .= '<br /><br /><p style="padding:0 0 0px;margin:0;font-weight:bold">Message:</p>';
-        $receiver_content .= '<p style="font-style:italic; color: #888;">'. $giftcard->message .'</p><br />';
+        $receiver_content .= '<p style="font-style:italic; color: #888;">' . $giftcard->message . '</p><br />';
     }
 
-    $receiver_content .= generate_email_button(  giftcard_print_url($giftcard)  ,  'Imprimer le bon cadeau');
+    $receiver_content .= generate_email_button(giftcard_print_url($giftcard),  'Imprimer le bon cadeau');
     $receiver_content .= "<p>Nos conseillers en voyages d’agréments vous attendent à l’une de nos agences de voyages et se réjouissent déjà de vous aider à organiser vos prochaines vacances.</p>";
 
+    $receiver_content .= '<table cellspacing="0" cellpadding="0" border="0" align="left" width="100%"><tr>';
 
-    $receiver_content .= '<table cellspacing="0" cellpadding="0" border="0" align="left" width="100%"><tr>
-        <td>
+    if (zenith_site()) {
+
+        $receiver_content .= '<td>
+            <p> <b>Zénith Voyages Gland</b> <br />
+            9, avenue du Mont-Blanc <br />
+            1196 Gland<br />
+            T +41 22 364 46 91</p>
+        </td>';
+    } else {
+        $receiver_content .= '<td>
             <p> <b>Agence de Florissant</b> <br />
             66, route de Florissant <br />
             CH – 1206 Genève <br />
@@ -1950,38 +1826,39 @@ function send_giftcard_email( $giftcard  ) {
             CH – 1225 Chêne-Bourg <br />
             T +41 22 869 18 18
             </p>
-        </td>
-    </tr></table> <br /><br />';
+        </td>';
+    }
+
+    $receiver_content .= '</tr></table> <br /><br />';
 
 
-    $receiver_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p><br />';
+    $receiver_content .= '<p>Meilleures Salutations,<br>L\'équipe ' . SITE_NAME . '</p><br />';
     $receiver_content .= generate_email_button(WEBSITE_URL,  'Aller sur le site ' .  SITE_NAME);
     send_php_mail($receiver, $receiver_subject, $receiver_content, $image);
 
 
     //$admin = admin_email();
     $admin = admin_emails();
-    $admin_subject = 'Nouveau bon cadeau '. SITE_NAME;
+    $admin_subject = 'Nouveau bon cadeau ' . SITE_NAME;
     $admin_content = generate_email_title($admin_subject);
-    $admin_content .= '<p> De la part de ' . $sender_name . ' - ' . $sender. '<br>Phone: '. $giftcard->sender_phone.'<br>Adresse: '. $giftcard->sender_address .'<br><br><br>Pour : ' . $receiver_name . ' - ' . $receiver . '<br> Montant : '.  $amount;
+    $admin_content .= '<p> De la part de ' . $sender_name . ' - ' . $sender . '<br>Phone: ' . $giftcard->sender_phone . '<br>Adresse: ' . $giftcard->sender_address . '<br><br><br>Pour : ' . $receiver_name . ' - ' . $receiver . '<br> Montant : ' .  $amount;
 
-    $admin_content .= generate_email_button(  giftcard_print_url($giftcard)  ,  'Imprimer le bon cadeau');
-    $admin_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
+    $admin_content .= generate_email_button(giftcard_print_url($giftcard),  'Imprimer le bon cadeau');
+    $admin_content .= '<p>Meilleures Salutations,<br>L\'équipe ' . SITE_NAME . '</p>';
     send_php_mail($admin, $admin_subject, $admin_content, $image);
-
 }
 
-function admin_email(){
+function admin_email() {
     // should return string
     return 'claude.luterbacher@transcontinental.ch';
 }
 
 function admin_emails() {
-    return  array('info@transcontinental.ch',  'silvana.jahiu@transcontinental.ch', 'claude.luterbacher@transcontinental.ch' );
+    return  array('info@transcontinental.ch',  'silvana.jahiu@transcontinental.ch', 'claude.luterbacher@transcontinental.ch');
 }
 
 
-function send_donation_email( $donation , $list ) {
+function send_donation_email($donation, $list) {
 
     $user = get_user($list->user_id);
     if ($user) {
@@ -1995,30 +1872,30 @@ function send_donation_email( $donation , $list ) {
         $sender_subject = 'Merci pour votre contribution';
         $sender_content = generate_email_title($sender_subject);
         $sender_content .= '<p>Merci pour votre contribution d\'un montant de ' . $amount . ' à la liste de ' .  $receiver_name  . '</p>';
-        $sender_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
+        $sender_content .= '<p>Meilleures Salutations,<br>L\'équipe ' . SITE_NAME . '</p>';
         send_php_mail($sender, $sender_subject, $sender_content);
 
 
 
         $receiver = $user->email;
-        $receiver_subject = 'Vous avez reçu une contribution à votre liste '. SITE_NAME;
+        $receiver_subject = 'Vous avez reçu une contribution à votre liste ' . SITE_NAME;
         $receiver_content = generate_email_title($receiver_subject);
-        $receiver_content .= '<p>' . $sender_name . ' vient contribuer un montant de ' . $amount . ' sur votre liste '. $listname .' .</p>';
+        $receiver_content .= '<p>' . $sender_name . ' vient contribuer un montant de ' . $amount . ' sur votre liste ' . $listname . ' .</p>';
         if ($donation->message != '') {
             $receiver_content .= '<br /><br /><p style="padding:0 0 10px;margin:0;font-weight:bold">Message:</p>';
-            $receiver_content .= '<p style="font-style:italic; color: #888;">'. $donation->message .'</p><br /><br />';
+            $receiver_content .= '<p style="font-style:italic; color: #888;">' . $donation->message . '</p><br /><br />';
         };
-        $receiver_content .= '<p>Vous pouvez accéder à votre compte pour consulter votre liste à l’adresse <a href="'. WEBSITE_URL .'/login">' . WEBSITE_URL . '</a></p>';
+        $receiver_content .= '<p>Vous pouvez accéder à votre compte pour consulter votre liste à l’adresse <a href="' . WEBSITE_URL . '/login">' . WEBSITE_URL . '</a></p>';
         $receiver_content .= generate_email_button(WEBSITE_URL,  'Aller sur le site ' .  SITE_NAME);
-        $receiver_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
+        $receiver_content .= '<p>Meilleures Salutations,<br>L\'équipe ' . SITE_NAME . '</p>';
         send_php_mail($receiver, $receiver_subject, $receiver_content);
 
 
 
         $admin =  admin_emails();
-        $admin_subject = 'Nouvelle contribution - listes'. SITE_NAME;
+        $admin_subject = 'Nouvelle contribution - listes' . SITE_NAME;
         $admin_content = generate_email_title($admin_subject);
-        $admin_content .= '<p> De la part de ' . $sender_name . ' - ' . $sender . '<br>Pour : ' . $receiver_name . ' - ' . $receiver . '<br> Montant : '.  $amount . '<br>Liste : ' . $listname;
+        $admin_content .= '<p> De la part de ' . $sender_name . ' - ' . $sender . '<br>Pour : ' . $receiver_name . ' - ' . $receiver . '<br> Montant : ' .  $amount . '<br>Liste : ' . $listname;
         if ($donation->address) {
             $admin_content .= '<br /> Addresse: ' . $donation->address;
         }
@@ -2026,18 +1903,14 @@ function send_donation_email( $donation , $list ) {
             $admin_content .= '<br />Téléphone: ' . $donation->phone;
         }
         $admin_content .= '</p>';
-        $admin_content .='<p>Meilleures Salutations,<br>L\'équipe '. SITE_NAME . '</p>';
+        $admin_content .= '<p>Meilleures Salutations,<br>L\'équipe ' . SITE_NAME . '</p>';
 
         send_php_mail($admin, $admin_subject, $admin_content);
-
-
     }
-
-
 }
 
 
-function getRandomHex($num_bytes=4) {
+function getRandomHex($num_bytes = 4) {
     return bin2hex(openssl_random_pseudo_bytes($num_bytes));
 }
 
@@ -2048,7 +1921,7 @@ function getRandomHex($num_bytes=4) {
 function generate_password_token($email) {
     global $conn;
 
-    if (  is_valid_email($email)  ){
+    if (is_valid_email($email)) {
         $reset_password_token = getRandomHex(8);
         try {
             $query = "UPDATE tcg_users SET `reset_password_token` = :reset_password_token,
@@ -2068,16 +1941,12 @@ function generate_password_token($email) {
             }
 
             return true;
-
-        } catch(PDOException $err) {
+        } catch (PDOException $err) {
             return false;
-
         };
-
     } else { // giftcard name was blank
         return false;
     }
-
 }
 
 
@@ -2105,157 +1974,148 @@ function get_paypal_api_context() {
         new \PayPal\Auth\OAuthTokenCredential(
             PAYPAL_CLIENT_ID,     // ClientID
             PAYPAL_CLIENT_SECRET     // ClientSecret
-            )
-        );
+        )
+    );
 
-        $apiContext->setConfig(
-            array(
-                'log.LogEnabled' => true,
-                'log.FileName' => 'payPal.log',
-                'log.LogLevel' => 'INFO',
-                'mode' => PAYPAL_MODE
-            )
-        );
+    $apiContext->setConfig(
+        array(
+            'log.LogEnabled' => true,
+            'log.FileName' => 'payPal.log',
+            'log.LogLevel' => 'INFO',
+            'mode' => PAYPAL_MODE
+        )
+    );
 
-        return $apiContext;
-    }
-
-
-
-    function getGiftCardPaymentLink($giftcard_id, $amount_in_cents) {
-
-        $amountInCHF = money_format( '%i', ($amount_in_cents / 100)  );
-        $apiContext = get_paypal_api_context();
-        $baseURL = site_url() . '/actions/giftcard_payment_finish.php';
-        $returnURL = $baseURL . '?return=true&giftcard_id=' . $giftcard_id;
-        $cancelURL = $baseURL . '?cancel=true&giftcard_id=' . $giftcard_id;
+    return $apiContext;
+}
 
 
 
-        $item1 = new \PayPal\Api\Item();
-        $item1->setName('Giftcard')->setCurrency('CHF')->setQuantity(1)->setPrice( $amountInCHF );
+function getGiftCardPaymentLink($giftcard_id, $amount_in_cents) {
 
-        $itemList = new \PayPal\Api\ItemList();
-        $itemList->setItems(array($item1));
-
-        $payer = new \PayPal\Api\Payer();
-        $payer->setPaymentMethod('paypal');
-
-        $amount = new \PayPal\Api\Amount();
-        $amount->setTotal( $amountInCHF  );
-        $amount->setCurrency('CHF');
-
-        $transaction = new \PayPal\Api\Transaction();
-        $transaction->setAmount($amount);
-        $transaction->setItemList($itemList);
-        $transaction->setDescription("Buying a giftcard");
+    $amountInCHF = money_format('%i', ($amount_in_cents / 100));
+    $apiContext = get_paypal_api_context();
+    $baseURL = site_url() . '/actions/giftcard_payment_finish.php';
+    $returnURL = $baseURL . '?return=true&giftcard_id=' . $giftcard_id;
+    $cancelURL = $baseURL . '?cancel=true&giftcard_id=' . $giftcard_id;
 
 
-        $redirectUrls = new \PayPal\Api\RedirectUrls();
-        $redirectUrls->setReturnUrl($returnURL)->setCancelUrl($cancelURL);
 
-        $payment = new \PayPal\Api\Payment();
-        $payment->setIntent('sale')
+    $item1 = new \PayPal\Api\Item();
+    $item1->setName('Giftcard')->setCurrency('CHF')->setQuantity(1)->setPrice($amountInCHF);
+
+    $itemList = new \PayPal\Api\ItemList();
+    $itemList->setItems(array($item1));
+
+    $payer = new \PayPal\Api\Payer();
+    $payer->setPaymentMethod('paypal');
+
+    $amount = new \PayPal\Api\Amount();
+    $amount->setTotal($amountInCHF);
+    $amount->setCurrency('CHF');
+
+    $transaction = new \PayPal\Api\Transaction();
+    $transaction->setAmount($amount);
+    $transaction->setItemList($itemList);
+    $transaction->setDescription("Buying a giftcard");
+
+
+    $redirectUrls = new \PayPal\Api\RedirectUrls();
+    $redirectUrls->setReturnUrl($returnURL)->setCancelUrl($cancelURL);
+
+    $payment = new \PayPal\Api\Payment();
+    $payment->setIntent('sale')
         ->setPayer($payer)
         ->setTransactions(array($transaction))
         ->setRedirectUrls($redirectUrls);
 
 
-        try {
-            $payment->create($apiContext);
-            // echo $payment;
-            return  $payment->getApprovalLink();
-        }
-        catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            // This will print the detailed information on the exception.
-            //REALLY HELPFUL FOR DEBUGGING
-            // var_dump( $ex->getData() );
-            return false;
-        }
-
+    try {
+        $payment->create($apiContext);
+        // echo $payment;
+        return  $payment->getApprovalLink();
+    } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+        // This will print the detailed information on the exception.
+        //REALLY HELPFUL FOR DEBUGGING
+        // var_dump( $ex->getData() );
+        return false;
     }
+}
 
 
-    function getDonationPaymentLink($donation_id, $amount_in_cents) {
+function getDonationPaymentLink($donation_id, $amount_in_cents) {
 
-        $amountInCHF = money_format( '%i', ($amount_in_cents / 100)  );
-        $apiContext = get_paypal_api_context();
-        $baseURL = site_url() . '/actions/donation_payment_finish.php';
-        $returnURL = $baseURL . '?return=true&donation_id=' . $donation_id;
-        $cancelURL = $baseURL . '?cancel=true&donation_id=' . $donation_id;
+    $amountInCHF = money_format('%i', ($amount_in_cents / 100));
+    $apiContext = get_paypal_api_context();
+    $baseURL = site_url() . '/actions/donation_payment_finish.php';
+    $returnURL = $baseURL . '?return=true&donation_id=' . $donation_id;
+    $cancelURL = $baseURL . '?cancel=true&donation_id=' . $donation_id;
 
 
-        $item1 = new \PayPal\Api\Item();
-        $item1->setName('Donation')->setCurrency('CHF')->setQuantity(1)->setPrice( $amountInCHF );
+    $item1 = new \PayPal\Api\Item();
+    $item1->setName('Donation')->setCurrency('CHF')->setQuantity(1)->setPrice($amountInCHF);
 
-        $itemList = new \PayPal\Api\ItemList();
-        $itemList->setItems(array($item1));
+    $itemList = new \PayPal\Api\ItemList();
+    $itemList->setItems(array($item1));
 
-        $payer = new \PayPal\Api\Payer();
-        $payer->setPaymentMethod('paypal');
+    $payer = new \PayPal\Api\Payer();
+    $payer->setPaymentMethod('paypal');
 
-        $amount = new \PayPal\Api\Amount();
-        $amount->setTotal( $amountInCHF  );
-        $amount->setCurrency('CHF');
+    $amount = new \PayPal\Api\Amount();
+    $amount->setTotal($amountInCHF);
+    $amount->setCurrency('CHF');
 
-        $transaction = new \PayPal\Api\Transaction();
-        $transaction->setAmount($amount);
-        $transaction->setItemList($itemList);
-        $transaction->setDescription("Donation");
+    $transaction = new \PayPal\Api\Transaction();
+    $transaction->setAmount($amount);
+    $transaction->setItemList($itemList);
+    $transaction->setDescription("Donation");
 
-        $redirectUrls = new \PayPal\Api\RedirectUrls();
-        $redirectUrls->setReturnUrl($returnURL)->setCancelUrl($cancelURL);
+    $redirectUrls = new \PayPal\Api\RedirectUrls();
+    $redirectUrls->setReturnUrl($returnURL)->setCancelUrl($cancelURL);
 
-        $payment = new \PayPal\Api\Payment();
-        $payment->setIntent('sale')
+    $payment = new \PayPal\Api\Payment();
+    $payment->setIntent('sale')
         ->setPayer($payer)
         ->setTransactions(array($transaction))
         ->setRedirectUrls($redirectUrls);
 
 
-        try {
-            $payment->create($apiContext);
-            // echo $payment;
-            return  $payment->getApprovalLink();
-        }
-        catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            // This will print the detailed information on the exception.
-            //REALLY HELPFUL FOR DEBUGGING
-            // var_dump($ex->getData());
-            return false;
-        }
+    try {
+        $payment->create($apiContext);
+        // echo $payment;
+        return  $payment->getApprovalLink();
+    } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+        // This will print the detailed information on the exception.
+        //REALLY HELPFUL FOR DEBUGGING
+        // var_dump($ex->getData());
+        return false;
+    }
+}
 
+
+
+// return boolean if ok
+function executePayment($payment_id, $payer_id) {
+
+
+    $apiContext = get_paypal_api_context();
+    $payment = \PayPal\Api\Payment::get($payment_id, $apiContext);
+    $execution = new \PayPal\Api\PaymentExecution();
+    $execution->setPayerId($payer_id);
+
+    try {
+
+        $result = $payment->execute($execution, $apiContext);
+        $return = true;
+    } catch (Exception $ex) {
+        var_dump(" Payment didnt execute");
+        $return = false;
     }
 
 
 
-    // return boolean if ok
-    function executePayment($payment_id, $payer_id) {
-
-
-        $apiContext = get_paypal_api_context();
-        $payment = \PayPal\Api\Payment::get($payment_id, $apiContext);
-        $execution = new \PayPal\Api\PaymentExecution();
-        $execution->setPayerId( $payer_id  );
-
-        try {
-
-            $result = $payment->execute($execution, $apiContext);
-            $return = true;
-
-
-        } catch (Exception $ex) {
-            var_dump(" Payment didnt execute");
-            $return = false;
-        }
-
-
-
-        return $return;
-    }
+    return $return;
+}
 
 
     // END OF PAYPAL AND PAYMENTS
-
-
-    ?>
