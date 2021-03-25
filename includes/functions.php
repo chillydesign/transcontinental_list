@@ -1875,7 +1875,7 @@ function admin_email() {
 function admin_emails() {
 
     if (zenith_site()) {
-        return  array('info@zenithvoyages.ch');
+        return  array('info@zenithvoyages.ch', 'sibylle.spahni@zenithvoyages.ch',  'gwenaelle.martini@zenithvoyages.ch');
     } else {
         return  array('info@transcontinental.ch',  'silvana.jahiu@transcontinental.ch', 'claude.luterbacher@transcontinental.ch');
     }
