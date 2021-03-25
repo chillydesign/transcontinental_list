@@ -1602,9 +1602,18 @@ function sort_object_by_ids($a, $b) {
 
 function send_php_mail($to, $subject, $content, $image = null) {
 
-    $email_header = file_get_contents(dirname(__FILE__) . '/../emails/email_header.html');
-    $email_footer = file_get_contents(dirname(__FILE__) . '/../emails/email_footer.html');
 
+    if (zenith_site()) {
+        $no_reply_address = 'noreply@zenithvoyages.ch';
+        $no_reply_name = 'Zenith Voyages';
+        $email_footer = file_get_contents(dirname(__FILE__) . '/../emails/email_footer_zenith.html');
+    } else {
+        $no_reply_address = 'noreply@transcontinental.ch';
+        $no_reply_name = 'Transcontinental';
+        $email_footer = file_get_contents(dirname(__FILE__) . '/../emails/email_footer.html');
+    }
+
+    $email_header = file_get_contents(dirname(__FILE__) . '/../emails/email_header.html');
     $mail = new PHPMailer\PHPMailer\PHPMailer(true);                 // Passing `true` enables exceptions
 
     try {
@@ -1619,7 +1628,7 @@ function send_php_mail($to, $subject, $content, $image = null) {
         $mail->SMTPSecure = 'tls';                // Enable TLS encryption, `ssl` also accepted
         $mail->Port = 587;
         //Recipients
-        $mail->setFrom('noreply@transcontinental.ch', 'Transcontinental');
+        $mail->setFrom($no_reply_address,  $no_reply_name);
 
         if (is_array($to)) {
             foreach ($to as $person) {
@@ -1629,9 +1638,15 @@ function send_php_mail($to, $subject, $content, $image = null) {
             $mail->addAddress($to);     // Add a recipient
         }
 
-        $mail->addReplyTo('noreply@transcontinental.ch', 'Transcontinental');
+        $mail->addReplyTo($no_reply_address, $no_reply_name);
 
-        $logo_image = add_image_to_email(WEBSITE_URL . '/images/logo_email.jpg', false);
+        if (zenith_site()) {
+            $logo_image = add_image_to_email(WEBSITE_URL . '/images/logo_email_zenith.jpg', false);
+        } else {
+            $logo_image = add_image_to_email(WEBSITE_URL . '/images/logo_email.jpg', false);
+        }
+
+
         $top_image = add_image_to_email($image, true); // true means add spacing below the picture
 
         //Content
