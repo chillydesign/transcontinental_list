@@ -1865,11 +1865,20 @@ function send_giftcard_email($giftcard) {
 
 function admin_email() {
     // should return string
-    return 'claude.luterbacher@transcontinental.ch';
+    if (zenith_site()) {
+        return 'info@zenithvoyages.ch';
+    } else {
+        return 'claude.luterbacher@transcontinental.ch';
+    }
 }
 
 function admin_emails() {
-    return  array('info@transcontinental.ch',  'silvana.jahiu@transcontinental.ch', 'claude.luterbacher@transcontinental.ch');
+
+    if (zenith_site()) {
+        return  array('info@zenithvoyages.ch');
+    } else {
+        return  array('info@transcontinental.ch',  'silvana.jahiu@transcontinental.ch', 'claude.luterbacher@transcontinental.ch');
+    }
 }
 
 
