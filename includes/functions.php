@@ -36,10 +36,9 @@ function test_curl() {
     // }
 
 
-    //  $merchant_id = '1100032578';
-    // $merchant_id = '1100032579';
+    // $merchant_id = '';
+    // $password = '';
     // $token =  base64_encode($merchant_id . ":" .  $password);
-    // $token = "MTEwMDAzMjU3ODo0ZjlmTlNxcERHeGcyUA==";
     $token = "MTEwMDAzMjU3OTo0ZjlmTlNxcERHeGcyUA==";
     var_dump($token);
     $curl = new Curl\Curl();
