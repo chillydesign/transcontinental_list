@@ -1,6 +1,65 @@
 <?php
 
 
+function test_curl() {
+
+
+    //     curl 'https://api.sandbox.datatrans.com/v1/transactions' \
+    // --header 'Authorization: Basic {{basicAuth}}' \
+    // --header 'Content-Type: application/json' \
+    // --data-raw '{
+    // 	"currency": "CHF",
+    // 	"refno": "Test-1234",
+    // 	"amount": 1000,
+    // 	"paymentMethods": ["VIS","ECA","PAP","TWI"],
+    // 	"autoSettle": true,
+    // 	"option": {
+    // 		"createAlias": true
+    // 	},
+    // 	"redirect": {
+    // 		"successUrl": "{{successUrl}}",
+    // 		"cancelUrl": "{{cancelUrl}}",
+    // 		"errorUrl": "{{errorUrl}}"
+    // 	},
+    // 	"theme": {
+    // 		"name": "DT2015",
+    // 		"configuration": {
+    // 			"brandColor": "#FFFFFF",
+    // 			"logoBorderColor": "#A1A1A1",
+    // 			"brandButton": "#A1A1A1",
+    // 			"payButtonTextColor": "white",
+    // 			"logoSrc": "{{file.svg}}",
+    // 			"logoType": "circle",
+    // 			"initialView": "list",
+    // 		}
+    // 	}
+    // }
+
+
+    //  $merchant_id = '1100032578';
+    // $merchant_id = '1100032579';
+    // $token =  base64_encode($merchant_id . ":" .  $password);
+    $token = "MTEwMDAzMjU3ODo0ZjlmTlNxcERHeGcyUA==";
+    $token = "MTEwMDAzMjU3OTo0ZjlmTlNxcERHeGcyUA==";
+    var_dump($token);
+    $curl = new Curl\Curl();
+    $curl->setHeader('Authorization', "Basic  " . $token);
+    $curl->setHeader('Content-Type', 'application/json');
+
+    $curl->post(
+        'https://api.sandbox.datatrans.com/v1/transactions',
+        array('amount' => 10000)
+    );
+    if ($curl->error) {
+        var_dump($curl->error_code);
+    } else {
+    }
+    var_dump($curl->response);
+    var_dump($curl->request_headers);
+    var_dump($curl->response_headers);
+}
+
+
 
 function current_version() {
     echo '0.1.7';
