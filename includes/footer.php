@@ -26,7 +26,7 @@
   });
 
   async function getSaferpayTransactionId() {
-    const url = 'http://localhost/transcontinental_list/actions/generate_saferpay_transaction_id.php';
+    const url = '<?php echo site_url(); ?>/actions/generate_saferpay_transaction_id.php';
     const response = await fetch(url);
     const data = await response.json();
     return data;
@@ -68,7 +68,7 @@
   });
 
   async function getDatatransTransactionId() {
-    const url = 'http://localhost/transcontinental_list/actions/generate_datatrans_transaction_id.php';
+    const url = '<?php echo site_url(); ?>/actions/generate_datatrans_transaction_id.php';
     const response = await fetch(url);
     const data = await response.json();
     return data;
