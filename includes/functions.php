@@ -29,8 +29,8 @@ function generate_saferpay_transaction_id($request_id, $amount) {
             "LanguageCode" => "en"
         ),
         "ReturnUrls" => array(
-            "Success" => "http://localhost/transcontinental_list/?successUrl",
-            "Fail" => "http://localhost/transcontinental_list/?errorUrl"
+            "Success" => site_url() . "/?successUrl",
+            "Fail" => site_url() . "/?errorUrl"
         ),
         "Styling" => array(
             "CssUrl" => "https://zenithvoyages.ch/wp-content/themes/transcontinental-2019/zenith.css"
@@ -130,7 +130,7 @@ function site_url() {
     if (defined('WEBSITE_URL')) {
         return WEBSITE_URL;
     } else {
-        return 'http://localhost:8888/transcontinentalgifts';
+        return 'http://localhost/transcontinental_list';
     }
 }
 

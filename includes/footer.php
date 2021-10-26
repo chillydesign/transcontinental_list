@@ -1,7 +1,8 @@
-<div style="padding:50px">
-  <div class="button" id="payButton">Click me to pay</div>
-</div>
-
+<?php if (isset($_GET['test'])) : ?>
+  <div style="padding:50px">
+    <div class="button" id="payButton">Click me to pay</div>
+  </div>
+<?php endif; ?>
 
 
 <footer>
