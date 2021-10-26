@@ -1,43 +1,88 @@
 <?php
 
+function saferpay_api_url() {
+    return 'https://test.saferpay.com/api';
+}
 
-function generate_saferpay_transaction_id($request_id, $amount) {
+function saferpay_auth_token() {
     // $merchant_id = '';
     // $password = '';
     // $token =  base64_encode($merchant_id . ":" .  $password);
-    $customer_id = 259931;
-    $terminal_id = 17747128;
-    $token = 'QVBJXzI1OTkzMV8yNTE5MDU4MDpKc29uQXBpUHdkMV84QlBGMjVqQUJuaXA=';
-    $base = 'https://test.saferpay.com/api/';
-    $url =  $base . 'Payment/v1/Transaction/Initialize';
+    return  'QVBJXzI1OTkzMV8yNTE5MDU4MDpKc29uQXBpUHdkMV84QlBGMjVqQUJuaXA=';
+}
 
+function saferpay_spec_version() {
+    return "1.24";
+}
+
+function saferpay_customer_id() {
+    return 259931;
+}
+
+function saferpay_api_terminal_id() {
+    return 17747128;
+}
+
+function generate_saferpay_transaction_id($amount) {
+
+
+    $url = saferpay_api_url() . '/Payment/v1/PaymentPage/Initialize';
+    $request_id = 'transaction_' . getRandomHex(8);
     $data = array(
         "RequestHeader" => array(
-            "SpecVersion" => "1.24",
-            "CustomerId" => $customer_id,
+            "SpecVersion" => saferpay_spec_version(),
+            "CustomerId" => saferpay_customer_id(),
             "RequestId" => $request_id,
             "RetryIndicator" => 0
         ),
-        "TerminalId" => $terminal_id,
+        "TerminalId" => saferpay_api_terminal_id(),
         "Payment" => array(
             "Amount" => array(
                 "Value" =>  $amount,
                 "CurrencyCode" => "CHF"
-            )
+            ),
+            "OrderId" => 12345,
+            "Description" => "Description of payment"
+
         ),
         "Payer" => array(
             "LanguageCode" => "en"
         ),
         "ReturnUrls" => array(
-            "Success" => site_url() . "/?successUrl",
-            "Fail" => site_url() . "/?errorUrl"
+            "Success" => site_url() . "/?payment_id=12345&successUrl",
+            "Fail" => site_url() . "/?payment_id=12345&errorUrl"
         ),
         "Styling" => array(
             "CssUrl" => "https://zenithvoyages.ch/wp-content/themes/transcontinental-2019/zenith.css"
         )
     );
     $curl = new Curl\Curl();
-    $curl->setHeader('Authorization', "Basic " . $token);
+    $curl->setHeader('Authorization', "Basic " . saferpay_auth_token());
+    $curl->setHeader('Content-Type', 'application/json');
+    $curl->post($url, json_encode($data));
+    if ($curl->error) {
+        return array("error" => $curl->response);
+    } else {
+        $response = json_decode($curl->response);
+        return $response;
+    }
+}
+
+
+function saferpay_assert_payment($token) {
+    $url = saferpay_api_url() . '/Payment/v1/PaymentPage/Assert';
+    $request_id =  'assert_' . getRandomHex(8);
+    $data = array(
+        "RequestHeader" => array(
+            "SpecVersion" => saferpay_spec_version(),
+            "CustomerId" => saferpay_customer_id(),
+            "RequestId" =>  $request_id,
+            "RetryIndicator" => 0
+        ),
+        "Token" => $token
+    );
+    $curl = new Curl\Curl();
+    $curl->setHeader('Authorization', "Basic " . saferpay_auth_token());
     $curl->setHeader('Content-Type', 'application/json');
     $curl->post($url, json_encode($data));
     if ($curl->error) {
@@ -49,59 +94,86 @@ function generate_saferpay_transaction_id($request_id, $amount) {
 }
 
 
-function generate_datatrans_transaction_id($refno, $amount) {
-
-
-    // $merchant_id = '';
-    // $password = '';
-    // $token =  base64_encode($merchant_id . ":" .  $password);
-    $logo_url = 'https://website.com/logo.jpg';
-    $token = "MTEwMDAzMjU3OTpRVll0WUpIMTQzOXhiWEtk";
+function saferpay_capture_transaction($transaction_id) {
+    $url = saferpay_api_url() . '/Payment/v1/Transaction/Capture';
+    $request_id =  'assert_' . getRandomHex(8);
     $data = array(
-        'amount' => $amount,
-        "currency" => "CHF",
-        "autoSettle" => true,
-        "paymentMethods" => array("VIS", "ECA", "PAP", "TWI"),
-        "refno" => $refno,
-        "redirect" =>  array(
-            "successUrl" => "http://localhost/transcontinental_list/?successUrl",
-            "cancelUrl" => "http://localhost/transcontinental_list/?cancelUrl",
-            "errorUrl" => "http://localhost/transcontinental_list/?errorUrl"
+        "RequestHeader" => array(
+            "SpecVersion" => saferpay_spec_version(),
+            "CustomerId" => saferpay_customer_id(),
+            "RequestId" =>  $request_id,
+            "RetryIndicator" => 0
         ),
-        "theme" => array(
-            "name" => "DT2015",
-            "configuration" => array(
-                "brandColor" => "#FFFFFF",
-                "logoBorderColor" => "#A1A1A1",
-                "brandButton" => "#A1A1A1",
-                "payButtonTextColor" => "white",
-                "logoSrc" => $logo_url,
-                "logoType" => "circle",
-                "initialView" => "list",
-            )
-        ),
-        "option" =>  array(
-            "createAlias" => true
+        "TransactionReference" =>  array(
+            "TransactionId" => $transaction_id
         )
     );
-
-
     $curl = new Curl\Curl();
-    $curl->setHeader('Authorization', "Basic " . $token);
+    $curl->setHeader('Authorization', "Basic " . saferpay_auth_token());
     $curl->setHeader('Content-Type', 'application/json');
-    $curl->post('https://api.sandbox.datatrans.com/v1/transactions', json_encode($data));
+    $curl->post($url, json_encode($data));
     if ($curl->error) {
-        // var_dump($curl->error_code);
         return array("error" => $curl->error_code);
     } else {
-        $response =    json_decode($curl->response);
+        $response = json_decode($curl->response);
         return $response;
-        // var_dump($response->transactionId);
     }
-
-    // var_dump($curl->request_headers);
-    // var_dump($curl->response_headers);
 }
+
+
+
+
+// function generate_datatrans_transaction_id($refno, $amount) {
+//     // $merchant_id = '';
+//     // $password = '';
+//     // $token =  base64_encode($merchant_id . ":" .  $password);
+//     $logo_url = 'https://website.com/logo.jpg';
+//     $token = "MTEwMDAzMjU3OTpRVll0WUpIMTQzOXhiWEtk";
+//     $data = array(
+//         'amount' => $amount,
+//         "currency" => "CHF",
+//         "autoSettle" => true,
+//         "paymentMethods" => array("VIS", "ECA", "PAP", "TWI"),
+//         "refno" => $refno,
+//         "redirect" =>  array(
+//             "successUrl" => "http://localhost/transcontinental_list/?successUrl",
+//             "cancelUrl" => "http://localhost/transcontinental_list/?cancelUrl",
+//             "errorUrl" => "http://localhost/transcontinental_list/?errorUrl"
+//         ),
+//         "theme" => array(
+//             "name" => "DT2015",
+//             "configuration" => array(
+//                 "brandColor" => "#FFFFFF",
+//                 "logoBorderColor" => "#A1A1A1",
+//                 "brandButton" => "#A1A1A1",
+//                 "payButtonTextColor" => "white",
+//                 "logoSrc" => $logo_url,
+//                 "logoType" => "circle",
+//                 "initialView" => "list",
+//             )
+//         ),
+//         "option" =>  array(
+//             "createAlias" => true
+//         )
+//     );
+
+
+//     $curl = new Curl\Curl();
+//     $curl->setHeader('Authorization', "Basic " . $token);
+//     $curl->setHeader('Content-Type', 'application/json');
+//     $curl->post('https://api.sandbox.datatrans.com/v1/transactions', json_encode($data));
+//     if ($curl->error) {
+//         // var_dump($curl->error_code);
+//         return array("error" => $curl->error_code);
+//     } else {
+//         $response =    json_decode($curl->response);
+//         return $response;
+//         // var_dump($response->transactionId);
+//     }
+
+//     // var_dump($curl->request_headers);
+//     // var_dump($curl->response_headers);
+// }
 
 
 
@@ -2040,6 +2112,8 @@ function send_donation_email($donation, $list) {
 function getRandomHex($num_bytes = 4) {
     return bin2hex(openssl_random_pseudo_bytes($num_bytes));
 }
+
+
 
 
 
