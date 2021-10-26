@@ -32,9 +32,6 @@
 <body>
 
 
-  <!--
-  <?php test_curl();  ?>
-  -->
   <header class="header clear" id="header">
     <div class="container-fluid">
       <div class="row">

@@ -1,61 +1,106 @@
 <?php
 
 
-function test_curl() {
+function generate_saferpay_transaction_id($request_id, $amount) {
+    // $merchant_id = '';
+    // $password = '';
+    // $token =  base64_encode($merchant_id . ":" .  $password);
+    $customer_id = 259931;
+    $terminal_id = 17747128;
+    $token = 'QVBJXzI1OTkzMV8yNTE5MDU4MDpKc29uQXBpUHdkMV84QlBGMjVqQUJuaXA=';
+    $base = 'https://test.saferpay.com/api/';
+    $url =  $base . 'Payment/v1/Transaction/Initialize';
+
+    $data = array(
+        "RequestHeader" => array(
+            "SpecVersion" => "1.24",
+            "CustomerId" => $customer_id,
+            "RequestId" => $request_id,
+            "RetryIndicator" => 0
+        ),
+        "TerminalId" => $terminal_id,
+        "Payment" => array(
+            "Amount" => array(
+                "Value" =>  $amount,
+                "CurrencyCode" => "CHF"
+            )
+        ),
+        "Payer" => array(
+            "LanguageCode" => "en"
+        ),
+        "ReturnUrls" => array(
+            "Success" => "http://localhost/transcontinental_list/?successUrl",
+            "Fail" => "http://localhost/transcontinental_list/?errorUrl"
+        ),
+        "Styling" => array(
+            "CssUrl" => "https://zenithvoyages.ch/wp-content/themes/transcontinental-2019/zenith.css"
+        )
+    );
+    $curl = new Curl\Curl();
+    $curl->setHeader('Authorization', "Basic " . $token);
+    $curl->setHeader('Content-Type', 'application/json');
+    $curl->post($url, json_encode($data));
+    if ($curl->error) {
+        return array("error" => $curl->error_code);
+    } else {
+        $response = json_decode($curl->response);
+        return $response;
+    }
+}
 
 
-    //     curl 'https://api.sandbox.datatrans.com/v1/transactions' \
-    // --header 'Authorization: Basic {{basicAuth}}' \
-    // --header 'Content-Type: application/json' \
-    // --data-raw '{
-    // 	"currency": "CHF",
-    // 	"refno": "Test-1234",
-    // 	"amount": 1000,
-    // 	"paymentMethods": ["VIS","ECA","PAP","TWI"],
-    // 	"autoSettle": true,
-    // 	"option": {
-    // 		"createAlias": true
-    // 	},
-    // 	"redirect": {
-    // 		"successUrl": "{{successUrl}}",
-    // 		"cancelUrl": "{{cancelUrl}}",
-    // 		"errorUrl": "{{errorUrl}}"
-    // 	},
-    // 	"theme": {
-    // 		"name": "DT2015",
-    // 		"configuration": {
-    // 			"brandColor": "#FFFFFF",
-    // 			"logoBorderColor": "#A1A1A1",
-    // 			"brandButton": "#A1A1A1",
-    // 			"payButtonTextColor": "white",
-    // 			"logoSrc": "{{file.svg}}",
-    // 			"logoType": "circle",
-    // 			"initialView": "list",
-    // 		}
-    // 	}
-    // }
+function generate_datatrans_transaction_id($refno, $amount) {
 
 
     // $merchant_id = '';
     // $password = '';
     // $token =  base64_encode($merchant_id . ":" .  $password);
-    $token = "MTEwMDAzMjU3OTo0ZjlmTlNxcERHeGcyUA==";
-    var_dump($token);
+    $logo_url = 'https://website.com/logo.jpg';
+    $token = "MTEwMDAzMjU3OTpRVll0WUpIMTQzOXhiWEtk";
+    $data = array(
+        'amount' => $amount,
+        "currency" => "CHF",
+        "autoSettle" => true,
+        "paymentMethods" => array("VIS", "ECA", "PAP", "TWI"),
+        "refno" => $refno,
+        "redirect" =>  array(
+            "successUrl" => "http://localhost/transcontinental_list/?successUrl",
+            "cancelUrl" => "http://localhost/transcontinental_list/?cancelUrl",
+            "errorUrl" => "http://localhost/transcontinental_list/?errorUrl"
+        ),
+        "theme" => array(
+            "name" => "DT2015",
+            "configuration" => array(
+                "brandColor" => "#FFFFFF",
+                "logoBorderColor" => "#A1A1A1",
+                "brandButton" => "#A1A1A1",
+                "payButtonTextColor" => "white",
+                "logoSrc" => $logo_url,
+                "logoType" => "circle",
+                "initialView" => "list",
+            )
+        ),
+        "option" =>  array(
+            "createAlias" => true
+        )
+    );
+
+
     $curl = new Curl\Curl();
     $curl->setHeader('Authorization', "Basic " . $token);
     $curl->setHeader('Content-Type', 'application/json');
-
-    $curl->post(
-        'https://api.sandbox.datatrans.com/v1/transactions',
-        array('amount' => 10000)
-    );
+    $curl->post('https://api.sandbox.datatrans.com/v1/transactions', json_encode($data));
     if ($curl->error) {
-        var_dump($curl->error_code);
+        // var_dump($curl->error_code);
+        return array("error" => $curl->error_code);
     } else {
+        $response =    json_decode($curl->response);
+        return $response;
+        // var_dump($response->transactionId);
     }
-    var_dump($curl->response);
-    var_dump($curl->request_headers);
-    var_dump($curl->response_headers);
+
+    // var_dump($curl->request_headers);
+    // var_dump($curl->response_headers);
 }
 
 
