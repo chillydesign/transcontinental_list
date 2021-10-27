@@ -1,12 +1,3 @@
-<?php if (isset($_GET['test'])) : ?>
-  <div id="paybutton" style="padding:50px">
-    <div class="button" id="payButton">Click me to pay</div>
-    <a id="urltogo"></a>
-    <!-- <iframe style="height:500px" id="safer_iframe" name="fields-card-number" scrolling="no"></iframe> -->
-  </div>
-<?php endif; ?>
-
-
 <footer>
   <p class="container">&copy; <?php echo date('Y'); ?> <?php echo SITE_NAME; ?> </p>
 </footer>
@@ -18,95 +9,6 @@
 <script type="text/javascript" src="<?php get_site_url(); ?>/js/scripts.js"></script>
 
 
-<script>
-  const paybutton = document.getElementById('paybutton');
-  const safer_iframe = document.getElementById('safer_iframe');
-  const urltogo = document.getElementById('urltogo');
-
-  if (paybutton) {
-
-    paybutton.addEventListener('click', () => {
-      getSaferpayTransactionId().then(data => {
-        if (data.error) {
-          console.error(data);
-        } else {
-          console.log(data);
-          urltogo.innerHTML = 'Click here to proceed with payment';
-          urltogo.href = data.RedirectUrl;
-
-          safer_iframe.src = data.RedirectUrl;
-        }
-      });
-    })
-
-
-
-    // saferpayAssertPayment('07j9lr66w1amuj6yzusg7a24o').then(blah => {
-    //   console.log(blah);
-    // })
-
-  }
-
-
-
-
-  async function getSaferpayTransactionId() {
-    const url = '<?php echo site_url(); ?>/actions/saferpay_generate_transaction_id.php';
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
-  }
-
-  async function saferpayAssertPayment(token) {
-    const url = '<?php echo site_url(); ?>/actions/saferpay_assert_payment.php?token=' + token;
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
-  }
-</script>
-
-<!--
-<script src="https://pay.sandbox.datatrans.com/upp/payment/js/datatrans-2.0.0.js"></script>
-<script>
-  const payButton = document.getElementById('payButton');
-  payButton.style.display = 'none';
-
-  getDatatransTransactionId().then(data => {
-    if (data.error) {
-      console.error(data);
-    } else if (data.transactionId) {
-      console.log(data);
-      payButton.style.display = 'block';
-      payButton.onclick = function() {
-        Datatrans.startPayment({
-          transactionId: data.transactionId,
-          'opened': function() {
-            console.log('payment-form opened');
-          },
-          'loaded': function() {
-            console.log('payment-form loaded');
-          },
-          'closed': function() {
-            console.log('payment-page closed');
-          },
-          'error': function() {
-            console.log('error');
-          }
-        });
-      };
-
-
-    }
-  });
-
-  async function getDatatransTransactionId() {
-    const url = '<?php echo site_url(); ?>/actions/generate_datatrans_transaction_id.php';
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
-  }
-</script>
--->
 
 </body>
 
