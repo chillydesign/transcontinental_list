@@ -2,6 +2,7 @@
   <div id="paybutton" style="padding:50px">
     <div class="button" id="payButton">Click me to pay</div>
     <a id="urltogo"></a>
+    <!-- <iframe style="height:500px" id="safer_iframe" name="fields-card-number" scrolling="no"></iframe> -->
   </div>
 <?php endif; ?>
 
@@ -19,6 +20,7 @@
 
 <script>
   const paybutton = document.getElementById('paybutton');
+  const safer_iframe = document.getElementById('safer_iframe');
   const urltogo = document.getElementById('urltogo');
 
   if (paybutton) {
@@ -31,9 +33,13 @@
           console.log(data);
           urltogo.innerHTML = 'Click here to proceed with payment';
           urltogo.href = data.RedirectUrl;
+
+          safer_iframe.src = data.RedirectUrl;
         }
       });
     })
+
+
 
     // saferpayAssertPayment('07j9lr66w1amuj6yzusg7a24o').then(blah => {
     //   console.log(blah);

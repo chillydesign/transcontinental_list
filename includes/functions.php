@@ -23,10 +23,13 @@ function saferpay_api_terminal_id() {
     return 17747128;
 }
 
+
+
+
 function generate_saferpay_transaction_id($amount) {
 
 
-    $url = saferpay_api_url() . '/Payment/v1/PaymentPage/Initialize';
+    $url = saferpay_api_url() . '/Payment/v1/Transaction/Initialize';
     $request_id = 'transaction_' . getRandomHex(8);
     $data = array(
         "RequestHeader" => array(
@@ -41,9 +44,6 @@ function generate_saferpay_transaction_id($amount) {
                 "Value" =>  $amount,
                 "CurrencyCode" => "CHF"
             ),
-            "OrderId" => 12345,
-            "Description" => "Description of payment"
-
         ),
         "Payer" => array(
             "LanguageCode" => "en"
@@ -64,10 +64,55 @@ function generate_saferpay_transaction_id($amount) {
         return array("error" => $curl->response);
     } else {
         $response = json_decode($curl->response);
+        $response->RedirectUrl  = $response->Redirect->RedirectUrl;
         return $response;
     }
 }
 
+function generate_saferpay_payment_page($amount, $description, $redirect_base, $order_id) {
+
+
+    $url = saferpay_api_url() . '/Payment/v1/PaymentPage/Initialize';
+    $request_id = 'transaction_' . getRandomHex(8);
+    $data = array(
+        "RequestHeader" => array(
+            "SpecVersion" => saferpay_spec_version(),
+            "CustomerId" => saferpay_customer_id(),
+            "RequestId" => $request_id,
+            "RetryIndicator" => 0
+        ),
+        "TerminalId" => saferpay_api_terminal_id(),
+        "Payment" => array(
+            "Amount" => array(
+                "Value" =>  $amount,
+                "CurrencyCode" => "CHF"
+            ),
+            "OrderId" => $order_id,
+            "Description" => $description
+
+        ),
+        "Payer" => array(
+            "LanguageCode" => "en"
+        ),
+        "ReturnUrls" => array(
+            "Success" => $redirect_base . "&success=true",
+            "Fail" => $redirect_base . "&error=true"
+        ),
+        "Styling" => array(
+            "CssUrl" => "https://zenithvoyages.ch/wp-content/themes/transcontinental-2019/zenith.css"
+        )
+    );
+    $curl = new Curl\Curl();
+    $curl->setHeader('Authorization', "Basic " . saferpay_auth_token());
+    $curl->setHeader('Content-Type', 'application/json');
+    $curl->post($url, json_encode($data));
+    if ($curl->error) {
+        return array("error" => $curl->response);
+    } else {
+        $response = json_decode($curl->response);
+        return $response;
+    }
+}
 
 function saferpay_assert_payment($token) {
     $url = saferpay_api_url() . '/Payment/v1/PaymentPage/Assert';
@@ -1232,13 +1277,57 @@ function update_donation_status($donation) {
 }
 
 
+function update_donation_saferpay_token($donation) {
+    global $conn;
+    if ($donation->id > 0) {
+        try {
+
+            $query = "UPDATE tcg_donations SET `saferpay_token` = :saferpay_token
+            WHERE id = :id";
+            $donation_query = $conn->prepare($query);
+            $donation_query->bindParam(':saferpay_token', $donation->saferpay_token);
+            $donation_query->bindParam(':id', $donation->id);
+            $donation_query->execute();
+            unset($conn);
+
+            return true;
+        } catch (PDOException $err) {
+            var_dump($err);
+            return false;
+        };
+    } else { // donation id was less than 0
+        return false;
+    }
+}
+
+
+
+
+function update_giftcard_saferpay_token($giftcard) {
+    global $conn;
+    if ($giftcard->id > 0) {
+        try {
+            $query = "UPDATE tcg_giftcards SET `saferpay_token` = :saferpay_token WHERE id = :id";
+            $giftcard_query = $conn->prepare($query);
+            $giftcard_query->bindParam(':saferpay_token', $giftcard->saferpay_token);
+            $giftcard_query->bindParam(':id', $giftcard->id);
+            $giftcard_query->execute();
+            unset($conn);
+
+            return true;
+        } catch (PDOException $err) {
+            var_dump($err);
+            return false;
+        };
+    } else { // donation id was less than 0
+        return false;
+    }
+}
 
 function update_giftcard_status($giftcard) {
     global $conn;
     if ($giftcard->id > 0) {
         try {
-
-
 
             $query = "UPDATE tcg_giftcards SET `status` = :status,
             `payment_id` = :payment_id,
@@ -2192,7 +2281,7 @@ function get_paypal_api_context() {
 
 
 
-function getGiftCardPaymentLink($giftcard_id, $amount_in_cents) {
+function getPaypalGiftCardPaymentLink($giftcard_id, $amount_in_cents) {
 
     $amountInCHF = money_format('%i', ($amount_in_cents / 100));
     $apiContext = get_paypal_api_context();
@@ -2244,7 +2333,7 @@ function getGiftCardPaymentLink($giftcard_id, $amount_in_cents) {
 }
 
 
-function getDonationPaymentLink($donation_id, $amount_in_cents) {
+function getPaypalDonationPaymentLink($donation_id, $amount_in_cents) {
 
     $amountInCHF = money_format('%i', ($amount_in_cents / 100));
     $apiContext = get_paypal_api_context();
