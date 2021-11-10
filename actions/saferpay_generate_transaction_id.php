@@ -11,5 +11,5 @@ header('Content-Type: application/json;charset=UTF-8');
 
 // $tid = generate_saferpay_transaction_id(1000);
 $order_id = 123;
-$tid = generate_saferpay_payment_page(1000, 'Description of payment', site_url() . '?test', $order_id);
+$tid = generate_saferpay_payment_page('donation', 1000, 'Description of payment', site_url() . '?test', $order_id);
 echo json_encode($tid);

@@ -66,7 +66,7 @@ if (
                     // SAFERPAY
                     // SAFERPAY
                     $redirect_base = site_url() . '/actions/saferpay_donation_payment_finish.php?donation_id=' . $donation_id;
-                    $tid = generate_saferpay_payment_page($donation->amount, 'donation for list' . $list_id,  $redirect_base, $donation_id);
+                    $tid = generate_saferpay_payment_page('donation', $donation->amount, 'donation for list' . $list_id,  $redirect_base, $donation_id);
                     if (isset($tid->RedirectUrl)) {
 
                         $donation->saferpay_token = $tid->Token;

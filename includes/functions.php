@@ -5,24 +5,15 @@ function saferpay_api_url() {
 }
 
 function saferpay_auth_token() {
-    // $merchant_id = '';
-    // $password = '';
-    // $token =  base64_encode($merchant_id . ":" .  $password);
-    return  'QVBJXzI1OTkzMV8yNTE5MDU4MDpKc29uQXBpUHdkMV84QlBGMjVqQUJuaXA=';
+    $merchant_id = '';
+    $password = '';
+    $token =  base64_encode($merchant_id . ":" .  $password);
+    return $token;
 }
 
 function saferpay_spec_version() {
     return "1.24";
 }
-
-function saferpay_customer_id() {
-    return 259931;
-}
-
-function saferpay_api_terminal_id() {
-    return 17747128;
-}
-
 
 
 
@@ -34,11 +25,11 @@ function generate_saferpay_transaction_id($amount) {
     $data = array(
         "RequestHeader" => array(
             "SpecVersion" => saferpay_spec_version(),
-            "CustomerId" => saferpay_customer_id(),
+            "CustomerId" => SAFERPAY_CUSTOMER_ID,
             "RequestId" => $request_id,
             "RetryIndicator" => 0
         ),
-        "TerminalId" => saferpay_api_terminal_id(),
+        "TerminalId" => SAFERPAY_API_TERMINAL_ID,
         "Payment" => array(
             "Amount" => array(
                 "Value" =>  $amount,
@@ -57,7 +48,7 @@ function generate_saferpay_transaction_id($amount) {
         )
     );
     $curl = new Curl\Curl();
-    $curl->setHeader('Authorization', "Basic " . saferpay_auth_token());
+    $curl->setHeader('Authorization', "Basic " . SAFERPAY_AUTH_TOKEN);
     $curl->setHeader('Content-Type', 'application/json');
     $curl->post($url, json_encode($data));
     if ($curl->error) {
@@ -69,19 +60,26 @@ function generate_saferpay_transaction_id($amount) {
     }
 }
 
-function generate_saferpay_payment_page($amount, $description, $redirect_base, $order_id) {
+function generate_saferpay_payment_page($type, $amount, $description, $redirect_base, $object_id) {
 
+    if ($type == 'giftcard') {
+        $order_id = $object_id + 1000;
+    } else if ($type == 'donation') {
+        $order_id = $object_id + 10000;
+    } else {
+        $order_id = $object_id + 100000;
+    }
 
     $url = saferpay_api_url() . '/Payment/v1/PaymentPage/Initialize';
     $request_id = 'transaction_' . getRandomHex(8);
     $data = array(
         "RequestHeader" => array(
             "SpecVersion" => saferpay_spec_version(),
-            "CustomerId" => saferpay_customer_id(),
+            "CustomerId" => SAFERPAY_CUSTOMER_ID,
             "RequestId" => $request_id,
             "RetryIndicator" => 0
         ),
-        "TerminalId" => saferpay_api_terminal_id(),
+        "TerminalId" => SAFERPAY_API_TERMINAL_ID,
         "Payment" => array(
             "Amount" => array(
                 "Value" =>  $amount,
@@ -103,7 +101,7 @@ function generate_saferpay_payment_page($amount, $description, $redirect_base, $
         )
     );
     $curl = new Curl\Curl();
-    $curl->setHeader('Authorization', "Basic " . saferpay_auth_token());
+    $curl->setHeader('Authorization', "Basic " . SAFERPAY_AUTH_TOKEN);
     $curl->setHeader('Content-Type', 'application/json');
     $curl->post($url, json_encode($data));
     if ($curl->error) {
@@ -120,14 +118,14 @@ function saferpay_assert_payment($token) {
     $data = array(
         "RequestHeader" => array(
             "SpecVersion" => saferpay_spec_version(),
-            "CustomerId" => saferpay_customer_id(),
+            "CustomerId" => SAFERPAY_CUSTOMER_ID,
             "RequestId" =>  $request_id,
             "RetryIndicator" => 0
         ),
         "Token" => $token
     );
     $curl = new Curl\Curl();
-    $curl->setHeader('Authorization', "Basic " . saferpay_auth_token());
+    $curl->setHeader('Authorization', "Basic " . SAFERPAY_AUTH_TOKEN);
     $curl->setHeader('Content-Type', 'application/json');
     $curl->post($url, json_encode($data));
     if ($curl->error) {
@@ -145,7 +143,7 @@ function saferpay_capture_transaction($transaction_id) {
     $data = array(
         "RequestHeader" => array(
             "SpecVersion" => saferpay_spec_version(),
-            "CustomerId" => saferpay_customer_id(),
+            "CustomerId" => SAFERPAY_CUSTOMER_ID,
             "RequestId" =>  $request_id,
             "RetryIndicator" => 0
         ),
@@ -154,7 +152,7 @@ function saferpay_capture_transaction($transaction_id) {
         )
     );
     $curl = new Curl\Curl();
-    $curl->setHeader('Authorization', "Basic " . saferpay_auth_token());
+    $curl->setHeader('Authorization', "Basic " . SAFERPAY_AUTH_TOKEN);
     $curl->setHeader('Content-Type', 'application/json');
     $curl->post($url, json_encode($data));
     if ($curl->error) {
