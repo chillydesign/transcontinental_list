@@ -65,9 +65,9 @@ function generate_saferpay_payment_page($type, $amount, $description, $redirect_
     if ($type == 'giftcard') {
         $order_id = $object_id + 1000;
     } else if ($type == 'donation') {
-        $order_id = $object_id + 10000;
-    } else {
         $order_id = $object_id + 100000;
+    } else {
+        $order_id = $object_id + 1000000;
     }
 
     $url = saferpay_api_url() . '/Payment/v1/PaymentPage/Initialize';
