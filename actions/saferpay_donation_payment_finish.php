@@ -29,23 +29,23 @@ if (isset($_GET['donation_id'])) {
                 $donation->payer_id = '-';
                 update_donation_status($donation);
                 send_donation_email($donation, $list);
-                header('Location: ' . site_url() . '/list/' . $list_id  . '?success&donation_id=' . $donation_id);
+                header('Location: ' . site_url() . '/mariage/' . $list_id  . '?success&donation_id=' . $donation_id);
             } else {
-                header('Location: ' . site_url() . '/list/' . $list_id  . '?error=paymentnotexecuted1');
+                header('Location: ' . site_url() . '/mariage/' . $list_id  . '?error=paymentnotexecuted1');
             }
         } else {
-            header('Location: ' . site_url() . '/list/' . $list_id  . '?error=paymentnotexecuted2');
+            header('Location: ' . site_url() . '/mariage/' . $list_id  . '?error=paymentnotexecuted2');
         }
     } else if (isset($_GET['error'])) {
 
         $donation->status = 'annulé';
         // change status to cancelled
         if (update_donation_status($donation)) {
-            header('Location: ' .  site_url() . '/list/' . $list_id  . '?error=paymentcancelled');
+            header('Location: ' .  site_url() . '/mariage/' . $list_id  . '?error=paymentcancelled');
         } else {
-            header('Location: ' .  site_url() . '/list/' . $list_id  . '?error=statusnotupdated');
+            header('Location: ' .  site_url() . '/mariage/' . $list_id  . '?error=statusnotupdated');
         };
     }
 } else {
-    header('Location: ' .  site_url() . '/list/' . $list_id  . '?error=nodonationid');
+    header('Location: ' .  site_url() . '/mariage/' . $list_id  . '?error=nodonationid');
 }

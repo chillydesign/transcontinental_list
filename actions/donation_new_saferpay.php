@@ -62,21 +62,28 @@ if (
                 } else { // if submitted by normal user
 
 
-                    // PAYPAL
-                    // PAYPAL
-                    // PAYPAL
-                    // set up paypal payment and generate a link to send the user to
-                    $donation_payment_redirect_link = getPaypalDonationPaymentLink($donation_id,  $donation->amount);
-                    if ($donation_payment_redirect_link) {
-                        //redirect user to paypal
-                        header("HTTP/1.1 402 Payment Required");
-                        header('Location: ' . ($donation_payment_redirect_link));
+                    // SAFERPAY
+                    // SAFERPAY
+                    // SAFERPAY
+                    $redirect_base = site_url() . '/actions/saferpay_donation_payment_finish.php?donation_id=' . $donation_id;
+                    $tid = generate_saferpay_payment_page('donation', $donation->amount, 'donation for list' . $list_id,  $redirect_base, $donation_id);
+                    if (isset($tid->RedirectUrl)) {
+
+                        $donation->saferpay_token = $tid->Token;
+                        $donation->id = $donation_id;
+                        if (update_donation_saferpay_token($donation)) {
+                            header("HTTP/1.1 402 Payment Required");
+                            header('Location: ' . ($tid->RedirectUrl));
+                        } else {
+                            header('Location: ' .  site_url() . '/list/' . $list_id  . '?error=saferpaynotwork1');
+                        }
                     } else {
-                        header('Location: ' .  site_url() . '/list/' . $list_id  . '?error=paypalnotwork');
+                        header('Location: ' .  site_url() . '/list/' . $list_id  . '?error=saferpaynotwork2');
                     }
-                    // PAYPAL
-                    // PAYPAL
-                    // PAYPAL
+                    // SAFERPAY
+                    // SAFERPAY
+                    // SAFERPAY
+
 
 
 

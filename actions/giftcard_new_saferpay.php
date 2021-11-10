@@ -63,23 +63,30 @@ if (
                     header('Location: ' .  site_url() .  '/adminarea/giftcard/?id=' .  $giftcard_id);
                 } else {
 
-                    // // PAYPAL
-                    // // PAYPAL
-                    // // PAYPAL
-                    // // if a normal user making it, send them to paypal
-                    // // here do paypal stuff
-                    // // set up paypal payment and generate a link to send the user to
-                    $giftcard_payment_redirect_link = getPaypalGiftCardPaymentLink($giftcard_id,  $giftcard->amount);
-                    if ($giftcard_payment_redirect_link) {
-                        //redirect user to paypal
-                        header("HTTP/1.1 402 Payment Required");
-                        header('Location: ' . ($giftcard_payment_redirect_link));
+
+                    // SAFERPAY
+                    // SAFERPAY
+                    // SAFERPAY
+                    $redirect_base = site_url() . '/actions/saferpay_giftcard_payment_finish.php?giftcard_id=' . $giftcard_id;
+                    $tid = generate_saferpay_payment_page('giftcard', $giftcard->amount, 'giftcard', $redirect_base, $giftcard_id);
+                    if (isset($tid->RedirectUrl)) {
+
+                        $giftcard->saferpay_token = $tid->Token;
+                        $giftcard->id = $giftcard_id;
+                        if (update_giftcard_saferpay_token($giftcard)) {
+                            header("HTTP/1.1 402 Payment Required");
+                            header('Location: ' . ($tid->RedirectUrl));
+                        } else {
+                            header('Location: ' .  site_url() . $redirect  . '/?error=saferpaynotwork1');
+                        }
                     } else {
-                        header('Location: ' .  site_url() .  $redirect . '/?error=paypalnotwork');
+                        var_dump($tid);
+                        // header('Location: ' .  site_url() . $redirect  . '/?error=saferpaynotwork2');
                     }
-                    // // PAYPAL
-                    // // PAYPAL
-                    // // PAYPAL
+                    // SAFERPAY
+                    // SAFERPAY
+                    // SAFERPAY
+
 
 
                 };

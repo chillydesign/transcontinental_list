@@ -28,23 +28,23 @@ if (isset($_GET['giftcard_id'])) {
 
 
 
-                header('Location: ' .  site_url() . '/giftcard/?success&giftcard_id=' . $giftcard_id);
+                header('Location: ' .  site_url() . '/boncadeau/?success&giftcard_id=' . $giftcard_id);
             } else {
-                header('Location: ' .  site_url() . '/giftcard/?error=paymentnotexecuted1');
+                header('Location: ' .  site_url() . '/boncadeau/?error=paymentnotexecuted1');
             }
         } else {
-            header('Location: ' .  site_url() . '/giftcard/?error=paymentnotexecuted2');
+            header('Location: ' .  site_url() . '/boncadeau/?error=paymentnotexecuted2');
         }
     } else if (isset($_GET['error'])) {
 
         $giftcard->status = 'annulé';
         // change status to cancelled
         if (update_giftcard_status($giftcard)) {
-            header('Location: ' .  site_url() . '/giftcard/?error=paymentcancelled');
+            header('Location: ' .  site_url() . '/boncadeau/?error=paymentcancelled');
         } else {
-            header('Location: ' .  site_url() . '/giftcard/?error=statusnotupdated');
+            header('Location: ' .  site_url() . '/boncadeau/?error=statusnotupdated');
         };
     }
 } else {
-    header('Location: ' .  site_url() . '/giftcard/?error=nogiftcardid');
+    header('Location: ' .  site_url() . '/boncadeau/?error=nogiftcardid');
 }

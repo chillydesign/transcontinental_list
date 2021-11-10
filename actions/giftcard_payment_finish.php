@@ -51,9 +51,9 @@ if (isset($_GET['giftcard_id'])) {
         $giftcard->status = 'annulé';
         // change status to cancelled
         if (update_giftcard_status($giftcard)) {
-//            header('Location: ' .  site_url() . '/giftcard/?error=paymentcancelled'  );
+           header('Location: ' .  site_url() . '/giftcard/?error=paymentcancelled'  );
         } else {
-    //        header('Location: ' .  site_url() . '/giftcard/?error=statusnotupdated'  );
+           header('Location: ' .  site_url() . '/giftcard/?error=statusnotupdated'  );
         };
 
 
@@ -65,6 +65,3 @@ if (isset($_GET['giftcard_id'])) {
     header('Location: ' .  site_url() . '/giftcard/?error=nogiftcardid'  );
 
 }
-
-
- ?>
