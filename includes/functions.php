@@ -90,7 +90,7 @@ function generate_saferpay_payment_page($type, $amount, $description, $redirect_
 
         ),
         "Payer" => array(
-            "LanguageCode" => "en"
+            "LanguageCode" => "fr"
         ),
         "ReturnUrls" => array(
             "Success" => $redirect_base . "&success=true",
