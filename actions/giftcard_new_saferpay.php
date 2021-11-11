@@ -68,7 +68,7 @@ if (
                     // SAFERPAY
                     // SAFERPAY
                     $redirect_base = site_url() . '/actions/saferpay_giftcard_payment_finish.php?giftcard_id=' . $giftcard_id;
-                    $tid = generate_saferpay_payment_page('giftcard', $giftcard->amount, 'giftcard', $redirect_base, $giftcard_id);
+                    $tid = generate_saferpay_payment_page('giftcard', $giftcard->amount, 'Bon cadeau', $redirect_base, $giftcard_id);
                     if (isset($tid->RedirectUrl)) {
 
                         $giftcard->saferpay_token = $tid->Token;
