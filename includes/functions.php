@@ -42,9 +42,6 @@ function generate_saferpay_transaction_id($amount) {
         "ReturnUrls" => array(
             "Success" => site_url() . "/?payment_id=12345&successUrl",
             "Fail" => site_url() . "/?payment_id=12345&errorUrl"
-        ),
-        "Styling" => array(
-            "CssUrl" => "https://zenithvoyages.ch/wp-content/themes/transcontinental-2019/zenith.css"
         )
     );
     $curl = new Curl\Curl();
