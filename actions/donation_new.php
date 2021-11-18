@@ -17,6 +17,9 @@ if (
     $last_name = $_POST['last_name'];
     $phone = $_POST['phone'];
     $address = $_POST['address'];
+    $post_code = $_POST['post_code'];
+    $town = $_POST['town'];
+    $country = $_POST['country'];
     $message = $_POST['message'];
     $amount = floatval($_POST['amount']);
     $list_id = $_POST['list_id'];
@@ -34,6 +37,9 @@ if (
             $donation->first_name = $first_name;
             $donation->last_name = $last_name;
             $donation->address = $address;
+            $donation->post_code = $post_code;
+            $donation->town = $town;
+            $donation->country = $country;
             $donation->phone = $phone;
             $donation->message = $message;
             $donation->amount = convert_to_amount_in_cents($amount);

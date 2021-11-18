@@ -18,27 +18,40 @@
     </p>
     <p id="amount_container">
         <label for="amount">Montant *</label>
-        <input required step="0.01" min="0" max="10000" type="number" name="amount" id="amount" /><span style="margin-top: 13px;">CHF</span>
+        <input required step="0.01" min="0" max="10000" type="number" name="amount" id="amount" /><span
+            style="margin-top: 13px;">CHF</span>
     </p>
 
     <p>
         <label for="phone">Téléphone</label>
-        <input type="text" autocomplete="tel" name="phone" name="phone" placeholder="Téléphone" />
+        <input type="text" autocomplete="tel" id="phone" name="phone" placeholder="Téléphone" />
     </p>
     <p>
         <label for="address">Adresse</label>
-        <textarea autocomplete="address-level1" name="address" placeholder="Votre adresse "></textarea>
+        <input type="text" autocomplete="address-level1" id="address" name="address" placeholder="Votre adresse" />
+    </p>
+    <p>
+        <label for="post_code">Code postal</label>
+        <input type="text" autocomplete="postal-code" id="post_code" name="post_code" placeholder="Code postal" />
+    </p>
+    <p>
+        <label for="town">Ville</label>
+        <input type="text" autocomplete="address-level2" id="town" name="town" placeholder="Ville" />
+    </p>
+    <p>
+        <label for="country">Pays</label>
+        <input type="text" autocomplete="country" id="country" name="country" placeholder="Pays" />
     </p>
 
     <?php if (has_valid_admin_cookie()) : ?>
-        <p>
-            <label for="status">Statut </label>
-            <select id="status" name="status">
-                <option value="créé">créé</option>
-                <option value="payé">payé</option>
-                <option value="annulé">annulé</option>
-            </select>
-        </p>
+    <p>
+        <label for="status">Statut </label>
+        <select id="status" name="status">
+            <option value="créé">créé</option>
+            <option value="payé">payé</option>
+            <option value="annulé">annulé</option>
+        </select>
+    </p>
     <?php endif; ?>
 
     <p>

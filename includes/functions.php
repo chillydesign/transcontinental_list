@@ -1418,12 +1418,15 @@ function insert_new_donation($donation) {
 
         try {
             $query = "INSERT INTO tcg_donations
-            (first_name, last_name,  address, phone, email, message, amount, list_id, status) VALUES
-            (:first_name, :last_name, :address, :phone,  :email, :message,  :amount, :list_id, :status)";
+            (first_name, last_name,  address,  post_code, town, country, phone, email, message, amount, list_id, status) VALUES
+            (:first_name, :last_name, :address,  :post_code, :town, :country, :phone,  :email, :message,  :amount, :list_id, :status)";
             $donation_query = $conn->prepare($query);
             $donation_query->bindParam(':first_name', $donation->first_name);
             $donation_query->bindParam(':last_name', $donation->last_name);
             $donation_query->bindParam(':address', $donation->address);
+            $donation_query->bindParam(':post_code', $donation->post_code);
+            $donation_query->bindParam(':town', $donation->town);
+            $donation_query->bindParam(':country', $donation->country);
             $donation_query->bindParam(':phone', $donation->phone);
             $donation_query->bindParam(':email', $donation->email);
             $donation_query->bindParam(':message', $donation->message);
@@ -1480,7 +1483,7 @@ function insert_new_giftcard($giftcard) {
 
 
         try {
-            $query = "INSERT INTO tcg_giftcards ( sender_first_name, sender_last_name, sender_email,  sender_phone, sender_address,  receiver_first_name, receiver_last_name, receiver_email, message, picture, amount, status) VALUES (:sender_first_name, :sender_last_name, :sender_email, :sender_phone, :sender_address,  :receiver_first_name, :receiver_last_name, :receiver_email, :message, :picture, :amount, :status)";
+            $query = "INSERT INTO tcg_giftcards ( sender_first_name, sender_last_name, sender_email,  sender_phone, sender_address, sender_post_code,  sender_town, sender_country, receiver_first_name, receiver_last_name, receiver_email, message, picture, amount, status) VALUES (:sender_first_name, :sender_last_name, :sender_email, :sender_phone, :sender_address,  :sender_post_code,  :sender_town, :sender_country, :receiver_first_name, :receiver_last_name, :receiver_email, :message, :picture, :amount, :status)";
 
             $giftcard_query = $conn->prepare($query);
             $giftcard_query->bindParam(':sender_first_name', $giftcard->sender_first_name);
@@ -1488,6 +1491,9 @@ function insert_new_giftcard($giftcard) {
             $giftcard_query->bindParam(':sender_email', $giftcard->sender_email);
             $giftcard_query->bindParam(':sender_phone', $giftcard->sender_phone);
             $giftcard_query->bindParam(':sender_address', $giftcard->sender_address);
+            $giftcard_query->bindParam(':sender_post_code', $giftcard->sender_post_code);
+            $giftcard_query->bindParam(':sender_town', $giftcard->sender_town);
+            $giftcard_query->bindParam(':sender_country', $giftcard->sender_country);
             $giftcard_query->bindParam(':receiver_first_name', $giftcard->receiver_first_name);
             $giftcard_query->bindParam(':receiver_last_name', $giftcard->receiver_last_name);
             $giftcard_query->bindParam(':receiver_email', $giftcard->receiver_email);

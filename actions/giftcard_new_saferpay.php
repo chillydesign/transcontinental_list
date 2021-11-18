@@ -19,6 +19,9 @@ if (
     $sender_email = $_POST['sender_email'];
     $sender_phone = $_POST['sender_phone'];
     $sender_address = $_POST['sender_address'];
+    $sender_post_code = $_POST['sender_post_code'];
+    $sender_town = $_POST['sender_town'];
+    $sender_country = $_POST['sender_country'];
     $receiver_first_name = $_POST['receiver_first_name'];
     $receiver_last_name = $_POST['receiver_last_name'];
     $receiver_email = $_POST['receiver_email'];
@@ -39,6 +42,9 @@ if (
             $giftcard->sender_email = $sender_email;
             $giftcard->sender_phone = $sender_phone;
             $giftcard->sender_address = $sender_address;
+            $giftcard->sender_post_code = $sender_post_code;
+            $giftcard->sender_town = $sender_town;
+            $giftcard->sender_country = $sender_country;
             $giftcard->receiver_first_name = $receiver_first_name;
             $giftcard->receiver_last_name = $receiver_last_name;
             $giftcard->receiver_email = $receiver_email;

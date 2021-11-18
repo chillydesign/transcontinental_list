@@ -13,9 +13,20 @@
     <p>
         <input type="text" name="sender_phone" required placeholder="Votre téléphone">
     </p>
+
     <p>
-        <textarea name="sender_address" required placeholder="Votre adresse "></textarea>
+        <input type="text" autocomplete="address-level1" id="sender_address" name="sender_address" placeholder="Votre adresse" />
     </p>
+    <p>
+        <input type="text" autocomplete="postal-code" id="sender_post_code" name="sender_post_code" placeholder="Code postal" />
+    </p>
+    <p>
+        <input type="text" autocomplete="address-level2" id="sender_town" name="sender_town" placeholder="Ville" />
+    </p>
+    <p>
+        <input type="text" autocomplete="country" id="sender_country" name="sender_country" placeholder="Pays" />
+    </p>
+
 
 
     <p>Pour: </p>

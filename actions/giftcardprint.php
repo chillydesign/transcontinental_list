@@ -178,9 +178,9 @@ if (isset($_GET['id'])) :
             <p>
               <strong>De la part de :</strong><br>
               <?php echo $giftcard->sender_first_name; ?> <?php echo $giftcard->sender_last_name; ?> <br />
-              <?php echo $giftcard->receiver_email; ?><br>
-              <?php echo $giftcard->sender_address; ?> <br>
-              <?php echo $giftcard->sender_phone; ?><br />
+              <?php echo $giftcard->sender_email; ?><br>
+              <!-- <?php echo $giftcard->sender_address; ?> <br> -->
+              <!-- <?php echo $giftcard->sender_phone; ?><br /> -->
             </p>
             <p>
               <strong>Bon cadeau numéro <?php echo $giftcard->id; ?></strong><br>
