@@ -1,5 +1,9 @@
 <footer>
-  <p class="container">&copy; <?php echo date('Y'); ?> <?php echo SITE_NAME; ?> </p>
+  <p class="container">
+    &copy; <?php echo date('Y'); ?> <?php echo SITE_NAME; ?> |
+    <a href="https://transcontinental.ch/impressum">Impressum </a> |
+    <a href="https://transcontinental.ch/cgv">CGV </a>
+  </p>
 </footer>
 
 

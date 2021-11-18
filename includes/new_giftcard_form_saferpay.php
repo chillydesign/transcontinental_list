@@ -64,6 +64,13 @@
         <input required step="0.01" min="0" max="10000" type="number" name="amount" placeholder="" id="amount" /><span style="margin-top: 13px;">CHF</span>
     </p>
 
+
+    <p>
+        <label for="accept_terms">
+            <input required type="checkbox" name="accept_terms" id="accept_terms"> J'ai lu et accepté <a target="_blank" href="https://transcontinental.ch/cgv">les CGV</a> *
+        </label>
+    </p>
+
     <p>
         <input type="submit" id="submit_button" name="submit_new_giftcard" value="Offrir" />
     <div id="spinner"></div>

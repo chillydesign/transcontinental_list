@@ -18,8 +18,7 @@
     </p>
     <p id="amount_container">
         <label for="amount">Montant *</label>
-        <input required step="0.01" min="0" max="10000" type="number" name="amount" id="amount" /><span
-            style="margin-top: 13px;">CHF</span>
+        <input required step="0.01" min="0" max="10000" type="number" name="amount" id="amount" /><span style="margin-top: 13px;">CHF</span>
     </p>
 
     <p>
@@ -44,15 +43,21 @@
     </p>
 
     <?php if (has_valid_admin_cookie()) : ?>
-    <p>
-        <label for="status">Statut </label>
-        <select id="status" name="status">
-            <option value="créé">créé</option>
-            <option value="payé">payé</option>
-            <option value="annulé">annulé</option>
-        </select>
-    </p>
+        <p>
+            <label for="status">Statut </label>
+            <select id="status" name="status">
+                <option value="créé">créé</option>
+                <option value="payé">payé</option>
+                <option value="annulé">annulé</option>
+            </select>
+        </p>
     <?php endif; ?>
+
+    <p>
+        <label for="accept_terms">
+            <input required type="checkbox" name="accept_terms" id="accept_terms"> J'ai lu et accepté <a target="_blank" href="https://transcontinental.ch/cgv">les CGV</a> *
+        </label>
+    </p>
 
     <p>
         <input type="submit" id="submit_button" name="submit_new_donation" value="Envoyer" />
