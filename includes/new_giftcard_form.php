@@ -65,7 +65,6 @@
     <p>
         <input type="submit" id="submit_button" name="submit_new_giftcard" value="Offrir" />
     <div id="spinner"></div>
-    <!-- <div id="form_is_invalid">This form is invalid.</div> -->
     </p>
-
+    <p class="error_message" id="form_is_invalid">Veuillez remplir tous les champs obligatoires pour continuer.</p>
 </form>
