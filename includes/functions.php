@@ -215,7 +215,7 @@ function saferpay_capture_transaction($transaction_id) {
 
 
 function current_version() {
-    echo '0.1.7';
+    echo '0.1.8';
 }
 
 
