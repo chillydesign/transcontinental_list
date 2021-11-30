@@ -34,12 +34,12 @@
         <input required type="text" autocomplete="postal-code" id="post_code" name="post_code" placeholder="Code postal" />
     </p>
     <p>
-        <label for="town">Ville</label>
-        <input type="text" autocomplete="address-level2" id="town" name="town" placeholder="Ville" />
+        <label for="town">Ville *</label>
+        <input required type="text" autocomplete="address-level2" id="town" name="town" placeholder="Ville" />
     </p>
     <p>
-        <label for="country">Pays</label>
-        <input type="text" autocomplete="country" id="country" name="country" placeholder="Pays" />
+        <label for="country">Pays *</label>
+        <input required type="text" autocomplete="country" id="country" name="country" placeholder="Pays" />
     </p>
 
     <?php if (has_valid_admin_cookie()) : ?>
@@ -55,7 +55,7 @@
 
     <p>
         <label for="accept_terms">
-            <input required type="checkbox" name="accept_terms" id="accept_terms"> J'ai lu et accepté <a target="_blank" href="https://transcontinental.ch/cgv">les CGV</a> *
+            <input required type="checkbox" name="accept_terms" id="accept_terms"> J'ai lu et accepté <a target="_blank" href="https://transcontinental.ch/conditions-generales/">les CGV</a> *
         </label>
     </p>
 

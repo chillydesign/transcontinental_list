@@ -21,10 +21,10 @@
         <input required type="text" autocomplete="postal-code" id="sender_post_code" name="sender_post_code" placeholder="Code postal *" />
     </p>
     <p>
-        <input type="text" autocomplete="address-level2" id="sender_town" name="sender_town" placeholder="Ville" />
+        <input required type="text" autocomplete="address-level2" id="sender_town" name="sender_town" placeholder="Ville *" />
     </p>
     <p>
-        <input type="text" autocomplete="country" id="sender_country" name="sender_country" placeholder="Pays" />
+        <input required type="text" autocomplete="country" id="sender_country" name="sender_country" placeholder="Pays *" />
     </p>
 
 
@@ -67,7 +67,7 @@
 
     <p>
         <label for="accept_terms">
-            <input required type="checkbox" name="accept_terms" id="accept_terms"> J'ai lu et accepté <a target="_blank" href="https://transcontinental.ch/cgv">les CGV</a> *
+            <input required type="checkbox" name="accept_terms" id="accept_terms"> J'ai lu et accepté <a target="_blank" href="https://transcontinental.ch/conditions-generales/">les CGV</a> *
         </label>
     </p>
 
