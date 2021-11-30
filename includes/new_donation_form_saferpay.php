@@ -26,12 +26,12 @@
         <input type="text" autocomplete="tel" id="phone" name="phone" placeholder="Téléphone" />
     </p>
     <p>
-        <label for="address">Adresse</label>
-        <input type="text" autocomplete="address-level1" id="address" name="address" placeholder="Votre adresse" />
+        <label for="address">Adresse *</label>
+        <input required type="text" autocomplete="address-level1" id="address" name="address" placeholder="Votre adresse" />
     </p>
     <p>
-        <label for="post_code">Code postal</label>
-        <input type="text" autocomplete="postal-code" id="post_code" name="post_code" placeholder="Code postal" />
+        <label for="post_code">Code postal *</label>
+        <input required type="text" autocomplete="postal-code" id="post_code" name="post_code" placeholder="Code postal" />
     </p>
     <p>
         <label for="town">Ville</label>

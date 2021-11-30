@@ -1,24 +1,24 @@
 <form action="<?php get_site_url(); ?>/actions/giftcard_new_saferpay.php" method="post">
     <p>De la part de: </p>
     <p>
-        <input type="text" name="sender_first_name" placeholder="Votre prénom">
+        <input required type="text" name="sender_first_name" placeholder="Votre prénom *">
     </p>
     <p>
-        <input type="text" name="sender_last_name" placeholder="Votre nom">
+        <input required type="text" name="sender_last_name" placeholder="Votre nom *">
     </p>
     <p>
-        <input type="email" name="sender_email" required placeholder="Votre adresse email">
-    </p>
-
-    <p>
-        <input type="text" name="sender_phone" required placeholder="Votre téléphone">
+        <input required type="email" name="sender_email" placeholder="Votre adresse email *">
     </p>
 
     <p>
-        <input type="text" autocomplete="address-level1" id="sender_address" name="sender_address" placeholder="Votre adresse" />
+        <input required type="text" name="sender_phone" placeholder="Votre téléphone *">
+    </p>
+
+    <p>
+        <input required type="text" autocomplete="address-level1" id="sender_address" name="sender_address" placeholder="Votre adresse *" />
     </p>
     <p>
-        <input type="text" autocomplete="postal-code" id="sender_post_code" name="sender_post_code" placeholder="Code postal" />
+        <input required type="text" autocomplete="postal-code" id="sender_post_code" name="sender_post_code" placeholder="Code postal *" />
     </p>
     <p>
         <input type="text" autocomplete="address-level2" id="sender_town" name="sender_town" placeholder="Ville" />
@@ -31,13 +31,13 @@
 
     <p>Pour: </p>
     <p>
-        <input type="text" name="receiver_first_name" placeholder="Prénom">
+        <input required type="text" name="receiver_first_name" placeholder="Prénom *">
     </p>
     <p>
-        <input type="text" name="receiver_last_name" placeholder="Nom">
+        <input required type="text" name="receiver_last_name" placeholder="Nom *">
     </p>
     <p>
-        <input type="email" name="receiver_email" required placeholder="Adresse email">
+        <input required type="email" name="receiver_email" placeholder="Adresse email *">
     </p>
     <p>
         <textarea name="message" placeholder="Message"></textarea>
@@ -60,7 +60,7 @@
 
     <?php endif; ?>
     <p id="amount_container">
-        <label for="amount">Montant</label>
+        <label for="amount">Montant *</label>
         <input required step="0.01" min="0" max="10000" type="number" name="amount" placeholder="" id="amount" /><span style="margin-top: 13px;">CHF</span>
     </p>
 
