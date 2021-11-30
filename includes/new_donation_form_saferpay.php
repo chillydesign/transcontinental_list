@@ -1,4 +1,4 @@
-<form action="<?php get_site_url(); ?>/actions/donation_new_saferpay.php" method="post">
+<form id="saferpay_donation_form" action="<?php get_site_url(); ?>/actions/donation_new_saferpay.php" method="post">
 
     <p>
         <label for="email">Votre adresse email *</label>
@@ -17,8 +17,8 @@
         <textarea name="message" placeholder="Message"></textarea>
     </p>
     <p id="amount_container">
-        <label for="amount">Montant *</label>
-        <input required step="0.01" min="0" max="10000" type="number" name="amount" id="amount" /><span style="margin-top: 13px;">CHF</span>
+        <label for="amount">Montant (maximum 1000 CHF)*</label>
+        <input required step="0.01" min="0" max="1000" type="number" name="amount" id="amount" /><span style="margin-top: 13px;">CHF</span>
     </p>
 
     <p>
@@ -63,7 +63,7 @@
         <input type="submit" id="submit_button" name="submit_new_donation" value="Envoyer" />
         <input type="hidden" name="list_id" value="<?php echo $list->id; ?>" />
     <div id="spinner"></div>
-
+    <!-- <div id="form_is_invalid">This form is invalid.</div> -->
     </p>
 
 </form>

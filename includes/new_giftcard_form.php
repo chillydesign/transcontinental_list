@@ -58,13 +58,14 @@
 
     <?php endif; ?>
     <p id="amount_container">
-        <label for="amount">Montant</label>
-        <input required step="0.01" min="0" max="10000" type="number" name="amount" placeholder="" id="amount" /><span style="margin-top: 13px;">CHF</span>
+        <label for="amount">Montant (maximum 1000 CHF)*</label>
+        <input required step="0.01" min="0" max="1000" type="number" name="amount" placeholder="" id="amount" /><span style="margin-top: 13px;">CHF</span>
     </p>
 
     <p>
         <input type="submit" id="submit_button" name="submit_new_giftcard" value="Offrir" />
     <div id="spinner"></div>
+    <!-- <div id="form_is_invalid">This form is invalid.</div> -->
     </p>
 
 </form>
