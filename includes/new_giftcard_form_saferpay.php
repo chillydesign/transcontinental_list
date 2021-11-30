@@ -73,7 +73,8 @@
 
     <p>
         <input type="submit" id="submit_button" name="submit_new_giftcard" value="Offrir" />
-    <div id="spinner"></div>
     </p>
+    <div id="spinner"></div>
 
+    <p class="error_message" id="form_is_invalid">Veuillez remplir tous les champs obligatoires pour continuer.</p>
 </form>
