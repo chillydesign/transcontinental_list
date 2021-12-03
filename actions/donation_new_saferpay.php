@@ -92,15 +92,13 @@ if (
 
 
 
-
-
                 } // end if submitted by normal user
 
 
             } else { // if for some reason the donation doesnt save
 
 
-                //    header('Location: ' .  site_url() . '/mariage/' . $list_id  . '?error=donationnotsave');
+                header('Location: ' .  site_url() . '/mariage/' . $list_id  . '?error=donationnotsave');
             };
         } else {
             header('Location: ' .  site_url() . '/mariage/' . $list_id  . '?error=emailnotvalid');

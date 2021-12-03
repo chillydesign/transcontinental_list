@@ -1,7 +1,7 @@
 <?php
 
 function saferpay_api_url() {
-    return 'https://test.saferpay.com/api';
+    return SAFERPAY_API_URL;
 }
 
 function saferpay_auth_token() {
@@ -99,6 +99,7 @@ function generate_saferpay_payment_page($type, $amount, $description, $redirect_
     $curl->setHeader('Content-Type', 'application/json');
     $curl->post($url, json_encode($data));
     if ($curl->error) {
+        var_dump($curl->response);
         return array("error" => $curl->response);
     } else {
         $response = json_decode($curl->response);
@@ -1418,8 +1419,8 @@ function insert_new_donation($donation) {
 
         try {
             $query = "INSERT INTO tcg_donations
-            (first_name, last_name,  address,  post_code, town, country, phone, email, message, amount, list_id, status) VALUES
-            (:first_name, :last_name, :address,  :post_code, :town, :country, :phone,  :email, :message,  :amount, :list_id, :status)";
+            (first_name, last_name, address, post_code, town, country, phone, email, message, amount, list_id, status) VALUES
+            (:first_name, :last_name, :address, :post_code, :town, :country, :phone,  :email, :message,  :amount, :list_id, :status)";
             $donation_query = $conn->prepare($query);
             $donation_query->bindParam(':first_name', $donation->first_name);
             $donation_query->bindParam(':last_name', $donation->last_name);
@@ -1438,7 +1439,7 @@ function insert_new_donation($donation) {
             unset($conn);
             return ($donation_id);
         } catch (PDOException $err) {
-            var_dump($err);
+
             return false;
         };
     } else { // donation name was blank
