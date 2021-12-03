@@ -4,7 +4,7 @@ include('../includes/connect.php');
 include('../includes/functions.php');
 
 
-$redirect = (has_valid_admin_cookie()) ? '/adminarea/newgiftcard' : '/giftcard';
+$redirect = (has_valid_admin_cookie()) ? '/adminarea/newgiftcard' : '/boncadeau';
 
 
 if (

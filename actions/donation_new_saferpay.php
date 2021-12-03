@@ -81,10 +81,10 @@ if (
                             header("HTTP/1.1 402 Payment Required");
                             header('Location: ' . ($tid->RedirectUrl));
                         } else {
-                            header('Location: ' .  site_url() . '/list/' . $list_id  . '?error=saferpaynotwork1');
+                            header('Location: ' .  site_url() . '/mariage/' . $list_id  . '?error=saferpaynotwork1');
                         }
                     } else {
-                        header('Location: ' .  site_url() . '/list/' . $list_id  . '?error=saferpaynotwork2');
+                        header('Location: ' .  site_url() . '/mariage/' . $list_id  . '?error=saferpaynotwork2');
                     }
                     // SAFERPAY
                     // SAFERPAY
@@ -98,13 +98,13 @@ if (
 
 
             } else { // if for some reason the donation doesnt save
-                header('Location: ' .  site_url() . '/list/' . $list_id  . '?error=donationnotsave');
+                header('Location: ' .  site_url() . '/mariage/' . $list_id  . '?error=donationnotsave');
             };
         } else {
-            header('Location: ' .  site_url() . '/list/' . $list_id  . '?error=emailnotvalid');
+            header('Location: ' .  site_url() . '/mariage/' . $list_id  . '?error=emailnotvalid');
         }
     } else { // if list is not valid, or amount is not big enough or first name blank
-        header('Location: ' .  site_url() . '/list/' . $list_id  . '?error=donationnamountblank');
+        header('Location: ' .  site_url() . '/mariage/' . $list_id  . '?error=donationnamountblank');
     }
 } else { // if not all post variables have been sent
     header('Location: ' .  site_url() . '?error=unspecified');
