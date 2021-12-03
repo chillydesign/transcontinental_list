@@ -1976,7 +1976,7 @@ function send_list_created_email($list, $user) {
 
 
         $receiver = $user->email;
-        $link = WEBSITE_URL  . "/list/" . $list->id;
+        $link = WEBSITE_URL  . "/mariage/" . $list->id;
         $admin_link = WEBSITE_URL  . "/adminarea/list?id=" . $list->id;
         $receiver_subject = 'Votre liste  ' . SITE_NAME . '.';
         $receiver_content = generate_email_title($receiver_subject);

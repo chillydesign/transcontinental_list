@@ -74,7 +74,7 @@
 
             <h1>Liste inactive</h1>
             <p>Cette liste n'est pas active à l'heure actuelle ou a expiré. Il n'est plus possible d'y contribuer, mais vous pouvez si vous le souhaitez envoyer un bon cadeau.</p>
-            <p style="padding-bottom: 400px"><a href="<?php echo site_url(); ?>/giftcard" class="button button_inline">Envoyer un bon cadeau</a></p>
+            <p style="padding-bottom: 400px"><a href="<?php echo site_url(); ?>/boncadeau" class="button button_inline">Envoyer un bon cadeau</a></p>
 
         <?php endif; ?>
 

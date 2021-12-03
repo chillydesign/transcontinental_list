@@ -44,7 +44,7 @@
           <nav id="nav" class="nav" role="navigation">
             <ul>
               <?php if (current_user()) : ?>
-                <li><a href="<?php get_site_url(); ?>/giftcard">Bons cadeaux</a></li>
+                <li><a href="<?php get_site_url(); ?>/boncadeau">Bons cadeaux</a></li>
                 <li><a href="<?php get_site_url(); ?>/userarea">Mes listes</a></li>
                 <li><a href="<?php get_site_url(); ?>">Contribuer à une liste</a></li>
                 <li> <a href="<?php get_site_url(); ?>/userarea/account">Compte</a></li>
@@ -55,7 +55,7 @@
                 <li><a href="<?php get_site_url(); ?>/adminarea/giftcards?p=1">Bons cadeaux</a></li>
                 <li> <a href="<?php get_site_url(); ?>/actions/user_logout.php">Déconnexion</a></li>
               <?php else : ?>
-                <li><a href="<?php get_site_url(); ?>/giftcard">Bons cadeaux</a></li>
+                <li><a href="<?php get_site_url(); ?>/boncadeau">Bons cadeaux</a></li>
                 <li><a href="<?php get_site_url(); ?>">Listes de mariage et d'anniversaire</a></li>
                 <li><a href="<?php get_site_url(); ?>/login">Connexion</a></li>
               <?php endif; ?>
