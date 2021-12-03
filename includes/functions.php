@@ -1438,7 +1438,7 @@ function insert_new_donation($donation) {
             unset($conn);
             return ($donation_id);
         } catch (PDOException $err) {
-
+            var_dump($err);
             return false;
         };
     } else { // donation name was blank
