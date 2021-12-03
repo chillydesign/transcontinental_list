@@ -469,6 +469,7 @@ function giftcardArchiveSelected($type) {
 function get_giftcards($archive = "actif") {
     global $conn;
 
+    if ($archive == 'paye') $archive = 'payé';
     if ($archive == 'nonpaye') $archive = 'non payé';
     if ($archive == 'annule') $archive = 'annulé';
     if ($archive == 'actif') $archive = 'actif';

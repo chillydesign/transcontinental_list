@@ -12,28 +12,30 @@
     <?php if (has_error()) : ?>
         <?php show_error_message(); ?>
     <?php endif; ?>
-    <?php $archive = ( get_var('archive') )  ? $_GET['archive']  :  'actif'; ?>
-    <?php $giftcards =  get_giftcards( $archive); ?>
+    <?php $archive = (get_var('archive'))  ? $_GET['archive']  :  'paye'; ?>
+    <?php $giftcards =  get_giftcards($archive); ?>
     <div class="row">
         <div class="col-sm-6">
             <div class="half_block">
                 <h2>Liste des bons cadeaux</h2>
                 <?php include('includes/search_giftcard_form.php'); ?>
                 <ul>
-                    <?php foreach (  $giftcards as $giftcard) : ?>
-                        <?php $status = ( $giftcard->status == 'utilisé' ? 'giftcard_used' : '' ); ?>
-                            <li  class="<?php echo $status ?>">
+                    <?php foreach ($giftcards as $giftcard) : ?>
+                        <?php $status = ($giftcard->status == 'utilisé' ? 'giftcard_used' : ''); ?>
+                        <li class="<?php echo $status ?>">
                             <a href="<?php get_site_url(); ?>/adminarea/giftcard?id=<?php echo ($giftcard->id); ?>">
-                                <strong> Bon #<?php echo  ($giftcard->id) ; ?> de <?php echo convert_cents_to_currency($giftcard->amount); ?>  pour: <?php echo $giftcard->receiver_first_name; ?> <?php echo $giftcard->receiver_last_name; ?></strong><br>
+                                <strong> Bon #<?php echo ($giftcard->id); ?> de <?php echo convert_cents_to_currency($giftcard->amount); ?> pour: <?php echo $giftcard->receiver_first_name; ?> <?php echo $giftcard->receiver_last_name; ?></strong><br>
                                 De la part de: <?php echo $giftcard->sender_first_name; ?> <?php echo $giftcard->sender_last_name; ?>
                             </a>
-                            <br> <em>Créé le <?php  echo nice_date($giftcard->created_at); ?></em>
+                            <br> <em>Créé le <?php echo nice_date($giftcard->created_at); ?></em>
 
                         </li>
                     <?php endforeach; ?>
                 </ul>
                 <?php
+
                 use JasonGrimes\Paginator;
+
                 $totalItems =  count_giftcards($archive);
                 $itemsPerPage = posts_per_page();
                 $currentPage = get_var('p');
@@ -47,10 +49,11 @@
                 ?>
                 <hr>
                 <p>
-                <a <?php giftcardArchiveSelected('actif'); ?> href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=actif">actif</a> |
-                <a <?php giftcardArchiveSelected('nonpaye'); ?> href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=nonpaye">non payé</a> |
-                <a <?php giftcardArchiveSelected('annule'); ?> href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=annule">annulé</a> |
-                <a <?php giftcardArchiveSelected('utilise'); ?> href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=utilise">utilisé</a>
+                    <a <?php giftcardArchiveSelected('paye'); ?> href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=paye">payé</a> |
+                    <a <?php giftcardArchiveSelected('actif'); ?> href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=actif">actif</a> |
+                    <a <?php giftcardArchiveSelected('nonpaye'); ?> href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=nonpaye">non payé</a> |
+                    <a <?php giftcardArchiveSelected('annule'); ?> href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=annule">annulé</a> |
+                    <a <?php giftcardArchiveSelected('utilise'); ?> href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=utilise">utilisé</a>
                 </p>
 
 
@@ -58,10 +61,10 @@
 
         </div>
         <div class="col-sm-6">
-          <div class="half_block">
-            <h2>Ajouter une bons cadeaux</h2>
-            <?php include('includes/new_giftcard_form.php'); ?>
-          </div>
+            <div class="half_block">
+                <h2>Ajouter une bons cadeaux</h2>
+                <?php include('includes/new_giftcard_form.php'); ?>
+            </div>
         </div>
     </div>
 
