@@ -72,7 +72,10 @@
                                         <td><?php echo nice_datetime($withdrawal->created_at); ?></td>
                                     </tr>
                                 <?php endforeach; ?>
-                                <?php if ($giftcard->status == 'actif'  &&  $money_left > 0) : ?>
+                                <?php if (
+                                    ($giftcard->status == 'actif'  || $giftcard->status == 'payé')
+                                    && $money_left > 0
+                                ) : ?>
                                     <tr>
                                         <td><input max="<?php echo (($money_left) / 100); ?>" step="0.01" type="number" required name="amount" id="amount" placeholder="montant" /></td>
                                         <td><input type="text" name="message" id="message" placeholder="notes" /></td>
