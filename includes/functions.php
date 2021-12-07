@@ -271,7 +271,16 @@ function chilly_list_site_logo() {
 
 function current_page() {
     if (isset($_GET['page'])) {
-        $page = '/pages/' . $_GET['page'] . '.php';
+
+        $p = $_GET['page'];
+
+        if ($p == 'giftcard') {
+            $p = 'boncadeau';
+        } else if ($p == 'list') {
+            $p = 'mariage';
+        }
+
+        $page = '/pages/' . $p . '.php';
     } else {
         $page = '/pages/home.php';
     }
