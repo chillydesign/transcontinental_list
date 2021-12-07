@@ -12,7 +12,7 @@
     <?php if (has_error()) : ?>
         <?php show_error_message(); ?>
     <?php endif; ?>
-    <?php $archive = (get_var('archive'))  ? $_GET['archive']  :  'paye'; ?>
+    <?php $archive = (get_var('archive'))  ? $_GET['archive']  :  'actif'; ?>
     <?php $giftcards =  get_giftcards($archive); ?>
     <div class="row">
         <div class="col-sm-6">
