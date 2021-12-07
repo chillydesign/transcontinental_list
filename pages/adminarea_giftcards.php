@@ -62,7 +62,7 @@
         <div class="col-sm-6">
             <div class="half_block">
                 <h2>Ajouter une bons cadeaux</h2>
-                <?php include('includes/new_giftcard_form.php'); ?>
+                <?php include('includes/new_giftcard_form_saferpay.php'); ?>
             </div>
         </div>
     </div>
