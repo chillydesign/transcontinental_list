@@ -380,7 +380,7 @@ function get_var($str) {
 
 function valid_giftcard_statuses() {
     // return array('créé', 'annulé', 'payé', 'utilisé');
-    return array('actif', 'non payé', 'annulé', 'utilisé');
+    return array('payé', 'actif', 'non payé', 'annulé', 'utilisé');
 }
 
 
