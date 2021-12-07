@@ -49,7 +49,6 @@
                 ?>
                 <hr>
                 <p>
-                    <a <?php giftcardArchiveSelected('paye'); ?> href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=paye">payé</a> |
                     <a <?php giftcardArchiveSelected('actif'); ?> href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=actif">actif</a> |
                     <a <?php giftcardArchiveSelected('nonpaye'); ?> href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=nonpaye">non payé</a> |
                     <a <?php giftcardArchiveSelected('annule'); ?> href="<?php echo site_url(); ?>/adminarea/giftcards?p=1&archive=annule">annulé</a> |

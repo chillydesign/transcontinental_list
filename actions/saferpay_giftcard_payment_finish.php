@@ -20,7 +20,7 @@ if (isset($_GET['giftcard_id'])) {
 
             if ($cap) {
                 // send email to recipient and sender;
-                $giftcard->status = 'payé';
+                $giftcard->status = 'actif';
                 $giftcard->payment_id = $tid->Transaction->Id;
                 $giftcard->payer_id = '-';
                 update_giftcard_status($giftcard);
