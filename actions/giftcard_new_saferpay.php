@@ -61,7 +61,7 @@ if (
 
                 $giftcard->id = $giftcard_id;
 
-                // if an admin making it, dont do paypal stuff
+                // if an admin making it, dont do SAFERPAY stuff
                 if (has_valid_admin_cookie()) {
                     // send emails now if an admin is cretaing it
                     $giftcard = get_giftcard($giftcard_id);

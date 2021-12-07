@@ -62,7 +62,7 @@ if (
 
 
                 // if form being submitted by admin
-                // dont need to redirec thtem to PAYPAL
+                // dont need to redirec thtem to SAFERPAY
                 if (has_valid_admin_cookie()) {
                     header('Location: ' .  site_url() . '/adminarea/list?id=' . $list_id  . '?success=' . $donation_id);
                 } else { // if submitted by normal user
