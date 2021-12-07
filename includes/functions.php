@@ -269,17 +269,20 @@ function chilly_list_site_logo() {
 }
 
 
+function redirect_old_pages($p) {
+    if ($p == 'giftcard') {
+        return 'boncadeau';
+    } else if ($p == 'list') {
+        return 'mariage';
+    } else {
+        return $p;
+    }
+}
+
 function current_page() {
     if (isset($_GET['page'])) {
 
-        $p = $_GET['page'];
-
-        if ($p == 'giftcard') {
-            $p = 'boncadeau';
-        } else if ($p == 'list') {
-            $p = 'mariage';
-        }
-
+        $p = redirect_old_pages($_GET['page']);
         $page = '/pages/' . $p . '.php';
     } else {
         $page = '/pages/home.php';
@@ -289,7 +292,7 @@ function current_page() {
 
 function current_page_exists() {
     if (isset($_GET['page'])) {
-        $page = $_GET['page'];
+        $page =   redirect_old_pages($_GET['page']);
         if (strpos(WEBSITE_URL, 'locasdflhost') > -1) {
             $file = '/Applications/MAMP/htdocs/transcontinental_list/pages/' . $page . '.php';
         } else {
