@@ -40,7 +40,7 @@
         <input required type="email" name="receiver_email" placeholder="Adresse email *">
     </p>
     <p>
-        <textarea name="message" placeholder="Message"></textarea>
+        <textarea name="message" placeholder="Message qui figurera sur votre bon cadeau"></textarea>
     </p>
     <?php $pictures = find_pictures('giftcards'); ?>
     <?php if (sizeof($pictures) > 0) : ?>
