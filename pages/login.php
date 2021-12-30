@@ -29,7 +29,7 @@
     <div class="col-sm-6">
       <div class="half_block">
         <h2><?php t('saisir_le_numero_de_la_liste'); ?></h2>
-        <p>Si un de vos proches vous a communiqué le numéro de leur liste de mariage, d'anniversaire ou pour une autre occasion saisissez le ici pour faire une contribution.</p>
+        <p><?php t('si_un_de_vos_proches'); ?></p>
         <?php include('includes/list_search.php'); ?>
       </div>
     </div>

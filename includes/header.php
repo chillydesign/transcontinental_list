@@ -59,6 +59,12 @@
                 <li><a href="<?php get_site_url(); ?>"><?php t('listes_de_mariage_et_d_anniversaire'); ?></a></li>
                 <li><a href="<?php get_site_url(); ?>/login"><?php t('connexion'); ?></a></li>
               <?php endif; ?>
+
+              <?php foreach (other_languages() as $lang) : ?>
+                <li>
+                  <a href="?lang=<?php echo $lang; ?>"> <?php echo $lang; ?></a>
+                </li>
+              <?php endforeach;    ?>
             </ul>
           </nav>
         </div>

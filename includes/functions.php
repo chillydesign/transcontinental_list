@@ -16,7 +16,7 @@ function set_current_language() {
         $current_language = $_COOKIE['lang'];
     } else {
         $browser_lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-        $acceptLang = ['fr', 'it', 'en'];
+        $acceptLang = allowed_languages();
         if (in_array($browser_lang, $acceptLang)) {
             $current_language = $browser_lang;
         }
@@ -26,6 +26,19 @@ function set_current_language() {
 
     return $current_language;
 }
+
+function allowed_languages() {
+    return  ['fr', 'it', 'en'];
+}
+
+function other_languages() {
+    $langs = allowed_languages();
+    return array_filter($langs,   function ($k) {
+        global $current_language;
+        return $k !=  $current_language;
+    });
+}
+
 
 
 function setLanguageCookie($lang) {
@@ -244,18 +257,27 @@ function return_t($word) {
             'fr' => 'Image',
             'en' => 'Image ',
         ],
-
-
+        'si_un_de_vos_proches' => [
+            'fr' => "Si un de vos proches vous a communiqué le numéro de leur liste de mariage, d'anniversaire ou pour une autre occasion saisissez le ici pour faire une contribution.",
+            'en' => "Si un de vos proches vous a communiqué le numéro de leur liste de mariage, d'anniversaire ou pour une autre occasion saisissez le ici pour faire une contribution.",
+        ],
+        'aimeriez_vous_que_vos_proches' => [
+            'fr' => "Aimeriez-vous que vos proches vous offrent un voyage pour votre mariage, votre anniversaire ou une autre occasion? Inscrivez-vous sur " .  SITE_NAME . ", créez une ou plusieurs listes, et partagez-les avec vos proches, puis profitez de vos vacances de rêve!",
+            'en' => "Aimeriez-vous que vos proches vous offrent un voyage pour votre mariage, votre anniversaire ou une autre occasion? Inscrivez-vous sur " .  SITE_NAME . ", créez une ou plusieurs listes, et partagez-les avec vos proches, puis profitez de vos vacances de rêve!",
+        ]
     ];
 
-    if (isset($words[$word])) {
-        if (isset($words[$word][$current_language])) {
-            return $words[$word][$current_language];
-        }
-        return $words[$word][0];
-    } else {
-        return '<span class="untranslated">' . $word . '</span>';
+    $noword = '<span class="untranslated">' . $word . '</span>';
+    if (!isset($words[$word])) {
+        return $noword;
     }
+    if (sizeof($words[$word]) == 0) {
+        return $noword;
+    }
+    if (!isset($words[$word][$current_language])) {
+        return  $words[$word]['fr'];
+    }
+    return $words[$word][$current_language];
 }
 
 function t($word) {
