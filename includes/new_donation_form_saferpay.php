@@ -1,45 +1,45 @@
 <form id="saferpay_donation_form" action="<?php get_site_url(); ?>/actions/donation_new_saferpay.php" method="post">
 
     <p>
-        <label for="email">Votre adresse email *</label>
-        <input type="email" required name="email" autocomplete='email' placeholder="Email" />
+        <label for="email"><?php t('votre_adresse_email'); ?> *</label>
+        <input type="email" required name="email" autocomplete='email' placeholder="<?php t('adresse_email'); ?> *">
     </p>
     <p>
-        <label for="first_name">Votre prénom *</label>
-        <input type="text" required name="first_name" autocomplete='given-name' placeholder="Prénom" />
+        <label for="first_name"><?php t('votre_prenom'); ?> *</label>
+        <input type="text" required name="first_name" autocomplete='given-name' placeholder="<?php t('prenom'); ?> *">
     </p>
     <p>
-        <label for="last_name">Votre nom *</label>
-        <input type="text" required name="last_name" autocomplete='family-name' placeholder="Nom" />
+        <label for="last_name"><?php t('votre_nom'); ?> *</label>
+        <input type="text" required name="last_name" autocomplete='family-name' placeholder="<?php t('nom'); ?> *">
     </p>
     <p>
-        <label for="message">Message (optionnel)</label>
-        <textarea name="message" placeholder="Message"></textarea>
+        <label for="message"><?php t('message'); ?> (<?php t('optionnel'); ?>)</label>
+        <textarea name="message" placeholder="<?php t('message'); ?>"></textarea>
     </p>
     <p id="amount_container">
-        <label for="amount">Montant (maximum 1000 CHF)*</label>
+        <label for="amount"><?php t('montant'); ?> (maximum 1000 CHF)*</label>
         <input required step="0.01" min="0" max="1000" type="number" name="amount" id="amount" /><span style="margin-top: 13px;">CHF</span>
     </p>
 
     <p>
-        <label for="phone">Téléphone</label>
-        <input type="text" autocomplete="tel" id="phone" name="phone" placeholder="Téléphone" />
+        <label for="phone"><?php t('telephone'); ?></label>
+        <input type="text" autocomplete="tel" id="phone" name="phone" placeholder="<?php t('telephone'); ?>" />
     </p>
     <p>
-        <label for="address">Adresse *</label>
-        <input required type="text" autocomplete="address-level1" id="address" name="address" placeholder="Votre adresse" />
+        <label for="address"><?php t('votre_adresse'); ?> *</label>
+        <input required type="text" autocomplete="address-level1" id="address" name="address" placeholder="<?php t('votre_adresse'); ?>" />
     </p>
     <p>
-        <label for="post_code">Code postal *</label>
-        <input required type="text" autocomplete="postal-code" id="post_code" name="post_code" placeholder="Code postal" />
+        <label for="post_code"><?php t('code_postal'); ?> *</label>
+        <input required type="text" autocomplete="postal-code" id="post_code" name="post_code" placeholder="<?php t('code_postal'); ?>" />
     </p>
     <p>
-        <label for="town">Ville *</label>
-        <input required type="text" autocomplete="address-level2" id="town" name="town" placeholder="Ville" />
+        <label for="town"><?php t('ville'); ?> *</label>
+        <input required type="text" autocomplete="address-level2" id="town" name="town" placeholder="<?php t('ville'); ?>" />
     </p>
     <p>
-        <label for="country">Pays *</label>
-        <input required type="text" autocomplete="country" id="country" name="country" placeholder="Pays" />
+        <label for="country"><?php t('pays'); ?> *</label>
+        <input required type="text" autocomplete="country" id="country" name="country" placeholder="<?php t('pays'); ?>" />
     </p>
 
     <?php if (has_valid_admin_cookie()) : ?>
@@ -55,12 +55,12 @@
 
     <p>
         <label for="accept_terms">
-            <input required type="checkbox" name="accept_terms" id="accept_terms"> J'ai lu et accepté <a target="_blank" href="https://transcontinental.ch/conditions-generales/">les CGV</a> *
+            <input required type="checkbox" name="accept_terms" id="accept_terms"> <?php t('j_ai_lu_et_accepte'); ?> <a target="_blank" href="https://transcontinental.ch/conditions-generales/"><?php t('les_cgv'); ?></a> *
         </label>
     </p>
 
     <p>
-        <input type="submit" id="submit_button" name="submit_new_donation" value="Envoyer" />
+        <input type="submit" id="submit_button" name="submit_new_donation" value="<?php t('envoyer'); ?>" />
         <input type="hidden" name="list_id" value="<?php echo $list->id; ?>" />
     </p>
     <div id="spinner"></div>

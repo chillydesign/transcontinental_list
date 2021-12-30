@@ -14,7 +14,7 @@
         <?php if ($list->status == 'active') : ?>
             <?php $donations = get_donations($list->id, 'payé'); ?>
             <h1><?php echo $list->name; ?></h1>
-            <p class="infos_supp">Liste #<?php echo $list->id; ?> par <?php echo $list->users_name; ?></p>
+            <p class="infos_supp"><?php t('liste'); ?> #<?php echo $list->id; ?> <?php t('par'); ?> <?php echo $list->users_name; ?></p>
 
             <?php if (has_error()) : ?>
                 <?php show_error_message(); ?>
@@ -46,7 +46,7 @@
                         <p><?php echo $list->description; ?></p>
                     <?php endif; ?>
                     <div class="half_block">
-                        <h2>Contribuer</h2>
+                        <h2><?php t('contribuer'); ?></h2>
 
 
                         <?php if (false) : ?>

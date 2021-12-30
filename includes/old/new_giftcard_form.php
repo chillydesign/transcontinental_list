@@ -1,20 +1,20 @@
 <form action="<?php get_site_url(); ?>/actions/giftcard_new.php" method="post">
     <p>De la part de: </p>
     <p>
-        <input type="text" name="sender_first_name" placeholder="Votre prénom">
+        <input type="text" name="sender_first_name" placeholder="<?php t('votre_prenom'); ?>">
     </p>
     <p>
-        <input type="text" name="sender_last_name" placeholder="Votre nom">
+        <input type="text" name="sender_last_name" placeholder="<?php t('votre_nom'); ?> ">
     </p>
     <p>
-        <input type="email" name="sender_email" required placeholder="Votre adresse email">
+        <input type="email" name="sender_email" required placeholder="<?php t('votre_adresse_email'); ?> *">
     </p>
 
     <p>
-        <input type="text" name="sender_phone" required placeholder="Votre téléphone">
+        <input type="text" name="sender_phone" requiredplaceholder="<?php t('votre_telephone'); ?> *">
     </p>
     <p>
-        <input type="text" autocomplete="address-level1" id="sender_address" name="sender_address" placeholder="Votre adresse" />
+        <input type="text" autocomplete="address-level1" id="sender_address" name="sender_address" placeholder="<?php t('votre_adresse'); ?> *">
     </p>
     <p>
         <input type="text" autocomplete="postal-code" id="sender_post_code" name="sender_post_code" placeholder="Code postal" />
@@ -29,10 +29,10 @@
 
     <p>Pour: </p>
     <p>
-        <input type="text" name="receiver_first_name" placeholder="Prénom">
+        <input type="text" name="receiver_first_name" placeholder="<?php t('prenom'); ?> *">>
     </p>
     <p>
-        <input type="text" name="receiver_last_name" placeholder="Nom">
+        <input type="text" name="receiver_last_name" placeholder="<?php t('nom'); ?> *">>
     </p>
     <p>
         <input type="email" name="receiver_email" required placeholder="Adresse email">

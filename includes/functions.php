@@ -1,5 +1,269 @@
 <?php
 
+
+$current_language =  set_current_language();
+function set_current_language() {
+
+    $current_language = 'fr';
+    if (isset($_GET['lang'])) {
+        if ($_GET['lang'] == 'en') {
+            $current_language = 'en';
+        } else if ($_GET['lang'] == 'it') {
+            $current_language = 'it';
+        }
+        setLanguageCookie($current_language);
+    } elseif (isset($_COOKIE['lang'])) {
+        $current_language = $_COOKIE['lang'];
+    } else {
+        $browser_lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+        $acceptLang = ['fr', 'it', 'en'];
+        if (in_array($browser_lang, $acceptLang)) {
+            $current_language = $browser_lang;
+        }
+        setLanguageCookie($current_language);
+    }
+
+
+    return $current_language;
+}
+
+
+function setLanguageCookie($lang) {
+    setcookie('lang', $lang, time() + 36000000, '/');
+}
+
+
+
+function return_t($word) {
+
+
+    global $current_language;
+
+    $words = [
+        'bons_cadeaux' => [
+            'fr' => "Bons cadeaux",
+            'en' => "Gift cards",
+        ],
+        'chercher' => [
+            'fr' => "Chercher",
+            'en' => "Search",
+        ],
+        'creer_un_compte' => [
+            'fr' => "Créer un compte",
+            'en' => "Create an account",
+        ],
+        'reinitialiser_votre_mot_de_passe' => [
+            'fr' => "Réinitialiser votre mot de passe",
+            'en' => "Reset your password",
+        ],
+        'nouveau_mot_de_passe' => [
+            'fr' => "Nouveau mot de passe",
+            'en' => "New password",
+        ],
+        'mot_de_passe_oublie' => [
+            'fr' => "Mot de passe oublié ?",
+            'en' => "Forgot password?",
+        ],
+        'mot_de_passe' => [
+            'fr' => "Mot de passe",
+            'en' => "Password",
+        ],
+        'envoyer' => [
+            'fr' => "Envoyer",
+            'en' => "Submit",
+        ],
+        'contribuer' => [
+            'fr' => "Contribuer",
+            'en' => "From",
+        ],
+        'optionnel' => [
+            'fr' => "optionnel",
+            'en' => "optional",
+        ],
+        'message' => [
+            'fr' => "Message",
+            'en' => "Message",
+        ],
+        'reinitialiser' => [
+            'fr' => "Réinitialiser",
+            'en' => "Reset",
+        ],
+        'confirmez_le_mot_de_passe' => [
+            'fr' => "Confirmez le mot de passe",
+            'en' => "Confirm password",
+        ],
+        'pas_encore_de_compte' => [
+            'fr' => "Pas encore de compte ?",
+            'en' => "No account?",
+        ],
+        'crez_le_ici' => [
+            'fr' => "Créez-le ici",
+            'en' => "Create one here",
+        ],
+        'message_bon_cadeau' => [
+            'fr' => "Message qui figurera sur votre bon cadeau",
+            'en' => "Message that will appear on your gift certificate",
+        ],
+        'vous_avez_deja_un_compte' => [
+            'fr' => "Vous avez déjà un compte ?",
+            'en' => "Already have an account?",
+        ],
+        'connectez_vous_ici' => [
+            'fr' => "Connectez-vous ici",
+            'en' => "Sign in here",
+        ],
+        'listes_de_mariage_et_d_anniversaire' => [
+            'fr' => "Listes de mariage et d'anniversaire",
+            'en' => "Listes de mariage et d'anniversaire",
+        ],
+        'saisir_le_numero_de_la_liste' => [
+            'fr' => "Saisir le numéro de la liste",
+            'en' => "Enter the number for a list",
+        ],
+        'numero_de_la_liste' => [
+            'fr' => "numéro de la liste",
+            'en' => "number of the list",
+        ],
+        'connexion' => [
+            'fr' => "Connexion",
+            'en' => "Sign in",
+        ],
+        'deconnexion' => [
+            'fr' => "Déconnexion",
+            'en' => "Sign out",
+        ],
+        'mes_listes'  => [
+            'fr' => "Mes listes",
+            'en' => "My lists",
+        ],
+        'contribuer_a_une_liste'  => [
+            'fr' => "Contribuer à une liste",
+            'en' => "Contribute to a list",
+        ],
+        'compte'  => [
+            'fr' => "Compte",
+            'en' => "Account",
+        ],
+        'clients'  => [
+            'fr' => "Clients",
+            'en' => "Clients",
+        ],
+        'listes'  => [
+            'fr' => "Listes",
+            'en' => "Lists",
+        ],
+        'liste' => [
+            'fr' => "Liste",
+            'en' => "List",
+        ],
+        'par' => [
+            'fr' => "par",
+            'en' => "by",
+        ],
+        'offrir'  => [
+            'fr' => "Offrir",
+            'en' => "Submit",
+        ],
+        'offrir_un_bon_cadeau'  => [
+            'fr' => "Offrir un bon cadeau",
+            'en' => "Give a gift card",
+        ],
+        'montant'  => [
+            'fr' => "Montant",
+            'en' => "Amount",
+        ],
+        'les_cgv'  => [
+            'fr' => "les CGV",
+            'en' => "the terms and conditions",
+        ],
+        'j_ai_lu_et_accepte'  => [
+            'fr' => "J'ai lu et accepté",
+            'en' => "I accept",
+        ],
+        'prenom'  => [
+            'fr' => "Prénom",
+            'en' => "First name",
+        ],
+        'nom'  => [
+            'fr' => "Nom",
+            'en' => "Last name",
+        ],
+        'votre_telephone'  => [
+            'fr' => "Votre téléphone",
+            'en' => "Your telephone",
+        ],
+        'telephone'  => [
+            'fr' => "Téléphone",
+            'en' => "Telephone",
+        ],
+        'votre_adresse_email'  => [
+            'fr' => "Votre adresse email",
+            'en' => "Your email address",
+        ],
+        'adresse_email'  => [
+            'fr' => "Adresse email",
+            'en' => "Email address",
+        ],
+        'votre_adresse'  => [
+            'fr' => "Votre adresse",
+            'en' => "Your address",
+        ],
+        'votre_prenom'  => [
+            'fr' => "Votre prénom",
+            'en' => "Your first name",
+        ],
+        'votre_nom'  => [
+            'fr' => "Votre Nom",
+            'en' => "Your last name",
+        ],
+        'ville'  => [
+            'fr' => "Ville",
+            'en' => "Town",
+        ],
+        'code_postal'  => [
+            'fr' => "Code postal",
+            'en' => "Postcode",
+        ],
+        'pays'  => [
+            'fr' => "Pays",
+            'en' => "Country",
+        ],
+        'pour'  => [
+            'fr' => "Pour",
+            'en' => "For",
+        ],
+        'de_la_part_de' => [
+            'fr' => 'De la part de',
+            'en' => 'On behalf of',
+        ],
+        'choisissez_une_photo_en_cliquant_dessus' => [
+            'fr' => 'Choisissez une photo en cliquant dessus',
+            'en' => 'Choose a photo by clicking on it',
+        ],
+        'image' => [
+            'fr' => 'Image',
+            'en' => 'Image ',
+        ],
+
+
+    ];
+
+    if (isset($words[$word])) {
+        if (isset($words[$word][$current_language])) {
+            return $words[$word][$current_language];
+        }
+        return $words[$word][0];
+    } else {
+        return '<span class="untranslated">' . $word . '</span>';
+    }
+}
+
+function t($word) {
+    echo return_t($word);
+}
+
+
+
 function saferpay_api_url() {
     return SAFERPAY_API_URL;
 }
