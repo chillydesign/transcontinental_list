@@ -2351,9 +2351,9 @@ function send_list_created_email($list, $user) {
         $link = WEBSITE_URL  . "/mariage/" . $list->id;
         $admin_link = WEBSITE_URL  . "/adminarea/list?id=" . $list->id;
         if ($current_language == 'en') {
-            $receiver_subject = 'Votre liste  ' . SITE_NAME . '.';
-        } else {
             $receiver_subject = 'Your list with  ' . SITE_NAME . '.';
+        } else {
+            $receiver_subject = 'Votre liste  ' . SITE_NAME . '.';
         }
         $receiver_content = generate_email_title($receiver_subject);
 
