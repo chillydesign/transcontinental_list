@@ -61,9 +61,9 @@
               <?php endif; ?>
 
               <?php foreach (other_languages() as $lang) : ?>
-                <li>
+                <!-- <li>
                   <a href="?lang=<?php echo $lang; ?>"> <?php echo $lang; ?></a>
-                </li>
+                </li> -->
               <?php endforeach;    ?>
             </ul>
           </nav>
