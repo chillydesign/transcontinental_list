@@ -3,28 +3,28 @@
 
 $current_language =  set_current_language();
 function set_current_language() {
-    return 'fr'; // for now language is always french
-    // $current_language = 'fr';
-    // if (isset($_GET['lang'])) {
-    //     if ($_GET['lang'] == 'en') {
-    //         $current_language = 'en';
-    //     } else if ($_GET['lang'] == 'it') {
-    //         $current_language = 'it';
-    //     }
-    //     setLanguageCookie($current_language);
-    // } elseif (isset($_COOKIE['lang'])) {
-    //     $current_language = $_COOKIE['lang'];
-    // } else {
-    //     $browser_lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-    //     $acceptLang = allowed_languages();
-    //     if (in_array($browser_lang, $acceptLang)) {
-    //         $current_language = $browser_lang;
-    //     }
-    //     setLanguageCookie($current_language);
-    // }
+    // return 'fr'; // for now language is always french
+    $current_language = 'fr';
+    if (isset($_GET['lang'])) {
+        if ($_GET['lang'] == 'en') {
+            $current_language = 'en';
+        } else if ($_GET['lang'] == 'it') {
+            $current_language = 'it';
+        }
+        setLanguageCookie($current_language);
+    } elseif (isset($_COOKIE['lang'])) {
+        $current_language = $_COOKIE['lang'];
+    } else {
+        $browser_lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+        $acceptLang = allowed_languages();
+        if (in_array($browser_lang, $acceptLang)) {
+            $current_language = $browser_lang;
+        }
+        setLanguageCookie($current_language);
+    }
 
 
-    // return $current_language;
+    return $current_language;
 }
 
 function allowed_languages() {
