@@ -17,7 +17,7 @@
         <form action="<?php get_site_url(); ?>/actions/user_connect.php" method="post">
 
           <p><input autocomplete="email" type="text" name="email" placeholder="email" /></p>
-          <p><input autocomplete="current-password" type="password" name="password" placeholder="mot de passe" /></p>
+          <p><input autocomplete="current-password" type="password" name="password" placeholder="<?php t('mot_de_passe'); ?>" /></p>
           <p><input type="submit" name="connect_user" value="Connexion" /></p>
         </form>
 
@@ -35,3 +35,4 @@
     </div>
 
   </div>
+</div>
