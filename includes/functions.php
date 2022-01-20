@@ -28,7 +28,8 @@ function set_current_language() {
 }
 
 function allowed_languages() {
-    return  ['fr', 'it', 'en'];
+    // 'it',
+    return  ['fr',  'en'];
 }
 
 function other_languages() {
