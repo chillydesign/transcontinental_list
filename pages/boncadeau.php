@@ -13,7 +13,7 @@
             <?php if ($giftcard) : ?>
                 <div class="row">
                     <div class="col-sm-9">
-                        <p class="success_message">Merci d'avoir offert ce bon cadeau d'une valeur de <?php echo convert_cents_to_currency($giftcard->amount); ?> pour <?php echo $giftcard->receiver_first_name; ?>. <a target="_blank" href="<?php echo  giftcard_print_url($giftcard); ?>"><?php t('Imprimer le bon cadeau'); ?>.</a> </p>
+                        <p class="success_message">Merci d'avoir offert ce bon cadeau d'une valeur de <?php echo convert_cents_to_currency($giftcard->amount); ?> pour <?php echo $giftcard->receiver_first_name; ?>. <a target="_blank" href="<?php echo  giftcard_print_url($giftcard); ?>"><?php t('imprimer_le_bon_cadeau'); ?>.</a> </p>
                     </div>
                     <div class="col-sm-3">
                         <p><a href="<?php echo site_url(); ?>/" class="button"><?php t('retour'); ?></a></p>
