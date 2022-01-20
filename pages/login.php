@@ -12,7 +12,7 @@
     <div class="col-sm-6">
       <div class="half_block">
         <h2><?php t('connexion'); ?></h2>
-        <p>Connectez-vous ici pour créer une liste ou accéder à vos listes existantes</p>
+        <p><?php t('connectez_vous_ici'); ?></p>
 
         <form action="<?php get_site_url(); ?>/actions/user_connect.php" method="post">
 
