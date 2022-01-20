@@ -11,7 +11,7 @@
     </p>
 
     <p>
-        <input type="text" name="sender_phone" requiredplaceholder="<?php t('votre_telephone'); ?> *">
+        <input type="text" name="sender_phone" required placeholder="<?php t('votre_telephone'); ?> *">
     </p>
     <p>
         <input type="text" autocomplete="address-level1" id="sender_address" name="sender_address" placeholder="<?php t('votre_adresse'); ?> *">
@@ -29,10 +29,10 @@
 
     <p>Pour: </p>
     <p>
-        <input type="text" name="receiver_first_name" placeholder="<?php t('prenom'); ?> *">>
+        <input type="text" name="receiver_first_name" placeholder="<?php t('prenom'); ?> *">
     </p>
     <p>
-        <input type="text" name="receiver_last_name" placeholder="<?php t('nom'); ?> *">>
+        <input type="text" name="receiver_last_name" placeholder="<?php t('nom'); ?> *">
     </p>
     <p>
         <input type="email" name="receiver_email" required placeholder="Adresse email">

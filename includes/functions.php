@@ -339,6 +339,21 @@ function zenith_site() {
 
 
 
+function giftcard_url() {
+    if (zenith_site()) {
+        return 'giftcard';
+    } else {
+        return 'boncadeau';
+    }
+}
+function list_url() {
+    if (zenith_site()) {
+        return 'list';
+    } else {
+        return 'mariage';
+    }
+}
+
 function site_url() {
 
     if (defined('WEBSITE_URL')) {
@@ -374,12 +389,17 @@ function chilly_list_site_logo() {
 
 
 function redirect_old_pages($p) {
-    if ($p == 'giftcard') {
-        return 'boncadeau';
-    } else if ($p == 'list') {
-        return 'mariage';
-    } else {
+
+    if (zenith_site()) {
         return $p;
+    } else {
+        if ($p == 'giftcard') {
+            return 'boncadeau';
+        } else if ($p == 'list') {
+            return 'mariage';
+        } else {
+            return $p;
+        }
     }
 }
 

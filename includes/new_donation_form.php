@@ -6,11 +6,11 @@
     </p>
     <p>
         <label for="first_name">Votre prénom *</label>
-        <input type="text" required name="first_name" autocomplete='given-name' placeholder="<?php t('prenom'); ?> *"> />
+        <input type="text" required name="first_name" autocomplete='given-name' placeholder="<?php t('prenom'); ?> *" />
     </p>
     <p>
         <label for="last_name">Votre nom *</label>
-        <input type="text" required name="last_name" autocomplete='family-name' placeholder="<?php t('nom'); ?> *"> />
+        <input type="text" required name="last_name" autocomplete='family-name' placeholder="<?php t('nom'); ?> *" />
     </p>
     <p>
         <label for="message">Message (optionnel)</label>

@@ -1,7 +1,7 @@
 <div class="page_image" style="background-image:url('<?php echo site_url(); ?>/images/giftcard.jpg'); overflow: hidden;"></div>
 <div class="container">
 
-    <h1><?php t('offrir_un_bon_cadeau'); ?></h1>
+    <h1><?php t('offrir_un_bon_cadeau'); ?> </h1>
 
     <?php if (has_error()) : ?>
         <?php show_error_message(); ?>
