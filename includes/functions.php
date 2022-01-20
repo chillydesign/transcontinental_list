@@ -2748,6 +2748,7 @@ function french_tr() {
         "retour" => "Retour",
         "creee_le" => "Créée le",
         "share_list_with_url" => "Partagez ce numéro de liste à vos contacts, ou directement l'url suivante",
+        "imprimer_le_bon_cadeau" => "Imprimer le bon cadeau",
 
         "bons_cadeaux" =>  'Bons cadeaux',
         "chercher" =>  'Chercher',
@@ -2843,6 +2844,7 @@ function english_tr() {
         "retour" => "Return",
         "creee_le" => "Created on",
         "share_list_with_url" => "Share this list number with your contacts, or use the following url ",
+        "imprimer_le_bon_cadeau" => "Print gift card",
 
         "bons_cadeaux" =>  'Gift cards',
         "chercher" =>  'Search',
@@ -2922,8 +2924,7 @@ function english_tr() {
 function italian_tr() {
 
     return array(
-
-
+        "imprimer_le_bon_cadeau" => "Stampa la carta regalo",
         "bons_cadeaux" =>  'Buono regalo',
         "chercher" =>  'Ricerca',
         "creer_un_compte" =>  'Creare un accesso',

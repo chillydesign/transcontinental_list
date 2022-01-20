@@ -105,7 +105,7 @@
                 <br>
                 <br>
 
-                <a class="list_button right_list_button" target="printgiftcard" href="<?php echo  giftcard_print_url($giftcard); ?>">Imprimer le bon cadeau.</a>
+                <a class="list_button right_list_button" target="printgiftcard" href="<?php echo  giftcard_print_url($giftcard); ?>"><?php t('imprimer_le_bon_cadeau'); ?>.</a>
 
 
 
