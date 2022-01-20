@@ -13,10 +13,10 @@
 
       <div class="row">
         <div class="col-sm-3 col-sm-push-9">
-          <a class="list_button right_list_button" href="<?php get_site_url(); ?>/userarea">Retour aux listes</a>
+          <a class="list_button right_list_button" href="<?php get_site_url(); ?>/userarea"><?php t('retour'); ?></a>
         </div>
         <div class="col-sm-9 col-sm-pull-3">
-          <h1><?php echo $list->name; ?><span class="creation_date">Créée le <?php echo nice_date($list->created_at); ?></span></h1>
+          <h1><?php echo $list->name; ?><span class="creation_date"><?php t('creee_le'); ?> <?php echo nice_date($list->created_at); ?></span></h1>
         </div>
       </div>
 
@@ -25,8 +25,8 @@
           <?php if ($list->description != '') : ?>
             <p><?php echo $list->description; ?></p>
           <?php endif; ?>
-          <p><strong>Numéro de liste :</strong> <a target="_blank" href="<?php get_site_url(); ?>/mariage/<?php echo $list->id; ?>"><?php echo $list->id; ?></a><br>
-            Partagez ce numéro de liste à vos contacts, ou directement l'url suivante : <a target="_blank" href="<?php get_site_url(); ?>/mariage/<?php echo $list->id; ?>"><?php get_site_url(); ?>/mariage/<?php echo $list->id; ?></a></p>
+          <p><strong><?php t('numero_de_liste'); ?> :</strong> <a target="_blank" href="<?php get_site_url(); ?>/mariage/<?php echo $list->id; ?>"><?php echo $list->id; ?></a><br>
+            <?php t('share_list_with_url'); ?> : <a target="_blank" href="<?php get_site_url(); ?>/mariage/<?php echo $list->id; ?>"><?php get_site_url(); ?>/mariage/<?php echo $list->id; ?></a></p>
         </div>
         <div class="col-sm-3">
           <?php if (picture_exists($list->picture, 'lists')) : ?>
@@ -56,7 +56,7 @@
         <div class="col-sm-6">
           <div class="half_block">
             <?php $donations = get_donations($list->id, 'payé'); ?>
-            <h2>Contributions</h2>
+            <h2><?php t('contributions'); ?></h2>
             <?php if (sum_donations($donations) > 0) : ?>
               <p>Montant total contribué sur cette liste: <?php echo sum_donations($donations);  ?>.</p>
               <table>
@@ -77,7 +77,7 @@
                     </tr>
                   <?php endforeach; ?>
                 <?php else : ?>
-                  <p>Pas encore de contributions</p>
+                  <p><?php t('pas_encore_de_contributions'); ?></p>
                 <?php endif; ?>
 
                 </tbody>

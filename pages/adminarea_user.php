@@ -3,7 +3,7 @@
 
 
     <?php $user = get_user(); ?>
-    <?php if ($user): ?>
+    <?php if ($user) : ?>
         <h1><?php echo $user->first_name . ' ' . $user->last_name; ?></h1>
 
 
@@ -23,16 +23,16 @@
                 <h2>Listes</h2>
                 <?php $lists = user_lists($user->id); ?>
                 <ul>
-                    <?php foreach (  $lists as $list) : ?>
+                    <?php foreach ($lists as $list) : ?>
                         <li>
                             <a href="<?php get_site_url(); ?>/adminarea/list?id=<?php echo $list->id; ?>">
                                 <strong>#<?php echo $list->id; ?> <?php echo $list->name; ?></strong>
-                                (Créée le <?php  echo nice_date($list->created_at); ?>)
+                                (<?php t('creee_le'); ?> <?php echo nice_date($list->created_at); ?>)
                             </a>
 
                         </li>
                     <?php endforeach; ?>
-                    <?php if ( sizeof($lists) == 0) : ?>
+                    <?php if (sizeof($lists) == 0) : ?>
                         <li>0 listes</li>
                     <?php endif; ?>
                 </ul>

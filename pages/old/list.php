@@ -27,7 +27,7 @@
                                 <p class="success_message">Merci pour votre contribution d'un montant de <?php echo convert_cents_to_currency($donation->amount); ?>!</p>
                             </div>
                             <div class="col-sm-3">
-                                <p><a href="<?php echo site_url(); ?>/" class="button">Retour</a></p>
+                                <p><a href="<?php echo site_url(); ?>/" class="button"><?php t('retour'); ?></a></p>
                             </div>
                         </div>
 

@@ -8,12 +8,13 @@
         <?php $disabled =  ($giftcard->status === 'utilisé') ? 'disabled' : ''; ?>
 
 
-        <?php if(has_valid_admin_cookie()): ?>
-             <p>
-                <select  <?php // echo $disabled; ?> id="status" name="status">
-                    <?php foreach   ( valid_giftcard_statuses() as $status_text) : ?>
-                        <?php $selected = ( $status_text == $giftcard->status ) ? 'selected="selected"'  : '' ; ?>
-                        <option <?php echo $selected; ?>   value="<?php echo $status_text; ?>">
+        <?php if (has_valid_admin_cookie()) : ?>
+            <p>
+                <select <?php // echo $disabled; 
+                        ?> id="status" name="status">
+                    <?php foreach (valid_giftcard_statuses() as $status_text) : ?>
+                        <?php $selected = ($status_text == $giftcard->status) ? 'selected="selected"'  : ''; ?>
+                        <option <?php echo $selected; ?> value="<?php echo $status_text; ?>">
                             <?php echo $status_text; ?>
                         </option>
                     <?php endforeach; ?>
@@ -21,7 +22,7 @@
             </p>
 
             <p>
-                <input type="submit" name="submit_edit_giftcard" value="Modifier" />
+                <input type="submit" name="submit_edit_giftcard" value="<?php t('modifier'); ?>" />
             </p>
         <?php endif; ?>
 

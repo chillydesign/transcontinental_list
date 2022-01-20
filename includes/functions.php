@@ -1,6 +1,7 @@
 <?php
 
 
+
 $current_language =  set_current_language();
 function set_current_language() {
     // return 'fr'; // for now language is always french
@@ -44,6 +45,8 @@ function other_languages() {
 function setLanguageCookie($lang) {
     setcookie('lang', $lang, time() + 36000000, '/');
 }
+
+
 
 
 
@@ -426,6 +429,27 @@ function current_page_is($slug) {
         return false;
     }
 }
+
+
+
+
+function current_url_with_lang($lang) {
+
+    $url = array(site_url());
+    if (isset($_GET['page'])) {
+        array_push($url, '/' . $_GET['page']);
+    }
+    if (isset($_GET['subpage'])) {
+        array_push($url,  '/' . $_GET['subpage']);
+    }
+    if (isset($_GET['id'])) {
+        array_push($url,  '?id=' . $_GET['id'] . '&lang=' . $lang);
+    } else {
+        array_push($url, '?lang=' . $lang);
+    }
+    echo  implode('', $url);
+}
+
 
 function page_link($slug, $text, $classes = '') {
 
@@ -2075,6 +2099,9 @@ function generate_email_title($str) {
 
 
 
+
+
+
 function send_list_created_email($list, $user) {
 
     global $current_language;
@@ -2085,15 +2112,19 @@ function send_list_created_email($list, $user) {
         $admin_link = WEBSITE_URL  . "/adminarea/list?id=" . $list->id;
         if ($current_language == 'en') {
             $receiver_subject = 'Your list with  ' . SITE_NAME . '.';
+        } else if ($current_language == 'it') {
+            $receiver_subject = "La vostra lista " . SITE_NAME;
         } else {
             $receiver_subject = 'Votre liste  ' . SITE_NAME . '.';
         }
         $receiver_content = generate_email_title($receiver_subject);
 
         if ($current_language == 'en') {
-            $receiver_content .=  "<p>Dear " .  $user->first_name . ' ' . $user->last_name  . ". </p><p>Votre liste <strong>" . $list->name . "</strong> sur " . SITE_NAME . " a bien été créée. </p><p> Le numéro de liste est " . $list->id . ". Elle est accessible directement depuis l'adresse <a href='" .  $link  . "'>" . $link . "</a>.</p><p>Vous pouvez partager ces informations à votre famille et vos amis pour qu'ils puissent contribuer à la liste.</p><p>Vous pouvez consulter l'état de votre liste en vous connectant à votre compte " . SITE_NAME . "receiver_content.  Nous vous tiendrons également informés par email au fur et à mesure des contributions.</p><p> Merci pour votre confiance et à bientôt! </p><p>L'équipe " . SITE_NAME . "</p>";
+            $receiver_content .=  "<p>Dear " .  $user->first_name . ' ' . $user->last_name  . ". </p><p>Your list <strong>" . $list->name . "</strong> sur " . SITE_NAME . " was succesfully created. </p><p> Your list number is " . $list->id . ".  It is accessible directly through this link <a href='" .  $link  . "'>" . $link . "</a>.</p><p>You can share this information with your friends and family so they can contribute to the list.</p><p>You can check your list by logging in to your " . SITE_NAME . "  account. We will also keep you updated by email as people contribute to your list..</p><p> Thank you for choosing " . SITE_NAME . "  and see you soon!            </p><p>The " . SITE_NAME . " team</p>";
+        } else if ($current_language == 'it') {
+            $receiver_content .=  "<p>Cara " .  $user->first_name . ' ' . $user->last_name  . ". </p><p>La vostra lista    <strong>" . $list->name . "</strong> sur " . SITE_NAME . "  è stata creata. </p><p> La vostra lista e la numero " . $list->id . ".  E accessibile all’indirizzo seguente: <a href='" .  $link  . "'>" . $link . "</a>.  Puoi condividere questo link con i vostri cari ed amici perché contribuiscano alla liste </p><p>Puoi consultare la tua lista attraverso il tuo conto personale " . SITE_NAME . " . Inoltre sarai aggiornato via email ad ogni contributo sulla lista. Grazie per aver scelto " . SITE_NAME . "  . A presto </p><p>Team " . SITE_NAME . "</p>";
         } else {
-            $receiver_content .=  "<p>Bonjour " .  $user->first_name . ' ' . $user->last_name  . ". </p><p>Votre liste <strong>" . $list->name . "</strong> sur " . SITE_NAME . " a bien été créée. </p><p> Le numéro de liste est " . $list->id . ". Elle est accessible directement depuis l'adresse <a href='" .  $link  . "'>" . $link . "</a>.</p><p>Vous pouvez partager ces informations à votre famille et vos amis pour qu'ils puissent contribuer à la liste.</p><p>Vous pouvez consulter l'état de votre liste en vous connectant à votre compte " . SITE_NAME . "receiver_content.  Nous vous tiendrons également informés par email au fur et à mesure des contributions.</p><p> Merci pour votre confiance et à bientôt! </p><p>L'équipe " . SITE_NAME . "</p>";
+            $receiver_content .=  "<p>Bonjour " .  $user->first_name . ' ' . $user->last_name  . ". </p><p>Votre liste <strong>" . $list->name . "</strong> sur " . SITE_NAME . " a bien été créée. </p><p> Le numéro de liste est " . $list->id . ". Elle est accessible directement depuis l'adresse <a href='" .  $link  . "'>" . $link . "</a>.</p><p>Vous pouvez partager ces informations à votre famille et vos amis pour qu'ils puissent contribuer à la liste.</p><p>Vous pouvez consulter l'état de votre liste en vous connectant à votre compte " . SITE_NAME . ".  Nous vous tiendrons également informés par email au fur et à mesure des contributions.</p><p> Merci pour votre confiance et à bientôt! </p><p>L'équipe " . SITE_NAME . "</p>";
         }
 
 
@@ -2121,14 +2152,23 @@ function send_user_welcome_email($user) {
     if ($user) {
         $receiver = $user->email;
         if ($current_language == 'en') {
-            $receiver_subject = 'Creation of your ' . SITE_NAME . ' account.';
+            $receiver_subject = 'Your ' . SITE_NAME . ' account has been created';
+        } else if ($current_language == 'it') {
+            $receiver_subject = 'Il tuo conto  ' . SITE_NAME  . ' é stato creato';
         } else {
-            $receiver_subject = 'Création de votre compte ' . SITE_NAME . '.';
+            $receiver_subject = 'Création de votre compte ' . SITE_NAME . '';
         }
         $receiver_content = generate_email_title($receiver_subject);
 
+
+
+
+
         if ($current_language == 'en') {
-            $receiver_content .=  "<p>Dear  " .  $user->first_name . ' ' . $user->last_name  . ". Votre compte " . SITE_NAME . " a bien été créé. </p><p>Vous pouvez à présent créer des listes de mariage, anniversaire ou pour toute occasion à l'adresse " .  '<a href="' . WEBSITE_URL . '/login">' . WEBSITE_URL . "</a></p><p>A bientôt! <br /> L'équipe " . SITE_NAME . '</p>';
+            $receiver_content .=  "<p>Dear  " .  $user->first_name . ' ' . $user->last_name  . ". Your " . SITE_NAME . " account was successfully created. </p><p> You can now create lists for a wedding, birthday or any other occasion at this address " .  '<a href="' . WEBSITE_URL . '/login">' . WEBSITE_URL . "</a></p><p>Best wishes <br /> The " . SITE_NAME . ' team</p>';
+        } else if ($current_language == 'it') {
+            $receiver_content .= "<p> Caro  " .  $user->first_name . ' ' . $user->last_name  . ".<br>  il tuo acconto " . SITE_NAME . " é stato creato. </p><p> Adesso puoi creare la tua lista per un matrimonio, compleanno, per ogni altra occasione all’indirizzo seguente: " .  '<a href="' . WEBSITE_URL . '/login">' . WEBSITE_URL . "</a></p><p>Cordiali saluti, 
+            <br /> il team " . SITE_NAME . '</p>';
         } else {
             $receiver_content .= "<p>Bonjour " .  $user->first_name . ' ' . $user->last_name  . ". Votre compte " . SITE_NAME . " a bien été créé. </p><p>Vous pouvez à présent créer des listes de mariage, anniversaire ou pour toute occasion à l'adresse " .  '<a href="' . WEBSITE_URL . '/login">' . WEBSITE_URL . "</a></p><p>A bientôt! <br /> L'équipe " . SITE_NAME . '</p>';
         }
@@ -2157,6 +2197,8 @@ function send_user_reset_password_email($user) {
         $receiver = $user->email;
         if ($current_language == 'en') {
             $receiver_subject = 'Reset your password for ' . SITE_NAME . '.';
+        } else if ($current_language == 'it') {
+            $receiver_subject = 'Réinitialiser votre mot de passe sur ' . SITE_NAME . '.';
         } else {
             $receiver_subject = 'Réinitialiser votre mot de passe sur ' . SITE_NAME . '.';
         }
@@ -2164,6 +2206,11 @@ function send_user_reset_password_email($user) {
 
 
         if ($current_language == 'en') {
+            $receiver_content .= '<p>Vous avez demandé à réinitialiser votre mot de passe pour le site ' . SITE_NAME . '. Veuillez cliquer sur le bouton ci-dessous pour réinitialiser votre mot de passe. Si vous ne souhaitez pas réinitialiser votre mot de passe ignorez cet email.</p>';
+            $link = WEBSITE_URL  . "/resetpassword/" . $user->reset_password_token;
+            $receiver_content .= generate_email_button($link,  'Réinitialiser votre mot de passe');
+            $receiver_content .= '<p>Meilleures Salutations, <br /> L\'équipe ' . SITE_NAME . '</p>';
+        } else if ($current_language == 'it') {
             $receiver_content .= '<p>Vous avez demandé à réinitialiser votre mot de passe pour le site ' . SITE_NAME . '. Veuillez cliquer sur le bouton ci-dessous pour réinitialiser votre mot de passe. Si vous ne souhaitez pas réinitialiser votre mot de passe ignorez cet email.</p>';
             $link = WEBSITE_URL  . "/resetpassword/" . $user->reset_password_token;
             $receiver_content .= generate_email_button($link,  'Réinitialiser votre mot de passe');
@@ -2200,6 +2247,8 @@ function send_giftcard_email($giftcard) {
 
     $sender = $giftcard->sender_email;
     if ($current_language == 'en') {
+        $sender_subject = 'Thank you for sending a ' . SITE_NAME . ' giftcard';
+    } else if ($current_language == 'it') {
         $sender_subject = 'Merci d\'avoir envoyé un bon cadeau';
     } else {
         $sender_subject = 'Merci d\'avoir envoyé un bon cadeau';
@@ -2207,6 +2256,10 @@ function send_giftcard_email($giftcard) {
     $sender_content = generate_email_title($sender_subject);
 
     if ($current_language == 'en') {
+        $sender_content .= '<p>You have sent a gift card for ' . $amount . ' to ' .  $receiver_name  . '. Valid until : ' . nice_date($giftcard->expires_at)  . '</p>';
+        $sender_content .= generate_email_button(giftcard_print_url($giftcard),  'Print the gift card');
+        $sender_content .= '<p>Thank you and best wishes,<br> The ' . SITE_NAME . ' team</p>';
+    } else if ($current_language == 'it') {
         $sender_content .= '<p>Vous avez envoyé un bon cadeau d\'une valeur de ' . $amount . ' à ' .  $receiver_name  . '. Valide jusqu\'au : ' . nice_date($giftcard->expires_at)  . '</p>';
         $sender_content .= generate_email_button(giftcard_print_url($giftcard),  'Imprimer le bon cadeau');
         $sender_content .= '<p>Merci pour votre envoi! <br /><br /> Meilleures Salutations,<br>L\'équipe ' . SITE_NAME . '</p>';
@@ -2221,6 +2274,8 @@ function send_giftcard_email($giftcard) {
 
 
     if ($current_language == 'en') {
+        $receiver_subject = 'You have received a ' . SITE_NAME . ' Transcontinental';
+    } else if ($current_language == 'it') {
         $receiver_subject = 'Vous avez reçu un bon cadeau ' . SITE_NAME;
     } else {
         $receiver_subject = 'Vous avez reçu un bon cadeau ' . SITE_NAME;
@@ -2229,14 +2284,24 @@ function send_giftcard_email($giftcard) {
     $receiver_content = generate_email_title($receiver_subject);
 
 
+
+
     if ($current_language == 'en') {
+        $receiver_content .= '<p>' . $sender_name . ' has sent you a giftcard  of ' .  $amount . ' to help purchase a holiday with  ' . SITE_NAME . ' . Valid until : ' . nice_date($giftcard->expires_at)  . '.';
+        if ($giftcard->message != '') {
+            $receiver_content .= '<br /><br /><p style="padding:0 0 0px;margin:0;font-weight:bold">Message:</p>';
+            $receiver_content .= '<p style="font-style:italic; color: #888;">' . $giftcard->message . '</p><br />';
+        }
+        $receiver_content .= generate_email_button(giftcard_print_url($giftcard),  'Print the gift card');
+        $receiver_content .= "<br><p>Our travel agents are waiting for you at our travel agencies and are looking forward to helping your organise your next holiday.</p>";
+    } else if ($current_language == 'it') {
         $receiver_content .= '<p>' . $sender_name . ' vous a envoyé un bon cadeau n° ' . $giftcard->id . ' d\'une valeur de ' .  $amount . ' pour acheter un voyage chez ' . SITE_NAME . ' . Valide jusqu\'au : ' . nice_date($giftcard->expires_at)  . '.';
         if ($giftcard->message != '') {
             $receiver_content .= '<br /><br /><p style="padding:0 0 0px;margin:0;font-weight:bold">Message:</p>';
             $receiver_content .= '<p style="font-style:italic; color: #888;">' . $giftcard->message . '</p><br />';
         }
         $receiver_content .= generate_email_button(giftcard_print_url($giftcard),  'Imprimer le bon cadeau');
-        $receiver_content .= "<p>Nos conseillers en voyages d’agréments vous attendent à l’une de nos agences de voyages et se réjouissent déjà de vous aider à organiser vos prochaines vacances.</p>";
+        $receiver_content .= "<br><p>Nos conseillers en voyages d’agréments vous attendent à l’une de nos agences de voyages et se réjouissent déjà de vous aider à organiser vos prochaines vacances.</p>";
     } else {
         $receiver_content .= '<p>' . $sender_name . ' vous a envoyé un bon cadeau n° ' . $giftcard->id . ' d\'une valeur de ' .  $amount . ' pour acheter un voyage chez ' . SITE_NAME . ' . Valide jusqu\'au : ' . nice_date($giftcard->expires_at)  . '.';
         if ($giftcard->message != '') {
@@ -2244,7 +2309,7 @@ function send_giftcard_email($giftcard) {
             $receiver_content .= '<p style="font-style:italic; color: #888;">' . $giftcard->message . '</p><br />';
         }
         $receiver_content .= generate_email_button(giftcard_print_url($giftcard),  'Imprimer le bon cadeau');
-        $receiver_content .= "<p>Nos conseillers en voyages d’agréments vous attendent à l’une de nos agences de voyages et se réjouissent déjà de vous aider à organiser vos prochaines vacances.</p>";
+        $receiver_content .= "<br><p>Nos conseillers en voyages d’agréments vous attendent à l’une de nos agences de voyages et se réjouissent déjà de vous aider à organiser vos prochaines vacances.</p>";
     }
 
 
@@ -2279,6 +2344,9 @@ function send_giftcard_email($giftcard) {
     $receiver_content .= '</tr></table> <br /><br />';
 
     if ($current_language == 'en') {
+        $receiver_content .= '<p>Best wishes, <br>The ' . SITE_NAME . ' team</p><br />';
+        $receiver_content .= generate_email_button(WEBSITE_URL,  'Aller sur le site ' .  SITE_NAME);
+    } else if ($current_language == 'it') {
         $receiver_content .= '<p>Meilleures Salutations,<br>L\'équipe ' . SITE_NAME . '</p><br />';
         $receiver_content .= generate_email_button(WEBSITE_URL,  'Aller sur le site ' .  SITE_NAME);
     } else {
@@ -2334,13 +2402,21 @@ function send_donation_email($donation, $list) {
         $sender = $donation->email;
         if ($current_language == 'en') {
             $sender_subject = 'Thank you for your donation';
+        } else if ($current_language == 'it') {
+            $sender_subject = "Grazie per l’importo";
         } else {
             $sender_subject = 'Merci pour votre contribution';
         }
         $sender_content = generate_email_title($sender_subject);
 
         if ($current_language == 'en') {
-            $sender_content .= '<p>Merci pour votre contribution d\'un montant de ' . $amount . ' à la liste : ' .  $listname  . "</p><p>Meilleures Salutations,<br>L'équipe " . SITE_NAME . "</p>";
+
+
+            $sender_content .= '<p>Thank you for your donation of  ' . $amount . ' to the list: ' .  $listname  . "</p><p>Best wishes, <br>The " . SITE_NAME . " team</p>";
+        } else if ($current_language == 'it') {
+
+            $sender_content .= "<p>Grazie per l’importo di " . $amount . " alla lista: " .  $listname  . "</p><p>Cordiali saluti, <br> il team  " . SITE_NAME . "</p>";
+            // transhere
         } else {
             $sender_content .= '<p>Merci pour votre contribution d\'un montant de ' . $amount . ' à la liste : ' .  $listname  . "</p><p>Meilleures Salutations,<br>L'équipe " . SITE_NAME . "</p>";
         }
@@ -2350,22 +2426,36 @@ function send_donation_email($donation, $list) {
 
         $receiver = $user->email;
         if ($current_language == 'en') {
-            $receiver_subject = 'Vous avez reçu une contribution à votre liste ' . SITE_NAME;
+            $receiver_subject = 'You have received a donation on your ' . SITE_NAME . ' list';
+        } else if ($current_language == 'it') {
+            $receiver_subject = 'Hai ricevuto una donazione nella tua lista ' . SITE_NAME;
         } else {
             $receiver_subject = 'Vous avez reçu une contribution à votre liste ' . SITE_NAME;
         }
         $receiver_content = generate_email_title($receiver_subject);
 
 
+
+
+
         if ($current_language == 'en') {
-            $receiver_content .= '<p>' . $sender_name . ' vient contribuer un montant de ' . $amount . ' sur votre liste ' . $listname . ' .</p>';
+            $receiver_content .= '<p>' . $sender_name . '  just added ' . $amount . '  to your list  ' . $listname . ' .</p>';
             if ($donation->message != '') {
                 $receiver_content .= '<br /><br /><p style="padding:0 0 10px;margin:0;font-weight:bold">Message:</p>';
                 $receiver_content .= '<p style="font-style:italic; color: #888;">' . $donation->message . '</p><br /><br />';
             };
-            $receiver_content .= '<p>Vous pouvez accéder à votre compte pour consulter votre liste à l’adresse <a href="' . WEBSITE_URL . '/login">' . WEBSITE_URL . '</a></p>';
-            $receiver_content .= generate_email_button(WEBSITE_URL,  'Aller sur le site ' .  SITE_NAME);
-            $receiver_content .= '<p>Meilleures Salutations,<br>L\'équipe ' . SITE_NAME . '</p>';
+            $receiver_content .= '<p>Click this link to access your account to check on our list <a href="' . WEBSITE_URL . '/login">' . WEBSITE_URL . '</a></p>';
+            $receiver_content .= generate_email_button(WEBSITE_URL,  'Visit the ' .  SITE_NAME . ' website');
+            $receiver_content .= "<p>Best wishes, <br>The " . SITE_NAME . " team</p>";
+        } else if ($current_language == 'it') {
+            $receiver_content .= '<p>' . $sender_name . ' ha contribuito alla tua lista, ' . $listname . ' ,  on un importo di ' . $amount . ' .</p>';
+            if ($donation->message != '') {
+                $receiver_content .= '<br /><br /><p style="padding:0 0 10px;margin:0;font-weight:bold">Messaggio:</p>';
+                $receiver_content .= '<p style="font-style:italic; color: #888;">' . $donation->message . '</p><br /><br />';
+            };
+            $receiver_content .= '<p>Potete accedere al vostro accesso personale per verificare la vostra lista all’indirizzo seguente <a href="' . WEBSITE_URL . '/login">' . WEBSITE_URL . '</a></p>';
+            $receiver_content .= generate_email_button(WEBSITE_URL,  'Visitare il sito   ' .  SITE_NAME);
+            $receiver_content .= "<p>Cordiali saluti, <br> il team  " . SITE_NAME . "</p>";
         } else {
             $receiver_content .= '<p>' . $sender_name . ' vient contribuer un montant de ' . $amount . ' sur votre liste ' . $listname . ' .</p>';
             if ($donation->message != '') {
@@ -2620,6 +2710,25 @@ function executePayment($payment_id, $payer_id) {
 
 function french_tr() {
     return array(
+        "categorie" =>  'Catégorie',
+        "description" =>  'Description',
+        "nom_de_la_liste" => "Nom de la liste",
+        "date_du_mariage_de_l_anniversaire" => "Date du mariage / de l'anniversaire",
+        "mariage" => "Mariage",
+        "anniversaire" => "Anniversaire",
+        "creer_la_liste" => "Créer la liste",
+        "creer_une_liste" => "Créer une liste",
+        "vos_listes" => "Vos listes",
+        "view_lists_status" => "Vous pouvez consulter vos listes et leur statut ou les modifier ici",
+        "no_lists_yet" => "Vous n'avez pas encore de listes",
+        "numero_de_liste" => "Numéro de liste",
+        "modifier" => "Modifier",
+        "pas_encore_de_contributions" => "Pas encore de contributions",
+        "contributions" => "Contributions",
+        "retour" => "Retour",
+        "creee_le" => "Créée le",
+        "share_list_with_url" => "Partagez ce numéro de liste à vos contacts, ou directement l'url suivante",
+
         "bons_cadeaux" =>  'Bons cadeaux',
         "chercher" =>  'Chercher',
         "creer_un_compte" =>  'Créer un compte',
@@ -2690,11 +2799,31 @@ function french_tr() {
         "giftcardamountlow" =>  'Le montant est trop bas. Veuillez réessayer.',
         "unspecified" =>  'Une erreur s\'est produite. Veuillez réessayer.',
 
+
     );
 };
 
 function english_tr() {
     return array(
+        "categorie" =>  'Category',
+        "description" =>  'Description',
+        "nom_de_la_liste" => "Name of the list",
+        "date_du_mariage_de_l_anniversaire" => "Date of marriage/birthday",
+        "mariage" => "Marriage",
+        "anniversaire" => "Birthday",
+        "creer_la_liste" => "Create list",
+        "creer_une_liste" => "Create a list",
+        "vos_listes" => "Your lists",
+        "view_lists_status" => "View or modify your lists here",
+        "no_lists_yet" => "You have no lists yet",
+        "numero_de_liste" => "List number",
+        "modifier" => "Update",
+        "pas_encore_de_contributions" => "No contributions yet",
+        "contributions" => "Contributions",
+        "retour" => "Return",
+        "creee_le" => "Created on",
+        "share_list_with_url" => "Share this list number with your contacts, or use the following url ",
+
         "bons_cadeaux" =>  'Gift cards',
         "chercher" =>  'Search',
         "creer_un_compte" =>  'Create an account',
@@ -2773,6 +2902,8 @@ function english_tr() {
 function italian_tr() {
 
     return array(
+
+
         "bons_cadeaux" =>  'Buono regalo',
         "chercher" =>  'Ricerca',
         "creer_un_compte" =>  'Creare un accesso',
@@ -2790,7 +2921,7 @@ function italian_tr() {
         "crez_le_ici" =>  'Crea uno',
         "message_bon_cadeau" =>  'Messaggio vuoi che appaia sul buono regalo',
         "vous_avez_deja_un_compte" =>  'Già un accesso?',
-        "connectez_vous_ici" =>  'Connettersi',
+        "connectez_vous_ici" =>  'Accedi qui per creare una lista o per accedere alle vostre liste esistenti ',
         "listes_de_mariage_et_d_anniversaire" =>  'Lista di matrimonio e compleanno',
         "saisir_le_numero_de_la_liste" =>  'Scrivere il numero della lista',
         "numero_de_la_liste" =>  'Numero lista',

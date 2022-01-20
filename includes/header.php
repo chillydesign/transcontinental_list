@@ -62,7 +62,7 @@
 
               <?php foreach (other_languages() as $lang) : ?>
                 <li>
-                  <a href="?lang=<?php echo $lang; ?>"> <?php echo $lang; ?></a>
+                  <a href="<?php echo current_url_with_lang($lang); ?>"> <?php echo $lang; ?></a>
                 </li>
               <?php endforeach;    ?>
             </ul>

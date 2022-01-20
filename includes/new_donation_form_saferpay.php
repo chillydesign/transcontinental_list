@@ -17,7 +17,7 @@
         <textarea name="message" placeholder="<?php t('message'); ?>"></textarea>
     </p>
     <p id="amount_container">
-        <label for="amount"><?php t('montant'); ?> (maximum 1000 CHF)*</label>
+        <label for="amount"><?php t('montant'); ?> *</label>
         <input required step="0.01" min="0" max="1000" type="number" name="amount" id="amount" /><span style="margin-top: 13px;">CHF</span>
     </p>
 
