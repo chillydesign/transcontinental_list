@@ -1,23 +1,41 @@
 header {
-    background: $brand_color;
-    color: white;
+  background: $brand_color;
+  color: white;
 
-    font-size: $font_size;
-    margin: 0 0 30px;
+  font-size: $font_size;
+  margin: 0 0 30px;
 
-    ul {
-        margin: 0;
-        padding: 0;
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    display: inline-block;
+    padding: 0;
+    a {
+      color: white;
+      display: inline-block;
+      padding: 20px 10px;
+      text-decoration: none;
     }
+  }
+}
 
-    li {
-        display: inline-block;
-        padding: 0;
-        a {
-            color: white;
-            display: inline-block;
-            padding: 20px 10px;
-            text-decoration: none;
-        }
-    }
+li a.flag {
+  background: no-repeat center 42px;
+  background-size: 24px;
+  text-indent: -89999px;
+  display: inline-block;
+  text-align: left;
+  width: 40px;
+  &.flag_fr {
+    background-image: url("../images/flags/fr.svg");
+  }
+  &.flag_en {
+    background-image: url("../images/flags/en.svg");
+  }
+  &.flag_it {
+    background-image: url("../images/flags/it.svg");
+  }
 }
