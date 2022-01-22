@@ -5,6 +5,24 @@ header {
   font-size: $font_size;
   margin: 0 0 30px;
 
+  nav#nav {
+    position: relative;
+    &.visible {
+      ul {
+        display: block;
+        background-color: $font_color;
+
+        li {
+          display: block;
+          a {
+            display: block;
+            width: 100%;
+            color: white;
+          }
+        }
+      }
+    }
+  }
   ul {
     margin: 0;
     padding: 0;
@@ -37,5 +55,30 @@ li a.flag {
   }
   &.flag_it {
     background-image: url("../images/flags/it.svg");
+  }
+}
+
+nav.visible {
+  li {
+    a.flag {
+      background-position: 20px center;
+    }
+  }
+}
+
+#menu_open {
+  background: url("../images/menu.svg") no-repeat center center;
+  text-indent: -9999px;
+  display: inline-block;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  height: 90px;
+  width: 30px;
+}
+
+@media (min-width: 922px) {
+  #menu_open {
+    display: none;
   }
 }

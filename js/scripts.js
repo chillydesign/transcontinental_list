@@ -2,6 +2,16 @@
   $(function () {
     "use strict";
 
+    $("#menu_open").on("click", function () {
+      $("#nav").toggleClass("visible");
+    });
+
+    $("body").on("keydown", function (e) {
+      if (e.key === "Escape") {
+        $("#nav").removeClass("visible");
+      }
+    });
+
     var $areyousurelinks = $(".areyousurelink");
     $areyousurelinks.on("click", function (e) {
       e.preventDefault();
