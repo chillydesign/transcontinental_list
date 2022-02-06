@@ -67,7 +67,7 @@
 
     <p>
         <label for=" accept_terms">
-            <input required type="checkbox" name="accept_terms" id="accept_terms"> <?php t('j_ai_lu_et_accepte'); ?> <a target="_blank" href="https://transcontinental.ch/conditions-generales/"><?php t('les_cgv'); ?></a> *
+            <input required type="checkbox" name="accept_terms" id="accept_terms"> <?php t('j_ai_lu_et_accepte'); ?> <a target="_blank" href="<?php echo site_homepage(); ?>conditions-generales/"><?php t('les_cgv'); ?></a> *
         </label>
     </p>
 

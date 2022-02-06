@@ -1,8 +1,8 @@
 <footer>
   <p class="container">
     &copy; <?php echo date('Y'); ?> <?php echo SITE_NAME; ?> |
-    <a target="_blank" href="https://transcontinental.ch/contact">Contact</a> |
-    <a target="_blank" href="https://transcontinental.ch/conditions-generales/">CGV</a>
+    <a target="_blank" href="<?php echo site_homepage(); ?>contact">Contact</a> |
+    <a target="_blank" href="<?php echo site_homepage(); ?>conditions-generales/">CGV</a>
   </p>
 </footer>
 
