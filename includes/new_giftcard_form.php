@@ -59,7 +59,7 @@
     <?php endif; ?>
     <p id="amount_container">
         <label for="amount">Montant (maximum 1000 CHF)*</label>
-        <input required step="0.01" min="0" max="1000" type="number" name="amount" placeholder="" id="amount" /><span style="margin-top: 13px;">CHF</span>
+        <input required step="0.01" min="0" max="1000" type="number" name="amount" placeholder="" id="amount" /><span class="currency_symbol">CHF</span>
     </p>
 
     <p>

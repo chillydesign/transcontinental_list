@@ -18,7 +18,7 @@
     </p>
     <p id="amount_container">
         <label for="amount"><?php t('montant'); ?> *</label>
-        <input required step="0.01" min="0" max="1000" type="number" name="amount" id="amount" /><span style="margin-top: 13px;">CHF</span>
+        <input required step="0.01" min="0" max="1000" type="number" name="amount" id="amount" /><span class="currency_symbol">CHF</span>
     </p>
 
     <p>

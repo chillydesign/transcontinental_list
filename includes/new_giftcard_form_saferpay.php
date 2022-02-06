@@ -61,12 +61,12 @@
     <?php endif; ?>
     <p id="amount_container">
         <label for="amount"><?php t('montant'); ?> *</label>
-        <input required step="0.01" min="0" max="1000" type="number" name="amount" placeholder="" id="amount" /><span style="margin-top: 13px;">CHF</span>
+        <input required step="0.01" min="0" max="1000" type="number" name="amount" placeholder="" id="amount" /><span class="currency_symbol">CHF</span>
     </p>
 
 
     <p>
-        <label for="accept_terms">
+        <label for=" accept_terms">
             <input required type="checkbox" name="accept_terms" id="accept_terms"> <?php t('j_ai_lu_et_accepte'); ?> <a target="_blank" href="https://transcontinental.ch/conditions-generales/"><?php t('les_cgv'); ?></a> *
         </label>
     </p>
