@@ -171,7 +171,7 @@ if (isset($_GET['id'])) :
 
         <div id="inner">
           <!-- <div class="line"></div> -->
-          <h1><?php echo $giftcard->receiver_first_name; ?> <?php echo $giftcard->receiver_last_name; ?>, vous avez reçu un bon cadeau d'une valeur de <?php echo convert_cents_to_currency($giftcard->amount); ?> <span style="display:inline-block;"><span class="tagline">pour le voyage de vos rêves organisé par l'agence Transcontinental.ch</span></h1>
+          <h1><?php echo $giftcard->receiver_first_name; ?> <?php echo $giftcard->receiver_last_name; ?>, vous avez reçu un bon cadeau d'une valeur de <?php echo convert_cents_to_currency($giftcard->amount); ?> <span style="display:inline-block;"><span class="tagline">pour le voyage de vos rêves organisé par l'agence <?php echo SITE_NAME; ?></span></h1>
 
           <div class="col first-col">
 
