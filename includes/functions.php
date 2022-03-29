@@ -340,11 +340,11 @@ function zenith_site() {
 
 
 function giftcard_url() {
-    // if (zenith_site()) {
-    //     return 'giftcard';
-    // } else {
-    return 'boncadeau';
-    // }
+    if (zenith_site()) {
+        return 'giftcard';
+    } else {
+        return 'boncadeau';
+    }
 }
 function list_url() {
     if (zenith_site()) {
