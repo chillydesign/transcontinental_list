@@ -347,11 +347,11 @@ function giftcard_url() {
     // }
 }
 function list_url() {
-    // if (zenith_site()) {
-    //     return 'list';
-    // } else {
-    return 'mariage';
-    // }
+    if (zenith_site()) {
+        return 'list';
+    } else {
+        return 'mariage';
+    }
 }
 
 function site_url() {
