@@ -2061,7 +2061,6 @@ function send_php_mail($to, $subject, $content, $image = null) {
         $mail->AltBody = $content;
 
 
-
         if (isset($_GET['preview_emails'])) {
             echo $mail->Body;
         } else {
@@ -2070,6 +2069,7 @@ function send_php_mail($to, $subject, $content, $image = null) {
 
         return true;
     } catch (Exception $e) {
+        var_dump($e);
         return false;
     }
 }
