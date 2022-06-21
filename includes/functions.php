@@ -2294,7 +2294,7 @@ function send_giftcard_email($giftcard) {
 
 
     if ($current_language == 'en') {
-        $receiver_subject = 'You have received a ' . SITE_NAME . ' Transcontinental';
+        $receiver_subject = 'You have received a ' . SITE_NAME . ' gift card';
     } else if ($current_language == 'it') {
         $receiver_subject = 'Vous avez reçu un bon cadeau ' . SITE_NAME;
     } else {
