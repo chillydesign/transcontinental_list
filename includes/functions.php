@@ -2026,12 +2026,12 @@ function send_php_mail($to, $subject, $content, $image = null) {
         //$mail->SMTPDebug = 2;                   // Enable verbose debug output
         $mail->CharSet = 'UTF-8';
         $mail->isSMTP();                          // Set mailer to use SMTP
-        $mail->Host = 'smtp.gmail.com';           // Specify main and backup SMTP servers
+        $mail->Host = MAIL_HOST;           // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                   // Enable SMTP authentication
         $mail->Username = MAIL_USERNAME;          // SMTP username
         $mail->Password = MAIL_PASSWORD;          // SMTP password
         $mail->SMTPSecure = 'tls';                // Enable TLS encryption, `ssl` also accepted
-        $mail->Port = 587;
+        $mail->Port = MAIL_PORT;
         //Recipients
         $mail->setFrom($no_reply_address,  $no_reply_name);
 

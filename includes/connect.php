@@ -34,6 +34,8 @@ define("PAYPAL_CLIENT_ID", getenv('PAYPAL_CLIENT_ID'));
 define("PAYPAL_CLIENT_SECRET", getenv('PAYPAL_CLIENT_SECRET'));
 define("PAYPAL_MODE", getenv('PAYPAL_MODE'));
 
+define("MAIL_PORT", getenv('MAIL_PORT'));
+define("MAIL_HOST", getenv('MAIL_HOST'));
 define("MAIL_USERNAME", getenv('MAIL_USERNAME'));
 define("MAIL_PASSWORD", getenv('MAIL_PASSWORD'));
 define("THEME_DIRECTORY", getenv('THEME_DIRECTORY'));
