@@ -1704,7 +1704,7 @@ function nice_date($date) {
     return  date('d/m/Y', strtotime($date));
 }
 function nice_datetime($date) {
-    return  date('d/m/Y H:m', strtotime($date));
+    return  date('d/m/Y H:i', strtotime($date));
 }
 
 
