@@ -1,11 +1,9 @@
 <?php $list = get_list(); ?>
 <?php if ($list) : ?>
 
-    <?php if (picture_exists($list->picture, 'lists')) : ?>
-        <?php $picture =  get_picture_url($list->picture, 'lists'); ?>
-    <?php else : ?>
-        <?php $picture = get_site_url() . '/images/honeymoon.jpg'; ?>
-    <?php endif; ?>
+
+
+    <?php $picture = list_picture($list);  ?>
 
     <div class="page_image" style="background-image:url('<?php echo $picture; ?>'); overflow: hidden;"></div>
     <div class="container">

@@ -3,3 +3,4 @@ vendor
 /includes/env.php
 .DS_Store
 /actions/payPal.log
+pdfs

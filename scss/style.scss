@@ -8,6 +8,7 @@ body {
   font-size: 62.5%;
   font-weight: normal;
 }
+
 // a, a:hover, a:focus, a:visited {color: #b82e47;}
 p select {
   font-size: 1em !important;
@@ -19,9 +20,11 @@ p select {
 
 #amount_container {
   position: relative;
+
   input {
     width: 100px;
   }
+
   span {
     position: absolute;
     bottom: 25px;
@@ -52,6 +55,7 @@ p select {
   &.success_message {
     background-color: adjust-hue($brand_color, 180);
   }
+
   a {
     color: white;
     border-bottom: dotted 1px;
@@ -88,6 +92,10 @@ h2 a.tc_button {
   padding: 30px;
   background: #f7f7f7;
   margin-bottom: 30px;
+
+  h2 {
+    line-height: normal;
+  }
 }
 
 a.list_button {
@@ -114,6 +122,7 @@ li.list_list_item {
   color: #555;
   font-size: 1.5em;
 }
+
 .list_list_img {
   width: 150px;
 }
@@ -122,6 +131,7 @@ li.list_list_item {
   width: calc(100% - 320px);
   text-transform: uppercase;
 }
+
 .list_list_amount {
   width: 150px;
 }
@@ -139,6 +149,7 @@ li.list_list_item {
   .list_list {
     width: 100%;
   }
+
   .list_list_img {
     display: none;
   }
@@ -162,6 +173,7 @@ textarea {
   min-height: 120px;
   font-family: sans-serif;
 }
+
 input[type="checkbox"] {
   display: inline;
   width: 15px;
@@ -173,9 +185,18 @@ label {
   }
 }
 
+p {
+
+  input[type="submit"],
+  button {
+    font-size: 0.8em;
+  }
+}
+
 .allfigs {
   margin: -20px -30px 20px -10px;
 }
+
 figure.change_picture {
   width: calc(50% - 22px);
   margin: 1px;
@@ -183,6 +204,7 @@ figure.change_picture {
   display: inline-block;
   cursor: pointer;
   border: solid 4px transparent;
+
   &.selected {
     border: solid 4px $brand_color;
   }
@@ -220,6 +242,7 @@ th {
 p.search_container {
   display: flex;
   flex-wrap: nowrap;
+  align-items: flex-start;
 
   input.search_input {
     flex: 1 auto 0;
@@ -227,6 +250,7 @@ p.search_container {
     display: inline-block;
     padding: 8.5px;
     width: calc(100% - 50px);
+    font-size: 0.7em;
   }
 
   button.search_button {
@@ -234,6 +258,7 @@ p.search_container {
     width: 50px;
     max-width: 50px;
     min-width: 50px;
+    height: 41px;
     background-image: url("../images/search.svg");
     background-repeat: no-repeat;
     background-position: center center;
@@ -250,8 +275,10 @@ ul.pagination {
   text-align: center;
   background: 0;
   border: 0;
+
   li {
     display: inline-block;
+
     a {
       display: inline-block;
       padding: 8px 15px;
@@ -259,6 +286,7 @@ ul.pagination {
       background: white;
       border: solid 1px #eee;
     }
+
     &.active a {
       border: solid 1px #e40129;
       color: #e40129;
@@ -279,6 +307,7 @@ a.button {
   border-radius: 5px;
   color: white;
   transition: all 0.3s;
+
   &:hover {
     background-color: darken($brand_color, 10);
   }
@@ -295,14 +324,17 @@ input.invalid {
 .radio_container {
   display: inline-block;
   margin: 0 15px 15px 0;
+
   label {
     display: inline-block;
   }
+
   input {
     width: auto;
     margin: 0;
   }
 }
+
 .col-xs-right {
   text-align: right;
 }
@@ -316,6 +348,7 @@ input.invalid {
 .hide_mobile {
   display: none;
 }
+
 @media (min-width: 768px) {
   .hide_mobile {
     display: block;
@@ -324,4 +357,8 @@ input.invalid {
 
 .untranslated {
   outline: 1px solid red;
+}
+
+td {
+  word-break: break-word;
 }

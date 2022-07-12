@@ -4,6 +4,8 @@
     "paypal/rest-api-sdk-php": "^1.13",
     "phpmailer/phpmailer": "^6.0",
     "jasongrimes/paginator": "~1.0",
-    "curl/curl": "^2.3"
+    "curl/curl": "^2.3",
+    "mpdf/mpdf": "^8.1",
+    "cocur/slugify": "^4.1"
   }
 }

@@ -37,7 +37,7 @@
       <div class="row">
         <div class="col-md-3">
           <a class="logo" href="<?php site_homepage(); ?>">
-            <?php chilly_list_site_logo(); ?>
+            <?php echo chilly_list_site_logo(); ?>
           </a>
         </div>
         <div class="col-md-9">

@@ -2,11 +2,8 @@
 <?php if ($list) : ?>
   <?php if ($list->user_id == current_user()->id) : ?>
 
-    <?php if (picture_exists($list->picture, 'lists')) : ?>
-      <?php $picture =  get_picture_url($list->picture, 'lists'); ?>
-    <?php else : ?>
-      <?php $picture = get_site_url() . '/images/honeymoon.jpg'; ?>
-    <?php endif; ?>
+
+    <?php $picture = list_picture($list); ?>
     <div class="page_image" style="background-image:url('<?php echo $picture; ?>'); overflow: hidden;"></div>
     <div class="container">
 
@@ -27,13 +24,16 @@
           <?php endif; ?>
           <p><strong><?php t('numero_de_liste'); ?> :</strong> <a target="_blank" href="<?php get_site_url(); ?>/mariage/<?php echo $list->id; ?>"><?php echo $list->id; ?></a><br>
             <?php t('share_list_with_url'); ?> : <a target="_blank" href="<?php get_site_url(); ?>/mariage/<?php echo $list->id; ?>"><?php get_site_url(); ?>/mariage/<?php echo $list->id; ?></a></p>
+
+
+          <p>
+            <a target="_blank" href="<?php echo pdf_url_of_list($list->id); ?>">PDF Export</a>
+          </p>
         </div>
         <div class="col-sm-3">
-          <?php if (picture_exists($list->picture, 'lists')) : ?>
-            <figure>
-              <img src="<?php echo get_picture_url($list->picture, 'lists'); ?>" alt="Image for <?php $list->name; ?>" />
-            </figure>
-          <?php endif; ?>
+          <figure>
+            <img src="<?php echo $picture; ?>" alt="Image for <?php $list->name; ?>" />
+          </figure>
         </div>
       </div>
 

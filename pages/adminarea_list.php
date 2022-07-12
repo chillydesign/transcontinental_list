@@ -24,13 +24,17 @@
 
 
 
-
                     <?php $status = (isset($_GET['status'])) ? $_GET['status'] : 'payé'; ?>
                     <?php $donations = get_donations($list->id, $status); ?>
                     <?php if ($status == 'payé') : ?>
                         <p>Montant total contribué sur cette liste: <?php echo sum_donations($donations);  ?>.</p>
                     <?php endif; ?>
 
+
+
+                    <p>
+                        <a target="_blank" href="<?php echo pdf_url_of_list($list->id); ?>">PDF Export</a>
+                    </p>
                     <?php if (sizeof($donations) > 0) : ?>
                         <table>
                             <thead>

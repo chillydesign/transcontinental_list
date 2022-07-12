@@ -1,6 +1,6 @@
 <?php
 
-
+use Cocur\Slugify\Slugify;
 
 $current_language =  set_current_language();
 function set_current_language() {
@@ -103,6 +103,9 @@ function t($word) {
 }
 
 
+function is_localhost() {
+    return ($_SERVER['HTTP_HOST'] === 'localhost');
+}
 
 function saferpay_api_url() {
     return SAFERPAY_API_URL;
@@ -320,7 +323,7 @@ function saferpay_capture_transaction($transaction_id) {
 
 
 function current_version() {
-    echo '0.2.0';
+    echo '0.2.1';
 }
 
 
@@ -381,9 +384,9 @@ function get_site_url() {
 function chilly_list_site_logo() {
 
     if (zenith_site()) {
-        echo '<img src="' .  THEME_DIRECTORY . '/img/zenith.svg" alt="Zenith Voyages" />';
+        return '<img src="' .  THEME_DIRECTORY . '/img/zenith.svg" alt="Zenith Voyages" />';
     } else {
-        echo '<img src="' .  THEME_DIRECTORY . '/img/logo.png" alt="Transcontinental" />';
+        return '<img src="' .  THEME_DIRECTORY . '/img/logo.png" alt="Transcontinental" />';
     }
 }
 
@@ -767,7 +770,7 @@ function get_users($options = null) {
 
 
     try {
-        $query = "SELECT * FROM tcg_users $search ORDER BY last_name ASC $page_query";
+        $query = "SELECT * FROM tcg_users $search ORDER BY created_at DESC $page_query";
         $users_query = $conn->prepare($query);
         $users_query->setFetchMode(PDO::FETCH_OBJ);
         $users_query->execute();
@@ -1963,7 +1966,13 @@ function picture_exists($id, $type) {
     }
 }
 
-
+function list_picture($list) {
+    if (picture_exists($list->picture, 'lists')) {
+        return get_picture_url($list->picture, 'lists');
+    } else {
+        return get_site_url() . '/images/honeymoon.jpg';
+    }
+}
 
 function find_pictures($type = 'lists') {
     // find all the jpg or jpeg images in the image folder requested
@@ -2002,7 +2011,6 @@ function find_pictures($type = 'lists') {
 function sort_object_by_ids($a, $b) {
     return strcmp($a->id, $b->id);
 }
-
 
 
 function send_php_mail($to, $subject, $content, $image = null) {
@@ -3285,3 +3293,110 @@ function italian_tr() {
 //         ],
 //     ];
 // }
+
+
+
+function list_pdf_logo() {
+    if (zenith_site()) {
+        return site_file_dir() . '/images/logo_zenith.png';
+    } else {
+        return site_file_dir() . '/images/logo.png';
+    }
+}
+
+function make_pdf_of_list($list_id) {
+
+    $mpdf = new \Mpdf\Mpdf();
+
+    $mpdf->SetDisplayMode('fullpage');
+
+    $th_style = ' style="text-align:left;padding: 5px" ';
+    $td_style = ' style="padding:5px; font-size:12px" ';
+    $message_style = ' style="font-size:12px; font-style: italic; color: #666;"  ';
+    $donation_style = ' style="border-bottom: 1px solid #aaa;padding: 0 0 10px;margin: 0 0 10px"  ';
+    $footer_p_style = ' style="font-size:10px; color: #888" ';
+
+    $list = get_list($list_id);
+
+    if ($list) {
+
+        $logo_image = list_pdf_logo();
+        $pdf_header_image = list_picture($list);
+        $mpdf->WriteHTML('<div style="position: absolute; left:0; right: 0; top: 0; bottom: 0;"><img src="' .  $pdf_header_image . '" style="width: 210mm; height: 89.7mm; margin: 0;" /></div>');
+        $mpdf->WriteHTML('<div style="position: absolute; top:0;left:0;width: 100%;background:white; padding: 8px 20px;">
+        <table style="width: 100%"><tr><td><img src="' .  $logo_image . '"style="width: 21mm; height: 8mm; margin: 0;" /></td><td style="text-align:right;width:80%;"><h2 style="font-size: 14px;color: #888;font-family:sans-serif;padding:5px 0 0;margin:0;">List de mariage</h2></td><td style="width:5%"></td></tr></table>
+        
+        
+        </div>');
+
+
+        $mpdf->WriteHTML('<br><br><br><br><br><br><br><br><br><br><br><br><br><br>');
+        $mpdf->WriteHTML('<h1 style="text-align:center; font-style:italic">' .  $list->name . '</h1>');
+        $mpdf->WriteHTML('<p>Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. </p>');
+
+
+
+        $donations = get_donations($list->id, 'payé');
+        $donations_sum = sum_donations($donations);
+
+        $mpdf->WriteHTML('<br><h3>Contributions</h3>');
+
+        foreach ($donations as $donation) {
+            $mpdf->WriteHTML('<p ' . $donation_style . '>' . $donation->first_name . ' ' . $donation->last_name .  ' has contributed ' .  convert_cents_to_currency($donation->amount) .  ' to your list <br><span ' . $message_style . '> ' . $donation->message . '</span></p>');
+        }
+
+        // $mpdf->WriteHTML('<br><br>');
+        // $mpdf->WriteHTML('<br><table  width="100%" border="0"><thead><tr><th  ' . $th_style . '>Name</th><th ' . $th_style . '>Message</th><th   ' . $th_style . '>Amount</th></tr></thead><tbody>');
+        // foreach ($donations as $donation) {
+        //     $mpdf->WriteHTML('<tr><td  ' . $td_style . '>' . $donation->first_name . ' ' . $donation->last_name . '</td><td  ' . $td_style . '>' . $donation->message . '</td>><td  ' . $td_style . '>' . convert_cents_to_currency($donation->amount) . '</td></tr>');
+        // }
+        // $mpdf->WriteHTML('</tbody></table><br><br>');
+
+
+
+
+        $mpdf->WriteHTML('<br><p ' . $footer_p_style . '>Footer text here. Footer text here. Footer text here. Footer text here. Footer text here. Footer text here.Footer text here. Footer text here. Footer text here. Footer text here. Footer text here. Footer text here. </p>');
+
+
+
+        $file_dest = pdf_file_dir_of_list($list_id);
+        $mpdf->Output($file_dest, \Mpdf\Output\Destination::FILE);
+    }
+}
+
+function pdf_name_prefix() {
+    return 'list_';
+}
+
+
+function pdf_file_dir_of_list($list_id) {
+    $quest_dirname =  site_file_dir() . 'pdfs/';
+    $file_dest =  $quest_dirname . pdf_list_file_name($list_id);
+    return $file_dest;
+}
+
+
+function pdf_url_of_list($list_id) {
+    // $file_loc = pdf_file_dir_of_list($list_id);
+    // if (!file_exists($file_loc) || is_localhost()) { }
+    // generate it every time so its always fresh
+    make_pdf_of_list($list_id);
+    $url =   site_url()    . '/pdfs/' . pdf_list_file_name($list_id);
+    return $url;
+}
+
+
+
+function pdf_list_file_name($list_id) {
+    $list = get_list($list_id);
+    $slugify = new Slugify();
+    $slug = $slugify->slugify($list->name);
+    return pdf_name_prefix() .  $list_id . '_' . $slug . '.pdf';
+}
+
+
+function site_file_dir() {
+    $inc_folder = dirname(__FILE__);
+    $s  = explode('includes', $inc_folder);
+    return $s[0];
+}
