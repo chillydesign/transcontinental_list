@@ -22,7 +22,7 @@
         "gulp-image-resize": "^0.13.0",
         "gulp-minify": "^3.0.15",
         "gulp-sass": "^5.0.0",
-        "node-sass": "^6.0.1"
+        "node-sass": "^7.0.0"
       
     },
     "browserslist": [
