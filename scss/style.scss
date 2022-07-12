@@ -183,6 +183,11 @@ label {
   em {
     color: #888;
   }
+
+  input[type="checkbox"] {
+    position: relative;
+    top: -2px;
+  }
 }
 
 p {

@@ -43,7 +43,7 @@
                                     <th>Montant</th>
                                     <th>Statut</th>
                                     <th>Date</th>
-                                    <th></th>
+                                    <th>Paiment confirmé <br> par admin</th>
                                 </tr>
                             </thead>
                             <tbody>
