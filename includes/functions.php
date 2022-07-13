@@ -2827,6 +2827,7 @@ function french_tr() {
         "listnameblank" =>  'Veuillez saisir le nom de la liste.',
         "giftcardamountlow" =>  'Le montant est trop bas. Veuillez réessayer.',
         "unspecified" =>  'Une erreur s\'est produite. Veuillez réessayer.',
+        "pdf_export" => "Télécharger l'aperçu des contributions",
 
 
     );
@@ -2871,7 +2872,7 @@ function english_tr() {
         "crez_le_ici" =>  'Create one here',
         "message_bon_cadeau" =>  'Message that will appear on your gift certificate',
         "vous_avez_deja_un_compte" =>  'Already have an account?',
-        "listes_de_mariage_et_d_anniversaire" =>  'Listes de mariage et d\'anniversaire',
+        "listes_de_mariage_et_d_anniversaire" =>  'Wedding and anniversary lists',
         "saisir_le_numero_de_la_liste" =>  'Enter the number for a list',
         "numero_de_la_liste" =>  'number of the list',
         "connexion" =>  'Sign in',
@@ -2905,7 +2906,7 @@ function english_tr() {
         "de_la_part_de" =>  'From',
         "choisissez_une_photo_en_cliquant_dessus" =>  'Choose a photo by clicking on it',
         "image" =>  'Image ',
-        "si_un_de_vos_proches" =>  'If you were given a list number for a wedding, birthday or any other occasion, enter it her to make a contribution.',
+        "si_un_de_vos_proches" =>  'If you were given a list number for a wedding, birthday or any other occasion, enter it here to make a contribution.',
         "aimeriez_vous_que_vos_proches" =>  'Would you like to be gifted a holiday for your wedding, your birthday or any other occasion? Sign up for a ' .  SITE_NAME . ' account, create one or multiple lists, share them with your loved ones and enjoy the holiday you\'ve always dreamt of!',
         "paypalnotwork" =>  'The payment has failed. Please try again.',
         "paymentcancelled" =>  'You have cancelled the payment.',
@@ -2923,6 +2924,11 @@ function english_tr() {
         "listnameblank" =>  'Please input the name of the list.',
         "giftcardamountlow" =>  'The amount is too low. Please try again.',
         "unspecified" =>  'An error has occurred. Please try again.',
+
+        "pdf_export" => "Download the contribution list",
+
+
+
 
     );
 }
@@ -2947,6 +2953,7 @@ function italian_tr() {
         "reinitialiser" =>  'Resetta',
         "confirmez_le_mot_de_passe" =>  'Conferma password',
         "pas_encore_de_compte" =>  'Nessun accesso',
+        "contributions" => "Contributi",
         "crez_le_ici" =>  'Crea uno',
         "message_bon_cadeau" =>  'Messaggio vuoi che appaia sul buono regalo',
         "vous_avez_deja_un_compte" =>  'Già un accesso?',
@@ -3002,6 +3009,8 @@ function italian_tr() {
         "listnameblank" =>  'Scrivere il nome della lista',
         "giftcardamountlow" =>  'L’importo é troppo basso. Riprova per favore',
         "unspecified" =>  'Un errore é stato prodotto.  Riprova per favore',
+        "pdf_export" => "Scarica l'elenco dei contributi",
+
 
     );
 };
@@ -3305,6 +3314,7 @@ function list_pdf_logo() {
 }
 
 function make_pdf_of_list($list_id) {
+    global $current_language;
 
     $mpdf = new \Mpdf\Mpdf();
 
@@ -3322,40 +3332,55 @@ function make_pdf_of_list($list_id) {
 
         $logo_image = list_pdf_logo();
         $pdf_header_image = list_picture($list);
+
+        $header_text = return_t('listes_de_mariage_et_d_anniversaire');
+        if ($current_language == 'it') {
+            $top_text = "Ecco l'elenco dei contributi apportati alla tua lista. I nostri consulenti per i viaggi di piacere ti aspettano in una delle nostre agenzie di viaggio e non vedono l'ora di aiutarti a pianificare la tua prossima vacanza.";
+        } else if ($current_language == 'en') {
+            $top_text = "Here is the list of contributions to your list. Our travel agents are waiting for you at our travel agencies and are looking forward to helping your organise your next holiday.";
+        } else {
+            $top_text = "Voici la liste des contributions effectuées sur votre liste. Nos conseillers en voyages d’agréments vous attendent à l’une de nos agences de voyages et se réjouissent déjà de vous aider à organiser vos prochaines vacances.";
+        }
+
+
         $mpdf->WriteHTML('<div style="position: absolute; left:0; right: 0; top: 0; bottom: 0;"><img src="' .  $pdf_header_image . '" style="width: 210mm; height: 89.7mm; margin: 0;" /></div>');
         $mpdf->WriteHTML('<div style="position: absolute; top:0;left:0;width: 100%;background:white; padding: 8px 20px;">
-        <table style="width: 100%"><tr><td><img src="' .  $logo_image . '"style="width: 21mm; height: 8mm; margin: 0;" /></td><td style="text-align:right;width:80%;"><h2 style="font-size: 14px;color: #888;font-family:sans-serif;padding:5px 0 0;margin:0;">List de mariage</h2></td><td style="width:5%"></td></tr></table>
-        
-        
-        </div>');
+        <table style="width: 100%"><tr><td><img src="' .  $logo_image . '"style="width: 21mm; height: 8mm; margin: 0;" /></td><td style="text-align:right;width:80%;"><h2 style="font-size: 14px;color: #888;font-family:sans-serif;padding:5px 0 0;margin:0;">' . $header_text . '</h2></td><td style="width:5%"></td></tr></table></div>');
 
 
         $mpdf->WriteHTML('<br><br><br><br><br><br><br><br><br><br><br><br><br><br>');
         $mpdf->WriteHTML('<h1 style="text-align:center; font-style:italic">' .  $list->name . '</h1>');
-        $mpdf->WriteHTML('<p>Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. </p>');
+        $mpdf->WriteHTML('<p> ' . $top_text . '</p>');
 
+        if ($current_language == 'it') {
+        } else if ($current_language == 'en') {
+        } else {
+        }
 
 
         $donations = get_donations($list->id, 'payé');
         $donations_sum = sum_donations($donations);
 
-        $mpdf->WriteHTML('<br><h3>Contributions</h3>');
+        $mpdf->WriteHTML('<br><h3>' .  return_t('contributions')  . '</h3>');
 
         foreach ($donations as $donation) {
-            $mpdf->WriteHTML('<p ' . $donation_style . '>' . $donation->first_name . ' ' . $donation->last_name .  ' has contributed ' .  convert_cents_to_currency($donation->amount) .  ' to your list <br><span ' . $message_style . '> ' . $donation->message . '</span></p>');
+
+            $date =  nice_date($donation->created_at);
+
+            if ($current_language == 'it') {
+                $str = $donation->first_name . ' ' . $donation->last_name .  ' ha contribuito con ' .  convert_cents_to_currency($donation->amount) . ' il ' . $date . '.';
+            } else if ($current_language == 'en') {
+                $str = $donation->first_name . ' ' . $donation->last_name .  ' has contributed ' .  convert_cents_to_currency($donation->amount) .  '  on ' . $date . '.';
+            } else {
+                $str = $donation->first_name . ' ' . $donation->last_name .  ' a contribué ' .  convert_cents_to_currency($donation->amount) .  ' le ' . $date . '.';
+            }
+            $mpdf->WriteHTML('<p ' . $donation_style . '>' . $str . ' <br><span ' . $message_style . '> ' . $donation->message . '</span></p>');
         }
 
-        // $mpdf->WriteHTML('<br><br>');
-        // $mpdf->WriteHTML('<br><table  width="100%" border="0"><thead><tr><th  ' . $th_style . '>Name</th><th ' . $th_style . '>Message</th><th   ' . $th_style . '>Amount</th></tr></thead><tbody>');
-        // foreach ($donations as $donation) {
-        //     $mpdf->WriteHTML('<tr><td  ' . $td_style . '>' . $donation->first_name . ' ' . $donation->last_name . '</td><td  ' . $td_style . '>' . $donation->message . '</td>><td  ' . $td_style . '>' . convert_cents_to_currency($donation->amount) . '</td></tr>');
-        // }
-        // $mpdf->WriteHTML('</tbody></table><br><br>');
 
 
-
-
-        $mpdf->WriteHTML('<br><p ' . $footer_p_style . '>Footer text here. Footer text here. Footer text here. Footer text here. Footer text here. Footer text here.Footer text here. Footer text here. Footer text here. Footer text here. Footer text here. Footer text here. </p>');
+        // $footer_text = '';
+        // $mpdf->WriteHTML('<br><p ' . $footer_p_style . '>' . $footer_text . ' </p>');
 
 
 

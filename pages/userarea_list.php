@@ -27,7 +27,7 @@
 
 
           <p>
-            <a target="_blank" href="<?php echo pdf_url_of_list($list->id); ?>">PDF Export</a>
+            <a class="list_button" target="_blank" href="<?php echo pdf_url_of_list($list->id); ?>"><?php t('pdf_export'); ?></a>
           </p>
         </div>
         <div class="col-sm-3">
