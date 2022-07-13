@@ -3322,8 +3322,8 @@ function make_pdf_of_list($list_id) {
 
     $th_style = ' style="text-align:left;padding: 5px" ';
     $td_style = ' style="padding:5px; font-size:12px" ';
-    $message_style = ' style="font-size:12px; font-style: italic; color: #666;"  ';
-    $donation_style = ' style="border-bottom: 1px solid #aaa;padding: 0 0 10px;margin: 0 0 10px"  ';
+    $message_style = ' style="font-size:12px;  font-style: italic; color: #666;"  ';
+    $donation_style = ' style="border-bottom: 1px solid #aaa;font-family: sans-serif;padding: 0 0 10px;margin: 0 0 10px;page-break-inside: avoid"  ';
     $footer_p_style = ' style="font-size:10px; color: #888" ';
 
     $list = get_list($list_id);
@@ -3349,8 +3349,8 @@ function make_pdf_of_list($list_id) {
 
 
         $mpdf->WriteHTML('<br><br><br><br><br><br><br><br><br><br><br><br><br><br>');
-        $mpdf->WriteHTML('<h1 style="text-align:center; font-style:italic">' .  $list->name . '</h1>');
-        $mpdf->WriteHTML('<p> ' . $top_text . '</p>');
+        $mpdf->WriteHTML('<h1 style="text-align:center;font-family: sans-serif">' .  $list->name . '</h1>');
+        $mpdf->WriteHTML('<p style="font-family: sans-serif;"> ' . $top_text . '</p>');
 
         if ($current_language == 'it') {
         } else if ($current_language == 'en') {
@@ -3361,7 +3361,7 @@ function make_pdf_of_list($list_id) {
         $donations = get_donations($list->id, 'payé');
         $donations_sum = sum_donations($donations);
 
-        $mpdf->WriteHTML('<br><h3>' .  return_t('contributions')  . '</h3>');
+        $mpdf->WriteHTML('<br><h3 style="font-family:sans-serif">' .  return_t('contributions')  . '</h3>');
 
         foreach ($donations as $donation) {
 
