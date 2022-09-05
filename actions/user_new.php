@@ -16,9 +16,9 @@ if (isset($_POST['submit_new_user']) && isset($_POST['email'])   && isset($_POST
     $phone = (isset($_POST['phone'])) ? $_POST['phone'] : '';
 
     // Fake thing if spam people fill this in ignore the request as field should be hidden
-    $city = (isset($_POST['city'])) ? $_POST['city'] : '';
+    $fake_spam_check_city = (isset($_POST['city'])) ? $_POST['city'] : '';
 
-    if ($city == '') {
+    if ($fake_spam_check_city == '') {
         if (is_valid_email($email)) {
             if ($password == $password_confirmation) {
                 if (strlen($password) > 5) {
