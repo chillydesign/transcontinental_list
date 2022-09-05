@@ -6,6 +6,8 @@
     <p><textarea autocomplete="address-level1" name="address" required placeholder="<?php t('votre_adresse'); ?> * "></textarea></p>
     <p><input autocomplete="new-password" type="password" name="password" required placeholder="<?php t('mot_de_passe'); ?> *" /></p>
     <p><input autocomplete="new-password" type="password" name="password_confirmation" required placeholder="<?php t('confirmez_le_mot_de_passe'); ?> *" /></p>
+    <p style="opacity:0; display:none"><input autocomplete="city" type="text" name="city" placeholder="Please ignore" /></p>
+
     <p> <input type="submit" name="submit_new_user" value="<?php t('envoyer'); ?> " /></p>
 
 </form>
